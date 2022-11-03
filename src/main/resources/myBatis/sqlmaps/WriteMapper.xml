@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Write">
+    <select id="selectAll"
+            resultType="com.green.vo.WriteVo">
+        SELECT * from content_tb
+    </select>
+
+    <insert id="insertWrite">
+        INSERT INTO content_tb (_id, username, title, content, category, time, readcount)
+        VALUES (#{_id},#{username}, #{title}, #{content}, #{category}, #{time}, #{readcount})
+    </insert>
+
+    <select id="BoardList">
+        resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, category, time, readcount
+        FROM   content_tb
+        WHERE  category = #{category}
+
+    </select>
+
+</mapper>
