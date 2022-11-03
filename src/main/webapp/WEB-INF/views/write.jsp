@@ -26,8 +26,8 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
 <body>
 <form action="/write_insert" id="form" method="GET">
 <input type="hidden" name="username" value="1234" />
-<input type="hidden" name="_id" value="1" />
-<input type="hidden" name="time" value="0" />
+<input type="hidden" name="_id" value="3" />
+<input type="hidden" name="time" value="2022-11-04" />
 <input type="hidden" name="readcount" value="0" />
 <table>
 <tr>

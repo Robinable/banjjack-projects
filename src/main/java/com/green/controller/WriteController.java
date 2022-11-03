@@ -4,6 +4,7 @@ import com.green.service.WriteService;
 import com.green.vo.WriteVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,10 +18,11 @@ public class WriteController {
 	private WriteService writeService;
 
 	@GetMapping("/list")
-	public String List(@RequestParam int category) {
-		System.out.println(category);
+	public String List(Model model, @RequestParam String category) {
+
 		List<WriteVo> boardList = writeService.getList(category);
-		return "list";
+		model.addAttribute("boardList", boardList);
+		return "/list";
 	}
 
 	@GetMapping("/writeform")

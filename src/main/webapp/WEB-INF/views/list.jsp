@@ -20,13 +20,17 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
       border : 1px solid  #c0c0c0;
       border-collapse : collapse;
    }
-
+a { text-decoration-line: none; }
 </style>
 </head>
 <body>
 <div>
  <h2>게시판</h2>
 <table>
+<tr>
+<a  href="/list?category=1" > 개 </a>
+<a  href="/list?category=2" > 고양이 </a>
+</tr>
  <tr>
     <th>번호</th>
     <th>제목</th>
@@ -35,14 +39,30 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
     <th>날짜</th>
     <th>조회수</th>
  </tr>
-<tr>
-  <td>_id</td>
-  <td>title</td>
-  <td>username</td>
-  <td>categoey</td>
-  <td>time</td>
-  <td>readcount</td>
-</tr>
+ <c:forEach  var="board" items="${ boardList }">
+       <tr>
+         <td>${ board._id }</td>
+         <td>
+            ${ board.title  }
+         </td>
+         <td>${ board.username    }</td>
+         <c:choose>
+                  <c:when test="${ board.category eq 1 }">
+                	 <td>강아지</td>
+                  </c:when>
+                  <c:when test="${ board.category eq 2 }">
+                     <td>고양이</td>
+                  </c:when>
+                  <c:otherwise>
+                      <td>기타</td>
+                  </c:otherwise>
+         </c:choose>
+
+         <td>${ board.time   }</td>
+         <td>${ board.readcount }</td>
+       </tr>
+      </c:forEach>
+
 <tr><a href="/writeform?username=1234">새 글 쓰기</a></tr>
 
 </table>

@@ -11,15 +11,14 @@
 
     <insert id="insertWrite">
         INSERT INTO content_tb (_id, username, title, content, category, time, readcount)
-        VALUES (#{_id},#{username}, #{title}, #{content}, #{category}, #{time}, #{readcount})
+        VALUES ( #{_id}, #{username}, #{title}, #{content}, #{category}, #{time}, #{readcount} )
     </insert>
 
-    <select id="BoardList">
-        resultType="com.green.vo.WriteVo">
-        SELECT _id, username, title, category, time, readcount
-        FROM   content_tb
-        WHERE  category = #{category}
-
+    <select id="BoardList"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        WHERE category = #{category}
     </select>
 
 </mapper>

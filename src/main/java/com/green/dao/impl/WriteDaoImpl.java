@@ -12,12 +12,7 @@ import java.util.List;
 @Repository("WriteDao")
 public class WriteDaoImpl implements WriteDao {
     @Autowired
-    private static SqlSession sqlSession;
-
-    @Override
-    public List<WriteVo> selectAll() {
-        return null;
-    }
+    private SqlSession sqlSession;
 
     @Override
     public void Write(WriteVo writeVo) {
@@ -26,7 +21,7 @@ public class WriteDaoImpl implements WriteDao {
     }
 
     @Override
-    public List<WriteVo> getList(int category) {
+    public List<WriteVo> getList(String category) {
         System.out.println("DapImpl:" + category);
         List<WriteVo> boardList = sqlSession.selectList("Write.BoardList", category);
         return boardList;
