@@ -46,6 +46,13 @@ public class WriteController {
 		return "/list";
 	}
 
+	@GetMapping("/view")
+	public String view(Model model, @RequestParam String _id) {
+		WriteVo board = writeService.getBoard(_id);
+		model.addAttribute("board", board);
+		return "/view";
+	}
+
 
 
 }

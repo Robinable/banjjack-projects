@@ -14,11 +14,24 @@
         VALUES ( #{_id}, #{username}, #{title}, #{content}, #{category}, #{time}, #{readcount} )
     </insert>
 
-    <select id="BoardList"
+    <select id="boardList"
             resultType="com.green.vo.WriteVo">
         SELECT _id, username, title, content, category, time, readcount
         FROM content_tb
         WHERE category = #{category}
     </select>
+
+    <select id="getBoard"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <update id="updateReadCount">
+        UPDATE content_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
 
 </mapper>

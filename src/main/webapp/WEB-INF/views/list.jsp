@@ -43,6 +43,7 @@ a { text-decoration-line: none; }
        <tr>
          <td>${ board._id }</td>
          <td>
+            <a href="/view?_id=${ board._id }">
             ${ board.title  }
          </td>
          <td>${ board.username    }</td>

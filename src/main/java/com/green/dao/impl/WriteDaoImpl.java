@@ -16,15 +16,20 @@ public class WriteDaoImpl implements WriteDao {
 
     @Override
     public void Write(WriteVo writeVo) {
-        System.out.println("DaoImpl:"+ writeVo);
         sqlSession.insert("Write.insertWrite", writeVo);
     }
 
     @Override
     public List<WriteVo> getList(String category) {
-        System.out.println("DapImpl:" + category);
-        List<WriteVo> boardList = sqlSession.selectList("Write.BoardList", category);
+        List<WriteVo> boardList = sqlSession.selectList("Write.boardList", category);
         return boardList;
+    }
+
+    @Override
+    public WriteVo getBoard(String _id) {
+        sqlSession.update("Write.updateReadCount", _id);
+        WriteVo board = sqlSession.selectOne("Write.getBoard", _id);
+        return board;
     }
 
 

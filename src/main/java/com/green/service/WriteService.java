@@ -21,4 +21,11 @@ public class WriteService {
     public void Write(WriteVo writeVo) {
         writeDao.Write(writeVo);
     }
+
+    public WriteVo getBoard(String _id) {
+        System.out.println(_id);
+        WriteVo board = writeDao.getBoard(_id);
+        return board;
+    }
+
 }

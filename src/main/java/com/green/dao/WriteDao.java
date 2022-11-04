@@ -10,4 +10,6 @@ public interface WriteDao {
     void Write(WriteVo writeVo);
 
     List<WriteVo> getList(String category);
+
+    WriteVo getBoard(String _id);
 }
