@@ -5,6 +5,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="green" />
+          <element id="module-output" name="green-spring2" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.0" />
@@ -30,9 +31,14 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.3.1" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.11.4" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.23" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
+          <element id="library" level="project" name="Maven: junit:junit:4.10" />
+          <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.1" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-servlet-api:9.0.53" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="green/web/Web" />
+      <element id="javaee-facet-resources" facet="green-spring2/web/Web" />
     </root>
   </artifact>
 </component>

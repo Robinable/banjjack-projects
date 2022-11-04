@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+    <select id="selectAll"
+            resultType="com.green.vo.UserVo">
+        SELECT * from user_tb
+    </select>
+
+    <insert id="insertUser"
+            parameterType="com.green.vo.UserVo">
+        INSERT INTO user_tb (_id, username, userpassword, usernickname) VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
+    </insert>
+
+    <select id="usernameCheck"
+            resultType="com.green.vo.UserVo">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
+
+    <select id="nicknameCheck"
+            resultType="com.green.vo.UserVo">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  usernickname = #{usernickname}
+
+    </select>
+
+    <select id="getIdSearch"
+            resultType="com.green.vo.UserVo">
+        SELECT username, _id
+        FORM   user_tb
+        WHERE  username = #{username} and _id = #{_id}
+
+   </select>
+
+
+
+    <insert id="insertInfo"
+            parameterType="com.green.vo.UserVo">
+        INSERT INTO user_tb (_id, username, userpassword, usernickname)
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
+
+    </insert>
+
+</mapper>

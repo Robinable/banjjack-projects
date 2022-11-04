@@ -33,15 +33,15 @@ public class CommentController {
 
 		public List<JSONObject> commentWrite(CommentVo commentVo) {
 		List<JSONObject> commentInsert = new ArrayList<>();
-		for (CommentVo cl : commentService.commentWrite(commentVo)) {
-			JSONObject obj = new JSONObject();
-			obj.put("contentid", cl.getContent_id());
-			obj.put("commentid", cl.get_id());
-			obj.put("name", cl.getUsername());
-			obj.put("commentContent", cl.getContent());
-			obj.put("time", cl.getTime());
-			commentInsert.add(obj);
-		}
+//		for (CommentVo cl : commentService.commentWrite(commentVo)) {
+//			JSONObject obj = new JSONObject();
+//			obj.put("contentid", cl.getContent_id());
+//			obj.put("commentid", cl.get_id());
+//			obj.put("name", cl.getUsername());
+//			obj.put("commentContent", cl.getContent());
+//			obj.put("time", cl.getTime());
+//			commentInsert.add(obj);
+//		}
 			return commentInsert;
 	}
 }

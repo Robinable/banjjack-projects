@@ -14,16 +14,16 @@
         INSERT INTO user_tb (_id, username, userpassword, usernickname) VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
     </insert>
 
-    <select id="getUserName"
+    <select id="usernameCheck"
             resultType="com.green.vo.UserVo">
-        SELECT username
+        SELECT count(*)
         FROM   user_tb
         WHERE  username = #{username}
     </select>
 
-    <select id="getNickName"
+    <select id="nicknameCheck"
             resultType="com.green.vo.UserVo">
-        SELECT usernickname
+        SELECT count(*)
         FROM   user_tb
         WHERE  usernickname = #{usernickname}
 

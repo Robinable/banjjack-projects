@@ -14,4 +14,36 @@
         INSERT INTO user_tb (_id, username, userpassword, usernickname) VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
     </insert>
 
+    <select id="usernameCheck"
+            resultType="com.green.vo.UserVo">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
+
+    <select id="nicknameCheck"
+            resultType="com.green.vo.UserVo">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  usernickname = #{usernickname}
+
+    </select>
+
+    <select id="getIdSearch"
+            resultType="com.green.vo.UserVo">
+        SELECT username, _id
+        FORM   user_tb
+        WHERE  username = #{username} and _id = #{_id}
+
+   </select>
+
+
+
+    <insert id="insertInfo"
+            parameterType="com.green.vo.UserVo">
+        INSERT INTO user_tb (_id, username, userpassword, usernickname)
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
+
+    </insert>
+
 </mapper>
