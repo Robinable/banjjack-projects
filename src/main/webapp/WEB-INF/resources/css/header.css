@@ -3,42 +3,77 @@ body{
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: paleturquoise;
 }
 .menubar{
     background-color: aquamarine;
     width: 100%;
-    display: inline-flex;
+    height: 80px;
+    display: inline-block;
 }
 .menubar > div{
     padding: 0;
+    margin: 0;
+    display: inline;
     padding-left: 20px;
+}
+.logo{
+    width: auto;
+    height: 100%;
+    display: inline-flex;
+    float: left;
 }
 .logo > img{
     width: 50px;
 }
-.bell{
-    margin-right: 100px;
-}
-.bell-circle{
-    margin-top: -30px;
-    margin-left: 8px;
-}
 .menu-list{
-    display: flex;
-    text-align: center;
-    width: 100%;
-    height: 30px;
+    width: auto;
+    height: auto;
+    display: inline-block;
 }
 .menu-list > div {
     margin-top: 30px;
-    padding-left: 20px;
-    display: block;
+    display: inline-block;
+    margin-left: 20px;
 }
 .login-button{
-    margin-left: auto;
-    padding: 0;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    margin-left: 100%;
 }
 .login-button > button {
-    margin-bottom: auto
+    width: 100%;
+    height: 100%;
 }
+.bell{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.bell-circle{
+    width: 8px;
+    height: 8px;
+    margin-top: -32px;
+}
+
+.notice{
+    width: 300px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    margin-left: -300px;
+    float: right;
+}
+.notice ul{
+    list-style: none;
+    padding-left: 0;
+    background-color: pink;
+}
+.notice ul li {
+    display: none;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+.notice ul li:before{ content:"- ";}
