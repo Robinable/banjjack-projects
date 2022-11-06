@@ -35,4 +35,9 @@ public class NoteDaoImpl implements NoteDao {
         NoteVo vo = sqlSession.selectOne("Note.selectCont",_id);
         return vo;
     }
+
+    @Override
+    public void deleteNote(int _id) {
+        sqlSession.delete("Note.deleteNote",_id);
+    }
 }

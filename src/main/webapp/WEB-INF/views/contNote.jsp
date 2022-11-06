@@ -10,9 +10,23 @@
 
      <script>
 
+     $(function(){
+     	 $('[name=delete]').on('click',function(e){
+     		 var answer;
+     		 answer = confirm('쪽지를 삭제할까요?');
+     		 if(answer == false){
+     			 alert('안지움');
+     			 e.preventDefault()
+     		 }
+     		 else{
+     			 alert('ㅇㅋ');
+     		 }
+     	   })
+          })
+
 
             		   $.ajax( {
-            			   url  :  '/getcontnote?_id=29' ,
+            			   url  :  '/getcontNote?_id=${_id}' ,
             			   data :  {
             			       recept : $('#recept').val(),
             				   content : $('#content').val(),
@@ -42,9 +56,6 @@
             		   });
 
 
-
-
-
             </script>
 </head>
 <body>
@@ -55,8 +66,9 @@
 
 
                 <ul class="top_buttons">
-                    <li><a href="/RecepMessage">받은 쪽지함</a></li>
-                    <li><a href="/SendMessage">보낸 쪽지함</a></li>
+                    <li><a href="/receptNote">받은 쪽지함</a></li>
+                    <li><a href="/sendNote">보낸 쪽지함</a></li>
+                    <li><a name="delete" href="/deleteNote?_id=${_id}">쪽지 삭제</a></li>
                 </ul>
                <form action="/writeNoteForm" method="post" name="message_form">
                         <div id="write_msg">
@@ -71,7 +83,7 @@
                                     <span class="col2"><textarea name="content" id = "cont" readonly ></textarea></span>
                                 </li>
                             </ul>
-                            <input type="submit" value="답장보내기">
+                            <input type="submit" value="답장 보내기">
                         </div>
                 </form>
             </div>

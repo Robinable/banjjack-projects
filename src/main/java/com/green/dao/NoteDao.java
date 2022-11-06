@@ -12,4 +12,6 @@ public interface NoteDao {
     List<NoteVo> selectSend(String send);
 
     NoteVo selectCont(int _id);
+
+    void deleteNote(int _id);
 }

@@ -31,6 +31,11 @@
         WHERE _id = #{_id}
     </select>
 
+    <delete id="deleteNote">
+        DELETE FROM note_tb
+        WHERE _id = #{_id}
+    </delete>
+
 
 
 </mapper>

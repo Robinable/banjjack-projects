@@ -34,4 +34,8 @@ public class NoteService {
         NoteVo vo = noteDaoImpl.selectCont(_id);
         return vo;
     }
+
+    public void deleteNote(int _id) {
+        noteDaoImpl.deleteNote(_id);
+    }
 }

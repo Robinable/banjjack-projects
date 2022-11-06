@@ -8,6 +8,33 @@
     <link rel="stylesheet" href="/css/message.css?aadfs">
  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script>
+
+    $(function(){
+
+    	   $('form').on('submit', function(e){
+    		  if( $('[name=send]').val() == ''){
+                  alert('아이디를 입력하세요');
+
+    			  e.preventDefault();
+    			  e.stopPropagation();
+    		  }
+    		  if( $('[name=recept]').val() == ''){
+                                alert('받는사람을 입력하세요');
+
+                  			  e.preventDefault();
+                  			  e.stopPropagation();
+                  		  }
+              if( $('[name=content]').val() == ''){
+                                alert('쪽지 내용을 입력하세요');
+
+                  			  e.preventDefault();
+                  			  e.stopPropagation();
+                  		  }
+    	 });
+
+     });
+
+
     $(document).ready(function() {
         $('#test').on('keyup', function() {
             $('#test_cnt').html("("+$(this).val().length+" / 300)");
@@ -63,6 +90,6 @@
  
     </section>
  
-    
+    <!-- <a href="/writeNoteForm" onClick="window.open(this.href, '', 'width=830, height=550'); return false;">쪽지쓰기</a> -->
 </body>
 </html>

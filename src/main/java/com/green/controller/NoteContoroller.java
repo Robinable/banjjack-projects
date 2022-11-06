@@ -1,13 +1,16 @@
 package com.green.controller;
 
+import com.google.protobuf.Service;
 import com.green.service.NoteService;
 import com.green.vo.NoteVo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +35,8 @@ public class NoteContoroller {
 	}
 
     // 받은 쪽지확인 (받은 아이디로 조회)
-
 	@GetMapping ("/receptNote")
-	public String recepte(){
+	public String recept(){
 		return "/receptNote";
 	}
 
@@ -75,15 +77,16 @@ public class NoteContoroller {
 	}
 
 
-
-
 	// 쪽지 내용 확인
 	@GetMapping("/readNote")
-	public String sendMessage() {
+	public String sendMessage(@RequestParam int _id, Model model) {
+		//int _id = Integer.valueOf(request.getParameter("_id"));
+		model.addAttribute("_id",_id);
+
 		return "/contNote";
 	}
 
-	@GetMapping("/getcontnote")
+	@GetMapping("/getcontNote")
 	@ResponseBody
 	public  List<JSONObject> getcontnote(@RequestParam int _id) {
 		List<JSONObject> NoteVoList = new ArrayList<>();
@@ -100,5 +103,15 @@ public class NoteContoroller {
 	}
 
 
+	// 쪽지 삭제
+	@GetMapping("/deleteNote")
+	public String deletenote(@RequestParam int _id){
+		noteService.deleteNote(_id);
+
+		return "/receptNote";
+	}
+
 }
 
+
+//@RequestParam 주소줄 값 가져옴, HttpServletRequest 본문 값 가져옴(?)

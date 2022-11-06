@@ -42,7 +42,7 @@
         			   html         += '<td style="text-align: center;">' + _id + '</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
-        			   html         += '<a href ="/readNote?id='+_id +'">'+ content +'</a>';
+        			   html         += '<a href ="/readNote?_id='+_id +'">'+ content +'</a>';
         			   html         += '</div></td>';
         			   html         += '<td style="width:170px; text-align: center;">'+ send +'</td>';
         			   html         += '<td style="width:200px; text-align: center;">'+ time +'</td>';
