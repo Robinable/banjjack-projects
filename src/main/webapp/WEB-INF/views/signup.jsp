@@ -69,7 +69,7 @@
                 usernickname.focus();
                 e.preventDefault();
             }
-            return true;
+
         });
 
 
@@ -91,11 +91,29 @@
         if(usernickname >= 2) {
            nicknameCheck(document.getElementById('usernickname').value)
         } else {
-            $('#usernickname').text('아이디는 2자 이상 15자 이내로 입력해주세요');
+            $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요');
         }
         });
 
-        //const pwVaildation       = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
+        $('#userpassword').on('change', function() {
+        const userpassword = document.getElementById('userpassword').value.length;
+        if(userpassword >= 2) {
+            passwordCheck(document.getElementById('userpassword').value)
+        } else {
+            $('#pwCheck').text('비밀번호는 2자 이상 20자 이내로 입력해주세요.');
+        }
+        });
+
+        $('#repasswd').on('change', function() {
+        const repasswd     = document.getElementById('repasswd').value;
+        if(repasswd == $('#userpassword').val()) {
+            $('#re_pwCheck').text('비밀번호가 일치합니다');
+        } else {
+            $('#re_pwCheck').text('비밀번호가 일치하지 않습니다.');
+        }
+        })
+
+
 
 
 } // window.onload end
@@ -150,6 +168,17 @@
         });
     }
 
+    // 비밀번호 확인
+    function passwordCheck(userpassword) {
+        // 비밀번호 정규식
+        const pwVaildation = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
+        if(!pwVaildation.test(userpassword.trim())) {
+            $('#pwCheck').text('비밀번호는 영문 대소문자와 숫자, 특수문자의 조합으로 입력해주세요.');
+        } else {
+            $('#pwCheck').text('');
+        }
+    }
+
 </script>
 </head>
 <body>
@@ -160,25 +189,25 @@
 		  <table id="container">
 		  	<tr>
                 <td>
-                    <input type="text" id="username" placeholder="아이디" maxlength="20"><br>
+                    <input type="text" id="username" name="username" placeholder="아이디" maxlength="20"><br>
                     <span id="unameCheck"></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="password" id="userpassword" placeholder="비밀번호" maxlength="20"><br>
+                    <input type="password" id="userpassword" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                     <span id="pwCheck"></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="password" id="repasswd" placeholder="비밀번호 확인" maxlength="20"><br>
+                    <input type="password" id="repasswd" name="repasswd" placeholder="비밀번호 확인" maxlength="20"><br>
                     <span id="re_pwCheck"></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="usernickname" placeholder="닉네임" maxlength="15"><br>
+                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15"><br>
                     <span id="unicknameCheck"></span>
                 </td>
             </tr>

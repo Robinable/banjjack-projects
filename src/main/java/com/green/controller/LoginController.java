@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.HttpServletBean;
-import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+
 
 @Controller
 public class LoginController{
@@ -31,50 +30,28 @@ public class LoginController{
         return "/signup";
     }
 
-    // 아이디 중복확인
-    @RequestMapping(value="/signup/usernameCheck", method = {RequestMethod.POST, RequestMethod.GET})
-    @ResponseBody
-    public int usernameCheck(@RequestParam String username) {
-        System.out.println(username);
-        return userService.usernameCheck(username);
-
-    }
-
-    // 닉네임 중복확인
-    @GetMapping("/signup/nicknameCheck")
-    @ResponseBody
-    public int nicknameCheck(@RequestParam("usernickname") String usernickname) {
-        return userService.nicknameCheck(usernickname);
-    }
-
 
     // 회원가입 (정보등록)
     @PostMapping("/signup/register")
     public String insertInfo(@RequestParam("username") String username, @RequestParam("userpassword") String userpassword,
                              @RequestParam("usernickname") String usernickname) {
         UserVo userVo = new UserVo(0, username, userpassword, usernickname);
-        System.out.println(userVo.toString());
-
         userService.insertInfo(userVo);
+        System.out.println(userVo.toString());
 
         return "/signup";
     }
 
-    // 로그인-아이디 매치 Session 배치 // post: 보낼 때 get: 가져올 때
-    @RequestMapping(value="/login/successLogin", method = {RequestMethod.POST})
-    public String successLogin(UserVo userVo) {
-        System.out.println(userVo.toString());
-        return "";
-    }
-
     // user 정보 가져오기
+    // 아이디 중복확인
     @GetMapping("/getUser")
     @ResponseBody
     public int getuser(@RequestParam("username") String username) {
+        System.out.println(username);
         int count = userService.usernameCheck(username);
         return count;
     }
-
+    // 닉네임 중복확인
     @GetMapping("/getNickname")
     @ResponseBody
     public int getnickname(@RequestParam("usernickname") String usernickname) {
@@ -83,5 +60,27 @@ public class LoginController{
         return  count;
     }
 
+    @PostMapping("/login/loginCheck")
+    @ResponseBody
+    public String loginCheck(@RequestParam("username") String username,
+                             @RequestParam("userpassword") String userpassword,
+                             HttpSession session) {
+
+
+        String result = "";
+        if(session.getAttribute("login") != null) {
+            session.removeAttribute("login");
+        }
+
+        UserVo loginCk = userService.loginCk(username, userpassword);
+        System.out.println(loginCk.toString());
+        if(loginCk != null) {
+            session.setAttribute("login", loginCk);
+            result = "성공";
+        } else {
+            result = "실패";
+        }
+        return "result";
+    }
 
 }

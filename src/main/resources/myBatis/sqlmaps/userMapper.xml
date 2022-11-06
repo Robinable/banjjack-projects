@@ -37,11 +37,21 @@
 
     </select>
 
+    <select id="loginCk"
+            resultType="com.green.vo.UserVo">
+        SELECT username
+        FORM   user_tb
+        WHERE  username = #{username} AND userpassword = #{userpassword}
+
+    </select>
+
     <insert id="insertInfo"
             parameterType="com.green.vo.UserVo">
         INSERT INTO user_tb (_id, username, userpassword, usernickname)
         VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
 
     </insert>
+
+
 
 </mapper>

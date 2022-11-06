@@ -41,12 +41,11 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
 	window.onload = function() {
-	    const username     = document.querySelector('[name=username]');
-	    const userpassword = document.querySelector('[name=userpassword]');
-		const form         = document.querySelector('form');
 
 		form.addEventListener('submit', function(e) {
-
+            const form = document.querySelector('form');
+            const username = document.getElementById('username').value;
+            const userpassword = document.getElementById('userpassword').value;
 			if(username.value == '') {
 				checkError.innerHTML = '아이디를 입력하세요';
 				username.focus();
@@ -57,12 +56,31 @@
 				userpassword.focus();
 				e.preventDefault();
 			}
-			return true;
+
+			loginCheck(username, userpassword);
+
 		})
 
+	} // window.load end
 
-
-	}
+    function loginCheck(username, userpassword) {
+        let username     = $('#username').val();
+        let userpassword = $('#userpassword').val();
+        $.ajax({
+            url: '/login/loginCheck?username=' + username + '&userpassword=' + userpassword,
+            method: 'POST',
+            data:{ username:username, userpassword:userpassword }
+        })
+        .done({
+            function(result) {
+                if(result == '성공') {
+                    alert('환영합니다');
+                }else {
+                    alert('다시 시도해주십시오');
+                }
+            }
+        });
+    }
 
 		
 		
@@ -78,17 +96,17 @@
 	<div class="login-form">
 	<h2>로그인 페이지</h2>
 	<hr />
-		<form action="/login/successLogin" method="POST" id="form1">
+		<form action="/login/loginCheck" method="POST" id="form1">
 			<table id="container">
                 <tr>
                     <td>
-                        <input type="text" name="username" placeholder="아이디" maxlength="20"><br>
+                        <input type="text" id="username" name="username" placeholder="아이디" maxlength="20"><br>
                         <span id="unameCheck"></span>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="password" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
+                        <input type="password" id="userpassword" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                         <span id="pwCheck"></span>
                     </td>
                 </tr>

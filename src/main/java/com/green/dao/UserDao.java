@@ -2,6 +2,7 @@ package com.green.dao;
 
 import com.green.vo.UserVo;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface UserDao {
@@ -11,4 +12,10 @@ public interface UserDao {
     int usernameCheck(String username);
 
     int nicknameCheck(String usernickname);
+
+    void insertInfo(UserVo userVo);
+
+    UserVo loginCk(String username, String userpassoword);
+
+//    UserVo loginCk(HashMap<String, String> map);
 }
