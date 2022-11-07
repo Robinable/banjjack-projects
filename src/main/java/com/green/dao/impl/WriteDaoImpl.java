@@ -32,5 +32,29 @@ public class WriteDaoImpl implements WriteDao {
         return board;
     }
 
+    @Override
+    public void updateBoard(WriteVo writeVo) {
+        System.out.println(writeVo.toString());
+        sqlSession.update("Write.updateBoard", writeVo);
+    }
+
+    @Override
+    public void delete(String _id) {
+        sqlSession.delete("Write.delete", _id);
+    }
+
+    @Override
+    public List<WriteVo> getWritejson(String category) {
+        List<WriteVo> jsonList = sqlSession.selectList("Write.jsonList", category);
+        return jsonList;
+    }
+
+    @Override
+    public List<WriteVo> getViewjson(String _id) {
+        sqlSession.update("Write.updateReadCount", _id);
+        List<WriteVo> jsonview = sqlSession.selectList("Write.jsonView", _id);
+        return jsonview;
+    }
+
 
 }

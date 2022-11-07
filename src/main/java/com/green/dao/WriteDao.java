@@ -12,4 +12,12 @@ public interface WriteDao {
     List<WriteVo> getList(String category);
 
     WriteVo getBoard(String _id);
+
+    void updateBoard(WriteVo writeVo);
+
+    void delete(String id);
+
+    List<WriteVo> getWritejson(String category);
+
+    List<WriteVo> getViewjson(String id);
 }

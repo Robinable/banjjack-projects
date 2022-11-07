@@ -24,8 +24,11 @@ table, th, td {
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
 
+     $('form').on('submit', function() {
      $.ajax( {
-               url  :  '/getviewjson?_id=' + ${_id} ,
+               alert('button click');
+               let url  :  '/update?_id=' + ${_id} ,
+               location.href  =  url;
                data :  {
                    _id : $('#_id').val() ,
                    title : $('#title').val(),
@@ -88,18 +91,21 @@ table, th, td {
     		 .fail(function( error ) {
     			 console.log( error );
     		 });
+    		  } )
 
 </script>
 
 </head>
 <body>
-<div id="div2"></div>
+<form action="/update" method="GET">
 
 <!--
+<input type="hidden" name="_id" value="${board._id}" />
+<input type="hidden" name="category" value="${board.category}" />
 <table>
     <tr>
       <td>번호</td>
-      <td >${board._id}</td>
+      <td>${board._id}</td>
       <td>조회수</td>
       <td>${board.readcount}</td>
     </tr>
@@ -112,7 +118,7 @@ table, th, td {
     <tr>
       <td>제목 :</td>
       <td>
-        ${board.title}
+        <input type="text" name="title" maxLength="20" value="${board.title}" >
       </td>
       <td>애완동물 :</td>
       <c:choose>
@@ -130,24 +136,24 @@ table, th, td {
 
     <tr>
       <td>내용</td>
-      <td colspan="3">
-        ${board.content}
+      <td colspan="5">
+        <textarea maxLength="500" name= "content" >${board.content}</textarea>
       </td>
     </tr>
     <tr>
       <td colspan="4">
         <input type="submit" value="수정" />
-        <a href="/updateForm?_id=${board._id}">수정</a>
-        <a href="/list?category=1" class="btn btn-primary">게시판</a>
-        <a href="/delete?_id=${board._id}&category=${board.category}" class="btn btn-primary">삭제</a>
+        <a href="/writejson?category=${board.category}" class="btn btn-primary">게시판</a>
+        <a class="btn btn-primary">삭제</a>
       </td>
     </tr>
 </table>
 -->
 
-<a href="/updateForm?_id=${_id}">수정</a>
-<a href="/writejson?category=${category}" class="btn btn-primary">게시판</a>
-<a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
+<input type="submit" value="수정" />
+        <a href="/writejson?category=${board.category}" class="btn btn-primary">게시판</a>
+        <a class="btn btn-primary">삭제</a>
+</form>
 
 </body>
 </html>

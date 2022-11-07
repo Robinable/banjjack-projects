@@ -23,9 +23,26 @@ public class WriteService {
     }
 
     public WriteVo getBoard(String _id) {
-        System.out.println(_id);
         WriteVo board = writeDao.getBoard(_id);
         return board;
     }
 
+    public void updateBoard(WriteVo writeVo) {
+        writeDao.updateBoard(writeVo);
+    }
+
+    public void delete(String _id) {
+        writeDao.delete(_id);
+    }
+
+    public List<WriteVo> getWriteJson(String category) {
+        List<WriteVo> vo = writeDao.getWritejson(category);
+        return vo;
+    }
+
+
+    public List<WriteVo> getViewJson(String _id) {
+        List<WriteVo> writevo = writeDao.getViewjson(_id);
+        return writevo;
+    }
 }
