@@ -10,18 +10,40 @@
     </select>
 
     <insert id="insertWrite">
-        INSERT INTO content_tb (_id, username, title, content, category, time, readcount)
-        VALUES ( #{_id}, #{username}, #{title}, #{content}, #{category}, #{time}, #{readcount} )
+        INSERT INTO content_tb (username, title, content, category, time, readcount)
+        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount} )
     </insert>
 
     <select id="boardList"
             resultType="com.green.vo.WriteVo">
         SELECT _id, username, title, content, category, time, readcount
         FROM content_tb
-        WHERE category = #{category}
+        <if test="category != null and category != ''">
+            WHERE
+            category = #{category}
+        </if>
+        ORDER BY _id desc
+    </select>
+
+    <select id="jsonList"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        <if test="category != null and category != ''">
+            WHERE
+            category = #{category}
+        </if>
+        ORDER BY _id desc
     </select>
 
     <select id="getBoard"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <select id="jsonView"
             resultType="com.green.vo.WriteVo">
         SELECT _id, username, title, content, category, time, readcount
         FROM content_tb
@@ -33,5 +55,17 @@
         SET    readcount = readcount + 1
         WHERE  _id  = #{_id}
     </update>
+
+    <update id="updateBoard">
+        UPDATE content_tb
+        SET    title = #{title},
+               content = #{content}
+        WHERE  _id = #{_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM content_tb
+        WHERE _id = #{_id}
+    </delete>
 
 </mapper>
