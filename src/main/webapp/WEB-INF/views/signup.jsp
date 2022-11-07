@@ -20,26 +20,22 @@
        
     }
 
-	div  { text-align: center; }
-    
-    td { width:200px; }
-    
+	div  { text-align: center; padding: 0;}
+
+    ul { list-style: none; }
+
     #container { width:100% }
-    
+
     #form1 { width:100%; }
-    
+
     hr          { width:400px; margin-bottom:70px; }
 
-     #uploadImage {
-          width: 128px;
-          height: 128px;
-          background-color: grey;
-        }
-    
+    #preview { width: 128px; height: 128px; }
+
+
 
 
 </style>
-
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
     window.onload = function() {
@@ -110,12 +106,12 @@
         }
         })
 
+        $('#btnUpload').click(function (e) {
+            $('#profile_img').click();
+        });
 
-        const profile_img = document.getElementById('profile_img');
-        const uploadImage = document.getElementById('uploadImage');
 
-        uploadImage.addEventListener('click', () => profile_img.click());
-        profile_img.addEventListener('change', getImageFiles);
+
 
 } // window.onload end
 
@@ -144,7 +140,7 @@
             $('#unicknameCheck').text('입력이 실패하였습니다. 다시 시도해주세요.');
         });
     }
-	
+
     // 닉네임 중복확인 ajax
     function nicknameCheck(usernickname) {
         $.ajax({
@@ -181,11 +177,17 @@
         }
     }
 
-     function getImageFiles(e) {
-          const files = e.currentTarget.files;
-          console.log(typeof files, files);
+    function readURL(input) {
+        if(input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
     }
-
 
 
 </script>
@@ -195,61 +197,56 @@
 	<h2>회원가입</h2>
 	<hr />
 		<form action="/signup/register" method="POST" id="form1">
-		  <table id="container">
-		  	<tr>
-                <td colspan="2">
+		  <div id="container">
+            <ul>
+                <li>
                     <input type="text" id="username" name="username" placeholder="아이디" maxlength="20"><br>
                     <span id="unameCheck"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
+                </li>
+
+                <li>
                     <input type="password" id="userpassword" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                     <span id="pwCheck"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
+                </li>
+
+                <li>
                     <input type="password" id="repasswd" name="repasswd" placeholder="비밀번호 확인" maxlength="20"><br>
                     <span id="re_pwCheck"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
+                </li>
+
+                <li>
                     <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15"><br>
                     <span id="unicknameCheck"></span>
-                </td>
-            <tr>
-                <td>
+                </li>
+
+                <li>
                     <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)"/>
                     <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
+                </li>
+
+                <li>
                     <select id="userpet" name="userpet">
-                        <option value="00">종류</option>
+                        <option value="00">반려동물</option>
                         <option value="01">고양이</option>
                         <option value="02">개</option>
                         <option value="etc">기타</option>
 
 
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type='file' id="profile_img" style="display:none;" accept='image/jpg,impge/png,image/jpeg' name='profile_img'/></td><br>
-                    <div id="uploadImage"></div>
-                </td>
-            </tr>
-            <tr>
-                <td><span id="checkError"></span></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="signup" value="가입하기"/></td>
-            </tr>
-		  </table>
+                </li>
+
+                <li>
+                    <input type='file' id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
+                            style="display: none;"/></td><br>
+                    <button type="button" id="btnUpload">업로드</button>
+                    <img id="preview" />
+                </li>
+
+                <li><span id="checkError"></span></li>
+
+                <li><input type="submit" name="signup" value="가입하기"/></li>
+            </ul>
+         </div>
 		</form>
 
 	</div>
