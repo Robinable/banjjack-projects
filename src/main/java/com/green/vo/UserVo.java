@@ -13,6 +13,9 @@ public class UserVo {
         this._id = _id;
     }
 
+    public UserVo() {
+    }
+
     public int get_id() {
         return _id;
     }

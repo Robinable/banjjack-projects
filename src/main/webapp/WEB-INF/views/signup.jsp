@@ -14,30 +14,27 @@
        
        border:1px solid grey;
        border-radius:5px;
-       width: 50%;
+
        padding: 10px;
        margin:5px;
        
     }
-    
-	div  {
-            text-align: center;
-       }
+
+	div  { text-align: center; }
     
     td { width:200px; }
     
     #container { width:100% }
     
     #form1 { width:100%; }
-
-   
-    input[name="signup"]:hover { background-color:#1E90FF; }
-    input[name="signup"]:active { background-color:#4169E1; }
-	input[name="signup"] { background-color:#87CEFA; border:0px; }
-    
-    input:focus { border-color:#0000CD; outline:none;}
     
     hr          { width:400px; margin-bottom:70px; }
+
+     #uploadImage {
+          width: 128px;
+          height: 128px;
+          background-color: grey;
+        }
     
 
 
@@ -114,7 +111,11 @@
         })
 
 
+        const profile_img = document.getElementById('profile_img');
+        const uploadImage = document.getElementById('uploadImage');
 
+        uploadImage.addEventListener('click', () => profile_img.click());
+        profile_img.addEventListener('change', getImageFiles);
 
 } // window.onload end
 
@@ -153,7 +154,7 @@
         .done(function(count) {
             console.log(count);
             if(count==0) {
-                const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;
+                const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;        // 닉네임: 영문/숫자/한글 조합으로만
                 if(nicknameVaildation.test(usernickname.trim())) {
                     $('#unicknameCheck').text('사용가능한 닉네임입니다.');
                 } else {
@@ -171,6 +172,7 @@
     // 비밀번호 확인
     function passwordCheck(userpassword) {
         // 비밀번호 정규식
+        // 비밀번호: 영문대소문자/숫자/특수문자 각각 한개 이상 조합
         const pwVaildation = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
         if(!pwVaildation.test(userpassword.trim())) {
             $('#pwCheck').text('비밀번호는 영문 대소문자와 숫자, 특수문자의 조합으로 입력해주세요.');
@@ -178,6 +180,13 @@
             $('#pwCheck').text('');
         }
     }
+
+     function getImageFiles(e) {
+          const files = e.currentTarget.files;
+          console.log(typeof files, files);
+    }
+
+
 
 </script>
 </head>
@@ -188,27 +197,50 @@
 		<form action="/signup/register" method="POST" id="form1">
 		  <table id="container">
 		  	<tr>
-                <td>
+                <td colspan="2">
                     <input type="text" id="username" name="username" placeholder="아이디" maxlength="20"><br>
                     <span id="unameCheck"></span>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <input type="password" id="userpassword" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                     <span id="pwCheck"></span>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <input type="password" id="repasswd" name="repasswd" placeholder="비밀번호 확인" maxlength="20"><br>
                     <span id="re_pwCheck"></span>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15"><br>
                     <span id="unicknameCheck"></span>
+                </td>
+            <tr>
+                <td>
+                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)"/>
+                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="userpet" name="userpet">
+                        <option value="00">종류</option>
+                        <option value="01">고양이</option>
+                        <option value="02">개</option>
+                        <option value="etc">기타</option>
+
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type='file' id="profile_img" style="display:none;" accept='image/jpg,impge/png,image/jpeg' name='profile_img'/></td><br>
+                    <div id="uploadImage"></div>
                 </td>
             </tr>
             <tr>

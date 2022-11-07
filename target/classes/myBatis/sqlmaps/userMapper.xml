@@ -37,11 +37,11 @@
 
     </select>
 
-    <select id="loginCk"
-            resultType="com.green.vo.UserVo">
-        SELECT username
-        FORM   user_tb
-        WHERE  username = #{username} AND userpassword = #{userpassword}
+    <select id="loginPasswordCheck"
+            resultType="String">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  username = #{username}
 
     </select>
 
@@ -51,6 +51,14 @@
         VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
 
     </insert>
+
+    <select id="selectUserInfoByUsername"
+            resultType="com.green.vo.UserVo">
+        SELECT _id, username, userpassword, usernickname
+        FROM   user_tb
+        WHERE  username = #{username}
+
+    </select>
 
 
 

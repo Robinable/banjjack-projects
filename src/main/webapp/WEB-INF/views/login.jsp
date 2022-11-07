@@ -1,90 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
 	*     { box-sizing:border-box;  }
 
-	.login-form { width:400px; margin:0 auto; }
 
-	div   {
-            text-align: center;
-       }
-       
-    #container { width:100%; }
-    #form1     { width:100%; }
-        
-    .login-form input{
-       
-       border:1px solid grey;
-       border-radius:5px;
-       width: 70%;
-       padding: 10px;
-       margin:5px;
-       
-    }
-    
-    input[name="login"]:hover { background-color:#1E90FF; }
-    input[name="login"]:active { background-color:#4169E1; }
-	input[name="login"] { background-color:#87CEFA; border:0px; }
+        div  {
+                text-align: center;
+           }
 
-    input:focus { border-color:#0000CD; outline:none;}
-    
-    hr { margin-bottom:70px; width:400px;}
-    
+        td { width:100%; }
+
+        #container { width:100% }
+
+        #form1 { width:100%; }
+
+        hr  { width:400px; margin-bottom:70px; }
+
      
 </style>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
 	window.onload = function() {
+       const form = document.querySelector('form');
 
-		form.addEventListener('submit', function(e) {
-            const form = document.querySelector('form');
-            const username = document.getElementById('username').value;
-            const userpassword = document.getElementById('userpassword').value;
-			if(username.value == '') {
-				checkError.innerHTML = '아이디를 입력하세요';
-				username.focus();
-				e.preventDefault();
-			}
-			else if(userpassword.value == '') {
-				checkError.innerHTML = '비밀번호를 입력하세요';
-				userpassword.focus();
-				e.preventDefault();
-			}
+       form.addEventListener('submit', function(e) {
+            const username = document.getElementById('username');
+            console.log(username);
+            if($('#username').val() == '') {
+                $('#checkError').text('아이디를 입력하세요');
+                username.focus();
+                e.preventDefault();
 
-			loginCheck(username, userpassword);
+            } else if (userpassword.value == '') {
+                $('#checkError').text('비밀번호를 입력하세요');
+                userpassword.focus();
+                e.preventDefault();
+            }
 
-		})
+       });
+
 
 	} // window.load end
 
-    function loginCheck(username, userpassword) {
-        let username     = $('#username').val();
-        let userpassword = $('#userpassword').val();
-        $.ajax({
-            url: '/login/loginCheck?username=' + username + '&userpassword=' + userpassword,
-            method: 'POST',
-            data:{ username:username, userpassword:userpassword }
-        })
-        .done({
-            function(result) {
-                if(result == '성공') {
-                    alert('환영합니다');
-                }else {
-                    alert('다시 시도해주십시오');
-                }
-            }
-        });
-    }
-
-		
-		
-	
 
 
 
@@ -96,7 +59,7 @@
 	<div class="login-form">
 	<h2>로그인 페이지</h2>
 	<hr />
-		<form action="/login/loginCheck" method="POST" id="form1">
+		<form action="/login/loginCheck" method="POST" id="form1" name="form1">
 			<table id="container">
                 <tr>
                     <td>
@@ -114,10 +77,26 @@
                     <td><span id="checkError"></span></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" name="login" value="로그인"/></td>
+                    <td>
+                        <c:if test="${message == 'error'}">
+                        <div style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다.</div>
+                        </c:if>
+                        <c:if test="${message == 'logout'}">
+                        <div style="color:red;">로그아웃 되었습니다.</div>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" id="login" name="login" value="로그인"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a href="/signup" id="gosignup" name="gosignup" font-size="13">회원가입</a></td>
                 </tr>
             </table>
 		</form>
 	</div>
 </body>
+
 </html>

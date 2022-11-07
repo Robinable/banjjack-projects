@@ -5,7 +5,6 @@ import com.green.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -34,16 +33,13 @@ public class UserService {
          userDaoImpl.insertInfo(userVo);
     }
 
-    public UserVo successLogin(UserVo userVo) {
-        return userDaoImpl.successLogin(userVo);
+
+    public String loginPasswordCheck(String username) {
+        return userDaoImpl.loginPasswordCheck(username);
     }
 
-    public UserVo loginCk(String username, String userpassword) {
-        return userDaoImpl.loginCk(username, userpassword);
+    public UserVo selectUserInfoByUsername(String username) {
+        return userDaoImpl.selectUserInfoByUsername(username);
     }
-
-//    public UserVo loginCk(HashMap<String, String> map) {
-//        return  userDaoImpl.loginCk(map);
-//    }
 }
 

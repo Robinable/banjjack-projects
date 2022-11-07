@@ -15,7 +15,7 @@ public interface UserDao {
 
     void insertInfo(UserVo userVo);
 
-    UserVo loginCk(String username, String userpassoword);
+    String loginPasswordCheck(String username);
 
-//    UserVo loginCk(HashMap<String, String> map);
+    UserVo selectUserInfoByUsername(String username);
 }

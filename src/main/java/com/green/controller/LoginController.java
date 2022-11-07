@@ -5,7 +5,9 @@ import com.green.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -61,26 +63,41 @@ public class LoginController{
     }
 
     @PostMapping("/login/loginCheck")
-    @ResponseBody
     public String loginCheck(@RequestParam("username") String username,
                              @RequestParam("userpassword") String userpassword,
-                             HttpSession session) {
+                             HttpSession session,
+                             Model model) {
 
-
+        System.out.println(username);
+        System.out.println(userpassword);
         String result = "";
         if(session.getAttribute("login") != null) {
             session.removeAttribute("login");
         }
 
-        UserVo loginCk = userService.loginCk(username, userpassword);
-        System.out.println(loginCk.toString());
-        if(loginCk != null) {
-            session.setAttribute("login", loginCk);
-            result = "성공";
+        // 비밀번호 일치 확인
+        String loginCk = userService.loginPasswordCheck(username);
+
+        // 일치한다면
+        if(loginCk.equals(userpassword)) {
+            session.setAttribute("sj", loginCk);
+            UserVo userVo = userService.selectUserInfoByUsername(username);
+            model.addAttribute("userVo", userVo);
+
+            return "/index";
+
+        // 일치하지 않으면
         } else {
-            result = "실패";
+            model.addAttribute("message", "error");
+            return "/login";
         }
-        return "result";
+    }
+
+    @GetMapping("/sjtest")
+    public String sjtest(Model model) {
+        model.addAttribute("");
+        return "/sjtest";
+
     }
 
 }

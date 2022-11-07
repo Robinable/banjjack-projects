@@ -36,17 +36,15 @@ public class UserDaoImpl implements UserDao {
         sqlSession.insert("User.insertInfo", userVo);
     }
 
-    public UserVo successLogin(UserVo userVo) {
-        return sqlSession.selectOne("User.successLogin", userVo);
+
+    public String loginPasswordCheck(String username) {
+        return sqlSession.selectOne("User.loginPasswordCheck", username);
     }
 
-    public UserVo loginCk(String username, String userpassword ) {
-        return sqlSession.selectOne("User.loginCk", username);
+    public UserVo selectUserInfoByUsername(String username) {
+        return sqlSession.selectOne("User.selectUserInfoByUsername", username);
     }
 
-//    public UserVo loginCk(HashMap<String, String> map) {
-//        return sqlSession.selectOne("User.loginCk", map);
-//    }
 }
 
 
