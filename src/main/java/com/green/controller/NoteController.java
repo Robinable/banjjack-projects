@@ -32,38 +32,26 @@ public class NoteController {
 		return "/receptNote";
 	}
 
-    // 받은 쪽지확인 (받은 아이디로 조회)
+    // // 받은 쪽지함 + 페이징 (받은 아이디로 조회)
 	@GetMapping ("/receptNote")
-	public String recept(){
-
-		return "/receptNote2";
-	}
-
-//	@GetMapping("/getreceptnote")
-//	@ResponseBody
-//	public  List<JSONObject> getreceptnote(@RequestParam String recept){
-//		List<JSONObject> NoteVoList = new ArrayList<>();
-//		for (NoteVo vo : noteService.selectRecept(recept)){
-//			JSONObject obj = new JSONObject();
-//			obj.put("_id", vo.get_id());
-//			obj.put("content", vo.getContent());
-//			obj.put("send", vo.getSend());
-//			obj.put("time", vo.getTime());
-//			NoteVoList.add(obj);
-//		}
-//		return NoteVoList;
-//	}
-
-	// 받은 쪽지함 + 페이징
-	@GetMapping("/getreceptnote")
-	@ResponseBody
-	public  List<JSONObject> getreceptnote(@RequestParam String recept, @RequestParam int num, Model model){
-
-
+	public String recept(@RequestParam int num, @RequestParam String recept, Model model){
 
 		int count = noteService.receptcount(recept);
 		int postnum = 10;
 		int pagenum = (int)Math.ceil((double)count/postnum);
+		int displaypost = (num - 1) * postnum;
+
+		model.addAttribute("pagenum",pagenum);
+        model.addAttribute("num",num);
+		return "/receptNote2";
+	}
+
+
+	@GetMapping("/getreceptnote")
+	@ResponseBody
+	public  List<JSONObject> getreceptnote(@RequestParam String recept, @RequestParam int num){
+
+		int postnum = 10;
 		int displaypost = (num - 1) * postnum;
 
 		List<JSONObject> NoteVoList = new ArrayList<>();
@@ -77,42 +65,68 @@ public class NoteController {
 			obj.put("postnum", vo.getPostnum());
 
 			NoteVoList.add(obj);
-//			model.addAttribute("pagenum", pagenum);
-//			System.out.println("pagenum"+pagenum);
 		}
-        model.addAttribute("pagenum",pagenum);
-
-
 		return NoteVoList;
 	}
 
 
-
-
-
-
-
-
     // 보낸쪽지 확인 (보낸 아이디로 조회)
 	@GetMapping("/sendNote")
-	public String sendNote(){
-		return "/sendNote";
+	public String sendNote(@RequestParam int num, @RequestParam String send, Model model){
+
+		int count = noteService.sendcount(send);
+		int postnum = 10;
+		int pagenum = (int)Math.ceil((double)count/postnum);
+		int displaypost = (num - 1) * postnum;
+
+		System.out.println(count);
+
+		model.addAttribute("pagenum",pagenum);
+		model.addAttribute("num",num);
+
+		return "/sendNote2";
 	}
 
+//	@GetMapping("/getsendnote")
+//	@ResponseBody
+//	public  List<JSONObject> getsendnote(@RequestParam String send) {
+//		List<JSONObject> NoteVoList = new ArrayList<>();
+//		for (NoteVo vo : noteService.selectSend(send)) {
+//			JSONObject obj = new JSONObject();
+//			obj.put("_id", vo.get_id());
+//			obj.put("content", vo.getContent());
+//			obj.put("recept", vo.getRecept());
+//			obj.put("time", vo.getTime());
+//			NoteVoList.add(obj);
+//		}
+//		return NoteVoList;
+//	}
+
+    // 보낸쪽지확인 + 페이징
 	@GetMapping("/getsendnote")
 	@ResponseBody
-	public  List<JSONObject> getsendnote(@RequestParam String send) {
+	public  List<JSONObject> getsendnote(@RequestParam String send, @RequestParam int num) {
+
+		int postnum = 10;
+		int displaypost = (num - 1) * postnum;
+
 		List<JSONObject> NoteVoList = new ArrayList<>();
-		for (NoteVo vo : noteService.selectSend(send)) {
+		for (NoteVo vo : noteService.sendpage(send, displaypost, postnum)) {
 			JSONObject obj = new JSONObject();
 			obj.put("_id", vo.get_id());
 			obj.put("content", vo.getContent());
 			obj.put("recept", vo.getRecept());
 			obj.put("time", vo.getTime());
+			obj.put("displaypost", vo.getDisplaypost());
+			obj.put("postnum", vo.getPostnum());
+
 			NoteVoList.add(obj);
 		}
+		System.out.println(NoteVoList);
 		return NoteVoList;
 	}
+
+
 
 
 	// 쪽지 내용 확인

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
 
 
         		   $.ajax( {
-        			   url  :  '/getreceptnote?recept=1234&num=1'  ,
+        			   url  :  '/getreceptnote?recept=1234&num=${num}'  ,
         			   data :  {
         				   _id : $('#_id').val(),
         				   content : $('#content').val(),
@@ -158,15 +159,14 @@ $(function(){
 
 </table>
 
-<div>
- <c:forEach begin="1" end="${pageNum}" var="num">
+<div style="text-align: center;">
+ <c:forEach begin="1" end="${pagenum}" var="num">
     <span>
-     <a href="/board/listPage?num=${num}">${num}</a>
+     <a href="/receptNote?recept=1234&num=${num}">${num}</a>
   </span>
  </c:forEach>
 </div>
 
-<hr>
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
                             <li><button onclick= "deleteNote();">선택 삭제</button></li>

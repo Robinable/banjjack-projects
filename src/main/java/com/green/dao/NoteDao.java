@@ -18,4 +18,8 @@ public interface NoteDao {
     int receptcount(String recept);
 
     List<NoteVo> receptpage(String recept, int displaypost, int postnum);
+
+    int sendcount(String send);
+
+    List<NoteVo> sendpage(String send, int displaypost, int postnum);
 }

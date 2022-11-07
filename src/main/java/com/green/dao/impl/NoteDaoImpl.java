@@ -59,4 +59,22 @@ public class NoteDaoImpl implements NoteDao {
         List<NoteVo> vo = sqlSession.selectList("Note.receptpage", map);
         return vo;
     }
+
+    @Override
+    public int sendcount(String send) {
+        int count = sqlSession.selectOne("Note.sendcount",send);
+        return count;
+    }
+
+    @Override
+    public List<NoteVo> sendpage(String send, int displaypost, int postnum) {
+
+        HashMap map = new HashMap();
+        map.put("displaypost",displaypost);
+        map.put("postnum",postnum);
+        map.put("send",send);
+
+        List<NoteVo> vo = sqlSession.selectList("Note.sendpage", map);
+        return vo;
+    }
 }

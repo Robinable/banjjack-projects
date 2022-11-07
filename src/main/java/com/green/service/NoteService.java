@@ -48,4 +48,15 @@ public class NoteService {
         List<NoteVo> vo = noteDaoImpl.receptpage(recept,displaypost,postnum);
         return vo;
     }
+
+    public int sendcount(String send) {
+        int count = noteDaoImpl.sendcount(send);
+        return count;
+    }
+
+    public List<NoteVo> sendpage(String send, int displaypost, int postnum) {
+        List<NoteVo> vo = noteDaoImpl.sendpage(send,displaypost,postnum);
+        return vo;
+    }
 }
+
