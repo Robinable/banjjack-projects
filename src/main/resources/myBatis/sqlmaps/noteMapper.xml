@@ -36,6 +36,21 @@
         WHERE _id = #{_id}
     </delete>
 
+    <!-- 페이징 -->
+    <select id= "receptcount" resultType="int">
+        SELECT COUNT(_id) FROM note_tb
+        WHERE recept = #{recept}
+    </select>
+
+
+    <select id="receptpage" parameterType="hashMap" resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE recept = #{recept}
+        ORDER BY _id
+        LIMIT #{displaypost},#{postnum}
+    </select>
+
 
 
 </mapper>

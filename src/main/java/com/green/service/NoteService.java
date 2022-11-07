@@ -38,4 +38,14 @@ public class NoteService {
     public void deleteNote(int _id) {
         noteDaoImpl.deleteNote(_id);
     }
+
+    public int receptcount(String recept) {
+        int count = noteDaoImpl.receptcount(recept);
+        return count;
+    }
+
+    public List<NoteVo> receptpage(String recept, int displaypost, int postnum) {
+        List<NoteVo> vo = noteDaoImpl.receptpage(recept,displaypost,postnum);
+        return vo;
+    }
 }

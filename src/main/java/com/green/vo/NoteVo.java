@@ -8,12 +8,18 @@ public class NoteVo {
     private String send;
     private String time;
 
-    public NoteVo(int _id, String content, String recept, String send, String time) {
+    private int displaypost;
+
+    private int postnum;
+
+    public NoteVo(int _id, String content, String recept, String send, String time, int displaypost, int postnum) {
         this._id = _id;
         this.content = content;
         this.recept = recept;
         this.send = send;
         this.time = time;
+        this.displaypost = displaypost;
+        this.postnum = postnum;
     }
 
     public NoteVo() {
@@ -59,6 +65,26 @@ public class NoteVo {
         this.time = time;
     }
 
+    public int getDisplaypost() {
+        return displaypost;
+    }
+
+    public void setTime(int displaypost) {
+        this.displaypost = displaypost;
+    }
+
+    public int getPostnum() {
+        return postnum;
+    }
+
+    public void postnum(int postnum) {
+        this.postnum = postnum;
+    }
+
+
+
+
+
     @Override
     public String toString() {
         return "NoteVo{" +
@@ -67,6 +93,8 @@ public class NoteVo {
                 ", recept='" + recept + '\'' +
                 ", send='" + send + '\'' +
                 ", time='" + time + '\'' +
+                ", displaypost='" + displaypost + '\'' +
+                ", postnum='" + postnum + '\'' +
                 '}';
     }
 }

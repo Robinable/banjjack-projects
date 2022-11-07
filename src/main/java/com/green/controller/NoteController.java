@@ -1,6 +1,5 @@
 package com.green.controller;
 
-import com.google.protobuf.Service;
 import com.green.service.NoteService;
 import com.green.vo.NoteVo;
 import org.json.simple.JSONObject;
@@ -10,16 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class NoteContoroller {
+public class NoteController {
 @Autowired private NoteService noteService;
 
 	@RequestMapping ("/writeNoteForm")
-	public String writeMsgForm() {
+	public String writeNoteForm() {
 		return "/writeNote";
 	}
 
@@ -37,23 +35,63 @@ public class NoteContoroller {
     // 받은 쪽지확인 (받은 아이디로 조회)
 	@GetMapping ("/receptNote")
 	public String recept(){
-		return "/receptNote";
+
+		return "/receptNote2";
 	}
 
+//	@GetMapping("/getreceptnote")
+//	@ResponseBody
+//	public  List<JSONObject> getreceptnote(@RequestParam String recept){
+//		List<JSONObject> NoteVoList = new ArrayList<>();
+//		for (NoteVo vo : noteService.selectRecept(recept)){
+//			JSONObject obj = new JSONObject();
+//			obj.put("_id", vo.get_id());
+//			obj.put("content", vo.getContent());
+//			obj.put("send", vo.getSend());
+//			obj.put("time", vo.getTime());
+//			NoteVoList.add(obj);
+//		}
+//		return NoteVoList;
+//	}
+
+	// 받은 쪽지함 + 페이징
 	@GetMapping("/getreceptnote")
 	@ResponseBody
-	public  List<JSONObject> getreceptnote(@RequestParam String recept){
+	public  List<JSONObject> getreceptnote(@RequestParam String recept, @RequestParam int num, Model model){
+
+
+
+		int count = noteService.receptcount(recept);
+		int postnum = 10;
+		int pagenum = (int)Math.ceil((double)count/postnum);
+		int displaypost = (num - 1) * postnum;
+
 		List<JSONObject> NoteVoList = new ArrayList<>();
-		for (NoteVo vo : noteService.selectRecept(recept)){
+		for (NoteVo vo : noteService.receptpage(recept,displaypost,postnum)){
 			JSONObject obj = new JSONObject();
 			obj.put("_id", vo.get_id());
 			obj.put("content", vo.getContent());
 			obj.put("send", vo.getSend());
 			obj.put("time", vo.getTime());
+			obj.put("displaypost", vo.getDisplaypost());
+			obj.put("postnum", vo.getPostnum());
+
 			NoteVoList.add(obj);
+//			model.addAttribute("pagenum", pagenum);
+//			System.out.println("pagenum"+pagenum);
 		}
+        model.addAttribute("pagenum",pagenum);
+
+
 		return NoteVoList;
 	}
+
+
+
+
+
+
+
 
     // 보낸쪽지 확인 (보낸 아이디로 조회)
 	@GetMapping("/sendNote")
@@ -79,7 +117,7 @@ public class NoteContoroller {
 
 	// 쪽지 내용 확인
 	@GetMapping("/readNote")
-	public String sendMessage(@RequestParam int _id, Model model) {
+	public String readNote(@RequestParam int _id, Model model) {
 		//int _id = Integer.valueOf(request.getParameter("_id"));
 		model.addAttribute("_id",_id);
 
@@ -97,7 +135,6 @@ public class NoteContoroller {
 			obj.put("send", vo.getSend());
 			obj.put("time", vo.getTime());
 			NoteVoList.add(obj);
-			System.out.println(NoteVoList);
 
 		return NoteVoList;
 	}
@@ -110,6 +147,20 @@ public class NoteContoroller {
 
 		return "/receptNote";
 	}
+
+	@PostMapping("/selectDeleteNote")
+    public String selectDeleteNote(HttpServletRequest request){
+
+		String[] a = request.getParameterValues("valueArr");
+		int size = a.length;
+		int _id = 0;
+		for (int i=0; i<size; i++){
+			noteService.deleteNote(Integer.parseInt(a[i]));
+		}
+
+		return "receptNote";
+	}
+
 
 }
 

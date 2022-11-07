@@ -14,4 +14,8 @@ public interface NoteDao {
     NoteVo selectCont(int _id);
 
     void deleteNote(int _id);
+
+    int receptcount(String recept);
+
+    List<NoteVo> receptpage(String recept, int displaypost, int postnum);
 }

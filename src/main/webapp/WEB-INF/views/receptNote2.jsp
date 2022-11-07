@@ -13,12 +13,12 @@
 
 
         		   $.ajax( {
-        			   url  :  '/getreceptnote?recept=1234'  ,
+        			   url  :  '/getreceptnote?recept=1234&num=1'  ,
         			   data :  {
-        				   _id : $('#_id').val() ,
+        				   _id : $('#_id').val(),
         				   content : $('#content').val(),
-        				   send : $('#send').val() ,
-        				   time : $('#time').val() ,
+        				   send : $('#send').val(),
+        				   time : $('#time').val(),
         		       },
         		       method   : "GET",
         		       dataType:  "json"
@@ -122,8 +122,8 @@ $(function(){
         </script>
     </head>
     <body>
-        
-        
+
+
         <section>
             <div id="main_content">
                 <div id="message_box">
@@ -133,7 +133,7 @@ $(function(){
 
 
                     <div>
-                           
+
       <table class="table_box" >
 	<colgroup><col width="5%">
 		<col width="10%">
@@ -141,7 +141,7 @@ $(function(){
 		<col width="25%">
 		<col width="20%">
 	</colgroup>
-	
+
 	<thead>
 		<tr>
 		    <th><input type ="checkbox" name = "allCheck"></th>
@@ -149,7 +149,7 @@ $(function(){
 		    <th>내용</th>
 			<th>보낸사람</th>
 			<th>등록일</th>
-				
+
 		</tr>
 	</thead >
 	        <tbody id = "noteList">
@@ -157,6 +157,15 @@ $(function(){
 	        </tbody>
 
 </table>
+
+<div>
+ <c:forEach begin="1" end="${pageNum}" var="num">
+    <span>
+     <a href="/board/listPage?num=${num}">${num}</a>
+  </span>
+ </c:forEach>
+</div>
+
 <hr>
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
@@ -165,11 +174,11 @@ $(function(){
                             <li><button onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
                         </ul>
                     </div>
- 
+
                 </div>
             </div>
         </section>
- 
+
     </body>
 
 </html>

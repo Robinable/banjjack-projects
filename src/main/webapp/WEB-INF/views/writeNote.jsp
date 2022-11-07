@@ -58,7 +58,7 @@
 
                 
                 <ul class="top_buttons">
-                    <li><a href="/receptNote?recept=1234">받은 쪽지함</a></li>
+                    <li><a href="/receptNote?recept=1234&num=1">받은 쪽지함</a></li>
                     <li><a href="/sendNote?send=1234">보낸 쪽지함</a></li>
                 </ul>
  
