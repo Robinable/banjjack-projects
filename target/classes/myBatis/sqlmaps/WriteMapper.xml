@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Write">
+    <select id="selectAll"
+            resultType="com.green.vo.WriteVo">
+        SELECT * from content_tb
+    </select>
+
+    <insert id="insertWrite">
+        INSERT INTO content_tb (username, title, content, category, time, readcount)
+        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount} )
+    </insert>
+
+    <select id="boardList"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        <if test="category != null and category != ''">
+            WHERE
+            category = #{category}
+        </if>
+        ORDER BY _id desc
+    </select>
+
+    <select id="getBoard"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <select id="getView"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount
+        FROM content_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <update id="updateReadCount">
+        UPDATE content_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
+    <update id="updateBoard">
+        UPDATE content_tb
+        SET    title = #{title},
+               content = #{content}
+        WHERE  _id = #{_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM content_tb
+        WHERE _id = #{_id}
+    </delete>
+
+</mapper>
