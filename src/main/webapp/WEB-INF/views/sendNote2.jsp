@@ -100,11 +100,19 @@
 
 </table>
 <div style="text-align: center;">
- <c:forEach begin="1" end="${pagenum}" var="num">
-    <span>
-     <a href="/sendNote?send=1234&num=${num}">${num}</a>
-  </span>
- </c:forEach>
+<c:if test="${prev}">
+ <span>[ <a href="/sendNote?send=1234&num=${startpagenum-1}">이전</a> ]</span>
+</c:if>
+
+<c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">
+  <span>
+   <a href="/sendNote?send=1234&num=${num}">${num}</a>
+ </span>
+</c:forEach>
+
+<c:if test="${next}" || >
+ <span>[ <a href="/sendNote?send=1234&num=${endpagenum+1}">다음</a> ]</span>
+</c:if>
 </div>
 
                         <!-- 쪽지함 이동 버튼들 -->

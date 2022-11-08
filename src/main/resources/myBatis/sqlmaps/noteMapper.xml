@@ -64,6 +64,12 @@
         LIMIT #{displaypost},#{postnum}
     </select>
 
+    <select id="chkrecept" resultType="int">
+        SELECT COUNT(*)
+        FROM user_tb
+        WHERE username = #{recept}
+    </select>
+
 
 
 </mapper>

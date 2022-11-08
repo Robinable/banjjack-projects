@@ -7,13 +7,13 @@
       white-space:nowrap;
   }
 table {border:2px solid; border-collapse: collapse;}
-td {border:1px solid; border-collapse: collapse;}  
-th {border:1px solid; border-collapse: collapse;}
+td {border:1px solid; border-collapse: collapse; height:70px;}
+th {border:1px solid; border-collapse: collapse; height:70px; }
   
 #write_msg {padding: 10px; border-bottom: solid 1px #dddddd;}
 
 /* 쪽지함 전체영역의 가로사이즈와 가운데 정렬 */
-#message_box{width: 600px; margin: 0 auto;}
+#message_box{width: 1000px; margin: 0 auto;}
  
 /* 제목영역 */
 #message_box h3{margin-top: 30px; padding: 10px; border-bottom: solid 2px #516e7f;font-size: 20px;}

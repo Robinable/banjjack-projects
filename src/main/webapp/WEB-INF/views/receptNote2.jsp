@@ -160,17 +160,25 @@ $(function(){
 </table>
 
 <div style="text-align: center;">
- <c:forEach begin="1" end="${pagenum}" var="num">
-    <span>
-     <a href="/receptNote?recept=1234&num=${num}">${num}</a>
-  </span>
- </c:forEach>
+<c:if test="${prev}">
+ <span>[ <a href="/receptNote?recept=1234&num=${startpagenum - 1}">이전</a> ]</span>
+</c:if>
+
+<c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">
+  <span>
+   <a href="/receptNote?recept=1234&num=${num}">${num}</a>
+ </span>
+</c:forEach>
+
+<c:if test="${next}">
+ <span>[ <a href="/receptNote?recept=1234&num=${endpagenum + 1}">다음</a> ]</span>
+</c:if>
 </div>
 
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
                             <li><button onclick= "deleteNote();">선택 삭제</button></li>
-                            <li><button onclick="location.href='/sendNote?send=1234'">보낸 쪽지함</button></li>
+                            <li><button onclick="location.href='/sendNote?send=1234&num=1'">보낸 쪽지함</button></li>
                             <li><button onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
                         </ul>
                     </div>

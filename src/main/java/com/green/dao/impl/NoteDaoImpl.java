@@ -77,4 +77,10 @@ public class NoteDaoImpl implements NoteDao {
         List<NoteVo> vo = sqlSession.selectList("Note.sendpage", map);
         return vo;
     }
+
+    @Override
+    public int chkrecept(String recept) {
+        int chk = sqlSession.selectOne("chkrecept",recept);
+        return chk;
+    }
 }

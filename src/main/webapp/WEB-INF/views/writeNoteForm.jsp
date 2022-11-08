@@ -49,6 +49,7 @@
     });
 
     </script>
+
 </head>
 <body>
     <section>
@@ -89,7 +90,17 @@
         </div>
  
     </section>
- 
+ <script type="text/javascript">
+     const error = ${error};
+     if (error == 1){
+     msg = "받는사람의 아이디가 존재하지 않습니다";
+     }
+
+     alert(msg);
+     let cc = document.getElementById("test");
+     cc.value = "${content_value}";
+     console.log("${content_value}");
+     </script>
     <!-- <a href="/writeNoteForm" onClick="window.open(this.href, '', 'width=830, height=550'); return false;">쪽지쓰기</a> -->
 </body>
 </html>

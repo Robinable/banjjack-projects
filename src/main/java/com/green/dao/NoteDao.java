@@ -22,4 +22,6 @@ public interface NoteDao {
     int sendcount(String send);
 
     List<NoteVo> sendpage(String send, int displaypost, int postnum);
+
+    int chkrecept(String recept);
 }

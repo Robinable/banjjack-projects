@@ -58,5 +58,10 @@ public class NoteService {
         List<NoteVo> vo = noteDaoImpl.sendpage(send,displaypost,postnum);
         return vo;
     }
+
+    public int chkrecept(String recept) {
+        int chk = noteDaoImpl.chkrecept(recept);
+        return chk;
+    }
 }
 
