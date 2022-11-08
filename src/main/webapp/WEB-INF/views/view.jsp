@@ -25,7 +25,7 @@ table, th, td {
 <script>
 
      $.ajax( {
-               url  :  '/getviewjson?_id=' + ${_id} ,
+               url  :  '/getview?_id=' + ${_id} ,
                data :  {
                    _id : $('#_id').val() ,
                    title : $('#title').val(),
@@ -95,58 +95,10 @@ table, th, td {
 <body>
 <div id="div2"></div>
 
-<!--
-<table>
-    <tr>
-      <td>번호</td>
-      <td >${board._id}</td>
-      <td>조회수</td>
-      <td>${board.readcount}</td>
-    </tr>
-    <tr>
-      <td>작성일</td>
-      <td>${board.time}</td>
-      <td>작성자</td>
-      <td>${board.username}</td>
-    </tr>
-    <tr>
-      <td>제목 :</td>
-      <td>
-        ${board.title}
-      </td>
-      <td>애완동물 :</td>
-      <c:choose>
-        <c:when test="${ board.category eq 1 }">
-         <td>강아지</td>
-        </c:when>
-        <c:when test="${ board.category eq 2 }">
-           <td>고양이</td>
-        </c:when>
-        <c:otherwise>
-            <td>기타</td>
-        </c:otherwise>
-      </c:choose>
-    </tr>
-
-    <tr>
-      <td>내용</td>
-      <td colspan="3">
-        ${board.content}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <input type="submit" value="수정" />
-        <a href="/updateForm?_id=${board._id}">수정</a>
-        <a href="/list?category=1" class="btn btn-primary">게시판</a>
-        <a href="/delete?_id=${board._id}&category=${board.category}" class="btn btn-primary">삭제</a>
-      </td>
-    </tr>
-</table>
--->
+<%@ include file="/WEB-INF/views/list.jsp" %>
 
 <a href="/updateForm?_id=${_id}">수정</a>
-<a href="/writejson?category=${category}" class="btn btn-primary">게시판</a>
+<a href="/list?category=${category}" class="btn btn-primary">게시판</a>
 <a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
 
 </body>

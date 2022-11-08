@@ -44,16 +44,10 @@ public class WriteDaoImpl implements WriteDao {
     }
 
     @Override
-    public List<WriteVo> getWritejson(String category) {
-        List<WriteVo> jsonList = sqlSession.selectList("Write.jsonList", category);
-        return jsonList;
-    }
-
-    @Override
-    public List<WriteVo> getViewjson(String _id) {
+    public List<WriteVo> getViewVo(String _id) {
         sqlSession.update("Write.updateReadCount", _id);
-        List<WriteVo> jsonview = sqlSession.selectList("Write.jsonView", _id);
-        return jsonview;
+        List<WriteVo> getView = sqlSession.selectList("Write.getView", _id);
+        return getView;
     }
 
 

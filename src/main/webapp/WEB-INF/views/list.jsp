@@ -37,7 +37,7 @@ a { text-decoration-line: none; }
  }
 
      $.ajax( {
-               url  :  '/getwritejson?category=' + ${category} ,
+               url  :  '/getlist?category=' + ${category} ,
                data :  {
                    _id : $('#_id').val() ,
                    title : $('#title').val(),
@@ -65,7 +65,7 @@ a { text-decoration-line: none; }
 
     				 html += '<tr>';
     				 html += '<td>' + _id   + '</td>';
-    				 html += '<td>' + '<a href="/viewjson?_id=' + _id + '&category=' + category + '">' +  title  + '</a>' + '</td>';
+    				 html += '<td>' + '<a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a>' + '</td>';
     				 html += '<td>' + username + '</td>';
     				 if(category == '1'){
     				    html += '<td>' + '강아지' + '</td>';
@@ -93,55 +93,15 @@ a { text-decoration-line: none; }
 <body>
 
 
-<a  href="/writejson?category=1" > 개 </a>
-<a  href="/writejson?category=2" > 고양이 </a>
-<a  href="/writejson?category=3" > 기타 </a>
-<a  href="/writejson?category=''" > 전체 </a>
+<a  href="/list?category=1" > 개 </a>
+<a  href="/list?category=2" > 고양이 </a>
+<a  href="/list?category=3" > 기타 </a>
+<a  href="/list?category=''" > 전체 </a>
 
 <div id="div1"></div>
 
-<!--
-<div>
- <h2>게시판</h2>
-<table>
-<tr>
 
-</tr>
- <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>글쓴이</th>
-    <th>카테고리</th>
-    <th>날짜</th>
-    <th>조회수</th>
- </tr>
- <c:forEach  var="board" items="${ boardList }">
-       <tr>
-         <td>${ board._id }</td>
-         <td>
-            <a href="/view?_id=${ board._id }">
-            ${ board.title  }
-         </td>
-         <td>${ board.username    }</td>
-         <c:choose>
-                  <c:when test="${ board.category eq 1 }">
-                	 <td>강아지</td>
-                  </c:when>
-                  <c:when test="${ board.category eq 2 }">
-                     <td>고양이</td>
-                  </c:when>
-                  <c:otherwise>
-                      <td>기타</td>
-                  </c:otherwise>
-         </c:choose>
 
-         <td>${ board.time   }</td>
-         <td>${ board.readcount }</td>
-       </tr>
-      </c:forEach>
-
-</table>
-</div> -->
 <a href="/writeform?username=1234">새 글 쓰기</a>
 </body>
 </html>

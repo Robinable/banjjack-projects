@@ -35,14 +35,8 @@ public class WriteService {
         writeDao.delete(_id);
     }
 
-    public List<WriteVo> getWriteJson(String category) {
-        List<WriteVo> vo = writeDao.getWritejson(category);
-        return vo;
-    }
-
-
-    public List<WriteVo> getViewJson(String _id) {
-        List<WriteVo> writevo = writeDao.getViewjson(_id);
+    public List<WriteVo> getViewVo(String _id) {
+        List<WriteVo> writevo = writeDao.getViewVo(_id);
         return writevo;
     }
 }

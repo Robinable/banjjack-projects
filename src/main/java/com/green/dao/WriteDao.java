@@ -17,7 +17,5 @@ public interface WriteDao {
 
     void delete(String id);
 
-    List<WriteVo> getWritejson(String category);
-
-    List<WriteVo> getViewjson(String id);
+    List<WriteVo> getViewVo(String id);
 }

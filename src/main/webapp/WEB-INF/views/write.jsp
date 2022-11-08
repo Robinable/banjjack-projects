@@ -85,10 +85,13 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
   </td>
 </tr>
 <tr>
+    <td colspan="2"><input type="file" name="fileName"></td>
+</tr>
+<tr>
   <td colspan="2">
     <input type="submit" id="submit" onclick="GoEx()" value="저장" />
     <a href="/insertWrite" class="btn btn-primary">등록</a>
-    <a href="/writejson?category=1" class="btn btn-primary">게시판</a>
+    <a href="/list?category=1" class="btn btn-primary">게시판</a>
     <a class="btn btn-primary">삭제</a>
   </td>
 </tr>

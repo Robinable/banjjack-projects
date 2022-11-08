@@ -23,12 +23,9 @@ table, th, td {
 
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
-
-     $('form').on('submit', function() {
+    $( function() {
      $.ajax( {
-               alert('button click');
-               let url  :  '/update?_id=' + ${_id} ,
-               location.href  =  url;
+               url  :  '/viewupdate?_id=' + ${_id} ,
                data :  {
                    _id : $('#_id').val() ,
                    title : $('#title').val(),
@@ -68,7 +65,7 @@ table, th, td {
                  html += '</tr>';
                  html += '<tr>';
                  html += '<td>' +  '제목'  + '</td>';
-                 html += '<td>' +  title  + '</td>';
+                 html += '<td>' +  '<input type="text" name="title" maxLength="20" value="' + title + '" >'  + '</td>';
                  html += '<td>' +  '카테고리'  + '</td>';
                  if(category == '1'){
                     html += '<td>' + '강아지' + '</td>';
@@ -82,78 +79,35 @@ table, th, td {
                  html += '</tr>';
                  html += '<tr>';
                  html += '<td>' +  '내용'  + '</td>';
-                 html += '<td colspan="3">' +  content  + '</td>';
+                 html += '<td colspan="3">' +  '<textarea maxLength="500" name= "content" >' + content + '</textarea>'  + '</td>';
                  html += '</tr>';
+                 html += '<input type="hidden" name="_id" value="' + _id + '" />'
+                 html += '<input type="hidden" name="category" value="' + category + '" />'
              };
     			 html += '</table>'
     			 $('#div2').html(html);
+
     		 })
     		 .fail(function( error ) {
     			 console.log( error );
     		 });
-    		  } )
+
+    		 })
+
+
+
 
 </script>
 
 </head>
 <body>
 <form action="/update" method="GET">
-
-<!--
-<input type="hidden" name="_id" value="${board._id}" />
-<input type="hidden" name="category" value="${board.category}" />
-<table>
-    <tr>
-      <td>번호</td>
-      <td>${board._id}</td>
-      <td>조회수</td>
-      <td>${board.readcount}</td>
-    </tr>
-    <tr>
-      <td>작성일</td>
-      <td>${board.time}</td>
-      <td>작성자</td>
-      <td>${board.username}</td>
-    </tr>
-    <tr>
-      <td>제목 :</td>
-      <td>
-        <input type="text" name="title" maxLength="20" value="${board.title}" >
-      </td>
-      <td>애완동물 :</td>
-      <c:choose>
-        <c:when test="${ board.category eq 1 }">
-         <td>강아지</td>
-        </c:when>
-        <c:when test="${ board.category eq 2 }">
-           <td>고양이</td>
-        </c:when>
-        <c:otherwise>
-            <td>기타</td>
-        </c:otherwise>
-      </c:choose>
-    </tr>
-
-    <tr>
-      <td>내용</td>
-      <td colspan="5">
-        <textarea maxLength="500" name= "content" >${board.content}</textarea>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <input type="submit" value="수정" />
-        <a href="/writejson?category=${board.category}" class="btn btn-primary">게시판</a>
-        <a class="btn btn-primary">삭제</a>
-      </td>
-    </tr>
-</table>
--->
+<div id="div2"></div>
 
 <input type="submit" value="수정" />
-        <a href="/writejson?category=${board.category}" class="btn btn-primary">게시판</a>
-        <a class="btn btn-primary">삭제</a>
-</form>
+<a href="/update?title=${title}&_id=${_id}&content=${content}&category=${category}">수정</a>
+<a href="/list?category=1" class="btn btn-primary">게시판</a>
+<a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
 
 </body>
 </html>
