@@ -55,7 +55,7 @@
 
     <select id="selectUserInfoByUsername"
             resultType="com.green.vo.UserVo">
-        SELECT _id, username, userpassword, usernickname
+        SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet
         FROM   user_tb
         WHERE  username = #{username}
 
@@ -69,6 +69,14 @@
 
     </select>
 
+    <select id="findPasswd"
+            resultType="String"
+            parameterType="HashMap">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  username = #{username} AND useremail = #{useremail}
+
+    </select>
 
 
 </mapper>

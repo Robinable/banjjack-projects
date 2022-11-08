@@ -33,7 +33,7 @@
 
         #form1 { width:100%; }
 
-        hr          { width:400px; margin-bottom:70px; }
+        hr  { width:400px; margin-bottom:70px; }
 
 
 </style>
@@ -107,7 +107,7 @@
 
                 <li><a href="/signup" id="gosignup" name="gosignup">회원가입</a></li>
                 <li><a href="/findIdForm" id="findId" name="findId" >아이디 찾기</a></li>
-                <li><a href="/login/findPasswd" id="findPasswd" name="findPasswd">비밀번호 찾기</a></li>
+                <li><a href="/findPasswordForm" id="findPasswd" name="findPasswd">비밀번호 찾기</a></li>
 
             </ul>
 		</form>

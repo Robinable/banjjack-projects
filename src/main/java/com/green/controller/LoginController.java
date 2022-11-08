@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
@@ -85,7 +84,7 @@ public class LoginController{
 
         // 일치한다면
         if(loginCk.equals(userpassword)) {
-            session.setAttribute("sj", loginCk);
+            session.setAttribute("login", loginCk);
             UserVo userVo = userService.selectUserInfoByUsername(username);
             model.addAttribute("userVo", userVo);
 
@@ -98,19 +97,13 @@ public class LoginController{
         }
     }
 
-    @GetMapping("/sjtest")
-    public String sjtest(Model model) {
-        model.addAttribute("");
-        return "/sjtest";
-
-    }
 
     @GetMapping("/findIdForm")
     public String findIdForm() {
         return "/findId";
     }
 
-    @PostMapping("/loginFindSuccess")
+    @PostMapping("/findIdSuccess")
     public String findId(@RequestParam("useremail") String useremail, Model model) {
 
         String username = userService.findId(useremail);
@@ -119,5 +112,21 @@ public class LoginController{
         return "/findId";
     }
 
+
+    @GetMapping("/findPasswordForm")
+    public String findPasswordForm() {
+        return "/findPasswd";
+    }
+
+    @PostMapping("/findPasswdUpdate")
+    public String findPassword(@RequestParam("username") String username,
+                               @RequestParam("useremail") String useremail) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username", username);
+        map.put("useremail", useremail);
+        String userpasswd = userService.findPasswd(map);
+        System.out.println(userpasswd);
+        return "/findPasswd";
+    }
 
 }

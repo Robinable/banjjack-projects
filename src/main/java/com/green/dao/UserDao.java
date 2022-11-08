@@ -20,4 +20,6 @@ public interface UserDao {
     UserVo selectUserInfoByUsername(String username);
 
     String findId(String useremail);
+
+    String findPasswd(HashMap<String,String> map);
 }

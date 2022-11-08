@@ -48,6 +48,10 @@ public class UserDaoImpl implements UserDao {
         return sqlSession.selectOne("User.findId", useremail);
     }
 
+    public String findPasswd(HashMap<String, String> map) {
+        return sqlSession.selectOne("User.findPasswd", map);
+    }
+
 }
 
 
