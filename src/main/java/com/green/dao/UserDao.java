@@ -22,4 +22,6 @@ public interface UserDao {
     String findId(String useremail);
 
     String findPasswd(HashMap<String,String> map);
+
+    void updatePassword(HashMap<String,String> map);
 }

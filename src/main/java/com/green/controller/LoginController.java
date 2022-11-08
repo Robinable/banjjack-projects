@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import java.util.HashMap;
 
 
@@ -118,15 +119,31 @@ public class LoginController{
         return "/findPasswd";
     }
 
-    @PostMapping("/findPasswdUpdate")
+    @PostMapping("/findPasswdSuccess")
     public String findPassword(@RequestParam("username") String username,
-                               @RequestParam("useremail") String useremail) {
+                               @RequestParam("useremail") String useremail,
+                               Model model) {
         HashMap<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("useremail", useremail);
-        String userpasswd = userService.findPasswd(map);
-        System.out.println(userpasswd);
-        return "/findPasswd";
+        String userpassword = userService.findPasswd(map);
+        System.out.println(userpassword);
+        model.addAttribute("username", username);
+        return "/findPasswdUpdate";
+    }
+
+    @PostMapping("/passwdUpdateSuccess")
+    public String findPasswordUpdate(@RequestParam("username") String username,
+                                     @RequestParam("userpassword") String userpassword) {
+        System.out.println(username);
+        System.out.println(userpassword);
+
+        HashMap<String,String> map = new HashMap<>();
+        map.put("username", username);
+        map.put("userpassword", userpassword);
+
+        userService.updatePassword(map);
+        return "redirect:/login";
     }
 
 }

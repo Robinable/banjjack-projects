@@ -78,5 +78,12 @@
 
     </select>
 
+    <update id="updatePassword"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpassword = #{userpassword}
+        WHERE  username = #{username}
+
+    </update>
 
 </mapper>

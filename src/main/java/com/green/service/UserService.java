@@ -50,5 +50,9 @@ public class UserService {
     public String findPasswd(HashMap<String,String> map) {
         return userDaoImpl.findPasswd(map);
     }
+
+    public void updatePassword(HashMap<String,String> map) {
+         userDaoImpl.updatePassword(map);
+    }
 }
 

@@ -43,22 +43,24 @@
        const form = document.querySelector('form');
 
        form.addEventListener('submit', function(e) {
-            const username = document.getElementById('username').value;
-            const useremail = document.getElementById('useremail').value;
+            const userpassword = document.getElementById('userpassword').value;
+            const re_userpassword = document.getElementById('re_userpassword').value;
 
-            if(username == '') {
-                $('#dataCheck').text('아이디를 입력하세요.');
-                username.focus();
+            if(userpassword == '') {
+                $('#dataCheck').text('새로운 비밀번호를 입력해주세요.');
+                userpassword.focus();
                 e.preventDefault();
-            } else if(useremail == '') {
-                $('#dataCheck').text('이메일을 입력하세요.');
-                useremail.focus();
+            } else if(re_userpassword == '') {
+                $('#dataCheck').text('새로운 비밀번호 확인을 입력해주세요.');
+                re_userpassword.focus();
                 e.preventDefault();
             }
        })
 
+       $('#cK').text('${username}');
 
 	} // window.load end
+
 
 
 </script>
@@ -67,15 +69,19 @@
 </head>
 <body>
 	<div class="login-form">
-		<form action="/findPasswdSuccess" method="POST" id="form1" name="form1">
+		<form action="/passwdUpdateSuccess" method="POST" id="form1" name="form1">
 			<ul id="container">
-			    <li><label>비밀번호 찾기</label></li>
+			    <li><label>비밀번호 재설정</label></li>
 			    <hr />
-			    <li><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요.</label></li>
-                <li><input type="text" id="username" name="username" placeholder="아이디"/></li>
-                <li><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></li>
+			    <li><label>비밀번호를 변경해주세요.</label></li>
+			    <li><label>아이디: ${username}</label></li>
+			    <li><input type="hidden" id="username" name="username" value="${username}"/></li>
+                <li><input type="password" id="userpassword" name="userpassword" placeholder="새 비밀번호"/></li>
+                <li><input type="password" id="re_userpassword" name="re_userpassword" placeholder="새 비밀번호 확인"/></li>
                 <li><span id="dataCheck"></span></li>
-                <li><input type="submit" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></li>
+                <li><input type="submit" id="pwOK" name="pwOK" value="확인"/></li>
+
+
            </ul>
 		</form>
 	</div>
