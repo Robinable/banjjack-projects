@@ -166,7 +166,13 @@ $(function(){
 
 <c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">
   <span>
-   <a href="/receptNote?recept=1234&num=${num}">${num}</a>
+   <c:if test="${select != num}">
+      <a href="/receptNote?recept=1234&num=${num}">${num}</a>
+     </c:if>
+
+     <c:if test="${select == num}">
+      <b>${num}</b>
+     </c:if>
  </span>
 </c:forEach>
 

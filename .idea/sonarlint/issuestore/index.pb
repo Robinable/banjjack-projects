@@ -11,8 +11,6 @@ W
 'src/main/webapp/WEB-INF/views/login.jsp,e\e\ee67263bb367b7874b96d07d6d2eafce3e2c273f
 X
 (src/main/webapp/WEB-INF/views/signup.jsp,6\c\6c2e18bacc7a0b7f1d968e11d63a55ad79c2f2c7
-W
-'src/main/webapp/WEB-INF/views/write.jsp,a\0\a03e29454f24a1917059a8059df03d7301768142
 a
 1src/main/java/com/green/dao/impl/UserDaoImpl.java,6\d\6d73a1b8f0c344e319abe13250aaec737f68c56b
 [
@@ -25,12 +23,8 @@ X
 (src/main/java/com/green/dao/UserDao.java,2\2\22b633960831af380c3ce4625d2611db032eaacf
 W
 'src/main/webapp/WEB-INF/views/index.jsp,3\0\305b3bb8194d08e1e32b17ac5f1d53c1cf0118c1
-\
-,src/main/webapp/WEB-INF/views/receptNote.jsp,7\e\7ebbf7265fa8bb78f067d9850e1c4d0c42b3c3b3
 V
 &src/main/java/com/green/vo/NoteVo.java,a\3\a3edada919a2e687b61c136369c8b801b1e152c4
-g
-7src/main/java/com/green/controller/WriteController.java,3\8\3824dac8a6dbf0d9e12b8a5416cb69d7e357e68d
 g
 7src/main/java/com/green/controller/LoginController.java,e\9\e9ccfa5d5cbafbf193f75c05037dbb90913cbb8a
 g
@@ -38,6 +32,6 @@ g
 i
 9src/main/java/com/green/controller/CommentController.java,e\a\ea19696b626eab176f65cdaf90b2812721791724
 Z
-*src/main/webapp/WEB-INF/views/contNote.jsp,b\8\b8ffea5f3dec87c5c9a58cb4429c77f10f71ebf6
-Z
 *src/main/webapp/WEB-INF/views/sendNote.jsp,a\6\a6b3c364bf85c7a1fa8a765cea7d1963a6176591
+[
++src/main/webapp/WEB-INF/views/writeNote.jsp,a\a\aa7b8ba9bfa0fc75bf838f8f04e2d8d009be40bc

@@ -19,4 +19,13 @@ public class NoticeService {
         List<NoticeVo> vo = noticeDaoImpl.noticelist();
         return vo;
     }
+
+    public NoticeVo selectCont(int _id) {
+        NoticeVo vo = noticeDaoImpl.selectcont(_id);
+        return vo;
+    }
+
+    public void cntup(int _id) {
+        noticeDaoImpl.cntup(_id);
+    }
 }

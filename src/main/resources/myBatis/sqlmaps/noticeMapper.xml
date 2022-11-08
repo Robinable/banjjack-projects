@@ -10,5 +10,16 @@
         SELECT * from notice_tb
     </select>
 
+    <select id="selectcont"
+            resultType="com.green.vo.NoticeVo">
+        SELECT * from notice_tb where _id=#{_id}
+    </select>
+
+    <update id="cntup">
+        UPDATE notice_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
 
 </mapper>

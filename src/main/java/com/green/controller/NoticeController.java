@@ -28,7 +28,7 @@ public class NoticeController {
     public List<JSONObject> getnoticelist(){
 
         List<JSONObject> NoteVoList = new ArrayList<>();
-        for (NoticeVo vo : noticeService.noticelist()){
+        for (NoticeVo vo : noticeService.noticelist()) {
             JSONObject obj = new JSONObject();
             obj.put("_id", vo.get_id());
             obj.put("title", vo.getTitle());
@@ -38,9 +38,34 @@ public class NoticeController {
 
             NoteVoList.add(obj);
         }
-        System.out.println(NoteVoList);
         return NoteVoList;
     }
 
+    @GetMapping("/noticecontform")
+    public String getnoticecont( @RequestParam int _id){
+
+        noticeService.cntup(_id);
+
+        return "/noticecont";
+    }
+
+    @GetMapping("/getnoticecont")
+    @ResponseBody
+    public List<JSONObject> getnoticelist(@RequestParam int _id){
+
+        List<JSONObject> NoteVoList = new ArrayList<>();
+        NoticeVo vo = noticeService.selectCont(_id);
+
+        JSONObject obj = new JSONObject();
+        obj.put("_id", vo.get_id());
+        obj.put("title", vo.getTitle());
+        obj.put("writer", vo.getWriter());
+        obj.put("time", vo.getTime());
+        obj.put("readcount", vo.getReadcount());
+
+        NoteVoList.add(obj);
+
+        return NoteVoList;
+    }
 
 }

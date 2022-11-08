@@ -54,7 +54,7 @@ public class NoteController {
 	@GetMapping ("/receptNote")
 	public String recept(@RequestParam int num, @RequestParam String recept, Model model){
 
-		int pagenum_cnt = 2;
+		int pagenum_cnt = 5;
 		int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
 		int startpagenum = endpagenum - (pagenum_cnt - 1);
 
@@ -82,9 +82,7 @@ public class NoteController {
 		model.addAttribute("pagenum",pagenum);
         model.addAttribute("num",num);
 
-		System.out.println( "endp = " + endpagenum + " pagenum_cnt = " + pagenum_cnt );
-		System.out.println("prev = " + prev + " next = " + next);
-		System.out.println("pagenum = " + pagenum);
+		model.addAttribute("select", num);
 
 
 		return "/receptNote2";
@@ -115,28 +113,29 @@ public class NoteController {
 	}
 
 
-    // 보낸쪽지 확인 (보낸 아이디로 조회)
+	// 보낸쪽지확인 + 페이징 (보낸 아이디로 조회)
 	@GetMapping("/sendNote")
 	public String sendNote(@RequestParam int num, @RequestParam String send, Model model){
 
+
+		int pagenum_cnt = 5;
+		int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
+		int startpagenum = endpagenum - (pagenum_cnt - 1);
 
 		int count = noteService.sendcount(send);
 		int postnum = 10;
 		int pagenum = (int)Math.ceil((double)count/postnum);
 		int displaypost = (num - 1) * postnum;
-		int pagenum_cnt = 2;
-		int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
-		int startpagenum = endpagenum - (pagenum_cnt - 1);
 
 		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)pagenum_cnt));
-
 		if(endpagenum > endpagenum_tmp) {
 			endpagenum = endpagenum_tmp;
 		}
 
-
 		boolean prev = startpagenum == 1 ? false : true;
-		boolean next = endpagenum * pagenum_cnt >= count ? false : true;
+		// prev의 bool을 정하는데
+		//startpagenum이 1이면 false 아니라면 true
+		boolean next = endpagenum * pagenum_cnt > pagenum ? false : true;
 
 		model.addAttribute("startpagenum", startpagenum);
 		model.addAttribute("endpagenum", endpagenum);
@@ -151,7 +150,7 @@ public class NoteController {
 	}
 
 
-    // 보낸쪽지확인 + 페이징
+
 	@GetMapping("/getsendnote")
 	@ResponseBody
 	public  List<JSONObject> getsendnote(@RequestParam String send, @RequestParam int num) {

@@ -29,6 +29,7 @@
 
                         var html= "";
         			  for(var i = 0; i < result.length; i++ ) {
+        			 var _id = result[i]._id
                      var writer = result[i].writer
                      var title = result[i].title
                      var readcount = result[i].readcount
@@ -39,27 +40,23 @@
 
 
         			   html         += "<tr>";
-        			   html         += '<td>' +(num+1)+ '</td>';
+        			   html         += '<td style="text-align: center;">' +(num+1)+ '</td>';
         			   html         += '<td style="text-align: center;">' + writer + '</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
-        			   html         += '<a href ="">'+ title +'</a>';
+        			   html         += '<a href ="/noticecontform?_id='+_id +'" style="text-align: center;">'+ title +'</a>';
         			   html         += '</div></td>';
         			   html         += '<td style="width:170px; text-align: center;">'+ time +'</td>';
         			   html         += '<td style="width:200px; text-align: center;">'+ readcount +'</td>';
         			   html         += "</tr>";
                       }
                       console.log(html);
-                        $('#noteList').html( html );
+                        $('#noticeList').html( html );
         		   })
         		   .fail(function(error, textStatus, errorThrown ) {
         			   console.log ( error );
         			   alert('Error:' + error)
         		   });
-
-
-
-
 
         </script>
     </head>
@@ -93,7 +90,7 @@
 			<th>조회수</th>
 		</tr>
 	</thead >
-	        <tbody id = "noteList">
+	        <tbody id = "noticeList">
 
 	        </tbody>
 

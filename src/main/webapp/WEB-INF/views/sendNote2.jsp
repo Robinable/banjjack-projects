@@ -110,8 +110,8 @@
  </span>
 </c:forEach>
 
-<c:if test="${next}" || >
- <span>[ <a href="/sendNote?send=1234&num=${endpagenum+1}">다음</a> ]</span>
+<c:if test="${next}">
+ <span>[ <a href="/sendNote?send=1234&num=${endpagenum + 1}">다음</a> ]</span>
 </c:if>
 </div>
 
