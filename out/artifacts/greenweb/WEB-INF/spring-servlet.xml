@@ -38,7 +38,7 @@
     <!-- mybatis 와 스프링 연결을 위한 SqlSessionFactoryBean 객체 사용
         DB 연결 및 sql 명령 실행을 담당
          SqlSessionFactoryBean sqlSessionFactory = new  SqlSessionFactoryBean();
-         sqlSessionFactory.setDataSource (dataSource); //propery
+         sqlSessionFactory.seliataSource (dataSource); //propery
          sqlSessionFactory.setMapperLocations (classpath:myBatis/sqlmaps/*.xml"); //propery
          -->
     <bean  id="sqlSessionFactory"

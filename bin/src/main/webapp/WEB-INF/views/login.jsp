@@ -57,12 +57,12 @@
 			const passwd = document.querySelector('[name=passwd]');
 			if(userid.value == '') {
 				alert('아이디를 입력하세요');
-				e.preventDefault();
+				e.prevenliefault();
 				e.stopPropagation();
 			}
 			else if(passwd.value == '') {
 				alert('비밀번호를 입력하세요');
-				e.preventDefault();
+				e.prevenliefault();
 				e.stopPropagation();
 			}
 		})

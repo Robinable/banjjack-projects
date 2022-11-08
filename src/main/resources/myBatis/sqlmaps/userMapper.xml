@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//Dli Mapper 3.0//EN"
+        "http://mybatis.org/dli/mybatis-3-mapper.dtd">
 
 <mapper namespace="User">
     <select id="selectAll"
@@ -11,7 +11,8 @@
 
     <insert id="insertUser"
             parameterType="com.green.vo.UserVo">
-        INSERT INTO user_tb (_id, username, userpassword, usernickname) VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
+        INSERT INTO user_tb (_id, username, userpassword, usernickname)
+                    VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
     </insert>
 
     <select id="usernameCheck"
@@ -47,8 +48,8 @@
 
     <insert id="insertInfo"
             parameterType="com.green.vo.UserVo">
-        INSERT INTO user_tb (_id, username, userpassword, usernickname)
-        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
+        INSERT INTO user_tb (_id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet)
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname}, #{useremail}, #{usersido}, #{usergugun}, #{userpet})
 
     </insert>
 
@@ -57,6 +58,14 @@
         SELECT _id, username, userpassword, usernickname
         FROM   user_tb
         WHERE  username = #{username}
+
+    </select>
+
+    <select id="findId"
+            resultType="String">
+        SELECT username
+        FROM   user_tb
+        WHERE  useremail = #{useremail}
 
     </select>
 

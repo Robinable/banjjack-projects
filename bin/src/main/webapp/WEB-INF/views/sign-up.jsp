@@ -8,9 +8,9 @@
 <style>
 	*     { box-sizing:border-box;  }
 	
-	.sign-upForm { width:600px; margin:0 auto; }
+	login-form { width:600px; margin:0 auto; }
 
-	.sign-upForm input {
+	login-form input {
        
        border:1px solid grey;
        border-radius:5px;
@@ -24,7 +24,7 @@
             text-align: center;
        }
     
-    td { width:200px; }
+    li { width:200px; }
     
     #table1 { width:100% }
     
@@ -116,30 +116,30 @@
 	<hr />
 		<form action="sign-upProcess" method="POST" id="form1">
 		  <table id="table1">
-		  	<tr>
-			  	<td>
+		  	
+			  	<li>
 					<input type="text" id="userid" name="userid" placeholder="아이디" maxlength="20"><br>
 					<span id="uidCheck"></span>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="password" name="passwd" placeholder="비밀번호" maxlength="20">
+				</li>
+			
+			
+				<li><input type="password" name="passwd" placeholder="비밀번호" maxlength="20">
 					<span id="pwCheck"></span>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="text" name="username_chk" placeholder="비밀번호 확인" maxlength="20">
+				</li>
+			
+			
+				<li><input type="text" name="username_chk" placeholder="비밀번호 확인" maxlength="20">
 					<span id="re_pwCheck"></span>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="text" name="username" placeholder="닉네임" maxlength="15">
+				</li>
+			
+			
+				<li><input type="text" name="username" placeholder="닉네임" maxlength="15">
 					<span id="unameCheck"></span>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit" name="signup" value="가입하기"></td>
-			</tr>
+				</li>
+			
+			
+				<li><input type="submit" name="signup" value="가입하기"></li>
+			
 		  </table>
 		</form>
 	</div>

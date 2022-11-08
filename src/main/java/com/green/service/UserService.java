@@ -41,5 +41,9 @@ public class UserService {
     public UserVo selectUserInfoByUsername(String username) {
         return userDaoImpl.selectUserInfoByUsername(username);
     }
+
+    public String findId(String useremail) {
+        return userDaoImpl.findId(useremail);
+    }
 }
 

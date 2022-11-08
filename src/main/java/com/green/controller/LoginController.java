@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -35,13 +37,15 @@ public class LoginController{
 
     // 회원가입 (정보등록)
     @PostMapping("/signup/register")
-    public String insertInfo(@RequestParam("username") String username, @RequestParam("userpassword") String userpassword,
-                             @RequestParam("usernickname") String usernickname) {
-        UserVo userVo = new UserVo(0, username, userpassword, usernickname);
+    public String insertInfo(@RequestParam("username") String username,         @RequestParam("userpassword") String userpassword,
+                             @RequestParam("usernickname") String usernickname, @RequestParam("useremail") String useremail,
+                             @RequestParam("usersido") String usersido,         @RequestParam("usergugun") String usergugun,
+                             @RequestParam("userpet") String userpet) {
+        UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet);
         userService.insertInfo(userVo);
         System.out.println(userVo.toString());
 
-        return "/signup";
+        return "redirect:/";
     }
 
     // user 정보 가져오기
@@ -62,6 +66,7 @@ public class LoginController{
         return  count;
     }
 
+    // 로그인 proccess
     @PostMapping("/login/loginCheck")
     public String loginCheck(@RequestParam("username") String username,
                              @RequestParam("userpassword") String userpassword,
@@ -84,12 +89,12 @@ public class LoginController{
             UserVo userVo = userService.selectUserInfoByUsername(username);
             model.addAttribute("userVo", userVo);
 
-            return "/index";
+            return "redirect:/";
 
         // 일치하지 않으면
         } else {
             model.addAttribute("message", "error");
-            return "/login";
+            return "redirect:/login";
         }
     }
 
@@ -99,5 +104,20 @@ public class LoginController{
         return "/sjtest";
 
     }
+
+    @GetMapping("/findIdForm")
+    public String findIdForm() {
+        return "/findId";
+    }
+
+    @PostMapping("/loginFindSuccess")
+    public String findId(@RequestParam("useremail") String useremail, Model model) {
+
+        String username = userService.findId(useremail);
+        System.out.println(username);
+        model.addAttribute("username", username);
+        return "/findId";
+    }
+
 
 }

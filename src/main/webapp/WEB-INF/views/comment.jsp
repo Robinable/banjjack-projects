@@ -18,7 +18,7 @@
             div.commentBox { float:right; width:530px; }
             div.commentText { width:600px; display: flex ; flex-direction: column;}
             span.commentEditBtn { float:right; margin-right:2px; }
-            span.commentDelBtn { float:right; margin-right:2px; }
+            span.commenlielBtn { float:right; margin-right:2px; }
             span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;} 
             div.commentText { width:540px; margin-top:2px;}
             div.commentInputBox{width:600px; margin-top:30px;}
@@ -44,8 +44,8 @@
                             <input type="text" id="comWriter" placeholder= userId name="comWriter"> 
                     </span>
                         <!-- 버튼은 등록자 본인만 -->
-                    <span class="commentDelBtn">
-                        <button id="commentDel"> 삭제 </button>
+                    <span class="commenlielBtn">
+                        <button id="commenliel"> 삭제 </button>
                     </span>
                     <span class="commentEditBtn">
                         <button id="commentEdit"> 수정 </button>

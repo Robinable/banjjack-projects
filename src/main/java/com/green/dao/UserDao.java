@@ -18,4 +18,6 @@ public interface UserDao {
     String loginPasswordCheck(String username);
 
     UserVo selectUserInfoByUsername(String username);
+
+    String findId(String useremail);
 }

@@ -31,42 +31,42 @@
 	</colgroup>
 	
 	<thead>
-		<tr>	
+			
 			<th>번호</th>
 			<th>내용</th>
 			<th>받는사람</th>
 			<th>등록일</th>
 			<th></th>	
-		</tr>
+		
 	</thead>
 	
 			
 	<tbody >	    
-		<tr>
-			<td style="text-align: center;">11</td>
-			<td style="text-align: center; padding-left:50px;">
+		
+			<li style="text-align: center;">11</li>
+			<li style="text-align: center; padding-left:50px;">
 		<div class="cc">
 		<a href ="/ReadMessage">ㅇㄴ러나이러ㅏㄴ얼ㄴ이ㅓㄹ나이ㅓㄹ나이ㅓㄹㄴ이런이ㄴ이랑니;랑ㄴ;ㅣㅏ링;나리;ㄴ아리;ㅇ날;니아리;ㄴ아리;ㄴ알;ㅣㅇ나리;ㄴㅇ</a>
 		</div>	
-			</td>
-			<td style="width:170px; padding-left:10px;">능린아ㅓ</td>
-			<td style="width:200px; padding-left:20px;">2022-11-01</td>
-			<td><a href ="">[삭제]</a></td>
+			</li>
+			<li style="width:170px; padding-left:10px;">능린아ㅓ</li>
+			<li style="width:200px; padding-left:20px;">2022-11-01</li>
+			<li><a href ="">[삭제]</a></li>
 		</tr >				
 	</tbody>
 	
 	<tbody>
 		<tr >
-			<td style="text-align: center;">22</td>
-			<td style="text-align: center; padding-left:50px;">
+			<li style="text-align: center;">22</li>
+			<li style="text-align: center; padding-left:50px;">
 		<div class="cc">
 		<a href ="/ReadMessage">ㅇㄴ러나이러ㅏㄴ얼ㄴ이ㅓㄹ나이ㅓㄹ나이ㅓㄹㄴ이런이ㄴ이랑니;랑ㄴ;ㅣㅏ링;나리;ㄴ아리;ㅇ날;니아리;ㄴ아리;ㄴ알;ㅣㅇ나리;ㄴㅇ </a>
 		</div>	
-		 	</td>
-			<td style="width:170px;">능린아ㅓ린어리ㅏㄴ</td>
-			<td style="width:200px; padding-left:20px;">2022-11-01</td>
-			<td><a href ="">[삭제]</a></td>
-		</tr>		
+		 	</li>
+			<li style="width:170px;">능린아ㅓ린어리ㅏㄴ</li>
+			<li style="width:200px; padding-left:20px;">2022-11-01</li>
+			<li><a href ="">[삭제]</a></li>
+				
 	</tbody>
 </table>
 <hr>

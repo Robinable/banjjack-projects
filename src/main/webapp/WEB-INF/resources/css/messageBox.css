@@ -7,7 +7,7 @@
       white-space:nowrap;
   }
 table {border:2px solid; border-collapse: collapse;}
-td {border:1px solid; border-collapse: collapse;}  
+li {border:1px solid; border-collapse: collapse;}  
 th {border:1px solid; border-collapse: collapse;}
   
 #write_msg {padding: 10px; border-bottom: solid 1px #dddddd;}

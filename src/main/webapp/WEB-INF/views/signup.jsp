@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 	*     { box-sizing:border-box;  }
 	
-	.sign-upForm { width:600px; margin:0 auto; }
+	login-form { width:600px; margin:0 auto; }
 
-	.sign-upForm input {
+	login-form input {
        
        border:1px solid grey;
        border-radius:5px;
@@ -43,24 +45,44 @@
         // 회원가입 유효성 검사
         form.addEventListener('submit', function(e) {
             if(username.value == '') {
-                checkError.innerHTML = '아이디를 입력하세요';
+                checkError.innerHTML = '아이디를 입력하세요.';
                 username.focus();
-                e.preventDefault();
+                e.prevenliefault();
 
             } else if (userpassword.value == '') {
-                checkError.innerHTML = '비밀번호를 입력하세요';
+                checkError.innerHTML = '비밀번호를 입력하세요.';
                 userpassword.focus();
-                e.preventDefault();
+                e.prevenliefault();
 
             } else if (repasswd.value == '') {
-                checkError.innerHTML = '비밀번호 확인을 입력하세요';
+                checkError.innerHTML = '비밀번호 확인을 입력하세요.';
                 repasswd.focus();
-                e.preventDefault();
+                e.prevenliefault();
 
             } else if (usernickname.value == '') {
-                checkError.innerHTML = '닉네임을 입력하세요';
+                checkError.innerHTML = '닉네임을 입력하세요.';
                 usernickname.focus();
-                e.preventDefault();
+                e.prevenliefault();
+
+            } else if(useremail.value == '') {
+                checkError.innerHTML = '이메일을 입력하세요.';
+                useremail.focus();
+                e.prevenliefault();
+
+            } else if(usersido.value == '') {
+                checkError.innerHTML = '지역(시/도)를 입력하세요.';
+                usersido.focus();
+                e.prevenliefault();
+
+            } else if(usergugun.value == '') {
+                checkError.innerHTML = '지역(구/군/동/읍/면/리)를 입력하세요.';
+                usergugun.focus();
+                e.prevenliefault();
+
+            } else if(userpet.value == '') {
+                checkError.innerHTML = '반려동물을 선택하세요.';
+                selectPet.focus();
+                e.prevenliefault();
             }
 
         });
@@ -98,16 +120,34 @@
         });
 
         $('#repasswd').on('change', function() {
-        const repasswd     = document.getElementById('repasswd').value;
+        const repasswd  = document.getElementById('repasswd').value;
         if(repasswd == $('#userpassword').val()) {
             $('#re_pwCheck').text('비밀번호가 일치합니다');
         } else {
             $('#re_pwCheck').text('비밀번호가 일치하지 않습니다.');
         }
-        })
+        });
+
+        $('#useremail').on('change', function() {
+        const useremail = document.getElementById('useremail').value.length;
+        console.log(useremail);
+        if(useremail >= 2) {
+            emailCK(document.getElementById('useremail').value)
+
+        } else {
+            console.log('dd');
+            $('#emailCheck').text('올바르지 않은 입력입니다. 다시 입력해주세요.');
+        }
+        });
 
         $('#btnUpload').click(function (e) {
             $('#profile_img').click();
+        });
+
+        // 콤보박스 > input text박스
+        $('#selectPet').on('change', function() {
+            $('#userpet').attr('value', re_userpetPrint(selectPet));
+
         });
 
 
@@ -177,6 +217,17 @@
         }
     }
 
+    // 이메일 확인
+    function emailCK(useremail) {
+        // 이메일 정규식
+        const emailVaildation = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]$/g;
+        if(!emailVaildation.test(useremail.trim())) {
+            $('#emailCheck').text('잘못된 이메일 주소입니다. 다시 작성해주세요.');
+        } else {
+            $('#emailCheck').text('');
+        }
+    }
+
     function readURL(input) {
         if(input.files && input.files[0]) {
             let reader = new FileReader();
@@ -189,6 +240,11 @@
         }
     }
 
+    function re_userpetPrint(selectPet) {
+         let userpetText = selectPet.options[selectPet.selectedIndex].text;
+         console.log(userpetText);
+         return userpetText;
+    }
 
 </script>
 </head>
@@ -220,24 +276,30 @@
                 </li>
 
                 <li>
-                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)"/>
-                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)"/>
+                    <input type="text" id="useremail" name="useremail" placeholder="E-mail"><br>
+                    <span id="emailCheck"></span>
                 </li>
 
                 <li>
-                    <select id="userpet" name="userpet">
-                        <option value="00">반려동물</option>
-                        <option value="01">고양이</option>
-                        <option value="02">개</option>
-                        <option value="etc">기타</option>
+                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)"/>
+                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)"/>
+                    <span id="localCheck"></span>
+                </li>
 
-
+                <li>
+                    <select id="selectPet" name="selectPet">
+                        <option value="반려동물" selected>반려동물</option>
+                        <option value="고양이">고양이</option>
+                        <option value="개">개</option>
+                        <option value="기타">기타</option>
                     </select>
+                    <input type="text" id="userpet" name="userpet" value=""/>
+                    <span id="petCheck"></span>
                 </li>
 
                 <li>
                     <input type='file' id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
-                            style="display: none;"/></td><br>
+                            style="display: none;"/></li><br>
                     <button type="button" id="btnUpload">업로드</button>
                     <img id="preview" />
                 </li>
