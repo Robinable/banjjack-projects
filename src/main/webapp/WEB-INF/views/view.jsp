@@ -99,7 +99,7 @@ table, th, td {
 
 <a href="/updateForm?_id=${_id}">수정</a>
 <a href="/list?category=${category}" class="btn btn-primary">게시판</a>
-<a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
+<a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제1</a>
 
 </body>
 </html>
