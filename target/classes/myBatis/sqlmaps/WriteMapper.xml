@@ -12,6 +12,21 @@
     <insert id="insertWrite">
         INSERT INTO content_tb (username, title, content, category, time, readcount)
         VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount} )
+        <selectKey keyProperty="_id" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="get_id"
+            resultType="com.green.vo.WriteVo">
+            SELECT _id
+            FROM   content_tb
+            where  _id = #{_id}
+    </select>
+
+    <insert id="writeFile">
+        INSERT INTO content_files_tb (filename, filepath, content_id)
+        VALUES (#{filename}, #{filepath}, #{content_id})
     </insert>
 
     <select id="boardList"
@@ -37,6 +52,13 @@
         SELECT _id, username, title, content, category, time, readcount
         FROM content_tb
         WHERE _id = #{_id}
+    </select>
+
+    <select id="getFile"
+            resultType="com.green.vo.FileVo">
+        SELECT filename, filepath, content_id
+        FROM   content_files_tb
+        WHERE  content_id = #{_id}
     </select>
 
     <update id="updateReadCount">
