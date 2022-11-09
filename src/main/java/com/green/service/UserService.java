@@ -66,5 +66,13 @@ public class UserService {
     public String findEmailByUseremail(String useremail) {
         return userDaoImpl.findEmailByUseremail(useremail);
     }
+
+    public int findNowPasswd(String now_userpassword) {
+        return userDaoImpl.findNowPasswd(now_userpassword);
+    }
+
+    public void updateNewPasswd(HashMap<String,String> map) {
+        userDaoImpl.updateNewPasswd(map);
+    }
 }
 

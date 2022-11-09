@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import javax.print.attribute.standard.JobOriginatingUserName;
 import javax.servlet.http.HttpSession;
 import javax.sound.midi.Soundbank;
 import java.util.HashMap;
@@ -181,7 +182,11 @@ public class LoginController {
     }
 
     @PostMapping("/myPageSuccess")
-    public String myPage() {
+    public String myPage(@RequestParam("usersido") String usersido,
+                         @RequestParam("usergugun") String usergugun,
+                         @RequestParam("userpet") String userpet) {
+
+
         return "/mypage";
     }
 
@@ -190,8 +195,22 @@ public class LoginController {
         return "/mypagePasswd";
     }
 
-    @PostMapping("/passwdUpdateSuccess")
-    public  String mypagePasswd() {
+    @PostMapping("/mypagePasswdUpdate")
+    public  String mypagePasswd(@RequestParam("now_userpassword") String now_userpassword,
+                                @RequestParam("userpassword") String userpassword,
+                                Model model) {
+        System.out.println(now_userpassword);
+        int nowUserPasswd = userService.findNowPasswd(now_userpassword);
+        System.out.println(nowUserPasswd);
+        if(nowUserPasswd == 1) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("now_userpassword", now_userpassword);
+            map.put("userpassword", userpassword);
+            userService.updateNewPasswd(map);
+        } else {
+            model.addAttribute("message", "error");
+        }
+
         return "/mypage";
     }
 

@@ -30,4 +30,8 @@ public interface UserDao {
     String findEmailByUseremail(String useremail);
 
     String selectUseremail(String username);
+
+    int findNowPasswd(String now_userpassword);
+
+    void updateNewPasswd(HashMap<String,String> map);
 }

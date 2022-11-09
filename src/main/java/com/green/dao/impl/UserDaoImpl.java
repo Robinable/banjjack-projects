@@ -78,6 +78,16 @@ public class UserDaoImpl implements UserDao {
     public String selectUseremail(String username) {
         return sqlSession.selectOne("User.selectUseremail", username);
     }
+
+    @Override
+    public int findNowPasswd(String now_userpassword) {
+        return sqlSession.update("User.findNowPasswd", now_userpassword);
+    }
+
+    @Override
+    public void updateNewPasswd(HashMap<String,String> map) {
+        sqlSession.update("User.updateNewPasswd", map);
+    }
 }
 
 

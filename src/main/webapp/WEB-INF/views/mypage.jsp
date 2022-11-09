@@ -43,7 +43,19 @@
     window.onload = function() {
         const form = document.querySelector('form');
         form.addEventListener('submit', function(e) {
-
+            if(usersido.value == '') {
+                e.preventDefault();
+                alert('지역(시/도)를 입력해주세요.');
+                usersido.focus();
+            } else if(usergugun.value == '') {
+                e.preventDefault();
+                alert('지역(구/군/동/읍/면/리)를 입력해주세요.');
+                usergugun.focus();
+            } else if(userpet.value == '') {
+                e.preventDefault();
+                alert('반려동물을 입력해주세요.');
+                userpet.focus();
+            }
         });
 
         $('#btnUpload').click(function (e) {
@@ -51,11 +63,13 @@
         });
 
 
+
 } // window.onload end
 
 
-    //
+    // 프로필 이미지 업로드
     function readURL(input) {
+        console.log(input.files[0]);
         if(input.files && input.files[0]) {
             let reader = new FileReader();
             reader.onload = function(e) {
@@ -84,16 +98,16 @@
                     <img id="preview" />
                 </li>
                 <li>
+                    <input type="hidden" id="testId" value="${username}"/>
                     <input type="text" id="username" name="username" placeholder="아이디" maxlength="20" readonly><br>
                     <span id="unameCheck"></span>
                 </li>
                 <li>
-                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15"><br>
+                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" readonly><br>
                     <span id="unicknameCheck"></span>
                 </li>
-
                 <li>
-                    <input type="text" id="useremail" name="useremail" placeholder="E-mail"><br>
+                    <input type="text" id="useremail" name="useremail" placeholder="E-mail" readonly><br>
                     <span id="emailCheck"></span>
                 </li>
                 <li>

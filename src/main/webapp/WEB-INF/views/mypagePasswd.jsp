@@ -61,6 +61,12 @@
                 alert('새 비밀번호 확인을 입력해주세요.');
                 e.preventDefault();
                 re_userpassword.value = '';
+
+            } else if(userpassword.value != re_userpassword.value) {
+                e.preventDefault();
+                $('#dataCheck').html('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+                $('#re_userpassword').val('');
+                $('#re_userpassword').focus();
             }
 
             alert('비밀번호가 정상적으로 변경되었습니다.');
@@ -77,8 +83,8 @@
 
 </head>
 <body>
-	<div class="mypagePasswdForm">
-		<form action="/passwdUpdateSuccess" method="POST" id="form1" name="form1">
+	<div class="/mypagePasswd">
+		<form action="/mypagePasswdUpdate" method="POST" id="form1" name="form1">
 			<ul id="container">
 			    <li><label>비밀번호 변경</label></li>
 			    <hr />
