@@ -2,6 +2,7 @@ package com.green.controller;
 
 import com.green.service.NoteService;
 import com.green.vo.NoteVo;
+import com.green.vo.Page;
 import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ import java.util.List;
 
 @Controller
 public class NoteController {
+
 @Autowired private NoteService noteService;
+
+	Page page = new Page();
 
 	@RequestMapping ("/writeNoteForm")
 	public String writeNoteForm(Model model) {
@@ -54,39 +58,12 @@ public class NoteController {
 	@GetMapping ("/receptNote")
 	public String recept(@RequestParam int num, @RequestParam String recept, Model model){
 
-		int pagenum_cnt = 5;
-		int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
-		int startpagenum = endpagenum - (pagenum_cnt - 1);
+		page.setNum(num);
+		page.setCount(noteService.receptcount(recept));
 
-		System.out.println("1"+endpagenum);
-		System.out.println("2"+startpagenum);
-
-		int count = noteService.receptcount(recept);
-		int postnum = 10;
-		int pagenum = (int)Math.ceil((double)count/postnum);
-		int displaypost = (num - 1) * postnum;
-
-		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)postnum));
-		if(endpagenum > endpagenum_tmp) {
-			endpagenum = endpagenum_tmp;
-		}
-
-		boolean prev = startpagenum == 1 ? false : true;
-		// prev의 bool을 정하는데
-		//startpagenum이 1이면 false 아니라면 true
-		boolean next = endpagenum * postnum >= count ? false : true;
-
-		model.addAttribute("startpagenum", startpagenum);
-		model.addAttribute("endpagenum", endpagenum);
-
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-
-		model.addAttribute("pagenum",pagenum);
-        model.addAttribute("num",num);
-
+		model.addAttribute("page",page);
 		model.addAttribute("select", num);
-
+		model.addAttribute("num", num);
 
 		return "/receptNote2";
 
@@ -96,9 +73,10 @@ public class NoteController {
 	@GetMapping("/getreceptnote")
 	@ResponseBody
 	public  List<JSONObject> getreceptnote(@RequestParam String recept, @RequestParam int num){
+		System.out.println(num);
 
-		int postnum = 10;
-		int displaypost = (num - 1) * postnum;
+		int postnum = page.getPostnum();
+		int displaypost = page.getDisplaypost();
 
 		List<JSONObject> NoteVoList = new ArrayList<>();
 		for (NoteVo vo : noteService.receptpage(recept,displaypost,postnum)){
@@ -107,8 +85,7 @@ public class NoteController {
 			obj.put("content", vo.getContent());
 			obj.put("send", vo.getSend());
 			obj.put("time", vo.getTime());
-			obj.put("displaypost", vo.getDisplaypost());
-			obj.put("postnum", vo.getPostnum());
+
 
 			NoteVoList.add(obj);
 		}
@@ -120,34 +97,12 @@ public class NoteController {
 	@GetMapping("/sendNote")
 	public String sendNote(@RequestParam int num, @RequestParam String send, Model model){
 
+		page.setNum(num);
+		page.setCount(noteService.sendcount(send));
 
-		int pagenum_cnt = 5;
-		int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
-		int startpagenum = endpagenum - (pagenum_cnt - 1);
-
-		int count = noteService.sendcount(send);
-		int postnum = 10;
-		int pagenum = (int)Math.ceil((double)count/postnum);
-		int displaypost = (num - 1) * postnum;
-
-		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)postnum));
-		if(endpagenum > endpagenum_tmp) {
-			endpagenum = endpagenum_tmp;
-		}
-
-		boolean prev = startpagenum == 1 ? false : true;
-		// prev의 bool을 정하는데
-		//startpagenum이 1이면 false 아니라면 true
-		boolean next = endpagenum * postnum >= count ? false : true;
-
-		model.addAttribute("startpagenum", startpagenum);
-		model.addAttribute("endpagenum", endpagenum);
-
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-
-		model.addAttribute("pagenum",pagenum);
-		model.addAttribute("num",num);
+		model.addAttribute("page",page);
+		model.addAttribute("select", num);
+		model.addAttribute("num", num);
 
 		return "/sendNote2";
 	}
@@ -158,8 +113,8 @@ public class NoteController {
 	@ResponseBody
 	public  List<JSONObject> getsendnote(@RequestParam String send, @RequestParam int num) {
 
-		int postnum = 10;
-		int displaypost = (num - 1) * postnum;
+		int postnum = page.getPostnum();
+		int displaypost = page.getDisplaypost();
 
 		List<JSONObject> NoteVoList = new ArrayList<>();
 		for (NoteVo vo : noteService.sendpage(send, displaypost, postnum)) {
@@ -168,8 +123,6 @@ public class NoteController {
 			obj.put("content", vo.getContent());
 			obj.put("recept", vo.getRecept());
 			obj.put("time", vo.getTime());
-			obj.put("displaypost", vo.getDisplaypost());
-			obj.put("postnum", vo.getPostnum());
 
 			NoteVoList.add(obj);
 		}

@@ -98,11 +98,11 @@
 </table>
 
 <div style="text-align: center;">
-<c:if test="${prev}">
- <span>[ <a href="/noticeList?num=${startpagenum - 1}">이전</a> ]</span>
+<c:if test="${page.prev}">
+ <span>[ <a href="/noticeList?num=${page.startpagenum - 1}">이전</a> ]</span>
 </c:if>
 
-<c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">
+<c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
   <span>
    <c:if test="${select != num}">
       <a href="/noticeList?num=${num}">${num}</a>
@@ -114,8 +114,8 @@
  </span>
 </c:forEach>
 
-<c:if test="${next}">
- <span>[ <a href="/noticeList?num=${endpagenum + 1}">다음</a> ]</span>
+<c:if test="${page.next}">
+ <span>[ <a href="/noticeList?num=${page.endpagenum + 1}">다음</a> ]</span>
 </c:if>
 </div>
 

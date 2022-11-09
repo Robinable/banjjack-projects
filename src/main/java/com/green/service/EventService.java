@@ -33,4 +33,14 @@ public class EventService {
         int count = eventDaoImpl.pasteventcount(now);
         return count;
     }
+
+    public List<EventVo> noweventlist(LocalDate now, int displaypost, int postnum) {
+        List<EventVo> vo = eventDaoImpl.noweventlist(now,displaypost,postnum);
+        return vo;
+    }
+
+    public List<EventVo> pasteventlist(LocalDate now, int displaypost, int postnum) {
+        List<EventVo> vo = eventDaoImpl.pasteventlist(now,displaypost,postnum);
+        return vo;
+    }
 }

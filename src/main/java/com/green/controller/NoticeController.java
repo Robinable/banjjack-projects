@@ -3,6 +3,7 @@ package com.green.controller;
 import com.green.service.NoticeService;
 import com.green.vo.NoteVo;
 import com.green.vo.NoticeVo;
+import com.green.vo.Page;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,40 +19,16 @@ import java.util.List;
 public class NoticeController {
     @Autowired private NoticeService noticeService;
 
+    Page page = new Page();
     @GetMapping("/noticeList")
     public String noticeList(@RequestParam int num, Model model){
 
-        int pagenum_cnt = 5;
-        int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
-        int startpagenum = endpagenum - (pagenum_cnt - 1);
+        page.setNum(num);
+        page.setCount(noticeService.noticecount());
 
-        int count = noticeService.noticecount();
-        System.out.println("카운트"+count);
-        int postnum = 10;
-        int pagenum = (int)Math.ceil((double)count/postnum);
-        int displaypost = (num - 1) * postnum;
-
-        int endpagenum_tmp = (int)(Math.ceil((double)count / (double)postnum));
-        if(endpagenum > endpagenum_tmp) {
-            endpagenum = endpagenum_tmp;
-        }
-
-        boolean prev = startpagenum == 1 ? false : true;
-        // prev의 bool을 정하는데
-        //startpagenum이 1이면 false 아니라면 true
-        boolean next = endpagenum * postnum >= count ? false : true;
-
-        model.addAttribute("startpagenum", startpagenum);
-        model.addAttribute("endpagenum", endpagenum);
-
-        model.addAttribute("prev", prev);
-        model.addAttribute("next", next);
-
-        model.addAttribute("pagenum",pagenum);
-        model.addAttribute("num",num);
-
+        model.addAttribute("page",page);
         model.addAttribute("select", num);
-
+        model.addAttribute("num", num);
 
         return "/noticelist";
     }
@@ -60,8 +37,8 @@ public class NoticeController {
     @ResponseBody
     public List<JSONObject> getnoticelist(@RequestParam int num){
 
-        int postnum = 10;
-        int displaypost = (num - 1) * postnum;
+        int postnum = page.getPostnum();
+        int displaypost = page.getDisplaypost();
 
         List<JSONObject> NoteVoList = new ArrayList<>();
         for (NoticeVo vo : noticeService.noticelist(displaypost,postnum)) {
@@ -71,8 +48,6 @@ public class NoticeController {
             obj.put("writer", vo.getWriter());
             obj.put("time", vo.getTime());
             obj.put("readcount", vo.getReadcount());
-            obj.put("displaypost", vo.getDisplaypost());
-            obj.put("postnum", vo.getPostnum());
 
             NoteVoList.add(obj);
         }

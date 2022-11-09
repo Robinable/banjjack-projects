@@ -100,11 +100,11 @@
 
 </table>
 <div style="text-align: center;">
-<c:if test="${prev}">
- <span>[ <a href="/sendNote?send=1234&num=${startpagenum-1}">이전</a> ]</span>
+<c:if test="${page.prev}">
+ <span>[ <a href="/sendNote?send=1234&num=${page.startpagenum-1}">이전</a> ]</span>
 </c:if>
 
-<c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">
+<c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
   <span>
    <c:if test="${select != num}">
          <a href="/sendNote?send=1234&num=${num}">${num}</a>
@@ -116,8 +116,8 @@
  </span>
 </c:forEach>
 
-<c:if test="${next}">
- <span>[ <a href="/sendNote?send=1234&num=${endpagenum + 1}">다음</a> ]</span>
+<c:if test="${page.next}">
+ <span>[ <a href="/sendNote?send=1234&num=${page.endpagenum + 1}">다음</a> ]</span>
 </c:if>
 </div>
 

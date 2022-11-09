@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>이벤트 게시판</title>
+        <title>지난 이벤트 게시판</title>
 
         <link rel="stylesheet" href="/css/messageBox2.css">
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -14,7 +14,7 @@
 
 
         		   $.ajax( {
-        			   url  :  '/geteventlist?num=${num}'  ,
+        			   url  :  '/getpasteventlist?num=${num}'  ,
         			   data :  {
                            _id : $('#_id').val() ,
         				   writer : $('#writer').val() ,
@@ -71,11 +71,11 @@
             <div id="main_content">
                 <div id="message_box">
                     <h3>
-                       이벤트
+                      종료된 이벤트
                     </h3>
 
+                            <li><button onclick="location.href='/eventlistform?num=1'">전체 이벤트</button></li>
                             <li><button onclick="location.href='/noweventlist?num=1'">진행중인 이벤트</button></li>
-                            <li><button onclick="location.href='/pasteventlist?num=1'">종료된 이벤트</button></li>
                     <div>
 
       <table class="table_box" >

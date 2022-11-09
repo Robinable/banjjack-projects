@@ -44,4 +44,26 @@ public class EventDaoImpl implements EventDao {
         int count = sqlSession.selectOne("Event.pasteventcount",now);
         return count;
     }
+
+    @Override
+    public List<EventVo> noweventlist(LocalDate now, int displaypost, int postnum) {
+        HashMap map = new HashMap();
+        map.put("now",now);
+        map.put("displaypost",displaypost);
+        map.put("postnum",postnum);
+
+        List<EventVo> vo = sqlSession.selectList("Event.noweventlist",map);
+        return vo;
+    }
+
+    @Override
+    public List<EventVo> pasteventlist(LocalDate now, int displaypost, int postnum) {
+        HashMap map = new HashMap();
+        map.put("now",now);
+        map.put("displaypost",displaypost);
+        map.put("postnum",postnum);
+
+        List<EventVo> vo = sqlSession.selectList("Event.pasteventlist",map);
+        return vo;
+    }
 }
