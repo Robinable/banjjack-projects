@@ -28,6 +28,7 @@ public class UserDaoImpl implements UserDao {
     public int usernameCheck(String username) {
         return sqlSession.selectOne("User.usernameCheck", username);
     }
+
     @Override
     public int nicknameCheck(String usernickname) {
         return sqlSession.selectOne("User.nicknameCheck", usernickname);
@@ -47,6 +48,7 @@ public class UserDaoImpl implements UserDao {
     public UserVo selectUserInfoByUsername(String username) {
         return sqlSession.selectOne("User.selectUserInfoByUsername", username);
     }
+
     @Override
     public String findId(String useremail) {
         return sqlSession.selectOne("User.findId", useremail);
@@ -58,9 +60,26 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updatePassword(HashMap<String,String> map) {
+    public void updatePassword(HashMap<String, String> map) {
         sqlSession.update("User.updatePassword", map);
     }
+
+    @Override
+    public String selectUsername(String useremail) {
+        return sqlSession.selectOne("User.selectUsername", useremail);
+    }
+
+    @Override
+    public String findEmailByUseremail(String useremail) {
+        return sqlSession.selectOne("User.findEmailByUseremail", useremail);
+    }
+
+    @Override
+    public String selectUseremail(String username) {
+        return sqlSession.selectOne("User.selectUseremail", username);
+    }
 }
+
+
 
 

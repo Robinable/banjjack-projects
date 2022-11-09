@@ -61,6 +61,15 @@
 
     </select>
 
+    <select id="findEmailByUseremail"
+            resultType="String">
+        SELECT useremail
+        FROM   user_tb
+        WHERE  useremail = #{useremail}
+
+
+    </select>
+
     <select id="findId"
             resultType="String">
         SELECT username
@@ -85,5 +94,21 @@
         WHERE  username = #{username}
 
     </update>
+
+    <select id="selectUsername"
+            resultType="String">
+        SELECT username
+        FROM   user_tb
+        WHERE  useremail = #{useremail}
+
+    </select>
+
+    <select id="selectUseremail"
+            resultType="String">
+        SELECT useremail
+        FROM   user_tb
+        WHERE  username = #{username}
+
+    </select>
 
 </mapper>

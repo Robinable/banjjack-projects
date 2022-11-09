@@ -10,9 +10,9 @@
 <style>
 	*     { box-sizing:border-box;  }
 	
-	login-form { width:600px; margin:0 auto; }
+	.signupForm { width:600px; margin:0 auto; }
 
-	login-form input {
+	.signupForm input {
        
        border:1px solid grey;
        border-radius:5px;
@@ -45,45 +45,53 @@
         // 회원가입 유효성 검사
         form.addEventListener('submit', function(e) {
             if(username.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '아이디를 입력하세요.';
                 username.focus();
-                e.prevenliefault();
+
 
             } else if (userpassword.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '비밀번호를 입력하세요.';
                 userpassword.focus();
-                e.prevenliefault();
+
 
             } else if (repasswd.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '비밀번호 확인을 입력하세요.';
                 repasswd.focus();
-                e.prevenliefault();
+
 
             } else if (usernickname.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '닉네임을 입력하세요.';
                 usernickname.focus();
-                e.prevenliefault();
+
 
             } else if(useremail.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '이메일을 입력하세요.';
                 useremail.focus();
-                e.prevenliefault();
+
 
             } else if(usersido.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '지역(시/도)를 입력하세요.';
                 usersido.focus();
-                e.prevenliefault();
+
 
             } else if(usergugun.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '지역(구/군/동/읍/면/리)를 입력하세요.';
                 usergugun.focus();
-                e.prevenliefault();
 
             } else if(userpet.value == '') {
+                e.preventDefault();
                 checkError.innerHTML = '반려동물을 선택하세요.';
                 selectPet.focus();
-                e.prevenliefault();
             }
+
+            alert($('#usernickname').val() + '님 환영합니다!');
 
         });
 
@@ -97,7 +105,7 @@
         if(username >= 2) {
             idCheck(document.getElementById('username').value)
         } else {
-             $('#unameCheck').text('아이디는 2자 이상 20자 이내로 입력해주세요');
+             $('#unameCheck').text('아이디는 2자 이상 20자 이내로 입력해주세요.');
         }
         });
 
@@ -106,7 +114,7 @@
         if(usernickname >= 2) {
            nicknameCheck(document.getElementById('usernickname').value)
         } else {
-            $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요');
+            $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요.');
         }
         });
 
@@ -122,9 +130,11 @@
         $('#repasswd').on('change', function() {
         const repasswd  = document.getElementById('repasswd').value;
         if(repasswd == $('#userpassword').val()) {
-            $('#re_pwCheck').text('비밀번호가 일치합니다');
+            $('#re_pwCheck').text('비밀번호가 일치합니다.');
         } else {
             $('#re_pwCheck').text('비밀번호가 일치하지 않습니다.');
+            $('#repasswd').val('');
+            $('#repasswd').focus();
         }
         });
 
@@ -169,7 +179,7 @@
                 if(nameVaildation.test(username.trim())) {
                     $('#unameCheck').text('사용가능한 아이디입니다.');
                 } else {
-                    $('#unameCheck').text('아이디는 영문 소문자와 숫자의 조합으로 입력해주세요');
+                    $('#unameCheck').text('아이디는 영문 소문자와 숫자의 조합으로 입력해주세요.');
                 }
             }else{
                 $('#unameCheck').text('이미 존재하는 아이디입니다.');
@@ -220,7 +230,7 @@
     // 이메일 확인
     function emailCK(useremail) {
         // 이메일 정규식
-        const emailVaildation = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]$/g;
+        const emailVaildation = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/g;
         if(!emailVaildation.test(useremail.trim())) {
             $('#emailCheck').text('잘못된 이메일 주소입니다. 다시 작성해주세요.');
         } else {
@@ -239,7 +249,7 @@
             document.getElementById('preview').src = "";
         }
     }
-
+    // userpet 콤보박스 text에 옮겨적기
     function re_userpetPrint(selectPet) {
          let userpetText = selectPet.options[selectPet.selectedIndex].text;
          console.log(userpetText);
@@ -249,7 +259,7 @@
 </script>
 </head>
 <body>
-	<div class="sign-upForm">
+	<div class="signupForm">
 	<h2>회원가입</h2>
 	<hr />
 		<form action="/signup/register" method="POST" id="form1">
@@ -306,7 +316,7 @@
 
                 <li><span id="checkError"></span></li>
 
-                <li><input type="submit" name="signup" value="가입하기"/></li>
+                <li><input type="submit" id="signup" name="signup" value="가입하기"/></li>
             </ul>
          </div>
 		</form>

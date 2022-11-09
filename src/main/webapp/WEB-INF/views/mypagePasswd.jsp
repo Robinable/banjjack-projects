@@ -43,26 +43,24 @@
        const form = document.querySelector('form');
 
        form.addEventListener('submit', function(e) {
-            const userpassword = document.getElementById('userpassword');
-            const re_userpassword = document.getElementById('re_userpassword');
+            const now_userpassword = document.getElementById('now_userpassword');
+            const userpassword     = document.getElementById('userpassword');
+            const re_userpassword  = document.getElementById('re_userpassword');
 
-            if(userpassword.value == '') {
+            if(now_userpassword.value == '') {
+                alert('현재 비밀번호를 입력해주세요.');
                 e.preventDefault();
-                $('#dataCheck').html('새 비밀번호를 입력해주세요.');
-                userpassword.focus();
+                now_userpassword.value = '';
 
+            } else if(userpassword.value == '') {
+                alert('새 비밀번호를 입력해주세요.');
+                e.preventDefault();
+                userpassword.value = '';
 
             } else if(re_userpassword.value == '') {
+                alert('새 비밀번호 확인을 입력해주세요.');
                 e.preventDefault();
-                $('#dataCheck').html('새 비밀번호 확인을 입력해주세요.');
-                re_userpassword.focus();
-
-
-            } else if(userpassword.value != re_userpassword.value) {
-                e.preventDefault();
-                $('#dataCheck').html('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
-                $('#re_userpassword').val('');
-                $('#re_userpassword').focus();
+                re_userpassword.value = '';
             }
 
             alert('비밀번호가 정상적으로 변경되었습니다.');
@@ -79,20 +77,17 @@
 
 </head>
 <body>
-	<div class="login-form">
+	<div class="mypagePasswdForm">
 		<form action="/passwdUpdateSuccess" method="POST" id="form1" name="form1">
 			<ul id="container">
-			    <li><label>비밀번호 재설정</label></li>
+			    <li><label>비밀번호 변경</label></li>
 			    <hr />
-			    <li><label>비밀번호를 변경해주세요.</label></li>
-			    <li><label>아이디: ${username}</label></li>
-			    <li><input type="hidden" id="username" name="username" value="${username}"/></li>
+                <li><input type="password" id="now_userpassword" name="now_userpassword" placeholder="현재 비밀번호"/></li>
                 <li><input type="password" id="userpassword" name="userpassword" placeholder="새 비밀번호"/></li>
                 <li><input type="password" id="re_userpassword" name="re_userpassword" placeholder="새 비밀번호 확인"/></li>
                 <li><span id="dataCheck"></span></li>
 
-                <li><input type="submit" id="pwOK" name="pwOK" value="확인"/></li>
-
+                <li><input type="submit" id="pwOK" name="pwOK" value="변경"/></li>
 
            </ul>
 		</form>

@@ -48,12 +48,12 @@
             if($('#username').val() == '') {
                 $('#checkError').text('아이디를 입력하세요');
                 username.focus();
-                e.prevenliefault();
+                e.preventDefault();
 
             } else if (userpassword.value == '') {
                 $('#checkError').text('비밀번호를 입력하세요');
                 userpassword.focus();
-                e.prevenliefault();
+                e.preventDefault();
             }
 
        });

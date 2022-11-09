@@ -44,18 +44,18 @@
        const form = document.querySelector('form');
 
        form.addEventListener('submit', function(e) {
-            const useremail = document.getElementById('useremail').value;
+            const useremail = document.getElementById('useremail');
 
             if(useremail == '') {
-                $('#useremailCheck').text('이메일을 입력하세요');
-                useremail.focus();
                 e.preventDefault();
-                e.stopPropagation();
+                $('#useremailCheck').html('이메일을 입력하세요');
+                useremail.focus();
+
+
             }
        })
 
-        $('#useremailCheck').text('${username}');
-
+        $('#useremailCheck').html('${username}');
 
 	} // window.load end
 
@@ -74,6 +74,11 @@
                 <li><input type="text" id="useremail" name="useremail"/></li>
                 <li><input type="submit" id="searchID" name="searchID" value="검색"/></li>
                 <li><span id="useremailCheck"></span></li>
+                <li>
+                    <c:if test="${message == 'error'}">
+                    <div style="color:red;">아이디가 일치하지 않습니다 다시 입력해주세요.</div>
+                    </c:if>
+                </li>
                 <li><a href="/findPasswordForm" id="findPassword" name="findPassword" >비밀번호찾기</a></li>
                 <li><a href="/login" id="goLogin" name="goLogin">로그인</a></li>
 
