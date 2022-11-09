@@ -102,6 +102,6 @@ a { text-decoration-line: none; }
 
 
 
-<a href="/writeform?username=1234">새 글 쓰기</a>
+<a href="/writeform?username=1234&bnum=0&lvl=0&step=0">새 글 쓰기</a>
 </body>
 </html>

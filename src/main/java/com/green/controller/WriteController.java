@@ -87,8 +87,12 @@ public class WriteController {
 	}
 
 	@GetMapping("/writeform")
-	public String getWriteForm(Model model, @RequestParam String username){
+	public String getWriteForm(Model model, @RequestParam String username, @RequestParam String bnum,
+							   @RequestParam String lvl, @RequestParam String step){
 		model.addAttribute("username", username);
+		model.addAttribute("bnum", bnum);
+		model.addAttribute("lvl", lvl);
+		model.addAttribute("step", step);
 		return "/write";
 	}
 

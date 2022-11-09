@@ -91,9 +91,23 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
 <!-- ( get방식에는 enctype이 없기때문에 null을 반환한다 ) -->
 <form action="/write_insert" id="form" encType = "multipart/form-data" method="post" >
 <input type="hidden" name="username" value=${username} />
-
+<input type="hidden" name="bnum"    value=${ bnum } />
+<input type="hidden" name="lvl"     value=${ lvl  } />
+<input type="hidden" name="step"    value=${ step } />
 <input type="hidden" name="readcount" value="0" />
 <table>
+<tr>
+<caption>
+       <c:choose>
+         <c:when test="${ bnum eq 0 }">
+       		 <h2>새 글 쓰기</h2>
+         </c:when>
+         <c:otherwise>
+             <h2>답 글 쓰기</h2>
+         </c:otherwise>
+       </c:choose>
+</caption>
+</tr>
 <tr>
   <td>제목 :</td>
   <td>

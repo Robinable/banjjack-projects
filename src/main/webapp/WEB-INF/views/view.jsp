@@ -92,6 +92,12 @@ table, th, td {
                  html += '<tr>';
 
                  html += '</tr>';
+                 html += '<td colspan="3">' + '<a href="/writeform?username=1234&bnum=1&lvl=0&step=0">' + '답글쓰기' + '</a>'
+                 html +=  '<a href="/updateForm?_id=' + _id + '">' + '수정' + '</a>'
+                 html +=  '<a href="/list?category=' + category + '" class="btn btn-primary">' + '게시판' + '</a>'
+                 html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-primary">' + '삭제' + '</a>'
+                 html += '</td>'
+
              };
     			 html += '</table>'
     			 $('#div2').html(html);
@@ -106,11 +112,7 @@ table, th, td {
 <body>
 <div id="div2"></div>
 
-<%@ include file="/WEB-INF/views/comment.jsp" %>
-<%@ include file="/WEB-INF/views/list.jsp" %>
-<a href="/updateForm?_id=${_id}">수정</a>
-<a href="/list?category=${category}" class="btn btn-primary">게시판</a>
-<a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
+
 
 </body>
 </html>
