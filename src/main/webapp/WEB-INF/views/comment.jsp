@@ -53,9 +53,6 @@
 
                         let str = "";
                         $.each(data, function (index, element) {
-                            console.log(element);
-                            console.log(element.name);
-                            console.log(element.content);
 
                             str +=
                                 "<div class=\"commentBigBox\">"
@@ -146,17 +143,17 @@
                 data: {"_id" : _id},
                 dataType: "json",
 
-                error: function (xhr) {
-                    alert("실패");
-                    console.log("data" + data);
-                    console.log("error html = " + xhr.statusText);
-                    console.log("error");
-
-                },
-                success: function (data) {
-                    alert("성공");
-                    console.log("data" + data);
-                }
+                // error: function (xhr) {
+                //     alert("실패");
+                //     console.log("data" + data);
+                //     console.log("error html = " + xhr.statusText);
+                //     console.log("error");
+                //
+                // },
+                // success: function (data) {
+                //     alert("성공");
+                //     console.log("data" + data);
+                // }
             });
             // fnCommentList();
         }
@@ -176,7 +173,7 @@
             updateform += "<button class=\"commentUpdateCancelBtn\" onClick= \"fnCommentList()\" > 취소 </button>";
 
             document.getElementById(_id).innerHTML = updateform;
-        };
+        }
 
         function fnCommentUpdate(_id) {
             console.log("뿅");
@@ -263,8 +260,7 @@
             <input type="hidden" id="commname" name="username" value="1234">
             <input type="hidden" id="commcont_id" name="content_id" value="1">
             <input type="hidden" id="commtime" name="time" value="2022-11-08 13:09:02">
-            <textarea class="commentInput" id= "commcontent" name="content" cols="80" rows="3" >
-            </textarea>
+            <textarea class="commentInput" id= "commcontent" name="content" cols="80" rows="3" ></textarea>
             <div class="countNum">
                 ( 0/ 300)
             </div>
