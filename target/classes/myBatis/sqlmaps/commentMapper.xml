@@ -21,7 +21,7 @@
 
     <insert id="writeComment">
         INSERT INTO  comment_tb( content_id, username, content, time)
-        VALUES (#{content_id}, #{username}, #{content}, #{time})
+        VALUES (#{content_id}, #{username}, #{content}, NOW())
     </insert>
 
     <update id="commentUpdate">
