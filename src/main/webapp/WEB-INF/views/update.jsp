@@ -23,6 +23,11 @@ table, th, td {
 
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
+
+
+
+
+
     $( function() {
      $.ajax( {
                url  :  '/viewupdate?_id=' + ${_id} ,
@@ -34,6 +39,8 @@ table, th, td {
                    category : $('#category').val(),
                    time : $('time').val(),
                    readcount : $('#readcount').val(),
+                   filename : $('#filename').val(),
+                   filepath : $('#filepath').val(),
                },
                method   : "GET",
                dataType:  "json"
@@ -50,6 +57,8 @@ table, th, td {
                  var category = result[i].category
                  var time = result[i].time
                  var readcount = result[i].readcount
+                 var filename = result[i].filename
+                 var filepath = result[i].filepath
 
                  html += '<tr>';
                  html += '<td>' + '번호'   + '</td>';
@@ -81,6 +90,12 @@ table, th, td {
                  html += '<td>' +  '내용'  + '</td>';
                  html += '<td colspan="3">' +  '<textarea maxLength="500" name= "content" >' + content + '</textarea>'  + '</td>';
                  html += '</tr>';
+                 html += '<tr>';
+                 if(filepath == null){
+                 html += '<td colspan="4">' + '<input type="file" name="file">' + '</td>';
+                                  }
+                 html += '</tr>';
+
                  html += '<input type="hidden" name="_id" value="' + _id + '" />'
                  html += '<input type="hidden" name="category" value="' + category + '" />'
              };
@@ -101,13 +116,18 @@ table, th, td {
 
 </head>
 <body>
-<form action="/update" method="GET">
-<div id="div2"></div>
+<form action="/update" id="update" encType = "multipart/form-data" method="post">
+    <div id="div2"></div>
 
-<input type="submit" value="수정" />
-<a href="/update?title=${title}&_id=${_id}&content=${content}&category=${category}">수정</a>
+
+</form>
+
+
+
+
+<a class="btn btn-primary" type="submit" onclick="document.getElementById('update').submit();">수정</a>
 <a href="/list?category=1" class="btn btn-primary">게시판</a>
 <a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
-
+</form>
 </body>
 </html>

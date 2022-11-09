@@ -34,6 +34,8 @@ table, th, td {
                    category : $('#category').val(),
                    time : $('time').val(),
                    readcount : $('#readcount').val(),
+                   filename : $('#filename').val(),
+                   filepath : $('#filepath').val(),
                },
                method   : "GET",
                dataType:  "json"
@@ -50,6 +52,8 @@ table, th, td {
                  var category = result[i].category
                  var time = result[i].time
                  var readcount = result[i].readcount
+                 var filename = result[i].filename
+                 var filepath = result[i].filepath
 
                  html += '<tr>';
                  html += '<td>' + '번호'   + '</td>';
@@ -79,7 +83,14 @@ table, th, td {
                  html += '</tr>';
                  html += '<tr>';
                  html += '<td>' +  '내용'  + '</td>';
-                 html += '<td colspan="3">' +  content  + '</td>';
+                 html += '<td colspan="3">' +  content ;
+                 if(filepath != null){
+                 html += '<br>' +'<img src="' + filepath + '" style="width:200px; height:200px;">'
+                 }
+                 html += '</td>';
+                 html += '</tr>';
+                 html += '<tr>';
+
                  html += '</tr>';
              };
     			 html += '</table>'
