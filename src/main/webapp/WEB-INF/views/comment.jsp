@@ -21,8 +21,6 @@
                              text-align: center;}
             div.commentBox { float:right; width:530px; }
             div.commentText { width:600px; display: flex ; flex-direction: column;}
-            span.commentEditBtn { float:right; margin-right:2px; }
-            span.commentDelBtn { float:right; margin-right:2px; }
             span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;}
             div.commentText { width:540px; margin-top:2px;}
             div.commentInputBox{width:600px; margin-top:30px;}
@@ -32,17 +30,21 @@
         </style>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
+        let query = window.location.search;
+        let param = new URLSearchParams(query);
+        let content_id = param.get('_id');
 
-        // window.onload = function (){
-        //     fnCommentList();
-        // }
+        console.log(content_id);
+
         $(document).ready(function() {
             fnCommentList();
         });
+
             function fnCommentList() {
                 $.ajax({
-                    url: "/comment/commentList?content_id=1",
+                    url: "/comment/commentList",
                     type: "get",
+                    data: { 'content_id' : content_id},
                     error: function (xhr) {
                         console.log("error html = " + xhr.statusText);
 
@@ -72,7 +74,7 @@
                                 + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
                                 + "</span>"
                                 + "<span class=\"commentDate\">"
-                                + "<input type=\"text\" name=\"commentDate\">"
+                                + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
                                 + "</span>"
                                 + "<div class=\"commentText\" id= \'" + element._id + "\' >"
                                 + element.content
@@ -95,7 +97,7 @@
                             <%--str = str + '</div>'--%>
                             <%--    + '</div>';--%>
                         })
-                        document.getElementById('commentBigBox').innerHTML += str;
+                        document.getElementById('commentListBox').innerHTML += str;
                     }
                 });
             }
@@ -106,11 +108,12 @@
                     let commentWriteData =
 
                         {
-                            username: $('#commname').val(),
-                            content_id: $('#commcont_id').val(),
-                            time: $('#commtime').val(),
-                            content: $('#commcontent').val()
+                            username: $('#commName').val(),
+                            content_id: content_id,
+                            // time: $('#commTime').val(),
+                            content: $('#commContent').val()
                         }
+
                     console.log(commentWriteData);
 
 
@@ -118,19 +121,20 @@
                         url: "/comment/writeComment",
                         type: "post",
                         data: commentWriteData,
-                        // error: function (xhr) {
-                        //     alert("실패");
-                        //
-                        //     console.log("error html = " + xhr.statusText);
-                        //     console.log("error");
-                        //
-                        // },
-                        // success: function (commentWriteData) {
-                        //     alert("성공");
-                        //     console.log(commentWriteData);
-                        //
-                        // }
+                        error: function (xhr) {
+                            console.log("error html = " + xhr.statusText);
+                            console.log("error");
+
+                        },
+                        success: function (commentWriteData) {
+                            console.log(commentWriteData);
+                            $("#commentListBox").empty();
+                            fnCommentList();
+                            $("#commContent").val('');
+                        }
                     });
+
+
                 }); //등록버튼
             });
         //삭제버튼
@@ -143,19 +147,18 @@
                 data: {"_id" : _id},
                 dataType: "json",
 
-                // error: function (xhr) {
-                //     alert("실패");
-                //     console.log("data" + data);
-                //     console.log("error html = " + xhr.statusText);
-                //     console.log("error");
-                //
-                // },
-                // success: function (data) {
-                //     alert("성공");
-                //     console.log("data" + data);
-                // }
+                error: function (xhr) {
+                    console.log("data");
+                    console.log("error html = " + xhr.statusText);
+                    console.log("error");
+
+                },
+                success: function (result) {
+
+                    $("#commentListBox").empty();
+                    fnCommentList();
+                }
             });
-            // fnCommentList();
         }
 
         //수정버튼
@@ -170,7 +173,7 @@
             updateform += content.textContent
             updateform += "</textarea>";
             updateform += "<button class=\"commentUpdateBtn\" onClick=\"fnCommentUpdate(" + _id + ")\"> 수정 </button>";
-            updateform += "<button class=\"commentUpdateCancelBtn\" onClick= \"fnCommentList()\" > 취소 </button>";
+            updateform += "<button class=\"commentUpdateCancelBtn\" onClick= \"fnCommentUpdateCancel()\" > 취소 </button>";
 
             document.getElementById(_id).innerHTML = updateform;
         }
@@ -191,24 +194,30 @@
                 type: "post",
                 data: commentUpdateData,
                 dataType: "json",
-                // error: function (xhr) {
-                //     alert("실패");
-                //     console.log("data"+deldata);
-                //     console.log("error html = " + xhr.statusText);
-                //     console.log("error");
-                //
-                // },
-                // success: function (data) {
-                //     alert("성공");
-                //     console.log("data"+data);
-                // }
+                error: function (xhr) {
+
+                    console.log("data"+deldata);
+                    console.log("error html = " + xhr.statusText);
+                    console.log("error");
+
+                },
                 success: function (data) {
-                    // location.reload();
+                    console.log("data"+data);
+                },
+                success: function (data) {
+                    // location
                     // $('#commentListBox').load()
 
+                $("#commentListBox").empty();
+                fnCommentList();
                 }
-            });
 
+            })
+
+        }
+        function fnCommentUpdateCancel(){
+            $("#commentListBox").empty();
+            fnCommentList();
         }
 
 
@@ -218,34 +227,34 @@
     <body>
         <div class="commentCount"> 댓글 <span id = "count">0</span></div>
     <!--댓글 리스트 -->
+<%--            <input type="hidden" name="content_id" value= "1" >--%>
         <div class="commentListBox" id="commentListBox">
-            <input type="hidden" name="content_id" value= "1" >
-            <div class="commentBigBox" id="commentBigBox">
-                <input type="hidden" name="_id" value="1">
-                <div class="commentIcon">
-                    <span class="material-icons-outlined">
-                        android
-                    </span>
-                </div>
-                <div class="commentBox">
-                    <span class="comWriter">
-                            <input type="text" id="comWriter" name="comWriter" >
-                    </span>
-                        <!-- 버튼은 등록자 본인만 -->
+<%--            <div class="commentBigBox" >--%>
+<%--                <input type="hidden" name="_id" value="1">--%>
+<%--                <div class="commentIcon">--%>
+<%--                    <span class="material-icons-outlined">--%>
+<%--                        android--%>
+<%--                    </span>--%>
+<%--                </div>--%>
+<%--                <div class="commentBox">--%>
+<%--                    <span class="comWriter">--%>
+<%--                            <input type="text" id="comWriter" name="comWriter" >--%>
+<%--                    </span>--%>
+<%--                        <!-- 버튼은 등록자 본인만 -->--%>
 
-                        <button class="delBtn" _id="" > 삭제 </button>
+<%--                        <button class="delBtn" _id="" > 삭제 </button>--%>
 
 
-                        <button > 수정 </button>
+<%--                        <button > 수정 </button>--%>
 
-                    <span class="commentDate">
-                        <input type="text" name="commentDate">
-                    </span>
-                    <div class="commentText">
+<%--                    <span class="commentDate">--%>
+<%--                        <input type="text" name="commentDate">--%>
+<%--                    </span>--%>
+<%--                    <div class="commentText">--%>
 
-                        <br>
-                    </div>
-                </div>
+<%--                        <br>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
 
 
             </div>
@@ -257,10 +266,10 @@
 
         <div class="commentInputBox">
 <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
-            <input type="hidden" id="commname" name="username" value="1234">
-            <input type="hidden" id="commcont_id" name="content_id" value="1">
-            <input type="hidden" id="commtime" name="time" value="2022-11-08 13:09:02">
-            <textarea class="commentInput" id= "commcontent" name="content" cols="80" rows="3" ></textarea>
+            <input type="hidden" id="commName" name="username" value="1234">
+<%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
+<%--            <input type="hidden" id="commTime" name="time" value="">--%>
+            <textarea class="commentInput" id="commContent" name="content" cols="80" rows="3" ></textarea>
             <div class="countNum">
                 ( 0/ 300)
             </div>
