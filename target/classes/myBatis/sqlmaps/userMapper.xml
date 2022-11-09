@@ -111,4 +111,20 @@
 
     </select>
 
+    <select id="findNowPasswd"
+            resultType="String">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  userpassword = #{unow_userpassword};
+
+    </select>
+
+    <update id="updateNewPasswd"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpassword = #{userpassword}
+        WHERE  userpassword = #{unow_userpassword}
+
+    </update>
+
 </mapper>

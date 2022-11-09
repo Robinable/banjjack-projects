@@ -190,7 +190,7 @@ public class LoginController {
         return "/mypage";
     }
 
-    @PostMapping("/myPagePasswdForm")
+    @GetMapping("/myPagePasswdForm")
     public String myPagePasswdForm() {
         return "/mypagePasswd";
     }
