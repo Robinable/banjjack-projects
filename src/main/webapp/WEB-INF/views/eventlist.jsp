@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>공지사항</title>
+        <title>이벤트 게시판</title>
 
         <link rel="stylesheet" href="/css/messageBox2.css">
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -14,12 +14,14 @@
 
 
         		   $.ajax( {
-        			   url  :  '/getnoticelist?num=${num}'  ,
+        			   url  :  '/geteventlist?num=${num}'  ,
         			   data :  {
+                           _id : $('#_id').val() ,
         				   writer : $('#writer').val() ,
         				   title : $('#title').val(),
-        				   readcount : $('#readcount').val() ,
         				   time : $('#time').val() ,
+        				   start_time : $('#start_time').val() ,
+        				   end_time : $('#end_time').val() ,
         		       },
         		       method   : "GET",
         		       dataType:  "json"
@@ -33,8 +35,9 @@
         			 var _id = result[i]._id
                      var writer = result[i].writer
                      var title = result[i].title
-                     var readcount = result[i].readcount
-                     var time = result[i].time
+                     var start_time = result[i].start_time
+                     var end_time = result[i].end_time
+
                      var _num = i
 
                      console.log(writer)
@@ -42,13 +45,13 @@
 
         			   html         += "<tr>";
         			   html         += '<td style="text-align: center;">' +(_num+1)+ '</td>';
-        			   html         += '<td style="text-align: center;">' + writer + '</td>';
+        			   html         += '<td style="text-align: center;">이미지들어갈곳</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
         			   html         += '<a href ="/noticecontform?_id='+_id +'" style="text-align: center;">'+ title +'</a>';
         			   html         += '</div></td>';
-        			   html         += '<td style="width:170px; text-align: center;">'+ time +'</td>';
-        			   html         += '<td style="width:200px; text-align: center;">'+ readcount +'</td>';
+        			   html         += '<td style="width:200px; text-align: center;">'+start_time+'~'+end_time +'</td>';
+        			   html         += '<td style="width:170px; text-align: center;">'+ writer +'</td>';
         			   html         += "</tr>";
                       }
                       console.log(html);
@@ -68,10 +71,11 @@
             <div id="main_content">
                 <div id="message_box">
                     <h3>
-                       공지사항
+                       이벤트
                     </h3>
 
-
+                            <li><button onclick="noweventlist?num=1">진행중인 이벤트</button></li>
+                            <li><button onclick="pasteventlist?num=1">종료된 이벤트</button></li>
                     <div>
 
       <table class="table_box" >
@@ -85,10 +89,10 @@
 	<thead>
 		<tr>
 		    <th>No</th>
-		    <th>글쓴이</th>
+		    <th>이미지</th>
 		    <th>제목</th>
-			<th>날짜</th>
-			<th>조회수</th>
+			<th>이벤트 기간</th>
+			<th>작성자</th>
 		</tr>
 	</thead >
 	        <tbody id = "noticeList">
@@ -99,13 +103,13 @@
 
 <div style="text-align: center;">
 <c:if test="${prev}">
- <span>[ <a href="/noticeList?num=${startpagenum - 1}">이전</a> ]</span>
+ <span>[ <a href="/eventlist?num=${startpagenum - 1}">이전</a> ]</span>
 </c:if>
 
 <c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">
   <span>
    <c:if test="${select != num}">
-      <a href="/noticeList?num=${num}">${num}</a>
+      <a href="/eventlist?num=${num}">${num}</a>
      </c:if>
 
      <c:if test="${select == num}">
@@ -115,12 +119,13 @@
 </c:forEach>
 
 <c:if test="${next}">
- <span>[ <a href="/noticeList?num=${endpagenum + 1}">다음</a> ]</span>
+ <span>[ <a href="/eventlist?num=${endpagenum + 1}">다음</a> ]</span>
 </c:if>
 </div>
 
                         <!-- 쪽지함 이동 버튼들 -->
                         <ul class="buttons">
+
 
                             <li><button onclick="">글쓰기</button></li>
                         </ul>

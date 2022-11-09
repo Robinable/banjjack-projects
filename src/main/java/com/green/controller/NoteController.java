@@ -58,12 +58,15 @@ public class NoteController {
 		int endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
 		int startpagenum = endpagenum - (pagenum_cnt - 1);
 
+		System.out.println("1"+endpagenum);
+		System.out.println("2"+startpagenum);
+
 		int count = noteService.receptcount(recept);
 		int postnum = 10;
 		int pagenum = (int)Math.ceil((double)count/postnum);
 		int displaypost = (num - 1) * postnum;
 
-		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)pagenum_cnt));
+		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)postnum));
 		if(endpagenum > endpagenum_tmp) {
 			endpagenum = endpagenum_tmp;
 		}
@@ -71,7 +74,7 @@ public class NoteController {
 		boolean prev = startpagenum == 1 ? false : true;
 		// prev의 bool을 정하는데
 		//startpagenum이 1이면 false 아니라면 true
-		boolean next = endpagenum * pagenum_cnt > pagenum ? false : true;
+		boolean next = endpagenum * postnum >= count ? false : true;
 
 		model.addAttribute("startpagenum", startpagenum);
 		model.addAttribute("endpagenum", endpagenum);
@@ -127,7 +130,7 @@ public class NoteController {
 		int pagenum = (int)Math.ceil((double)count/postnum);
 		int displaypost = (num - 1) * postnum;
 
-		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)pagenum_cnt));
+		int endpagenum_tmp = (int)(Math.ceil((double)count / (double)postnum));
 		if(endpagenum > endpagenum_tmp) {
 			endpagenum = endpagenum_tmp;
 		}
@@ -135,7 +138,7 @@ public class NoteController {
 		boolean prev = startpagenum == 1 ? false : true;
 		// prev의 bool을 정하는데
 		//startpagenum이 1이면 false 아니라면 true
-		boolean next = endpagenum * pagenum_cnt > pagenum ? false : true;
+		boolean next = endpagenum * postnum >= count ? false : true;
 
 		model.addAttribute("startpagenum", startpagenum);
 		model.addAttribute("endpagenum", endpagenum);

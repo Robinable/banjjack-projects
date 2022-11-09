@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface NoticeDao {
 
-    List<NoticeVo> noticelist();
+    List<NoticeVo> noticelist(int displaypost, int postnum);
 
     NoticeVo selectcont(int _id);
 
     void cntup(int _id);
+
+    int noticecount();
 }
 

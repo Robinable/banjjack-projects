@@ -15,8 +15,8 @@ public class NoticeService {
 
     @Autowired
     private NoticeDaoImpl noticeDaoImpl;
-    public List<NoticeVo> noticelist() {
-        List<NoticeVo> vo = noticeDaoImpl.noticelist();
+    public List<NoticeVo> noticelist(int displaypost,int postnum) {
+        List<NoticeVo> vo = noticeDaoImpl.noticelist(displaypost,postnum);
         return vo;
     }
 
@@ -27,5 +27,10 @@ public class NoticeService {
 
     public void cntup(int _id) {
         noticeDaoImpl.cntup(_id);
+    }
+
+    public int noticecount() {
+        int count = noticeDaoImpl.noticecount();
+        return count;
     }
 }
