@@ -79,19 +79,6 @@
             <version>1.1.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
 
         <!-- 파일업로드 commons-io/commons-io -->
         <dependency>
@@ -100,12 +87,6 @@
             <version>2.8.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
 
         <!-- 파일업로드 commons-fileupload -->
         <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
@@ -114,11 +95,26 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>9.0.53</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 </project>
