@@ -31,7 +31,7 @@ public class CommunityController {
         for(CommunityVo vo : communityService.getCommunityList()) {
             JSONObject obj = new JSONObject();
             obj.put("_id", vo.get_id());
-            obj.put("name", vo.getUsername());
+            obj.put("username", vo.getUsername());
             obj.put("title", vo.getTitle());
             obj.put("tag", vo.getTag());
             obj.put("time", vo.getTime());
@@ -55,7 +55,7 @@ public class CommunityController {
         for(CommunityVo vo: communityService.readCommunity(_id)){
             JSONObject obj = new JSONObject();
             obj.put("_id", vo.get_id());
-            obj.put("name", vo.getUsername());
+            obj.put("username", vo.getUsername());
             obj.put("title", vo.getTitle());
             obj.put("tag", vo.getTag());
             obj.put("time", vo.getTime());
@@ -68,11 +68,13 @@ public class CommunityController {
     }
     @GetMapping("/communityRead")
     public String communityRead(){
+
         return "/communityRead";
     }
 
     //쓰기폼
     @GetMapping("/communityWriteForm")
+
     public String communityWriteForm() {
         return "/communityWriteForm";
     }
@@ -94,7 +96,67 @@ public class CommunityController {
 
     }
 
+    //수정폼세팅
+    @GetMapping("/getCommunityUpdateForm")
+    @ResponseBody
+    public List<JSONObject> getcommunityUpdateForm(int _id){
+        List<JSONObject> getRead = new ArrayList<>();
+        for(CommunityVo vo: communityService.readCommunity(_id)){
+            JSONObject obj = new JSONObject();
+            obj.put("_id", vo.get_id());
+            obj.put("username", vo.getUsername());
+            obj.put("title", vo.getTitle());
+            obj.put("tag", vo.getTag());
+            obj.put("time", vo.getTime());
+            obj.put("readcount", vo.getReadcount());
+            obj.put("content", vo.getContent());
+            getRead.add(obj);
+        }
+        System.out.println("dd"+getRead);
+        return getRead;
+    }
     //수정폼
-    //수정
+
+    @GetMapping("/communityUpdateForm")
+
+    public String communityUpdateForm(){
+      return "/communityUpdateForm";
+    };
+
+    @PostMapping("/communityUpdate")
+    @ResponseBody
+    public Map<String, Object> communityUpdate(@RequestParam String content, String title, int _id){
+
+
+        Map<String, Object> communityUpdateData = new HashMap<>();
+        communityUpdateData.put("content", content);
+        communityUpdateData.put("title", title);
+        communityUpdateData.put("_id", _id);
+            System.out.println(communityUpdateData);
+
+        Map<String, Object> map = new HashMap<>();
+        try {
+            communityService.updateCommunity(communityUpdateData);
+            map.put("result", "success");
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("result", "fail");
+        }
+       return map;
+    }
     //삭제
+
+    @PostMapping("/communityDelete")
+    @ResponseBody
+    public Map<String, Object>  communityDelete(@RequestParam String _id){
+        Map<String, Object> map = new HashMap<>();
+        try {
+            communityService.deleteCommunity(_id);
+            map.put("result", "success");
+        }catch (Exception e) {
+            e.printStackTrace();
+            map.put("result", "fail");
+        }
+        return map;
+    }
 }

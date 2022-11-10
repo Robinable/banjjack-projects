@@ -61,14 +61,14 @@ public class CommentController {
 	@ResponseBody
 	public  Map<String, Object>  commentUpdate(@RequestParam int _id, String content, String username){
 
-		Map<String, Object>inp = new HashMap<String, Object>();
-		inp.put("_id", _id);
-		inp.put("content", content);
-		inp.put("username", username);
+		Map<String, Object>commentupdate = new HashMap<String, Object>();
+		commentupdate.put("_id", _id);
+		commentupdate.put("content", content);
+		commentupdate.put("username", username);
 
 		Map<String, Object> map = new HashMap <String, Object>();
 		try {
-			commentService.commentUpdate(inp);
+			commentService.commentUpdate(commentupdate);
 			map.put("result", "success");
 		}catch (Exception e) {
 			e.printStackTrace();

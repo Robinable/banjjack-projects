@@ -6,29 +6,35 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
         function fnWriteClick() {
-            console.log("버튼테스트");
+            console.log($('#username').val());
             let writeData =
                 {
-                    username: $('username').val(),
-                    tag: $('tag').val(),
-                    title: $('title').val(),
-                    content: $('title').val(),
+                    username: $('#username').val(),
+                    tag: $('#tag').val(),
+                    title: $('#title').val(),
+                    content: $('#content').val(),
 
                 }
+                console.log(writeData);
             $.ajax({
-                url: "/comunityWrite",
-                type: "post",
+                url: "/communityWrite",
+                type: "POST",
                 data: writeData,
                 error: function (xhr) {
                     console.log("error html = " + xhr.statusText);
-                    alert(F);
+                    alert("F");
 
                 },
                 success: function (WriteData) {
+                    alert("S");
                     console.log(WriteData)
-                    alert(S);
+                    var url = "<c:url value="/communityList"/>";
+
+                    console.log(url);
+                    window.location.href = url
                 }
 
             });
@@ -38,13 +44,14 @@
 </head>
 
 <body>
-<input type="hidden" name="username" value=1234 />
-<input type="hidden" name="readcount" value="0" />
+<input type="hidden" id="username" value='1234' />
+<input type="hidden" id="readcount" value="0" />
 <input type="text" id="tag" placeholder="태그" maxlength="20">
 <br>
 <input type="text"  id="title" placeholder="제목"maxLength="20" />
 <br>
 <textarea maxlength="500" id="content" placeholder="내용" ></textarea>
-<button id="writebutton" onClick="fnWriteClick">작성</button>
+<button id="writebutton" onClick="fnWriteClick()">작성</button>
+
 </body>
 </html>

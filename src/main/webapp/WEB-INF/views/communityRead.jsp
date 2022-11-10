@@ -15,12 +15,16 @@
     <script>
         let query = window.location.search;
         let param = new URLSearchParams(query);
-        let id = param.get('_id');
+        let id= param.get('_id');
         console.log(id);
+
         window.onload = function(){
             $.ajax({
-                url: '/getCommunityRead?_id=1' ,
-                method: "get",
+                url: '/getCommunityRead',
+                data: {
+                    _id : id
+                },
+                type: "get",
                 error: function (xhr) {
                     console.log("error html = " + xhr.statusText);
                 },
@@ -29,27 +33,63 @@
                     let str="";
                     $.each(data, function(index, element)
                     {
-                        str +=
-                             '제목:' +element.title
-                            +'번호:' + element._id
-                            +'이름:' +element.username
-                            + '내용:' +element.content
-                            + '시간 :' +element.time
-                            + '조회수:' +element.readcount
-
-
+                        $('#_id').text(element._id);
+                        $('#username').text(element.username);
+                        $('#title').text(element.title);
+                        $('#time').text(element.time);
+                        $('#readcount').text(element.readcount);
+                        $('#content').text(element.content);
                     })
-                    document.getElementById('view').innerHTML= str;
+
                 }
             })
+        }
+        function fnEdit(){
+            console.log("id"+id);
+        var url = "<c:url value="/communityUpdateForm"/>";
+        url = url +"?_id="+id;
+        console.log(url);
+        window.location.href = url;
+        }
+
+        function fnDelete(){
+        $.ajax({
+            url:'/communityDelete',
+            type:'post',
+            dataType:'json',
+            data:{
+                '_id' : id
+            },
+            error: function (xhr) {
+                alert("f")
+                console.log("data");
+                console.log("error html = " + xhr.statusText);
+                console.log("error");
+
+            },
+            success: function (data) {
+                alert("s")
+                console.log("data");
+                location.href = "/communityList"
+            }
+
+
+        })
         }
     </script>
 </head>
 <body>
 <div id="view">
-
+    <span id="_id">_id:</span>
+    <span id="username">username:</span>
+    <span id="title">title:</span>
+    <span id="time">time:</span>
+    <span id="readcount">readcount:</span>
+    <div id="content">content:</div>
 
 </div>
+<button id="edit" onClick="fnEdit($('id'))"> 수정 </button>
+<button id="delete" onClick="fnDelete($('id'))"> 삭제 </button>
 </body>
 
 </body>

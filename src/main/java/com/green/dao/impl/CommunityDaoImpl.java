@@ -27,23 +27,24 @@ public class CommunityDaoImpl implements CommunityDao {
 
     @Override
     public void writeCommunity(CommunityVo communityVo) {
-        sqlSession.insert("Community.writeCommunity", communityVo);
+        sqlSession.insert("Community.communityWrite", communityVo);
     }
 
     @Override
     public List<CommunityVo> readCommunity(int _id) {
-        List<CommunityVo> readCommunitya =
+        List<CommunityVo> voList =
                 sqlSession.selectList("Community.communityRead", _id);
-        return readCommunitya;
+        return voList;
     }
 
     @Override
-    public void updateCommunity(CommunityVo communityVo) {
+    public void updateCommunity(Map<String, Object> map) {
+        sqlSession.update("Community.communityUpdate", map);
 
     }
 
     @Override
-    public void deleteCommunity(int _id) {
-
+    public void deleteCommunity(String _id) {
+        sqlSession.delete("Community.communityDelete", _id);
     }
 }

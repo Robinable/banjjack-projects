@@ -3,6 +3,7 @@ package com.green.dao;
 import com.green.vo.CommunityVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommunityDao {
 
@@ -16,10 +17,10 @@ public interface CommunityDao {
     List<CommunityVo> readCommunity(int _id);
 
     //수정
-    void updateCommunity(CommunityVo communityVo);
+    void updateCommunity(Map<String, Object> map);
 
     //삭제
-    void deleteCommunity(int _id);
+    void deleteCommunity(String _id);
 
 
 }

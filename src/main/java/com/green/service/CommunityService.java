@@ -3,6 +3,8 @@ package com.green.service;
 import com.green.vo.CommunityVo;
 
 import java.util.List;
+import java.util.Map;
+
 import com.green.dao.CommunityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +33,13 @@ public class CommunityService {
     }
 
     //수정
-    public void updateCommunity(CommunityVo communityVo){
-
+    public void updateCommunity(Map<String, Object> map){
+        communityDao.updateCommunity(map);
     }
 
     //삭제
-    public void deleteCommunity(int _id){
-
+    public void deleteCommunity(String _id){
+        communityDao.deleteCommunity(_id);
     }
 
 }

@@ -19,7 +19,6 @@
     // let param = new URLSearchParams(query);
     // let menuId = param.get('menu_id');
     $(document).ready(function(){
-        console.log("dd")
         fnCommunityList();
     });
 
@@ -40,25 +39,40 @@
                 $.each(data, function (index, element) {
 
                     str +=
-                         "<table class=\"elist\" >"
+
+                        "<table class=\"elist\" >"
                             +"<tr>"
                             +"<td> \'"+ element._id + "\'</td>"
                             +"<td> \'"+ element.tag +"\'</td>"
-                            +"<td> <a href=/communityRead?_id=\'"+ element._id +"\'> \'"+ element.title +"\' </td>"
+                            +"<td style=\'cursor:pointer\' onclick=\'communityRead(" + element._id +")\'> \'"+ element.title +"\' </td>"
                             +"<td> \'"+ element.username +"\'</td>"
                             +"<td> \'"+ element.time + "\'</td>"
                             +"<td>\'"+ element.readcount +"\'</td>"
                         +"</tr>"
                         +"</table>"
 
+
+
                 })
                 document.getElementById('articleListBox').innerHTML += str;
             }
         });
     }
+    function communityRead(_id){
+        console.log("1"+_id)
+        var form = document.getElementById("listform");
+        var url = "<c:url value='/communityRead'/>";
+        url = url + "?_id=" + _id;
+        console.log("2"+url);
+        form.action = url;
+        $('#_id').val(_id);
+        form.submit();
+    }
 </script>
 </head>
 <body>
+<form id = "listform" method="get">
+    <input type="hidden" id="_id" name="_id">
 <div class="articleList " id="articleListBox">
     <table class="elist" >
         <tr>
@@ -72,6 +86,8 @@
     </table>
 
 </div>
+</form>
+<button id="communityWriteForm" onClick="location.href='communityWriteForm'"> 쓰기 </button>
 </body>
 
 </html>
