@@ -32,11 +32,9 @@
     </update>
 
 
-    <delete id="commentDelete"
-        parameterType="Map">
+    <delete id="commentDelete">
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
-
     </delete>
 
 </mapper>
