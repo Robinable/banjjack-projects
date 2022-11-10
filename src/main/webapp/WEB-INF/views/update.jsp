@@ -15,6 +15,7 @@ td                {padding:3px}
 td:nth-of-type(1) {width:90px; text-align: right;}
 td:nth-of-type(2) {width:700px;}
 tr:ntn-of-type(4) {height:400px;}
+textarea {width:700px; height:300px;}
 table, th, td {
       border : 1px solid  #c0c0c0;
       border-collapse : collapse;
@@ -23,10 +24,6 @@ table, th, td {
 
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
-
-
-
-
 
     $( function() {
      $.ajax( {
@@ -109,21 +106,13 @@ table, th, td {
 
     		 })
 
-
-
-
 </script>
 
 </head>
 <body>
 <form action="/update" id="update" encType = "multipart/form-data" method="post">
     <div id="div2"></div>
-
-
 </form>
-
-
-
 
 <a class="btn btn-primary" type="submit" onclick="document.getElementById('update').submit();">수정</a>
 <a href="/list?category=&num=1" class="btn btn-primary">게시판</a>

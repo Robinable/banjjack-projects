@@ -51,7 +51,7 @@ a { text-decoration-line: none; }
                },
                method   : "GET",
                dataType:  "json"
-           } )
+           })
     		 .done(function( result, textStatus, xhr ) {
     		      console.log($('.category').val() );
                   var resultStr = JSON.stringify( result ); // JSOn -> string
@@ -72,11 +72,11 @@ a { text-decoration-line: none; }
     				 html += '<tr>';
     				 html += '<td>' + _id   + '</td>';
     				  if(lvl > 1){
-    				    var space = lvl *20
+    				    var space = lvl * 20
                         html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '"> <b style="padding-left:'+space+'px">[답글]' + title  + '</a> </b> </td>';
                       } else {
     				    html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a> </td>';
-    				 }
+    				  }
     				 html += '<td>' + username + '</td>';
     				 if(category == '1'){
     				    html += '<td> 강아지 </td>';
@@ -90,19 +90,17 @@ a { text-decoration-line: none; }
     				 html += '<td>' + time   + '</td>';
     				 html += '<td>' + readcount  + '</td>';
     				 html += '</tr>';
-    			 };
-    			 html += '</table>'
-    			 $('#div1').html(html);
+    			     };
+    			       html += '</table>'
+    		           $('#div1').html(html);
     		 })
     		 .fail(function( error ) {
     			 console.log( error );
-    		 });
-
+    	   });
 </script>
 
 </head>
 <body>
-
 
 <a  href="/list?category=1&num=1" > 개 </a>
 <a  href="/list?category=2&num=1" > 고양이 </a>

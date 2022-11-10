@@ -24,25 +24,25 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
 <script>
 
      $.ajax( {
-               url  :  '/getview?_id=' + ${_id} ,
+               url  :  '/viewupdate?_id=' + ${_id} ,
                data :  {
-                   _id : $('#_id').val() ,
-                   title : $('#title').val(),
-                   content : $('#content').val(),
-                   username : $('#username').val(),
-                   category : $('#category').val(),
-                   bnum : $('#bnum').val(),
-                   lvl : $('#lvl').val(),
-                   step : $('#step').val(),
+                           _id : $('#_id').val() ,
+                           title : $('#title').val(),
+                           content : $('#content').val(),
+                           username : $('#username').val(),
+                           category : $('#category').val(),
+                           bnum : $('#bnum').val(),
+                           lvl : $('#lvl').val(),
+                           step : $('#step').val(),
                },
                method   : "GET",
                dataType:  "json"
-           } )
-    		 .done(function( result, textStatus, xhr ) {
+           })
+    		   .done(function( result, textStatus, xhr ) {
                   var resultStr = JSON.stringify( result ); // JSOn -> string
                   var html= "";
 
-             for(var i = 0; i < result.length; i++  ){
+               for(var i = 0; i < result.length; i++  ){
                  var _id = result[i]._id
                  var title = result[i].title
                  var content = result[i].content
@@ -76,19 +76,19 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
                  html += '<td colspan="3"><textarea maxLength="500" name= "content" >'+ content + '\n====================\n</textarea></td>';
                  html += '</td>';
                  html += '</tr>';
-             };
+           };
 
     			 $('#reply').html(html);
-    		 })
-    		 .fail(function( error ) {
+    	   })
+   	            .fail(function( error ) {
     			 console.log( error );
-    		 });
+    	   });
 
 
 
 
 
-   window.onload = function() {
+     window.onload = function() {
    	  var formEl = document.getElementById('form');
    	  formEl.addEventListener('submit', function(e) {
    		  // 필수 입력 제목, 내용
@@ -198,32 +198,26 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
             </c:when>
 
             <c:otherwise>
-                 <div id="reply"></div>
+                <div id="reply"></div>
             </c:otherwise>
-
         </c:choose>
 
-
-<tr>
-    <div class="container">
-            <div class="image-upload" id="image-upload">
-                    <input type="file" id="chooseFile" name="file" accept="image/*" onchange="loadFile(this)">
-                </form>
-
-                <div class="fileContainer">
-                    <div class="fileInput">
-                        <p>FILE NAME: </p>
-                        <p id="fileName"></p>
-                    </div>
-                    <div class="buttonContainer">
-
+            <tr>
+              <div class="container">
+                <div class="image-upload" id="image-upload">
+                  <input type="file" id="chooseFile" name="file" accept="image/*" onchange="loadFile(this)">
+                    <div class="fileContainer">
+                            <div class="fileInput">
+                                <p>FILE NAME: </p>
+                                <p id="fileName"></p>
+                            </div>
+                        <div class="buttonContainer"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="image-show" id="image-show"></div>
-        </div>
-</tr>
+                <div class="image-show" id="image-show"></div>
+              </div>
+            </tr>
+        </form>
 <tr>
   <td colspan="2">
     <input type="submit" id="submit" value="저장" />
@@ -232,8 +226,6 @@ input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px
   </td>
 </tr>
 </table>
-
-
 
 </body>
 </html>

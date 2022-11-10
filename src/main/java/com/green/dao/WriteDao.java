@@ -11,8 +11,6 @@ public interface WriteDao {
 
     List<WriteVo> getList(String category, int displayPost, int postnum);
 
-    WriteVo getBoard(String _id);
-
     void updateBoard(WriteVo writeVo);
 
     void delete(String id);
