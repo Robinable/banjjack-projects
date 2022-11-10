@@ -12,7 +12,6 @@
 
         <script>
 
-
         		   $.ajax( {
         			   url  :  '/alllist?num=${num}'  ,
         			   data :  {
@@ -65,7 +64,7 @@
 function caselist(a){
 
   $.ajax( {
-        			   url  :  '/caselist?category=a&num=${num}'  ,
+        			   url  :  '/caselist?num=${num}'  ,
         			   data :  {
         				   title : $('#title').val() ,
         				   content : $('#content').val(),
@@ -117,8 +116,8 @@ function caselist(a){
 $(function(){
           $("#category").change(function(e){
               	  console.log(e);
-              		  const search = $('#search > option:selected').val();
-              	         switch(search){
+              		  const category = $('#category > option:selected').val();
+              	         switch(category){
               	         case 'all':
               	        	 caselist();
               	        	 break;

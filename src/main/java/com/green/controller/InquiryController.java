@@ -89,6 +89,8 @@ public class InquiryController {
 
         page.setNum(num);
         page.setCount(inquiryService.casecount(category));
+        int c = inquiryService.casecount(category);
+        System.out.println(c);
 
         model.addAttribute("page", page);
         model.addAttribute("select", num);
@@ -107,8 +109,8 @@ public class InquiryController {
             obj.put("send", vo.getSend());
             obj.put("time", vo.getTime());
 
-
             NoteVoList.add(obj);
+            System.out.println(NoteVoList);
         }
         return NoteVoList;
 
