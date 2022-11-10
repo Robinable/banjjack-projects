@@ -45,8 +45,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserVo selectUserInfoByUsername(String username) {
-        return sqlSession.selectOne("User.selectUserInfoByUsername", username);
+    public UserVo selectUserInfo(HashMap<String, String> map) {
+        return sqlSession.selectOne("User.selectUserInfo", map);
     }
 
     @Override
@@ -80,8 +80,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int findNowPasswd(String now_userpassword) {
-        return sqlSession.update("User.findNowPasswd", now_userpassword);
+    public String findNowPasswd(String now_userpassword) {
+        return sqlSession.selectOne("User.findNowPasswd", now_userpassword);
     }
 
     @Override

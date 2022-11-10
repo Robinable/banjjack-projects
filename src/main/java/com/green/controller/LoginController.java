@@ -2,6 +2,7 @@ package com.green.controller;
 
 import com.green.service.UserService;
 import com.green.vo.UserVo;
+import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.print.attribute.standard.JobOriginatingUserName;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sound.midi.Soundbank;
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -73,12 +77,16 @@ public class LoginController {
     public String loginCheck(@RequestParam("username") String username,
                              @RequestParam("userpassword") String userpassword,
                              HttpSession session,
-                             Model model) {
+                             HttpServletResponse response,
+                             Model model) throws IOException {
 
         System.out.println(username);
         System.out.println(userpassword);
-        String result = "";
+        String returnURL = "";
+
+        // 기존 login 세션에 값이 있으면
         if (session.getAttribute("login") != null) {
+            // 기존에 있던 값을 제거함
             session.removeAttribute("login");
         }
 
@@ -86,18 +94,34 @@ public class LoginController {
         String loginCk = userService.loginPasswordCheck(username);
 
         // 일치한다면
-        if (loginCk.equals(userpassword)) {
-            session.setAttribute("login", loginCk);
-            UserVo userVo = userService.selectUserInfoByUsername(username);
-            model.addAttribute("userVo", userVo);
+        if (userpassword.equals(loginCk)) {
+            HashMap<String,String> map = new HashMap<>();
+            map.put("username", username);
+            map.put("userpassword", userpassword);
+            
+            // 로그인 하려는 아이디와 비밀번호의 vo를 select해서 반환
+            UserVo userVo = userService.selectUserInfo(map);
 
-            return "redirect:/";
+            // 반환한 vo가 있으면
+            if(userVo != null) {
+                // login 세션 생성 > vo 담아
+                userVo.setUserpassword("0");
+                session.setAttribute("login", userVo);
 
-            // 일치하지 않으면
+
+                // 로그인 성공
+                returnURL = "redirect:/";
+            } else {
+                // 로그인 실패
+                returnURL = "redirect:/login";
+            }
+
+        // 일치하지 않으면
         } else {
             model.addAttribute("message", "error");
-            return "redirect:/login";
+            returnURL = "redirect:/login";
         }
+        return returnURL;
     }
 
     // 아이디 찾기 폼
@@ -175,43 +199,58 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    // 마이페이지
+    // 마이페이지 폼
     @GetMapping("/myPageForm")
-    public String myPageForm() {
+    public String myPageForm(HttpServletRequest request,
+                             ModelAndView mv) {
+//        HttpSession session = request.getSession();
+//        UserVo vo = (UserVo) session.getAttribute("login");
+//        System.out.println("session 캐스트 vo: " + vo);
+//        model.addAttribute("vo", vo);
+//        System.out.println(model.getAttribute("vo"));
         return "/mypage";
     }
 
+    // 마이페이지 수정완료
     @PostMapping("/myPageSuccess")
-    public String myPage(@RequestParam("usersido") String usersido,
-                         @RequestParam("usergugun") String usergugun,
-                         @RequestParam("userpet") String userpet) {
+    public String myPage(@RequestParam("usernickname") String usernickname,
+                         @RequestParam("usersido")     String usersido,
+                         @RequestParam("usergugun")    String usergugun) {
+
 
 
         return "/mypage";
     }
 
+    // 마이페이지 내비밀번호변경 폼
     @GetMapping("/myPagePasswdForm")
     public String myPagePasswdForm() {
         return "/mypagePasswd";
     }
 
+    // 마이페이지 내비밀번호변경 완료
     @PostMapping("/mypagePasswdUpdate")
     public  String mypagePasswd(@RequestParam("now_userpassword") String now_userpassword,
                                 @RequestParam("userpassword") String userpassword,
                                 Model model) {
-        System.out.println(now_userpassword);
-        int nowUserPasswd = userService.findNowPasswd(now_userpassword);
-        System.out.println(nowUserPasswd);
-        if(nowUserPasswd == 1) {
+
+        String nowUserPasswd = userService.findNowPasswd(now_userpassword);
+
+        if(now_userpassword.equals(nowUserPasswd)) {
             HashMap<String, String> map = new HashMap<>();
             map.put("now_userpassword", now_userpassword);
             map.put("userpassword", userpassword);
             userService.updateNewPasswd(map);
+            model.addAttribute("userpassword", userpassword);
+            model.addAttribute("nowUserpassword", now_userpassword);
+            return "/mypage";
+
         } else {
             model.addAttribute("message", "error");
+            return "/mypagePasswd";
         }
 
-        return "/mypage";
+
     }
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import ="com.green.vo.UserVo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,21 +44,29 @@
     window.onload = function() {
         const form = document.querySelector('form');
         form.addEventListener('submit', function(e) {
-            if(usersido.value == '') {
+            if(usernickname.value == '') {
+                e.preventDefault();
+                alert('닉네임을 입력해주세요.');
+                usernickname.focus();
+
+            }else if(usersido.value == '') {
                 e.preventDefault();
                 alert('지역(시/도)를 입력해주세요.');
                 usersido.focus();
+
             } else if(usergugun.value == '') {
                 e.preventDefault();
                 alert('지역(구/군/동/읍/면/리)를 입력해주세요.');
                 usergugun.focus();
+
             } else if(userpet.value == '') {
                 e.preventDefault();
                 alert('반려동물을 입력해주세요.');
                 userpet.focus();
             }
-        });
+        }); // form event end
 
+        // 이미지 업로트 버튼 이벤트
         $('#btnUpload').click(function (e) {
             $('#profile_img').click();
         });
@@ -86,7 +95,7 @@
 </head>
 <body>
 	<div class="myPageForm">
-	<h2>회원가입</h2>
+	<h2>내정보</h2>
 	<hr />
 		<form action="/myPageSuccess" method="POST" id="form1">
 		  <div id="container">
@@ -98,31 +107,26 @@
                     <img id="preview" />
                 </li>
                 <li>
-                    <input type="hidden" id="testId" value="${username}"/>
-                    <input type="text" id="username" name="username" placeholder="아이디" maxlength="20" readonly><br>
+                    <input type="text" id="username" name="username" placeholder="아이디" value="${vo.username}" readonly><br>
                     <span id="unameCheck"></span>
                 </li>
                 <li>
-                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" readonly><br>
+                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" value="${vo.usernickname}"><br>
                     <span id="unicknameCheck"></span>
                 </li>
                 <li>
-                    <input type="text" id="useremail" name="useremail" placeholder="E-mail" readonly><br>
-                    <span id="emailCheck"></span>
-                </li>
-                <li>
-                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)"/>
-                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)"/>
+                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)" value="${vo.usersido}"/>
+                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)" value="${vo.usergugun}"/>
                     <span id="localCheck"></span>
                 </li>
                 <li>
-                    <select id="selectPet" name="selectPet">
+                    <select id="selectPet" name="selectPet" >
                         <option value="반려동물" selected>반려동물</option>
                         <option value="고양이">고양이</option>
                         <option value="개">개</option>
                         <option value="기타">기타</option>
                     </select>
-                    <input type="text" id="userpet" name="userpet" value=""/>
+                    <input type="text" id="userpet" name="userpet" value="${vo.userpet}"/>
                     <span id="petCheck"></span>
                 </li>
 

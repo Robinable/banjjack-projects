@@ -39,8 +39,8 @@ public class UserService {
         return userDaoImpl.loginPasswordCheck(username);
     }
 
-    public UserVo selectUserInfoByUsername(String username) {
-        return userDaoImpl.selectUserInfoByUsername(username);
+    public UserVo selectUserInfo(HashMap<String,String> map) {
+        return userDaoImpl.selectUserInfo(map);
     }
 
     public String findId(String useremail) {
@@ -67,7 +67,7 @@ public class UserService {
         return userDaoImpl.findEmailByUseremail(useremail);
     }
 
-    public int findNowPasswd(String now_userpassword) {
+    public String findNowPasswd(String now_userpassword) {
         return userDaoImpl.findNowPasswd(now_userpassword);
     }
 

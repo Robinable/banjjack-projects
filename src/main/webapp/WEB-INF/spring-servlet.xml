@@ -68,18 +68,19 @@
         <property name="maxInMemorySize" value="100000000" />
     </bean>
 
+
     <!-- Interceptor 설정 추가  -->
 
     <!--  공통 Interceptor -->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            <mvc:exclude-mapping path="/resources/**"/>-->
-<!--            <mvc:exclude-mapping path="/static/**"/>-->
-<!--            <bean id="authInterceptor"-->
-<!--                  class="com.green.interceptor.AuthInterceptor">-->
-<!--            </bean>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <bean id="authInterceptor"
+                  class="com.green.interceptor.AuthInterceptor">
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

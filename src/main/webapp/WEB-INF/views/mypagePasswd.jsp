@@ -48,18 +48,18 @@
             const re_userpassword  = document.getElementById('re_userpassword');
 
             if(now_userpassword.value == '') {
-                alert('현재 비밀번호를 입력해주세요.');
                 e.preventDefault();
+                alert('현재 비밀번호를 입력해주세요.');
                 now_userpassword.value = '';
 
             } else if(userpassword.value == '') {
-                alert('새 비밀번호를 입력해주세요.');
                 e.preventDefault();
+                alert('새 비밀번호를 입력해주세요.');
                 userpassword.value = '';
 
             } else if(re_userpassword.value == '') {
-                alert('새 비밀번호 확인을 입력해주세요.');
                 e.preventDefault();
+                alert('새 비밀번호 확인을 입력해주세요.');
                 re_userpassword.value = '';
 
             } else if(userpassword.value != re_userpassword.value) {
@@ -67,9 +67,10 @@
                 $('#dataCheck').html('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
                 $('#re_userpassword').val('');
                 $('#re_userpassword').focus();
+
             }
 
-            alert('비밀번호가 정상적으로 변경되었습니다.');
+
        })
 
 
@@ -90,9 +91,13 @@
 			    <hr />
                 <li><input type="password" id="now_userpassword" name="now_userpassword" placeholder="현재 비밀번호"/></li>
                 <li><input type="password" id="userpassword" name="userpassword" placeholder="새 비밀번호"/></li>
-                <li><input type="password" id="re_userpassword" name="re_userpassword" placeholder="새 비밀번호 확인"/></li>
+                <li><input type="password" id="re_userpassword" name="re_userpassword" placeholder="새 비밀번호 확인"/></li><br>
                 <li><span id="dataCheck"></span></li>
-
+                <li>
+                    <c:if test="${message == 'error'}">
+                    <div style="color:red;">잘못된 비밀번호입니다. 다시 입력해주세요.</div>
+                    </c:if>
+                </li>
                 <li><input type="submit" id="pwOK" name="pwOK" value="변경"/></li>
 
            </ul>

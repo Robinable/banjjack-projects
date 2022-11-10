@@ -63,9 +63,12 @@
                 $('#dataCheck').html('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
                 $('#re_userpassword').val('');
                 $('#re_userpassword').focus();
+
+            } else {
+                alert('비밀번호가 정상적으로 변경되었습니다.');
             }
 
-            alert('비밀번호가 정상적으로 변경되었습니다.');
+
        })
 
 

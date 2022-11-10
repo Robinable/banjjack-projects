@@ -17,7 +17,7 @@ public interface UserDao {
 
     String loginPasswordCheck(String username);
 
-    UserVo selectUserInfoByUsername(String username);
+    UserVo selectUserInfo(HashMap<String, String> map);
 
     String findId(String useremail);
 
@@ -31,7 +31,7 @@ public interface UserDao {
 
     String selectUseremail(String username);
 
-    int findNowPasswd(String now_userpassword);
+    String findNowPasswd(String now_userpassword);
 
     void updateNewPasswd(HashMap<String,String> map);
 }

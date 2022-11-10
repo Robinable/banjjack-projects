@@ -53,11 +53,12 @@
 
     </insert>
 
-    <select id="selectUserInfoByUsername"
-            resultType="com.green.vo.UserVo">
+    <select id="selectUserInfo"
+            resultType="com.green.vo.UserVo"
+            parameterType="HashMap">
         SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet
         FROM   user_tb
-        WHERE  username = #{username}
+        WHERE  username = #{username} AND userpassword = #{userpassword}
 
     </select>
 
@@ -115,7 +116,7 @@
             resultType="String">
         SELECT userpassword
         FROM   user_tb
-        WHERE  userpassword = #{unow_userpassword};
+        WHERE  userpassword = #{now_userpassword}
 
     </select>
 
@@ -123,7 +124,7 @@
             parameterType="HashMap">
         UPDATE user_tb
         SET    userpassword = #{userpassword}
-        WHERE  userpassword = #{unow_userpassword}
+        WHERE  userpassword = #{now_userpassword}
 
     </update>
 
