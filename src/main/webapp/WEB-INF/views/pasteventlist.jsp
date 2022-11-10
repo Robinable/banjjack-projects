@@ -45,7 +45,7 @@
 
         			   html         += "<tr>";
         			   html         += '<td style="text-align: center;">' +(_num+1)+ '</td>';
-        			   html         += '<td style="text-align: center;">이미지들어갈곳</td>';
+        			   html         += '<td style="text-align: center;"><img src ="">이미지들어갈곳</td>';
         			   html         += '<td style="text-align: center; padding-left:30px;">';
         			   html         += '<div class="cc">';
         			   html         += '<a href ="/noticecontform?_id='+_id +'" style="text-align: center;">'+ title +'</a>';
