@@ -13,9 +13,13 @@ public class WriteService {
     @Autowired
     private WriteDao writeDao;
 
+    public int listCount(String category) {
+        int count = writeDao.listCount(category);
+        return  count;
+    }
 
-    public List<WriteVo> getList(String category) {
-        List<WriteVo> boardList = writeDao.getList(category);
+    public List<WriteVo> getList(String category, int displayPost, int postnum) {
+        List<WriteVo> boardList = writeDao.getList(category, displayPost, postnum);
         return boardList;
     }
 
@@ -56,4 +60,6 @@ public class WriteService {
         FileVo fileVo = writeDao.getFile(_id);
         return fileVo;
     }
+
+
 }

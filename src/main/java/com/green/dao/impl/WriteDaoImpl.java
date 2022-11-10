@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository("WriteDao")
@@ -17,8 +18,13 @@ public class WriteDaoImpl implements WriteDao {
 
     @Override
     public void Write(WriteVo writeVo) {
-        sqlSession.insert("Write.insertWrite", writeVo);
-        System.out.println("content_id" + writeVo.get_id());
+        int lvl = writeVo.getLvl();
+        if(lvl == 0) {
+            sqlSession.insert("Write.insertWrite", writeVo);
+        } else {
+            sqlSession.update("Write.UpdateRef", writeVo);
+            sqlSession.insert("Write.BoardReply", writeVo);
+        }
     }
 
     @Override
@@ -40,8 +46,19 @@ public class WriteDaoImpl implements WriteDao {
     }
 
     @Override
-    public List<WriteVo> getList(String category) {
-        List<WriteVo> boardList = sqlSession.selectList("Write.boardList", category);
+    public int listCount(String category) {
+        int count = sqlSession.selectOne("Write.listCount", category);
+        return count;
+    }
+
+    @Override
+    public List<WriteVo> getList(String category, int displayPost, int postnum) {
+        HashMap map = new HashMap();
+        map.put("displaypost", displayPost);
+        map.put("postnum", postnum);
+        map.put("category", category);
+
+        List<WriteVo> boardList = sqlSession.selectList("Write.boardList", map);
         return boardList;
     }
 

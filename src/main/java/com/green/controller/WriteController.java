@@ -1,6 +1,7 @@
 package com.green.controller;
 
 import com.green.service.WriteService;
+import com.green.vo.Page;
 import com.green.vo.WriteVo;
 import com.green.vo.FileVo;
 import org.json.simple.JSONObject;
@@ -17,12 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 
 @Controller
 public class WriteController {
+	Page page = new Page();
 	@Autowired
 	private WriteService writeService;
 
@@ -33,15 +36,25 @@ public class WriteController {
 	}
 
 	@GetMapping("/list")
-	public String list(Model model, @RequestParam String category) {
+	public String list(Model model, @RequestParam String category, @RequestParam int num ) {
+		page.setNum(num);
+		page.setCount(writeService.listCount(category));
+
+		model.addAttribute("page", page);
 		model.addAttribute("category", category);
+		model.addAttribute("select", num);
+		model.addAttribute("num", num);
+
 		return "/list";
 	}
 	@GetMapping("/getlist")
 	@ResponseBody
-	public List<JSONObject> getList(@RequestParam String category) {
+	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num) {
+		int postnum = page.getPostnum();
+		int displayPost = page.getDisplaypost();
+
 		List<JSONObject> getList = new ArrayList<>();
-		for (WriteVo vo : writeService.getList(category)){
+		for (WriteVo vo : writeService.getList(category, displayPost, postnum)){
 			JSONObject data = new JSONObject();
 			data.put("_id", vo.get_id());
 			data.put("title", vo.getTitle());
@@ -49,6 +62,9 @@ public class WriteController {
 			data.put("category", vo.getCategory());
 			data.put("time", vo.getTime());
 			data.put("readcount", vo.getReadcount());
+			data.put("bnum", vo.getBnum());
+			data.put("lvl", vo.getLvl());
+			data.put("step", vo.getStep());
 			getList.add(data);
 		}
 		return getList;
@@ -76,6 +92,9 @@ public class WriteController {
 			data.put("category", vo.getCategory());
 			data.put("time", vo.getTime());
 			data.put("readcount", vo.getReadcount());
+			data.put("bnum", vo.getBnum());
+			data.put("lvl", vo.getLvl());
+			data.put("step", vo.getStep());
 			FileVo fileVo = writeService.getFile(_id);
 			if(fileVo != null) {
 				data.put("filename", fileVo.getFilename());
@@ -88,11 +107,13 @@ public class WriteController {
 
 	@GetMapping("/writeform")
 	public String getWriteForm(Model model, @RequestParam String username, @RequestParam String bnum,
-							   @RequestParam String lvl, @RequestParam String step){
+							   @RequestParam int lvl, @RequestParam String step, @RequestParam String _id){
 		model.addAttribute("username", username);
 		model.addAttribute("bnum", bnum);
 		model.addAttribute("lvl", lvl);
 		model.addAttribute("step", step);
+		model.addAttribute("_id", _id);
+
 		return "/write";
 	}
 
@@ -106,6 +127,9 @@ public class WriteController {
 		writeVo.setUsername(request.getParameter("username"));
 		writeVo.setTime(request.getParameter("time"));
 		writeVo.setReadcount(Integer.parseInt(request.getParameter("readcount")));
+		writeVo.setBnum(Integer.parseInt(request.getParameter("bnum")));
+		writeVo.setLvl(Integer.parseInt(request.getParameter("lvl")));
+		writeVo.setStep(Integer.parseInt(request.getParameter("step")));
 		writeService.Write(writeVo);
 
 		//컨텐츠 테이블에 셀렉 => _id가져옴
@@ -129,7 +153,7 @@ public class WriteController {
 			writeService.writeFile(fileVo);
 		}
 
-		return "redirect:/list?category=" + writeVo.getCategory();
+		return "redirect:/list?num=1&category=" + writeVo.getCategory();
 	}
 
 	@GetMapping("/updateForm")
@@ -193,14 +217,14 @@ public class WriteController {
 			writeService.writeFile(fileVo);
 		}
 
-		return "redirect:/list?category=" + writeVo.getCategory();
+		return "redirect:/list?num=1&category=" + writeVo.getCategory();
 	}
 
 	@GetMapping("/delete")
 	public String delete(@RequestParam String _id, @RequestParam String category) {
 		writeService.delete(_id);
 		System.out.println(category);
-		return "redirect:/list?category=" + category ;
+		return "redirect:/list?num=1&category=" + category ;
 	}
 
 

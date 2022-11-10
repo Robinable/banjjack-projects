@@ -9,7 +9,7 @@ public interface WriteDao {
 
     void Write(WriteVo writeVo);
 
-    List<WriteVo> getList(String category);
+    List<WriteVo> getList(String category, int displayPost, int postnum);
 
     WriteVo getBoard(String _id);
 
@@ -24,6 +24,8 @@ public interface WriteDao {
     void writeFile(FileVo fileVo);
 
     FileVo getFile(String id);
+
+    int listCount(String category);
 }
 
 

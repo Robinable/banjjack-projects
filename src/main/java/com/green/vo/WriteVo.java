@@ -8,11 +8,14 @@ public class WriteVo {
     int category;
     String time;
     int readcount;
+    int bnum;
+    int lvl;
+    int step;
 
     public WriteVo() {
     }
 
-    public WriteVo(int _id, String username, String title, String content, int category, String time, int readcount) {
+    public WriteVo(int _id, String username, String title, String content, int category, String time, int readcount, int bnum, int lvl, int step) {
         this._id = _id;
         this.username = username;
         this.title = title;
@@ -20,6 +23,9 @@ public class WriteVo {
         this.category = category;
         this.time = time;
         this.readcount = readcount;
+        this.bnum = bnum;
+        this.lvl = lvl;
+        this.step = step;
     }
 
     public int get_id() {
@@ -78,16 +84,43 @@ public class WriteVo {
         this.readcount = readcount;
     }
 
+    public int getBnum() {
+        return bnum;
+    }
+
+    public void setBnum(int bnum) {
+        this.bnum = bnum;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
     @Override
     public String toString() {
         return "WriteVo{" +
-                "_id='" + _id + '\'' +
+                "_id=" + _id +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", category=" + category +
                 ", time='" + time + '\'' +
                 ", readcount=" + readcount +
+                ", bnum=" + bnum +
+                ", lvl=" + lvl +
+                ", step=" + step +
                 '}';
     }
 }

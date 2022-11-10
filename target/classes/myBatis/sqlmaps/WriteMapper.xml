@@ -10,8 +10,8 @@
     </select>
 
     <insert id="insertWrite">
-        INSERT INTO content_tb (username, title, content, category, time, readcount)
-        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount} )
+        INSERT INTO content_tb (username, title, content, category, time, readcount, bnum, lvl, step)
+        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount}, (SELECT IFNULL(MAX(a._id),0)+1 FROM content_tb a), 1, 0 )
         <selectKey keyProperty="_id" resultType="Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -29,15 +29,40 @@
         VALUES (#{filename}, #{filepath}, #{content_id})
     </insert>
 
+    <update id="UpdateRef">
+        UPDATE content_tb
+        SET    STEP = STEP + 1
+        WHERE  bnum = #{ bnum }
+        AND    STEP > #{ step }
+    </update>
+
+    <insert id="BoardReply">
+        INSERT INTO content_tb (username, title, content, category, time, readcount, bnum, lvl, step)
+        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount}, #{bnum}, #{lvl} + 1 , #{step} + 1 )
+        <selectKey keyProperty="_id" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
     <select id="boardList"
             resultType="com.green.vo.WriteVo">
-        SELECT _id, username, title, content, category, time, readcount
+        SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step
         FROM content_tb
         <if test="category != null and category != ''">
             WHERE
             category = #{category}
         </if>
-        ORDER BY _id desc
+        ORDER BY bnum desc, step  ASC
+        LIMIT #{displaypost},#{postnum}
+    </select>
+
+    <!-- 페이징 -->
+    <select id= "listCount" resultType="int">
+        SELECT COUNT(_id) FROM content_tb
+        <if test="category != null and category != ''">
+            WHERE
+            category = #{category}
+        </if>
     </select>
 
     <select id="getBoard"
@@ -49,7 +74,7 @@
 
     <select id="getView"
             resultType="com.green.vo.WriteVo">
-        SELECT _id, username, title, content, category, time, readcount
+        SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step
         FROM content_tb
         WHERE _id = #{_id}
     </select>

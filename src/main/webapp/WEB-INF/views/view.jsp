@@ -36,6 +36,9 @@ table, th, td {
                    readcount : $('#readcount').val(),
                    filename : $('#filename').val(),
                    filepath : $('#filepath').val(),
+                   bnum : $('#bnum').val(),
+                   lvl : $('#lvl').val(),
+                   step : $('#step').val(),
                },
                method   : "GET",
                dataType:  "json"
@@ -54,52 +57,53 @@ table, th, td {
                  var readcount = result[i].readcount
                  var filename = result[i].filename
                  var filepath = result[i].filepath
+                 var bnum = result[i].bnum
+                 var lvl = result[i].lvl
+                 var step = result[i].step
 
                  html += '<tr>';
-                 html += '<td>' + '번호'   + '</td>';
+                 html += '<td>번호</td>';
                  html += '<td>' + _id   + '</td>';
-                 html += '<td>' + '조회수'   + '</td>';
+                 html += '<td>조회수</td>';
                  html += '<td>' + readcount   + '</td>';
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td>' + '작성일'   + '</td>';
+                 html += '<td>작성일</td>';
                  html += '<td>' + time   + '</td>';
-                 html += '<td>' + '작성자' + '</td>';
+                 html += '<td>작성자</td>';
                  html += '<td>' + username + '</td>';
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td>' +  '제목'  + '</td>';
+                 html += '<td>제목</td>';
                  html += '<td>' +  title  + '</td>';
-                 html += '<td>' +  '카테고리'  + '</td>';
+                 html += '<td>카테고리</td>';
                  if(category == '1'){
-                    html += '<td>' + '강아지' + '</td>';
+                    html += '<td>강아지</td>';
                     }
                  else if(category =='2') {
-                    html += '<td>' + '고양이' + '</td>';
+                    html += '<td>고양이</td>';
                     }
                  else if(category =='3') {
-                    html += '<td>' + '기타' + '</td>';
+                    html += '<td>기타</td>';
                     }
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td>' +  '내용'  + '</td>';
+                 html += '<td>내용</td>';
                  html += '<td colspan="3">' +  content ;
                  if(filepath != null){
-                 html += '<br>' +'<img src="' + filepath + '" style="width:200px; height:200px;">'
+                 html += '<br><img src="' + filepath + '" style="width:200px; height:200px;">'
                  }
                  html += '</td>';
                  html += '</tr>';
-                 html += '<tr>';
 
-                 html += '</tr>';
-                 html += '<td colspan="3">' + '<a href="/writeform?username=1234&bnum=1&lvl=0&step=0">' + '답글쓰기' + '</a>'
-                 html +=  '<a href="/updateForm?_id=' + _id + '">' + '수정' + '</a>'
-                 html +=  '<a href="/list?category=' + category + '" class="btn btn-primary">' + '게시판' + '</a>'
-                 html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-primary">' + '삭제' + '</a>'
+                 html += '<td colspan="3"><a href="/writeform?username=1234&_id='+_id+'&bnum='+ bnum +'&lvl='+ lvl +'&step='+ step +'">답글쓰기</a>'
+                 html +=  '<a href="/updateForm?_id=' + _id + '"> 수정 </a>'
+                 html +=  '<a href="/list?category=' + category + '&num=1" class="btn btn-primary"> 게시판 </a>'
+                 html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-primary"> 삭제 </a>'
                  html += '</td>'
 
              };
-    			 html += '</table>'
+
     			 $('#div2').html(html);
     		 })
     		 .fail(function( error ) {
@@ -111,8 +115,6 @@ table, th, td {
 </head>
 <body>
 <div id="div2"></div>
-
-
 
 </body>
 </html>

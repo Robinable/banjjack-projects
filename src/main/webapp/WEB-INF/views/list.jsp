@@ -9,7 +9,7 @@
 <style>
 table {margin:100px auto;}
 tr:nth-of-type(1) {width:100%;}
-tr:nth-of-type(4) {text-align: right;}
+
 td                {padding:3px}
 td:nth-of-type(1) {width:90px; text-align: right;}
 td:nth-of-type(2) {width:700px;}
@@ -37,7 +37,7 @@ a { text-decoration-line: none; }
  }
 
      $.ajax( {
-               url  :  '/getlist?category=' + ${category} ,
+               url  :  '/getlist?num=${num}&category=${category}' ,
                data :  {
                    _id : $('#_id').val() ,
                    title : $('#title').val(),
@@ -45,6 +45,9 @@ a { text-decoration-line: none; }
                    category : $('#category').val(),
                    time : $('time').val(),
                    readcount : $('#readcount').val(),
+                   bnum : $('#bnum').val(),
+                   lvl : $('#lvl').val(),
+                   step : $('#step').val(),
                },
                method   : "GET",
                dataType:  "json"
@@ -62,19 +65,27 @@ a { text-decoration-line: none; }
                      var category = result[i].category
                      var time = result[i].time
                      var readcount = result[i].readcount
+                     var bnum = result[i].bnum
+                     var lvl = result[i].lvl
+                     var step = result[i].step
 
     				 html += '<tr>';
     				 html += '<td>' + _id   + '</td>';
-    				 html += '<td>' + '<a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a>' + '</td>';
+    				  if(lvl > 1){
+    				    var space = lvl *20
+                        html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '"> <b style="padding-left:'+space+'px">[답글]' + title  + '</a> </b> </td>';
+                      } else {
+    				    html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a> </td>';
+    				 }
     				 html += '<td>' + username + '</td>';
     				 if(category == '1'){
-    				    html += '<td>' + '강아지' + '</td>';
+    				    html += '<td> 강아지 </td>';
     				    }
     				 else if(category =='2') {
-    				    html += '<td>' + '고양이' + '</td>';
+    				    html += '<td> 고양이 </td>';
     				    }
     				 else if(category =='3') {
-    				    html += '<td>' + '기타' + '</td>';
+    				    html += '<td> 기타 </td>';
     				    }
     				 html += '<td>' + time   + '</td>';
     				 html += '<td>' + readcount  + '</td>';
@@ -93,15 +104,37 @@ a { text-decoration-line: none; }
 <body>
 
 
-<a  href="/list?category=1" > 개 </a>
-<a  href="/list?category=2" > 고양이 </a>
-<a  href="/list?category=3" > 기타 </a>
-<a  href="/list?category=''" > 전체 </a>
+<a  href="/list?category=1&num=1" > 개 </a>
+<a  href="/list?category=2&num=1" > 고양이 </a>
+<a  href="/list?category=3&num=1" > 기타 </a>
+<a  href="/list?category=&num=1" > 전체 </a>
 
-<div id="div1"></div>
+<table id="div1"></table>
+
+<!-- 페이징 -->
+<div style="text-align: center;">
+<c:if test="${page.prev}">
+ <span>[ <a href="/list?category=1&num=${page.startpagenum - 1}">이전</a> ]</span>
+</c:if>
+
+<c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+  <span>
+   <c:if test="${select != num}">
+      <a href="/list?category=1&num=${num}">${num}</a>
+     </c:if>
+
+     <c:if test="${select == num}">
+      <b>${num}</b>
+     </c:if>
+ </span>
+</c:forEach>
+
+<c:if test="${page.next}">
+ <span>[ <a href="/list?category=1&num=${page.endpagenum + 1}">다음</a> ]</span>
+</c:if>
+</div>
 
 
-
-<a href="/writeform?username=1234&bnum=0&lvl=0&step=0">새 글 쓰기</a>
+<a href="/writeform?username=1234&_id=0&bnum=0&lvl=0&step=0">새 글 쓰기</a>
 </body>
 </html>

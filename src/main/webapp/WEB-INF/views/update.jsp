@@ -61,45 +61,45 @@ table, th, td {
                  var filepath = result[i].filepath
 
                  html += '<tr>';
-                 html += '<td>' + '번호'   + '</td>';
+                 html += '<td> 번호 </td>';
                  html += '<td>' + _id   + '</td>';
-                 html += '<td>' + '조회수'   + '</td>';
+                 html += '<td> 조회수 </td>';
                  html += '<td>' + readcount   + '</td>';
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td>' + '작성일'   + '</td>';
+                 html += '<td> 작성일 </td>';
                  html += '<td>' + time   + '</td>';
-                 html += '<td>' + '작성자' + '</td>';
+                 html += '<td> 작성자 </td>';
                  html += '<td>' + username + '</td>';
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td>' +  '제목'  + '</td>';
-                 html += '<td>' +  '<input type="text" name="title" maxLength="20" value="' + title + '" >'  + '</td>';
-                 html += '<td>' +  '카테고리'  + '</td>';
+                 html += '<td> 제목 </td>';
+                 html += '<td><input type="text" name="title" maxLength="20" value="' + title + '" ></td>';
+                 html += '<td> 카테고리 </td>';
                  if(category == '1'){
-                    html += '<td>' + '강아지' + '</td>';
+                    html += '<td> 강아지 </td>';
                     }
                  else if(category =='2') {
-                    html += '<td>' + '고양이' + '</td>';
+                    html += '<td> 고양이 </td>';
                     }
                  else if(category =='3') {
-                    html += '<td>' + '기타' + '</td>';
+                    html += '<td> 기타 </td>';
                     }
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td>' +  '내용'  + '</td>';
+                 html += '<td> 내용 </td>';
                  html += '<td colspan="3">' +  '<textarea maxLength="500" name= "content" >' + content + '</textarea>'  + '</td>';
                  html += '</tr>';
                  html += '<tr>';
                  if(filepath == null){
-                 html += '<td colspan="4">' + '<input type="file" name="file">' + '</td>';
+                 html += '<td colspan="4"> <input type="file" name="file"> </td>';
                                   }
                  html += '</tr>';
 
                  html += '<input type="hidden" name="_id" value="' + _id + '" />'
                  html += '<input type="hidden" name="category" value="' + category + '" />'
              };
-    			 html += '</table>'
+
     			 $('#div2').html(html);
 
     		 })
@@ -126,7 +126,7 @@ table, th, td {
 
 
 <a class="btn btn-primary" type="submit" onclick="document.getElementById('update').submit();">수정</a>
-<a href="/list?category=1" class="btn btn-primary">게시판</a>
+<a href="/list?category=&num=1" class="btn btn-primary">게시판</a>
 <a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
 </form>
 </body>
