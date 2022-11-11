@@ -59,19 +59,14 @@
         });
     }
     function communityRead(_id){
-        console.log("1"+_id)
         var form = document.getElementById("listform");
-        var url = "<c:url value='/communityRead'/>";
-        url = url + "?_id=" + _id;
-        console.log("2"+url);
-        form.action = url;
         $('#_id').val(_id);
         form.submit();
     }
 </script>
 </head>
 <body>
-<form id = "listform" method="get">
+<form id = "listform" method="get" action="/communityRead">
     <input type="hidden" id="_id" name="_id">
 <div class="articleList " id="articleListBox">
     <table class="elist" >
