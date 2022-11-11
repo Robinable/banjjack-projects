@@ -74,4 +74,21 @@ public class UserService {
     public void updateNewPasswd(HashMap<String,String> map) {
         userDaoImpl.updateNewPasswd(map);
     }
+
+    public void mypageUsernicknameUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUsernicknameUpdate(map);
+    }
+
+    public void mypageUsersidoUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUsersidoUpdate(map);
+    }
+
+    public void mypageUsergugunUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUsergugunUpdate(map);
+    }
+
+    public UserVo searchUserInfo(String username) {
+        return userDaoImpl.searchUserInfo(username);
+
+    }
 }

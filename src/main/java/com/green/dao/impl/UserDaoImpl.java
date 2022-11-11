@@ -88,6 +88,28 @@ public class UserDaoImpl implements UserDao {
     public void updateNewPasswd(HashMap<String,String> map) {
         sqlSession.update("User.updateNewPasswd", map);
     }
+
+    @Override
+    public void mypageUsernicknameUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUsernicknameUpdate", map);
+    }
+
+    @Override
+    public void mypageUsersidoUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUsersidoUpdate", map);
+    }
+
+    @Override
+    public void mypageUsergugunUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUsergugunUpdate", map);
+    }
+
+    @Override
+    public UserVo searchUserInfo(String username) {
+        return sqlSession.selectOne("User.searchUserInfo", username);
+    }
+
+
 }
 
 

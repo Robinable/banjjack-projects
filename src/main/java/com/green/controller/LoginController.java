@@ -24,7 +24,10 @@ public class LoginController {
 
     // 로그인창
     @RequestMapping("/login")
-    public String login() {
+    public String login(HttpSession session) {
+        if (session.getAttribute("login") != null) {
+            return "redirect:/";
+        }
         return "/login";
     }
 
@@ -39,11 +42,15 @@ public class LoginController {
     public String insertInfo(@RequestParam("username") String username, @RequestParam("userpassword") String userpassword,
                              @RequestParam("usernickname") String usernickname, @RequestParam("useremail") String useremail,
                              @RequestParam("usersido") String usersido, @RequestParam("usergugun") String usergugun,
-                             @RequestParam("userpet") String userpet) {
+                             @RequestParam("userpet") String userpet,
+                             HttpSession session) {
+
+        session.removeAttribute("login");
+
         UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet);
         userService.insertInfo(userVo);
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     // user 정보 가져오기
@@ -74,10 +81,10 @@ public class LoginController {
         String returnURL = "";
 
         // 기존 login 세션에 값이 있으면
-        if (session.getAttribute("login") != null) {
-            // 기존에 있던 값을 제거함
-            session.removeAttribute("login");
-        }
+//        if (session.getAttribute("login") != null) {
+//            // 기존에 있던 값을 제거함
+//            session.removeAttribute("login");
+//        }
 
         // 비밀번호 일치 확인
         String loginCk = userService.loginPasswordCheck(username);
@@ -108,7 +115,7 @@ public class LoginController {
             // 일치하지 않으면
         } else {
             model.addAttribute("message", "error");
-            returnURL = "redirect:/login";
+            returnURL = "/login";
         }
         return returnURL;
     }
@@ -151,8 +158,6 @@ public class LoginController {
                                Model model) {
         String username2 = userService.selectUsername(useremail);
         String useremail2 = userService.selectUseremail(username);
-        System.out.println(username2);
-        System.out.println(useremail2);
 
         // 불러온 아이디와 이메일이 db 값과 일치한다면
         if (username.equals(username2) && useremail.equals(useremail2)) {
@@ -161,7 +166,6 @@ public class LoginController {
             map.put("useremail", useremail2);
 
             String userpassword = userService.findPasswd(map);
-            System.out.println(userpassword);
 
             model.addAttribute("username", username);
 
@@ -185,27 +189,31 @@ public class LoginController {
         map.put("userpassword", userpassword);
 
         userService.updatePassword(map);
+
         return "redirect:/login";
     }
 
     // 마이페이지창
     @GetMapping("/myPageForm")
-    public String myPageForm(HttpServletRequest request,
-                             ModelAndView mv) {
-//        HttpSession session = request.getSession();
-//        UserVo vo = (UserVo) session.getAttribute("login");
-//        System.out.println("session 캐스트 vo: " + vo);
-//        model.addAttribute("vo", vo);
-//        System.out.println(model.getAttribute("vo"));
+    public String myPageForm() {
         return "/mypage";
     }
 
     // 마이페이지창에서 저장눌렀을 때
     @PostMapping("/myPageSuccess")
-    public String myPage(@RequestParam("usernickname") String usernickname,
+    public String myPage(@RequestParam("username")     String username,
+                         @RequestParam("usernickname") String usernickname,
                          @RequestParam("usersido")     String usersido,
                          @RequestParam("usergugun")    String usergugun) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("username", username);
+        map.put("usernickname", usernickname);
+        map.put("usersido", usersido);
+        map.put("usergugun", usergugun);
 
+        userService.mypageUsernicknameUpdate(map);
+        userService.mypageUsersidoUpdate(map);
+        userService.mypageUsergugunUpdate(map);
 
 
 
