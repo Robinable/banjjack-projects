@@ -34,4 +34,33 @@ public class NoteService {
         NoteVo vo = noteDaoImpl.selectCont(_id);
         return vo;
     }
+
+    public void deleteNote(int _id) {
+        noteDaoImpl.deleteNote(_id);
+    }
+
+    public int receptcount(String recept) {
+        int count = noteDaoImpl.receptcount(recept);
+        return count;
+    }
+
+    public List<NoteVo> receptpage(String recept, int displaypost, int postnum) {
+        List<NoteVo> vo = noteDaoImpl.receptpage(recept,displaypost,postnum);
+        return vo;
+    }
+
+    public int sendcount(String send) {
+        int count = noteDaoImpl.sendcount(send);
+        return count;
+    }
+
+    public List<NoteVo> sendpage(String send, int displaypost, int postnum) {
+        List<NoteVo> vo = noteDaoImpl.sendpage(send,displaypost,postnum);
+        return vo;
+    }
+
+    public int chkrecept(String recept) {
+        int chk = noteDaoImpl.chkrecept(recept);
+        return chk;
+    }
 }

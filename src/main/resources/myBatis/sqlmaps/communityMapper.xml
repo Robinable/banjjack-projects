@@ -18,15 +18,15 @@
         FROM community_tb
         ORDER BY _id DESC
     </select>
-<!--쓰기-->
+    <!--쓰기-->
     <insert id="communityWrite"
-        parameterType="com.green.vo.CommunityVo">
+            parameterType="com.green.vo.CommunityVo">
         INSERT INTO community_tb( tag, title, username, content, readcount )
         VALUES (#{tag}, #{title}, #{username}, #{content}, #{readcount})
     </insert>
-<!--수정-->
+    <!--수정-->
     <update id="communityUpdate"
-        parameterType="com.green.vo.CommunityVo">
+            parameterType="com.green.vo.CommunityVo">
         UPDATE community_tb
         SET content = #{content},
             title = #{title}
@@ -41,8 +41,8 @@
 
     <!--    읽기-->
     <select id="communityRead"
-        parameterType="Integer"
-        resultType="com.green.vo.CommunityVo">
+            parameterType="Integer"
+            resultType="com.green.vo.CommunityVo">
         SELECT
             _id,
             tag,

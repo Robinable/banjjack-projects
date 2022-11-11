@@ -120,7 +120,7 @@ public class CommunityController {
     @GetMapping("/communityUpdateForm")
 
     public String communityUpdateForm(){
-      return "/communityUpdateForm";
+        return "/communityUpdateForm";
     };
 
     @PostMapping("/communityUpdate")
@@ -132,7 +132,7 @@ public class CommunityController {
         communityUpdateData.put("content", content);
         communityUpdateData.put("title", title);
         communityUpdateData.put("_id", _id);
-            System.out.println(communityUpdateData);
+        System.out.println(communityUpdateData);
 
         Map<String, Object> map = new HashMap<>();
         try {
@@ -142,7 +142,7 @@ public class CommunityController {
             e.printStackTrace();
             map.put("result", "fail");
         }
-       return map;
+        return map;
     }
     //삭제
 

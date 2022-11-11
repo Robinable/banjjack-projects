@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+    <select id="selectAll"
+            resultType="com.green.vo.UserVo">
+        SELECT * from user_tb
+    </select>
+
+    <insert id="insertUser"
+            parameterType="com.green.vo.UserVo">
+        INSERT INTO user_tb (_id, username, userpassword, usernickname)
+        VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
+    </insert>
+
+    <select id="usernameCheck"
+            resultType="Integer">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
+
+    <select id="nicknameCheck"
+            resultType="Integer">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  usernickname = #{usernickname}
+    </select>
+
+
+    <select id="successLogin"
+            resultType="com.green.vo.UserVo">
+        SELECT username, userpassword
+        FROM   user_tb
+        WHERE  username = #{username} AND userpassword = #{userpassword}
+
+    </select>
+
+    <select id="loginPasswordCheck"
+            resultType="String">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  username = #{username}
+
+    </select>
+
+    <insert id="insertInfo"
+            parameterType="com.green.vo.UserVo">
+        INSERT INTO user_tb (_id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet)
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname}, #{useremail}, #{usersido}, #{usergugun}, #{userpet})
+
+    </insert>
+
+    <select id="selectUserInfo"
+            resultType="com.green.vo.UserVo"
+            parameterType="HashMap">
+        SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet
+        FROM   user_tb
+        WHERE  username = #{username} AND userpassword = #{userpassword}
+
+    </select>
+
+    <select id="findEmailByUseremail"
+            resultType="String">
+        SELECT useremail
+        FROM   user_tb
+        WHERE  useremail = #{useremail}
+
+
+    </select>
+
+    <select id="findId"
+            resultType="String">
+        SELECT username
+        FROM   user_tb
+        WHERE  useremail = #{useremail}
+
+    </select>
+
+    <select id="findPasswd"
+            resultType="String"
+            parameterType="HashMap">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  username = #{username} AND useremail = #{useremail}
+
+    </select>
+
+    <update id="updatePassword"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpassword = #{userpassword}
+        WHERE  username = #{username}
+
+    </update>
+
+    <select id="selectUsername"
+            resultType="String">
+        SELECT username
+        FROM   user_tb
+        WHERE  useremail = #{useremail}
+
+    </select>
+
+    <select id="selectUseremail"
+            resultType="String">
+        SELECT useremail
+        FROM   user_tb
+        WHERE  username = #{username}
+
+    </select>
+
+    <select id="findNowPasswd"
+            resultType="String">
+        SELECT userpassword
+        FROM   user_tb
+        WHERE  userpassword = #{now_userpassword}
+
+    </select>
+
+    <update id="updateNewPasswd"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpassword = #{userpassword}
+        WHERE  userpassword = #{now_userpassword}
+
+    </update>
+
+</mapper>

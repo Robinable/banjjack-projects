@@ -46,35 +46,35 @@
         }
         function fnEdit(){
             console.log("id"+id);
-        var url = "<c:url value="/communityUpdateForm"/>";
-        url = url +"?_id="+id;
-        console.log(url);
-        window.location.href = url;
+            var url = "<c:url value="/communityUpdateForm"/>";
+            url = url +"?_id="+id;
+            console.log(url);
+            window.location.href = url;
         }
 
         function fnDelete(){
-        $.ajax({
-            url:'/communityDelete',
-            type:'post',
-            dataType:'json',
-            data:{
-                '_id' : id
-            },
-            error: function (xhr) {
-                alert("f")
-                console.log("data");
-                console.log("error html = " + xhr.statusText);
-                console.log("error");
+            $.ajax({
+                url:'/communityDelete',
+                type:'post',
+                dataType:'json',
+                data:{
+                    '_id' : id
+                },
+                error: function (xhr) {
+                    alert("f")
+                    console.log("data");
+                    console.log("error html = " + xhr.statusText);
+                    console.log("error");
 
-            },
-            success: function (data) {
-                alert("s")
-                console.log("data");
-                location.href = "/communityList"
-            }
+                },
+                success: function (data) {
+                    alert("s")
+                    console.log("data");
+                    location.href = "/communityList"
+                }
 
 
-        })
+            })
         }
     </script>
 </head>

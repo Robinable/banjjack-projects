@@ -14,4 +14,34 @@
         INSERT INTO user_tb (_id, username, userpassword, usernickname) VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
     </insert>
 
+    <select id="usernameCheck"
+            resultType="Integer">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
+
+    <select id="nicknameCheck"
+            resultType="Integer">
+        SELECT count(*)
+        FROM   user_tb
+        WHERE  usernickname = #{usernickname}
+    </select>
+
+
+    <select id="successLogin"
+            resultType="com.green.vo.UserVo">
+        SELECT username, userpassword
+        FROM   user_tb
+        WHERE  username = #{username} AND userpassword = #{userpassword}
+
+    </select>
+
+    <insert id="insertInfo"
+            parameterType="com.green.vo.UserVo">
+        INSERT INTO user_tb (_id, username, userpassword, usernickname)
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
+
+    </insert>
+
 </mapper>

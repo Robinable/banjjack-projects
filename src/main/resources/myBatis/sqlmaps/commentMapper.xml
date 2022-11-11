@@ -28,7 +28,7 @@
         UPDATE comment_tb
         SET content =  #{content}
         Where    username = #{username}
-             AND _id      = #{_id}
+          AND _id      = #{_id}
     </update>
 
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Event">
+
+
+    <select id="eventlist"
+            parameterType="hashMap"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+
+    <select id= "eventcount" resultType="int">
+        SELECT COUNT(_id) FROM event_tb
+    </select>
+
+
+    <select id= "noweventcount" resultType="int">
+        SELECT COUNT(_id) FROM event_tb where str_to_date(end_time, '%Y-%m-%d') >= str_to_date(#{now}, '%Y-%m-%d')
+    </select>
+
+
+    <select id= "pasteventcount" resultType="int">
+        SELECT COUNT(_id) FROM event_tb where str_to_date(#{now}, '%Y-%m-%d') > str_to_date(end_time, '%Y-%m-%d')
+    </select>
+
+    <select id="noweventlist"
+            parameterType="hashMap"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        where str_to_date(end_time, '%Y-%m-%d') >= str_to_date(#{now}, '%Y-%m-%d')
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+    <select id="pasteventlist"
+            parameterType="hashMap"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        where str_to_date(#{now}, '%Y-%m-%d') > str_to_date(end_time, '%Y-%m-%d')
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+
+
+
+
+
+</mapper>

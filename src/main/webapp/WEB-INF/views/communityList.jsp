@@ -7,40 +7,40 @@
     <meta charset="UTF-8">
     <title>자유게시판</title>
 
-<style>
-    table.elist {width: 690px; border:1px solid black;}
-    td {border:1px solid black;}
-    div.articleList {margin: 100px; border:1px solid black;}
-</style>
+    <style>
+        table.elist {width: 690px; border:1px solid black;}
+        td {border:1px solid black;}
+        div.articleList {margin: 100px; border:1px solid black;}
+    </style>
 
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-<script>
-    // let query = window.location.search;
-    // let param = new URLSearchParams(query);
-    // let menuId = param.get('menu_id');
-    $(document).ready(function(){
-        fnCommunityList();
-    });
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        // let query = window.location.search;
+        // let param = new URLSearchParams(query);
+        // let menuId = param.get('menu_id');
+        $(document).ready(function(){
+            fnCommunityList();
+        });
 
-    function fnCommunityList() {
-        $.ajax({
-            url: "/getCommunityList",
-            type: "get",
-            data: "data",
-            dataType: "JSON",
+        function fnCommunityList() {
+            $.ajax({
+                url: "/getCommunityList",
+                type: "get",
+                data: "data",
+                dataType: "JSON",
 
-            error: function (xhr) {
-                console.log("error html = " + xhr.statusText);
-            },
-            success: function (data) {
-                console.log(data);
+                error: function (xhr) {
+                    console.log("error html = " + xhr.statusText);
+                },
+                success: function (data) {
+                    console.log(data);
 
-                let str = "";
-                $.each(data, function (index, element) {
+                    let str = "";
+                    $.each(data, function (index, element) {
 
-                    str +=
+                        str +=
 
-                        "<table class=\"elist\" >"
+                            "<table class=\"elist\" >"
                             +"<tr>"
                             +"<td> \'"+ element._id + "\'</td>"
                             +"<td> \'"+ element.tag +"\'</td>"
@@ -48,39 +48,39 @@
                             +"<td> \'"+ element.username +"\'</td>"
                             +"<td> \'"+ element.time + "\'</td>"
                             +"<td>\'"+ element.readcount +"\'</td>"
-                        +"</tr>"
-                        +"</table>"
+                            +"</tr>"
+                            +"</table>"
 
 
 
-                })
-                document.getElementById('articleListBox').innerHTML += str;
-            }
-        });
-    }
-    function communityRead(_id){
-        var form = document.getElementById("listform");
-        $('#_id').val(_id);
-        form.submit();
-    }
-</script>
+                    })
+                    document.getElementById('articleListBox').innerHTML += str;
+                }
+            });
+        }
+        function communityRead(_id){
+            var form = document.getElementById("listform");
+            $('#_id').val(_id);
+            form.submit();
+        }
+    </script>
 </head>
 <body>
 <form id = "listform" method="get" action="/communityRead">
     <input type="hidden" id="_id" name="_id">
-<div class="articleList " id="articleListBox">
-    <table class="elist" >
-        <tr>
-            <td>  _id  </td>
-            <td>  tag  </td>
-            <td>  title  </td>
-            <td>  username </td>
-            <td>  time  </td>
-            <td>  readcount</td>
-        </tr>
-    </table>
+    <div class="articleList " id="articleListBox">
+        <table class="elist" >
+            <tr>
+                <td>  _id  </td>
+                <td>  tag  </td>
+                <td>  title  </td>
+                <td>  username </td>
+                <td>  time  </td>
+                <td>  readcount</td>
+            </tr>
+        </table>
 
-</div>
+    </div>
 </form>
 <button id="communityWriteForm" onClick="location.href='communityWriteForm'"> 쓰기 </button>
 </body>

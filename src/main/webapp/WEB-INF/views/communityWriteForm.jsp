@@ -5,42 +5,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script>
-        function fnWriteClick() {
-            console.log($('#username').val());
-            let writeData =
-                {
-                    username: $('#username').val(),
-                    tag: $('#tag').val(),
-                    title: $('#title').val(),
-                    content: $('#content').val(),
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script>
+    function fnWriteClick() {
+      console.log($('#username').val());
+      let writeData =
+              {
+                username: $('#username').val(),
+                tag: $('#tag').val(),
+                title: $('#title').val(),
+                content: $('#content').val(),
 
-                }
-                console.log(writeData);
-            $.ajax({
-                url: "/communityWrite",
-                type: "POST",
-                data: writeData,
-                error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
-                    alert("F");
+              }
+      console.log(writeData);
+      $.ajax({
+        url: "/communityWrite",
+        type: "POST",
+        data: writeData,
+        error: function (xhr) {
+          console.log("error html = " + xhr.statusText);
+          alert("F");
 
-                },
-                success: function (WriteData) {
-                    alert("S");
-                    console.log(WriteData)
-                    var url = "<c:url value="/communityList"/>";
+        },
+        success: function (WriteData) {
+          alert("S");
+          console.log(WriteData)
+          var url = "<c:url value="/communityList"/>";
 
-                    console.log(url);
-                    window.location.href = url
-                }
-
-            });
+          console.log(url);
+          window.location.href = url
         }
 
-    </script>
+      });
+    }
+
+  </script>
 </head>
 
 <body>

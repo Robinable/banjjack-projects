@@ -7,7 +7,7 @@ public class CommunityVo {
     private String username;
     private String time;
     private String content;
-    private int    readcount;
+    private int readcount;
 
     public CommunityVo(int _id, String tag, String title, String username, String time, String content, int readcount) {
         this._id = _id;

@@ -16,7 +16,7 @@ public class CommentDaoImpl implements CommentDao {
     private SqlSession sqlSession;
     @Override
     public List<CommentVo> getCommentList(int content_id) {
-       List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", content_id);
+        List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", content_id);
         return commentList;
     }
 
@@ -39,4 +39,3 @@ public class CommentDaoImpl implements CommentDao {
 
 
 }
-
