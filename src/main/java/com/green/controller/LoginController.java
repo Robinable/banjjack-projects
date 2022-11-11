@@ -22,20 +22,19 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-
+    // 로그인창
     @RequestMapping("/login")
     public String login() {
         return "/login";
     }
 
-
+    // 회원가입창
     @RequestMapping("/signup")
     public String signup() {
         return "/signup";
     }
 
-
-    // 회원가입 (정보등록)
+    // 가입하기 버튼 눌렀을 때 (insert)
     @PostMapping("/signup/register")
     public String insertInfo(@RequestParam("username") String username, @RequestParam("userpassword") String userpassword,
                              @RequestParam("usernickname") String usernickname, @RequestParam("useremail") String useremail,
@@ -43,31 +42,28 @@ public class LoginController {
                              @RequestParam("userpet") String userpet) {
         UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet);
         userService.insertInfo(userVo);
-        System.out.println(userVo.toString());
 
         return "redirect:/";
     }
 
     // user 정보 가져오기
-    // 아이디 중복확인
+    // 아이디 중복확인 (ajax)
     @GetMapping("/getUser")
     @ResponseBody
     public int getuser(@RequestParam("username") String username) {
-        System.out.println(username);
         int count = userService.usernameCheck(username);
         return count;
     }
 
-    // 닉네임 중복확인
+    // 닉네임 중복확인 (ajax)
     @GetMapping("/getNickname")
     @ResponseBody
     public int getnickname(@RequestParam("usernickname") String usernickname) {
-        System.out.println(usernickname);
         int count = userService.nicknameCheck(usernickname);
         return count;
     }
 
-    // 로그인 proccess
+    // 로그인 버튼 눌렀을 때
     @PostMapping("/login/loginCheck")
     public String loginCheck(@RequestParam("username") String username,
                              @RequestParam("userpassword") String userpassword,
@@ -75,8 +71,6 @@ public class LoginController {
                              HttpServletResponse response,
                              Model model) {
 
-        System.out.println(username);
-        System.out.println(userpassword);
         String returnURL = "";
 
         // 기존 login 세션에 값이 있으면
@@ -119,13 +113,13 @@ public class LoginController {
         return returnURL;
     }
 
-    // 아이디 찾기 폼
+    // 아이디 찾기창
     @GetMapping("/findIdForm")
     public String findIdForm() {
         return "/findId";
     }
 
-    // 이메일로 아이디 찾기
+    // 아이디찾기 폼에서 검색 버튼 눌렀을 때
     @PostMapping("/findIdSuccess")
     public String findId(@RequestParam("useremail") String useremail, Model model) {
         String useremail2 = userService.findEmailByUseremail(useremail);
@@ -144,13 +138,13 @@ public class LoginController {
 
     }
 
-    // 비밀번호 찾기 폼
+    // 비밀번호 찾기창
     @GetMapping("/findPasswordForm")
     public String findPasswordForm() {
         return "/findPasswd";
     }
 
-    // 아이디, 이메일로 비밀번호 찾기
+    // 비밀번호 찾기창에서 다음 버튼 눌렀을 때
     @PostMapping("/findPasswdSuccess")
     public String findPassword(@RequestParam("username") String username,
                                @RequestParam("useremail") String useremail,
@@ -181,7 +175,7 @@ public class LoginController {
         }
     }
 
-    // 비밀번호 찾기 > 비밀번호 재설정
+    // findPassword의 다음 버튼이 성공적으로 처리 됐을 때 비밀번호 재설정창
     @PostMapping("/passwdUpdateSuccess")
     public String findPasswordUpdate(@RequestParam("username") String username,
                                      @RequestParam("userpassword") String userpassword) {
@@ -194,7 +188,7 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    // 마이페이지 폼
+    // 마이페이지창
     @GetMapping("/myPageForm")
     public String myPageForm(HttpServletRequest request,
                              ModelAndView mv) {
@@ -206,7 +200,7 @@ public class LoginController {
         return "/mypage";
     }
 
-    // 마이페이지 수정완료
+    // 마이페이지창에서 저장눌렀을 때
     @PostMapping("/myPageSuccess")
     public String myPage(@RequestParam("usernickname") String usernickname,
                          @RequestParam("usersido")     String usersido,
@@ -214,16 +208,17 @@ public class LoginController {
 
 
 
+
         return "/mypage";
     }
 
-    // 마이페이지 내비밀번호변경 폼
+    // 마이페이지 내비밀번호변경창
     @GetMapping("/myPagePasswdForm")
     public String myPagePasswdForm() {
         return "/mypagePasswd";
     }
 
-    // 마이페이지 내비밀번호변경 완료
+    // 마이페이지 내비밀번호변경 저장 버튼 눌렀을 때
     @PostMapping("/mypagePasswdUpdate")
     public  String mypagePasswd(@RequestParam("now_userpassword") String now_userpassword,
                                 @RequestParam("userpassword") String userpassword,

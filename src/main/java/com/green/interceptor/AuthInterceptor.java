@@ -26,7 +26,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         log.info("테스트");
         HttpSession session = request.getSession();
         UserVo userVo = (UserVo) session.getAttribute("login");
-        System.out.println("preHaondle: " + userVo);
         if(userVo == null) {
             // vo를 담은 login 세션이 비어있다면 == 로그인 안되어있음
             // 로그인이 되어있지 않다면 /login으로 이동
