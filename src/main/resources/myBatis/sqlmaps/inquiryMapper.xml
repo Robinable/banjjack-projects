@@ -29,8 +29,8 @@
     <select id="caselist" parameterType="hashMap" resultType="com.green.vo.InquiryVo">
         SELECT *
         FROM inquiry_tb
-        ORDER BY _id desc
         WHERE category = #{category}
+        ORDER BY _id desc
         LIMIT #{displaypost}, #{postnum}
     </select>
 

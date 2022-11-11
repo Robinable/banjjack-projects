@@ -11,7 +11,8 @@
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
         <script>
-
+alllist()
+function alllist(){
         		   $.ajax( {
         			   url  :  '/alllist?num=${num}'  ,
         			   data :  {
@@ -60,9 +61,9 @@
         			   console.log ( error );
         			   alert('Error:' + error)
         		   });
+}
 
-function caselist(a){
-
+function caselist(){
   $.ajax( {
         			   url  :  '/caselist?num=${num}'  ,
         			   data :  {
@@ -119,22 +120,23 @@ $(function(){
               		  const category = $('#category > option:selected').val();
               	         switch(category){
               	         case 'all':
-              	        	 caselist();
+              	        	 alllist();
               	        	 break;
               	         case '1':
-              	        	 caselist(1);
+              	        	 caselist();
               	        	 break;
               	         case '2':
-              	        	 caselist(2)
+              	        	 caselist()
               	        	 break;
               	         case '3':
-                               caselist(3)
+                               caselist()
                                break;
               	         }
 
                 })
 
 })
+
 
         </script>
     </head>

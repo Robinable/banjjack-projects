@@ -25,7 +25,7 @@ public class EventController {
     Page page = new Page();
 
     //전체 이벤트
-    @GetMapping("/eventlistform")
+    @GetMapping("/eventlistform") // / eventlistform?num=1
     public String eventlistform(@RequestParam int num, Model model){
 
         page.setNum(num);
@@ -39,7 +39,7 @@ public class EventController {
     }
 
 
-    @GetMapping("/geteventlist")
+    @GetMapping("/geteventlist")   // ajax용
     @ResponseBody
     public List<JSONObject> geteventlist(@RequestParam int num){
 
@@ -62,7 +62,7 @@ public class EventController {
     }
 
     //진행중인 이벤트
-    @GetMapping("/noweventlist")
+    @GetMapping("/noweventlist")  // /noweventlist?num=1
     public String noweventlist(@RequestParam int num, Model model){
 
         LocalDate now = LocalDate.now();
@@ -79,7 +79,7 @@ public class EventController {
         return "/noweventlist";
     }
 
-    @GetMapping("/getnoweventlist")
+    @GetMapping("/getnoweventlist") // ajax용
     @ResponseBody
     public List<JSONObject> getnoweventlist(@RequestParam int num){
 
@@ -104,7 +104,7 @@ public class EventController {
     }
 
     //지난 이벤트
-    @GetMapping("/pasteventlist")
+    @GetMapping("/pasteventlist")   // /pasteventlist?num=1
     public String pasteventlist(@RequestParam int num, Model model){
 
         LocalDate now = LocalDate.now();
@@ -121,7 +121,7 @@ public class EventController {
         return "/pasteventlist";
     }
 
-    @GetMapping("/getpasteventlist")
+    @GetMapping("/getpasteventlist")   //ajax용
     @ResponseBody
     public List<JSONObject> getpasteventlist(@RequestParam int num){
 

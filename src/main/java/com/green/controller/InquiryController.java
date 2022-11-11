@@ -20,6 +20,7 @@ import java.util.List;
 @Controller
 public class InquiryController {
 
+    // 1:1문의
     @Autowired
     private InquiryService inquiryService;
 
@@ -47,7 +48,7 @@ public class InquiryController {
         return "inquiryWrite";
     }
 
-    @GetMapping("inquirylistForm")
+    @GetMapping("inquirylistForm")  // /inquirylistForm?num=1
     public String inquirylistForm(@RequestParam int num, Model model) {
 
         page.setNum(num);
@@ -60,7 +61,7 @@ public class InquiryController {
         return "inquirylist";
     }
 
-    @GetMapping("/alllist")
+    @GetMapping("/alllist")  // ajax용
     @ResponseBody
     public List<JSONObject> alllist(@RequestParam int num) {
 
@@ -83,14 +84,13 @@ public class InquiryController {
         return NoteVoList;
     }
 
-    @GetMapping("/caselist")
+    @GetMapping("/caselist")  // /caselist?num=1&category=         ajax용
     @ResponseBody
     public List<JSONObject> caselist(@RequestParam int num, @RequestParam int category ,Model model) {
 
         page.setNum(num);
         page.setCount(inquiryService.casecount(category));
         int c = inquiryService.casecount(category);
-        System.out.println(c);
 
         model.addAttribute("page", page);
         model.addAttribute("select", num);
@@ -108,10 +108,12 @@ public class InquiryController {
             obj.put("category", vo.getCategory());
             obj.put("send", vo.getSend());
             obj.put("time", vo.getTime());
+            System.out.println(obj);
 
             NoteVoList.add(obj);
             System.out.println(NoteVoList);
         }
+
         return NoteVoList;
 
     }

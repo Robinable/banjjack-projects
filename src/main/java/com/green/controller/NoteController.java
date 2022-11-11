@@ -22,6 +22,8 @@ public class NoteController {
 
 	Page page = new Page();
 
+
+	// 쪽지함
 	@RequestMapping ("/writeNoteForm")
 	public String writeNoteForm(Model model) {
 		String content_ = (String) model.getAttribute("content_value");
@@ -55,7 +57,7 @@ public class NoteController {
 	}
 
     // // 받은 쪽지함 + 페이징 (받은 아이디로 조회)
-	@GetMapping ("/receptNote")
+	@GetMapping ("/receptNote")   // /receptNote?recept=로그인아이디&num=1
 	public String recept(@RequestParam int num, @RequestParam String recept, Model model){
 
 		page.setNum(num);
@@ -70,7 +72,7 @@ public class NoteController {
 	}
 
 
-	@GetMapping("/getreceptnote")
+	@GetMapping("/getreceptnote")  // ajax 용
 	@ResponseBody
 	public  List<JSONObject> getreceptnote(@RequestParam String recept, @RequestParam int num){
 		System.out.println(num);
@@ -94,7 +96,7 @@ public class NoteController {
 
 
 	// 보낸쪽지확인 + 페이징 (보낸 아이디로 조회)
-	@GetMapping("/sendNote")
+	@GetMapping("/sendNote")    // /sendNote?send=로그인아이디&num=1
 	public String sendNote(@RequestParam int num, @RequestParam String send, Model model){
 
 		page.setNum(num);
@@ -109,7 +111,7 @@ public class NoteController {
 
 
 
-	@GetMapping("/getsendnote")
+	@GetMapping("/getsendnote")  // ajax 용
 	@ResponseBody
 	public  List<JSONObject> getsendnote(@RequestParam String send, @RequestParam int num) {
 
@@ -142,7 +144,7 @@ public class NoteController {
 		return "/contNote";
 	}
 
-	@GetMapping("/getcontNote")
+	@GetMapping("/getcontNote")  // ajax용
 	@ResponseBody
 	public  List<JSONObject> getcontnote(@RequestParam int _id) {
 		List<JSONObject> NoteVoList = new ArrayList<>();
