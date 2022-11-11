@@ -9,7 +9,6 @@
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
   <script>
     function fnWriteClick() {
-      console.log($('#username').val());
       let writeData =
               {
                 username: $('#username').val(),
@@ -24,16 +23,11 @@
         type: "POST",
         data: writeData,
         error: function (xhr) {
-          console.log("error html = " + xhr.statusText);
-          alert("F");
+
 
         },
         success: function (WriteData) {
-          alert("S");
-          console.log(WriteData)
           var url = "<c:url value="/communityList"/>";
-
-          console.log(url);
           window.location.href = url
         }
 

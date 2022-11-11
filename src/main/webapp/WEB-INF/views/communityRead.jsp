@@ -16,7 +16,6 @@
         let query = window.location.search;
         let param = new URLSearchParams(query);
         let id= param.get('_id');
-        console.log(id);
 
         window.onload = function(){
             $.ajax({
@@ -26,10 +25,8 @@
                 },
                 type: "get",
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
                 },
                 success: function (data) {
-                    console.log(data);
                     let str="";
                     $.each(data, function(index, element)
                     {
@@ -45,10 +42,8 @@
             })
         }
         function fnEdit(){
-            console.log("id"+id);
             var url = "<c:url value="/communityUpdateForm"/>";
             url = url +"?_id="+id;
-            console.log(url);
             window.location.href = url;
         }
 
@@ -61,15 +56,11 @@
                     '_id' : id
                 },
                 error: function (xhr) {
-                    alert("f")
-                    console.log("data");
-                    console.log("error html = " + xhr.statusText);
-                    console.log("error");
+
 
                 },
                 success: function (data) {
-                    alert("s")
-                    console.log("data");
+
                     location.href = "/communityList"
                 }
 

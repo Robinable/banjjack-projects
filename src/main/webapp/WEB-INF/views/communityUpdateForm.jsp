@@ -17,7 +17,6 @@
         }
         function UpdateSet() {
 
-            console.log(id);
             $.ajax({
                 url: "/getCommunityUpdateForm?id="+id ,
                 type: "get",
@@ -25,12 +24,9 @@
                 dataType:"json",
                 async:false,
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
-                    alert("F");
 
                 },
                 success: function (data) {
-                    console.log(data);
 
                     $.each(data, function( index, element) {
                         $('#tag').val(element.tag);
@@ -53,16 +49,13 @@
                 dataType: 'json',
 
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
                     alert("F");
 
                 },
                 success: function (data) {
                     alert("s")
-                    console.log(data);
                     var url = "<c:url value="/communityRead"/>";
                     url = url +"?_id="+id;
-                    console.log(url);
                     window.location.href = url;
 
                 }

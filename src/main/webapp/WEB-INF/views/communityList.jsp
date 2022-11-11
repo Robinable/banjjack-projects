@@ -30,10 +30,8 @@
                 dataType: "JSON",
 
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
                 },
                 success: function (data) {
-                    console.log(data);
 
                     let str = "";
                     $.each(data, function (index, element) {

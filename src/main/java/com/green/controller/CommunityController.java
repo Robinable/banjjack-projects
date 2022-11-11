@@ -38,7 +38,6 @@ public class CommunityController {
             obj.put("readcount", vo.getReadcount());
             getList.add(obj);
         }
-        System.out.println("dd"+getList);
         return getList;
     }
     //리스트출력
@@ -46,11 +45,10 @@ public class CommunityController {
     public String CommunityList(){
         return "/communityList";
     }
-    //게시글조회폼
+    //게시글 조회
     @GetMapping("/getCommunityRead")
     @ResponseBody
     public List<JSONObject> getCommunityRead(@RequestParam int _id) {
-        System.out.println(_id);
         List<JSONObject> getRead = new ArrayList<>();
         for(CommunityVo vo: communityService.readCommunity(_id)){
             JSONObject obj = new JSONObject();
@@ -63,22 +61,22 @@ public class CommunityController {
             obj.put("content", vo.getContent());
             getRead.add(obj);
         }
-        System.out.println("ee"+getRead);
         return getRead;
     }
+    //게시글 표시
     @GetMapping("/communityRead")
     public String communityRead(){
 
         return "/communityRead";
     }
 
-    //쓰기폼
+    //글쓰기쓰기폼
     @GetMapping("/communityWriteForm")
 
     public String communityWriteForm() {
         return "/communityWriteForm";
     }
-    //쓰기
+    //쓰기 메소드
     @PostMapping("/communityWrite")
     @ResponseBody
 
@@ -112,7 +110,6 @@ public class CommunityController {
             obj.put("content", vo.getContent());
             getRead.add(obj);
         }
-        System.out.println("dd"+getRead);
         return getRead;
     }
     //수정폼
@@ -123,6 +120,7 @@ public class CommunityController {
         return "/communityUpdateForm";
     };
 
+    //수정 메소드
     @PostMapping("/communityUpdate")
     @ResponseBody
     public Map<String, Object> communityUpdate(@RequestParam String content, String title, int _id){
@@ -132,7 +130,6 @@ public class CommunityController {
         communityUpdateData.put("content", content);
         communityUpdateData.put("title", title);
         communityUpdateData.put("_id", _id);
-        System.out.println(communityUpdateData);
 
         Map<String, Object> map = new HashMap<>();
         try {

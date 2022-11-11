@@ -25,6 +25,7 @@ public class CommentController {
 	@Autowired
 	CommentDao commentDao;
 
+	//댓글 리스트 호출
 	@GetMapping("comment/commentList")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id) {
@@ -41,7 +42,7 @@ public class CommentController {
 		}
 		return commentList;
 	}
-
+	//댓글쓰기 전송
 	@PostMapping("comment/writeComment")
 	@ResponseBody
 	public  Map<String, Object>  writeComment(CommentVo commentVo) {
@@ -57,6 +58,7 @@ public class CommentController {
 		return  map ;
 
 	}
+	//댓글수정 전송
 	@PostMapping("comment/updatecomment")
 	@ResponseBody
 	public  Map<String, Object>  commentUpdate(@RequestParam int _id, String content, String username){
@@ -77,6 +79,7 @@ public class CommentController {
 		return  map ;
 
 	}
+	//댓글삭제
 	@PostMapping("comment/deletecomment")
 	@ResponseBody
 	public Map<String, Object> commentDelete(@RequestParam int _id){
@@ -92,6 +95,7 @@ public class CommentController {
 
 	}
 
+	//댓글 jsp파일 호출
 	@GetMapping("/comment")
 
 	public String getComment(){
