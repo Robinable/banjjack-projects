@@ -67,8 +67,8 @@ public class UserService {
         return userDaoImpl.findEmailByUseremail(useremail);
     }
 
-    public String findNowPasswd(String now_userpassword) {
-        return userDaoImpl.findNowPasswd(now_userpassword);
+    public String findNowPasswd(String username) {
+        return userDaoImpl.findNowPasswd(username);
     }
 
     public void updateNewPasswd(HashMap<String,String> map) {
@@ -87,8 +87,7 @@ public class UserService {
         userDaoImpl.mypageUsergugunUpdate(map);
     }
 
-    public UserVo searchUserInfo(String username) {
-        return userDaoImpl.searchUserInfo(username);
-
+    public void mypageUserpetUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUserpetUpdate(map);
     }
 }

@@ -31,7 +31,7 @@ public interface UserDao {
 
     String selectUseremail(String username);
 
-    String findNowPasswd(String now_userpassword);
+    String findNowPasswd(String username);
 
     void updateNewPasswd(HashMap<String,String> map);
 
@@ -41,5 +41,5 @@ public interface UserDao {
 
     void mypageUsergugunUpdate(HashMap<String, Object> map);
 
-    UserVo searchUserInfo(String username);
+    void mypageUserpetUpdate(HashMap<String, Object> map);
 }

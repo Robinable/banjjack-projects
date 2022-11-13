@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import ="com.green.vo.UserVo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,6 +70,24 @@
                 $('#profile_img').click();
             });
 
+            $('#usernickname').on('change', function() {
+                const usernickname = document.getElementById('usernickname').value.length;
+                if(usernickname >= 2) {
+                    nicknameCheck(document.getElementById('usernickname').value)
+                } else {
+                    $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요.');
+                }
+            });
+
+            $('#selectPet').on('change', function() {
+                if($('#selectPet').val() == '반려동물') {
+                    $('#userpet').attr('placeholder', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 사랑앵무(o)');
+                } else {
+                    $('#userpet').attr('value', re_userpetPrint(selectPet));
+                }
+
+            });
+
 
 
         } // window.onload end
@@ -90,6 +107,38 @@
             }
         }
 
+        function nicknameCheck(usernickname) {
+            $.ajax({
+                url: '/getNickname?usernickname=' + usernickname,
+                method: 'GET'
+            })
+                .done(function(count) {
+                    console.log(count);
+                    if(count==0) {
+                        const nicknameVaildation = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/g;        // 닉네임: 영문/숫자/한글 조합으로만
+                        if(nicknameVaildation.test(usernickname.trim())) {
+                            $('#unicknameCheck').text('사용가능한 닉네임입니다.');
+                        } else {
+                            $('#unicknameCheck').text('닉네임은 한글과 영문, 숫자의 조합으로 입력해주세요.');
+                        }
+                    } else {
+                        $('#unicknameCheck').text('이미 존재하는 닉네임입니다.');
+                    }
+                })
+                .fail(function(xhr, status, errorThrown) {
+                    $('#unicknameCheck').text('입력이 실패하였습니다. 다시 시도해주세요.');
+                });
+        }
+
+
+        // userpet 콤보박스 text에 옮겨적기
+        function re_userpetPrint(selectPet) {
+            let userpetText = selectPet.options[selectPet.selectedIndex].text;
+            console.log(userpetText);
+            return userpetText;
+        }
+
+
 
     </script>
 </head>
@@ -107,16 +156,16 @@
                 <img id="preview" />
                 </li>
                 <li>
-                    <input type="text" id="username" name="username" placeholder="아이디" value="${vo.username}" readonly><br>
+                    <input type="text" id="username" name="username" placeholder="아이디" value="${sessionScope.login.username}" readonly><br>
                     <span id="unameCheck"></span>
                 </li>
                 <li>
-                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" value="${vo.usernickname}"><br>
+                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" value="${sessionScope.login.usernickname}"><br>
                     <span id="unicknameCheck"></span>
                 </li>
                 <li>
-                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)" value="${vo.usersido}"/>
-                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)" value="${vo.usergugun}"/>
+                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)" value="${sessionScope.login.usersido}"/>
+                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)" value="${sessionScope.login.usergugun}"/>
                     <span id="localCheck"></span>
                 </li>
                 <li>
@@ -126,7 +175,7 @@
                         <option value="개">개</option>
                         <option value="기타">기타</option>
                     </select>
-                    <input type="text" id="userpet" name="userpet" value="${vo.userpet}"/>
+                    <input type="text" id="userpet" name="userpet" value="${sessionScope.login.userpet}"/>
                     <span id="petCheck"></span>
                 </li>
 

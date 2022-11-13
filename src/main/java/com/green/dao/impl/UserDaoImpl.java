@@ -80,8 +80,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public String findNowPasswd(String now_userpassword) {
-        return sqlSession.selectOne("User.findNowPasswd", now_userpassword);
+    public String findNowPasswd(String username) {
+        return sqlSession.selectOne("User.findNowPasswd", username);
     }
 
     @Override
@@ -105,8 +105,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserVo searchUserInfo(String username) {
-        return sqlSession.selectOne("User.searchUserInfo", username);
+    public void mypageUserpetUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUserpetUpdate", map);
     }
 
 

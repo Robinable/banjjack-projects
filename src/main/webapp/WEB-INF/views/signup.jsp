@@ -150,13 +150,13 @@
                 }
             });
 
-            $('#btnUpload').click(function (e) {
-                $('#profile_img').click();
-            });
-
             // 콤보박스 > input text박스
             $('#selectPet').on('change', function() {
-                $('#userpet').attr('value', re_userpetPrint(selectPet));
+                if($('#selectPet').val() == '반려동물') {
+                    $('#userpet').attr('value', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 사랑앵무(o)');
+                } else {
+                    $('#userpet').attr('value', re_userpetPrint(selectPet));
+                }
 
             });
 
@@ -238,17 +238,6 @@
             }
         }
 
-        function readURL(input) {
-            if(input.files && input.files[0]) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('preview').src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                document.getElementById('preview').src = "";
-            }
-        }
         // userpet 콤보박스 text에 옮겨적기
         function re_userpetPrint(selectPet) {
             let userpetText = selectPet.options[selectPet.selectedIndex].text;
@@ -305,13 +294,6 @@
                     </select>
                     <input type="text" id="userpet" name="userpet" value=""/>
                     <span id="petCheck"></span>
-                </li>
-
-                <li>
-                    <input type='file' id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
-                           style="display: none;"/></li><br>
-                <button type="button" id="btnUpload">업로드</button>
-                <img id="preview" />
                 </li>
 
                 <li><span id="checkError"></span></li>

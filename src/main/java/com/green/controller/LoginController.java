@@ -50,6 +50,7 @@ public class LoginController {
         UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet);
         userService.insertInfo(userVo);
 
+
         return "redirect:/login";
     }
 
@@ -204,16 +205,19 @@ public class LoginController {
     public String myPage(@RequestParam("username")     String username,
                          @RequestParam("usernickname") String usernickname,
                          @RequestParam("usersido")     String usersido,
-                         @RequestParam("usergugun")    String usergugun) {
+                         @RequestParam("usergugun")    String usergugun,
+                         @RequestParam("userpet")      String userpet) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("usernickname", usernickname);
         map.put("usersido", usersido);
         map.put("usergugun", usergugun);
+        map.put("userpet", userpet);
 
         userService.mypageUsernicknameUpdate(map);
         userService.mypageUsersidoUpdate(map);
         userService.mypageUsergugunUpdate(map);
+        userService.mypageUserpetUpdate(map);
 
 
 
@@ -228,15 +232,16 @@ public class LoginController {
 
     // 마이페이지 내비밀번호변경 저장 버튼 눌렀을 때
     @PostMapping("/mypagePasswdUpdate")
-    public  String mypagePasswd(@RequestParam("now_userpassword") String now_userpassword,
+    public  String mypagePasswd(@RequestParam("username")     String username,
+                                @RequestParam("now_userpassword") String now_userpassword,
                                 @RequestParam("userpassword") String userpassword,
                                 Model model) {
 
-        String nowUserPasswd = userService.findNowPasswd(now_userpassword);
+        String nowUserPasswd = userService.findNowPasswd(username);
 
         if(now_userpassword.equals(nowUserPasswd)) {
             HashMap<String, String> map = new HashMap<>();
-            map.put("now_userpassword", now_userpassword);
+            map.put("username", username);
             map.put("userpassword", userpassword);
             userService.updateNewPasswd(map);
             model.addAttribute("userpassword", userpassword);
