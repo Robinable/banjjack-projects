@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class CommentDaoImpl implements CommentDao {
     private SqlSession sqlSession;
     @Override
     public List<CommentVo> getCommentList(int content_id) {
+
         List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", content_id);
         return commentList;
     }
@@ -36,6 +38,21 @@ public class CommentDaoImpl implements CommentDao {
         sqlSession.insert("Comment.writeComment", commentVo);
     }
 
+    @Override
+    public int commentCount(int content_id) throws Exception {
+        return sqlSession.selectOne("Comment.commentCount", content_id);
+    }
+
+    @Override
+    public List commentListPage(int content_id, int displayPost,int postNum ) throws Exception {
+
+        HashMap data= new HashMap();
+        data.put("displayPost", displayPost);
+        data.put("content_id", content_id);
+        data.put("postNum", postNum);
+        List<CommentVo> commentList = sqlSession.selectList("Comment.commentListpage", data);
+        return commentList;
+    }
 
 
 }

@@ -9,17 +9,28 @@ public class CommentVo {
     private String content;
     private String time;
     private String username;
+    private String displayPost; //페이징관련
+    private int postNum = 10;
 
-
-    public CommentVo(int _id, int content_id, String content, String time, String username) {
+    public CommentVo(int _id, int content_id, String content, String time, String username, String displayPost, int postNum) {
         this._id = _id;
         this.content_id = content_id;
         this.content = content;
         this.time = time;
         this.username = username;
+        this.displayPost = displayPost;
+        this.postNum = postNum;
     }
 
     public CommentVo() {
+    }
+
+    public int getPostNum() {
+        return postNum;
+    }
+
+    public void setPostNum(int postNum) {
+        this.postNum = postNum;
     }
 
     public int get_id() { return _id;  }
@@ -60,6 +71,14 @@ public class CommentVo {
         this.username = username;
     }
 
+    public String getDisplayPost() {
+        return displayPost;
+    }
+
+    public void setDisplayPost(String displayPost) {
+        this.displayPost = displayPost;
+    }
+
     @Override
     public String toString() {
         return "CommentVo{" +
@@ -68,8 +87,8 @@ public class CommentVo {
                 ", content='" + content + '\'' +
                 ", time='" + time + '\'' +
                 ", username='" + username + '\'' +
+                ", displayPost='" + displayPost + '\'' +
+                ", postNum=" + postNum +
                 '}';
     }
-
-
 }

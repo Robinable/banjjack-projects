@@ -28,4 +28,11 @@ public class CommentService {
     public void writeComment(CommentVo commentVo) {
         commentDao.writeComment( commentVo );
     }
+
+    public int commentCount(int content_id) throws Exception {
+        return commentDao.commentCount(content_id);
+    }
+    public List<CommentVo> coommentListPage(int content_id, int displayPost, int postNum ) throws Exception{
+        return commentDao.commentListPage( content_id,  displayPost, postNum );
+    }
 }

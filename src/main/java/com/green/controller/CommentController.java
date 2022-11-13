@@ -3,10 +3,12 @@ package com.green.controller;
 import com.green.dao.CommentDao;
 import com.green.service.CommentService;
 import com.green.vo.CommentVo;
+import com.green.vo.PageVo;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ import java.util.Map;
 
 @Controller
 public class CommentController {
-
+	PageVo page= new PageVo();
 	@Autowired
 	CommentService commentService;
 
@@ -26,12 +28,49 @@ public class CommentController {
 	CommentDao commentDao;
 
 	//댓글 리스트 호출
-	@GetMapping("comment/commentList")
+//	@GetMapping("comment/commentList")
+//	@ResponseBody
+//	public List<JSONObject> getCommentList(@RequestParam int content_id) {
+//
+//		List<JSONObject> commentList = new ArrayList<>();
+//		for (CommentVo cl : commentService.getCommentList(content_id)) {
+//			JSONObject obj = new JSONObject();
+//			obj.put("name", cl.getUsername());
+//			obj.put("_id", cl.get_id());
+//			obj.put("content", cl.getContent());
+//			obj.put("time", cl.getTime());
+//			commentList.add(obj);
+//
+//		}
+//		return commentList;
+//	}
+	//페이징 정보 전달
+
+	@GetMapping("/commentListPage")
 	@ResponseBody
-	public List<JSONObject> getCommentList(@RequestParam int content_id) {
+	public String list(Model model, @RequestParam int content_id, @RequestParam int num ) throws Exception {
+		page.setNum(num);
+		int count = commentService.commentCount(content_id);
+		int postNum = page.getPostnum();
+		int displayPost = page.getDisplaypost();
+		int pageNum= (int)Math.ceil((double)count/postNum);
+		model.addAttribute("page", page);
+		model.addAttribute("num", num);
+		model.addAttribute("displayPost", displayPost);
+		model.addAttribute("pageNum", pageNum);
+
+		return "/commentListpage";
+	}
+
+	//페이징 된 리스트
+	@GetMapping("comment/getCommentListPage")
+	@ResponseBody
+	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(defaultValue = "1") int num) throws Exception {
+		int postNum = page.getPostnum();
+		int displayPost = page.getDisplaypost();
 
 		List<JSONObject> commentList = new ArrayList<>();
-		for (CommentVo cl : commentService.getCommentList(content_id)) {
+		for (CommentVo cl : commentService.coommentListPage(content_id, displayPost, postNum)) {
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
 			obj.put("_id", cl.get_id());
@@ -40,6 +79,7 @@ public class CommentController {
 			commentList.add(obj);
 
 		}
+		System.out.println(commentList);
 		return commentList;
 	}
 	//댓글쓰기 전송
@@ -55,6 +95,7 @@ public class CommentController {
 			e.printStackTrace();
 			map.put("result", "fail");
 		}
+		System.out.println("map"+map);
 		return  map ;
 
 	}

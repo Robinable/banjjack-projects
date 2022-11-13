@@ -19,6 +19,25 @@
             content_id = #{content_id}
 
     </select>
+
+<!-- 리스트 10개씩 -->
+    <select id="commentListpage" parameterType="hashMap" resultType="com.green.vo.CommentVo">
+        SELECT
+            _id,
+            username,
+            time,
+            content
+        FROM comment_tb
+        order by _id desc
+            limit #{displayPost}, #{postNum}
+    </select>
+<!--댓글 카운트-->
+    <select id="commentCount" resultType="int">
+        SELECT
+            count(_id)
+        FROM comment_tb
+        WHERE content_id=#{content_id}
+    </select>
 <!--코멘트 쓰기-->
     <insert id="writeComment">
         INSERT INTO  comment_tb( content_id, username, content, time)
