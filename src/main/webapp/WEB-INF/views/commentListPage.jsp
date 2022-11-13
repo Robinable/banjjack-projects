@@ -178,15 +178,15 @@
 
 </head>
 <body>
-<div class="commentCount"> 댓글 <span id = "count">0</span></div>
+<div class="commentCount"> 댓글 <span id = "count">${commentCount}</span></div>
 
 <div class="commentListBox" id="commentListBox"></div>
 <!--페이징-->
 <div class="paging">
     <div>
-        <c:forEach begin="1" end="${pageNum}" var="num">
+        <c:forEach begin="1" end="${value.pageNum}" var="num">
     <span>
-     <a href="/board/listPage?num=${num}">${num}</a>
+     <a href="/board/listPage?num=${value.num}">${num}</a>
   </span>
         </c:forEach>
     </div>

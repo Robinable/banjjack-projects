@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLOutput;
@@ -47,25 +48,25 @@ public class CommentController {
 	//페이징 정보 전달
 
 	@GetMapping("/commentListPage")
-	@ResponseBody
-	public String list(Model model, @RequestParam int content_id, @RequestParam int num ) throws Exception {
+	public ModelAndView list(ModelAndView model, @RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num ) throws Exception {
 		page.setNum(num);
 		int count = commentService.commentCount(content_id);
 		int postNum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 		int pageNum= (int)Math.ceil((double)count/postNum);
-		model.addAttribute("page", page);
-		model.addAttribute("num", num);
-		model.addAttribute("displayPost", displayPost);
-		model.addAttribute("pageNum", pageNum);
-
-		return "/commentListpage";
+		model.addObject("page", page);
+		model.addObject("num", num);
+		model.addObject("displayPost", displayPost);
+		model.addObject("pageNum", pageNum);
+		model.addObject("commentCount", count);
+		model.setViewName("commentListPage");
+		return model;
 	}
 
 	//페이징 된 리스트
 	@GetMapping("comment/getCommentListPage")
 	@ResponseBody
-	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(defaultValue = "1") int num) throws Exception {
+	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num) throws Exception {
 		int postNum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 
