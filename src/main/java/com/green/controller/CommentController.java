@@ -48,29 +48,28 @@ public class CommentController {
 	//페이징 정보 전달
 
 	@GetMapping("/commentListPage")
-	public ModelAndView list(ModelAndView model, @RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num ) throws Exception {
-		page.setNum(num);
-		int count = commentService.commentCount(content_id);
-		int postNum = page.getPostnum();
-		int displayPost = page.getDisplaypost();
-		int pageNum= (int)Math.ceil((double)count/postNum);
-		model.addObject("page", page);
-		model.addObject("num", num);
-		model.addObject("displayPost", displayPost);
-		model.addObject("pageNum", pageNum);
-		model.addObject("commentCount", count);
-		model.setViewName("commentListPage");
-		return model;
-	}
+	public String list(@RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num ) throws Exception {
 
+		return "/commentListPage";
+	}
 	//페이징 된 리스트
 	@GetMapping("comment/getCommentListPage")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num) throws Exception {
-		int postNum = page.getPostnum();
-		int displayPost = page.getDisplaypost();
+		int displayPost=page.getDisplaypost();
+		int postNum=page.getPostnum();
+
+		JSONObject pageJson = new JSONObject();
+		pageJson.put("postNum", postNum);
+		pageJson.put("displayPost", displayPost);
+		pageJson.put("prev", page.getPrev());
+		pageJson.put("next", page.getNext());
+		pageJson.put("startPageNum", page.getStartpagenum());
+		pageJson.put("endPageNum", page.getEndpagenum());
 
 		List<JSONObject> commentList = new ArrayList<>();
+			commentList.add(pageJson);
+		System.out.println(content_id);
 		for (CommentVo cl : commentService.coommentListPage(content_id, displayPost, postNum)) {
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
@@ -78,8 +77,8 @@ public class CommentController {
 			obj.put("content", cl.getContent());
 			obj.put("time", cl.getTime());
 			commentList.add(obj);
-
 		}
+
 		System.out.println(commentList);
 		return commentList;
 	}
