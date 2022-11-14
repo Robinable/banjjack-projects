@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -82,7 +83,6 @@ public class WriteController {
 	public String viewForm(Model model, @RequestParam String _id, @RequestParam String category) {
 		model.addAttribute("_id", _id);
 		model.addAttribute("category", category);
-
 		return "/view";
 	}
 

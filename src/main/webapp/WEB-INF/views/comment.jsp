@@ -32,22 +32,38 @@
     <script>
         let query = window.location.search;
         let param = new URLSearchParams(query);
-        let content_id = param.get('_id');
-
+        let content_id = param.get('content_id');
+        let no =1;
+        getNum();
+        function getNum(){
+            if(param.get('num')!=null){
+                no=param.get('num');
+            }
+            return no;
+        }
+         console.log("no"+no);
+        console.log("ci"+content_id);
         $(document).ready(function() {
             fnCommentList();
         });
         //리스트조회
         function fnCommentList() {
             $.ajax({
-                url: "/comment/commentList",
+                url: "comment/getCommentListPage",
                 type: "get",
-                data: { 'content_id' : content_id},
-                error: function (xhr) {
+                data: {
+                    "content_id" : content_id,
+                    "num" : no
                 },
-                success: function (data) {
+                dataType:"json",
+                error: function (xhr) {
+                    alert("통신오류");
+                },
+                done: function (data) {
+
                     let str = "";
                     $.each(data, function (index, element) {
+
                         str +=
                             "<div class=\"commentBigBox\">"
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
@@ -73,27 +89,22 @@
                             + "</div>"
                             + "</div>"
                             + "</div>"
-
-
                     })
                     document.getElementById('commentListBox').innerHTML += str;
                 }
             });
         } //리스트조회
+
         //작성버튼
         $(document).ready(function() {
             $('#commentWriteButton').click(function () {
 
                 let commentWriteData =
-
                     {
                         username: $('#commName').val(),
                         content_id: content_id,
                         content: $('#commContent').val()
                     }
-
-                console.log(commentWriteData);
-
 
                 $.ajax({
                     url: "/comment/writeComment",
@@ -141,14 +152,12 @@
         }
 
         function fnCommentUpdate(_id) {
-            console.log("뿅");
             let commentUpdateData =
                 {
                     _id: _id,
                     username: $('#updateCommName').val(),
                     content: $('#updateCommentInput').val(),
                 }
-            console.log(commentUpdateData);
             $.ajax({
                 url: "/comment/updatecomment/",
                 type: "post",
@@ -168,18 +177,34 @@
             $("#commentListBox").empty();
             fnCommentList();
         }
-
     </script>
 
 </head>
 <body>
-<div class="commentCount"> 댓글 <span id = "count">0</span></div>
 
-<div class="commentListBox" id="commentListBox">
+<div class="commentListBox" id="commentListBox"></div>
+<!--페이징-->
+<div style="text-align: center;">
+    <c:if test="${page.prev}">
+        <span>[ <a href="/comment?content_id=${content_id}&num=${page.startpagenum - 1}">이전</a> ]</span>
+    </c:if>
 
+    <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+  <span>
+   <c:if test="${select != num}">
+       <a href="/comment?content_id=${content_id}&num=${num}">${num}</a>
+   </c:if>
+
+     <c:if test="${select == num}">
+         <b>${num}</b>
+     </c:if>
+ </span>
+    </c:forEach>
+
+    <c:if test="${page.next}">
+        <span>[ <a href="/comment?content_id=${content_id}&num=${page.endpagenum + 1}">다음</a> ]</span>
+    </c:if>
 </div>
-</div>
-
 
 
 <!--댓글 입력부 -->

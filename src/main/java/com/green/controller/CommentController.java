@@ -25,46 +25,23 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-	@Autowired
-	CommentDao commentDao;
+	@GetMapping("/comment")
+	public String commentListPage(Model model, @RequestParam int content_id, @RequestParam(value="num", required = false, defaultValue = "1") int num ) throws Exception {
 
-	//댓글 리스트 호출
-//	@GetMapping("comment/commentList")
-//	@ResponseBody
-//	public List<JSONObject> getCommentList(@RequestParam int content_id) {
-//
-//		List<JSONObject> commentList = new ArrayList<>();
-//		for (CommentVo cl : commentService.getCommentList(content_id)) {
-//			JSONObject obj = new JSONObject();
-//			obj.put("name", cl.getUsername());
-//			obj.put("_id", cl.get_id());
-//			obj.put("content", cl.getContent());
-//			obj.put("time", cl.getTime());
-//			commentList.add(obj);
-//
-//		}
-//		return commentList;
-//	}
-	//페이징 정보 전달
-
-	@GetMapping("/commentListPage")
-
-	public ModelAndView commentListPage(@RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num ) throws Exception {
 		page.setNum(num);
 		page.setCount(commentService.commentCount(content_id));
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("content_id", content_id);
-		model.addObject("page", page);
-		model.addObject("num", num);
-		model.setViewName("commentListPage");
-		return model;
+		System.out.println("vpdlwl"+page.getPostnum());
+		model.addAttribute("content_id", content_id);
+		model.addAttribute("page", page);
+		return "/comment";
 	}
 
 	//페이징 된 리스트
 	@GetMapping("comment/getCommentListPage")
 	@ResponseBody
-	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num) throws Exception {
+	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(value="num", required = false, defaultValue = "1") int num) throws Exception {
+
+		page.setNum(num);
 		int postNum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 
@@ -136,9 +113,5 @@ public class CommentController {
 	}
 
 	//댓글 jsp파일 호출
-	@GetMapping("/comment")
 
-	public String getComment(){
-		return "comment";
-	}
 }
