@@ -1,26 +1,39 @@
 package com.green.controller;
 
+import com.green.service.ProfileService;
 import com.green.service.UserService;
+import com.green.vo.ProfileVo;
 import com.green.vo.UserVo;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.UUID;
 
 
+@Log
 @Controller
 public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProfileService profileService;
+
+    @Autowired
+    private  ServletContext servletContext;
 
     // 로그인창
     @RequestMapping("/login")
@@ -30,6 +43,13 @@ public class LoginController {
         }
         return "/login";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("login");
+        return "redirect:/login";
+    }
+
 
     // 회원가입창
     @RequestMapping("/signup")
@@ -44,8 +64,6 @@ public class LoginController {
                              @RequestParam("usersido") String usersido, @RequestParam("usergugun") String usergugun,
                              @RequestParam("userpet") String userpet,
                              HttpSession session) {
-
-        session.removeAttribute("login");
 
         UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet);
         userService.insertInfo(userVo);
@@ -183,13 +201,16 @@ public class LoginController {
     // findPassword의 다음 버튼이 성공적으로 처리 됐을 때 비밀번호 재설정창
     @PostMapping("/passwdUpdateSuccess")
     public String findPasswordUpdate(@RequestParam("username") String username,
-                                     @RequestParam("userpassword") String userpassword) {
+                                     @RequestParam("userpassword") String userpassword,
+                                     HttpSession session) {
 
         HashMap<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("userpassword", userpassword);
 
         userService.updatePassword(map);
+        UserVo user = userService.getUserInfo(username);
+        session.setAttribute("login", user);
 
         return "redirect:/login";
     }
@@ -202,11 +223,44 @@ public class LoginController {
 
     // 마이페이지창에서 저장눌렀을 때
     @PostMapping("/myPageSuccess")
-    public String myPage(@RequestParam("username")     String username,
+    public String myPage(
+                         @RequestParam(value="profile_img", required = false) MultipartFile file,
+                         @RequestParam("username")     String username,
                          @RequestParam("usernickname") String usernickname,
                          @RequestParam("usersido")     String usersido,
                          @RequestParam("usergugun")    String usergugun,
-                         @RequestParam("userpet")      String userpet) {
+                         @RequestParam("userpet")      String userpet,
+                         HttpSession session) throws IOException {
+
+        System.out.println(System.getProperty("user.dir"));
+
+        String uploadDir = "/Users/lsj/Desktop/ggg/green-spring2/src/main/webapp/WEB-INF/resources/img/";
+
+
+        if (!file.isEmpty()) {
+
+            String filename = file.getOriginalFilename();
+            // 확장자 앞에 . 점이 몇번째인지
+            int dotCount = filename.length() - filename.replace(".", "").length(); //3
+            // .을 기준으로 filename의 [dotCount]번째 = 확장자
+            // fileDot = 확장자
+            String fileDot = filename.split("\\.")[dotCount]; // jpg
+            //d.fg.gh.jpg
+            UUID uuid = UUID.randomUUID(); // 랜덤
+            String userFilename = uuid + "_" + username + "_profile." + fileDot; // 파일 이름 지정
+            //uuid_username_profile.jpg
+            String fullPath =  uploadDir + userFilename;
+
+
+            file.transferTo(new File(fullPath));
+
+            ProfileVo profileVo = new ProfileVo(0, userFilename);
+            profileService.saveProfileImg(profileVo);
+
+        }
+
+
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("usernickname", usernickname);
@@ -218,6 +272,9 @@ public class LoginController {
         userService.mypageUsersidoUpdate(map);
         userService.mypageUsergugunUpdate(map);
         userService.mypageUserpetUpdate(map);
+
+        UserVo user = userService.getUserInfo(username);
+        session.setAttribute("login", user);
 
 
 
@@ -235,7 +292,8 @@ public class LoginController {
     public  String mypagePasswd(@RequestParam("username")     String username,
                                 @RequestParam("now_userpassword") String now_userpassword,
                                 @RequestParam("userpassword") String userpassword,
-                                Model model) {
+                                Model model,
+                                HttpSession session) {
 
         String nowUserPasswd = userService.findNowPasswd(username);
 
@@ -244,8 +302,8 @@ public class LoginController {
             map.put("username", username);
             map.put("userpassword", userpassword);
             userService.updateNewPasswd(map);
-            model.addAttribute("userpassword", userpassword);
-            model.addAttribute("nowUserpassword", now_userpassword);
+            UserVo user = userService.getUserInfo(username);
+            session.setAttribute("login", user);
             return "/mypage";
 
         } else {
@@ -255,5 +313,32 @@ public class LoginController {
 
 
     }
+/*
+    @GetMapping("/testForm")
+    public String testForm() {
+        return "/test";
+    }
+
+    @PostMapping("/testSuc")
+    public String test(@RequestParam String itemName,
+                       @RequestParam MultipartFile file) throws IOException {
+        String uploadDir = "/Users/lsj/Desktop/ggg/green-spring2/src/main/webapp/WEB-INF/resources/img/";
+
+        if(!file.isEmpty()) {
+
+            String filename = file.getOriginalFilename();
+            int dotCount = filename.length() - filename.replace(".", "").length(); //3
+            String fileDot = filename.split("\\.")[dotCount]; // jpg
+            //d.fg.gh.jpg
+            UUID uuid = UUID.randomUUID();
+            String userFilename = uuid  + fileDot;
+
+//            uuid_username_profile.jpg
+
+        }
+
+        return "/test";
+    }
+    */
 
 }

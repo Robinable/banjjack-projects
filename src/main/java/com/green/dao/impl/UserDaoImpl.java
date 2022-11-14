@@ -109,6 +109,11 @@ public class UserDaoImpl implements UserDao {
         sqlSession.update("User.mypageUserpetUpdate", map);
     }
 
+    @Override
+    public UserVo getUserInfo(String username) {
+        return sqlSession.selectOne("User.getUserInfo", username);
+    }
+
 
 }
 

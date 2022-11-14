@@ -30,8 +30,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             // vo를 담은 login 세션이 비어있다면 == 로그인 안되어있음
             // 로그인이 되어있지 않다면 /login으로 이동
 
-            response.sendRedirect("/login");
-            return false;                         // 로그인페이지로 넘어갔기 때문에 컨트롤러 요청 더 받지않음
+//            response.sendRedirect("/login");
+            return true;                         // 로그인페이지로 넘어갔기 때문에 컨트롤러 요청 더 받지않음
         } else {
             session.setMaxInactiveInterval(30*60);
             return true;
@@ -54,8 +54,14 @@ public class AuthInterceptor implements HandlerInterceptor {
             Object handler,
             ModelAndView mv) throws Exception {
 
+        if(response.getHeader("Content-Type") != null && response.getHeader("Content-Type").contains("application/json")) {
+            return;
+        }
+
         System.out.println(request.getRequestURL());
         HttpSession session = request.getSession();
+        UserVo userVo = (UserVo) session.getAttribute("login");
+        mv.addObject("user", userVo);
 
         HandlerInterceptor.super.postHandle(request, response, handler, mv);
 

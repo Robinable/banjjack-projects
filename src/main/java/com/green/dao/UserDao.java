@@ -42,4 +42,6 @@ public interface UserDao {
     void mypageUsergugunUpdate(HashMap<String, Object> map);
 
     void mypageUserpetUpdate(HashMap<String, Object> map);
+
+    UserVo getUserInfo(String username);
 }

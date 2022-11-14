@@ -90,4 +90,8 @@ public class UserService {
     public void mypageUserpetUpdate(HashMap<String, Object> map) {
         userDaoImpl.mypageUserpetUpdate(map);
     }
+
+    public UserVo getUserInfo(String username) {
+        return userDaoImpl.getUserInfo(username);
+    }
 }

@@ -12,7 +12,7 @@
     <insert id="insertUser"
             parameterType="com.green.vo.UserVo">
         INSERT INTO user_tb (_id, username, userpassword, usernickname)
-        VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
     </insert>
 
     <select id="usernameCheck"
@@ -155,5 +155,12 @@
         SET    userpet = #{userpet}
         WHERE  username = #{username}
     </update>
+
+    <select id="getUserInfo"
+            resultType="com.green.vo.UserVo">
+        SELECT *
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
 
 </mapper>
