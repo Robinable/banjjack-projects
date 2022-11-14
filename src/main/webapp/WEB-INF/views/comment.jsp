@@ -32,19 +32,19 @@
     <script>
         let query = window.location.search;
         let param = new URLSearchParams(query);
-        let content_id = param.get('content_id');
+        let content_id = param.get('_id');
         let no =1;
         getNum();
+        console.log(no);
         function getNum(){
             if(param.get('num')!=null){
                 no=param.get('num');
             }
             return no;
         }
-         console.log("no"+no);
-        console.log("ci"+content_id);
         $(document).ready(function() {
             fnCommentList();
+            console.log("dd");
         });
         //리스트조회
         function fnCommentList() {
@@ -60,7 +60,7 @@
                     alert("통신오류");
                 },
                 done: function (data) {
-
+                    console.log("s"+data);
                     let str = "";
                     $.each(data, function (index, element) {
 

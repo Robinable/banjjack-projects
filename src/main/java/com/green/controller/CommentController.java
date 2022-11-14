@@ -26,7 +26,7 @@ public class CommentController {
 	CommentService commentService;
 
 	@GetMapping("/comment")
-	public String commentListPage(Model model, @RequestParam int content_id, @RequestParam(value="num", required = false, defaultValue = "1") int num ) throws Exception {
+	public String commentListPage(Model model, @RequestParam int content_id, @RequestParam int num ) throws Exception {
 
 		page.setNum(num);
 		page.setCount(commentService.commentCount(content_id));
