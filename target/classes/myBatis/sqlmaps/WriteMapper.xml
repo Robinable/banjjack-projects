@@ -32,7 +32,7 @@
         UPDATE content_tb
         SET    STEP = STEP + 1
         WHERE  bnum = #{ bnum }
-          AND    STEP > #{ step }
+          AND  STEP > #{ step }
     </update>
 
     <!-- 답글 작성 -->

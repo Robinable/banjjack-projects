@@ -53,16 +53,10 @@ public class WriteController {
 		int postnum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 
-
-
-		System.out.println("postnum : " + postnum + "displayPost : " + displayPost + "num : " + num);
-
-
 		List<WriteVo> writeVo = writeService.getList(category, displayPost, postnum);
-		System.out.println(writeVo);
+
 		List<JSONObject> getList = new ArrayList<>();
 		for (WriteVo vo : writeVo) {
-			System.out.println("vo : " + vo);
 			JSONObject data = new JSONObject();
 			data.put("_id", vo.get_id());
 			data.put("title", vo.getTitle());

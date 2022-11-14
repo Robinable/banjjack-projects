@@ -6,6 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <style>
         table {margin:100px auto;}
         tr:nth-of-type(1) {width:100%;}
@@ -23,7 +27,78 @@
         a { text-decoration-line: none; }
     </style>
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script>
+
+<%@ include file="/WEB-INF/views/header.jsp" %>
+</head>
+<body>
+
+<a  href="/list?category=1&num=1" class="btn btn-primary"> 개 </a>
+<a  href="/list?category=2&num=1" class="btn btn-primary"> 고양이 </a>
+<a  href="/list?category=3&num=1" class="btn btn-primary"> 기타 </a>
+<a  href="/list?category=&num=1" class="btn btn-primary"> 전체 </a>
+
+<table id="div1">
+</table>
+
+<!-- 페이징
+<div style="text-align: center;">
+    <c:if test="${page.prev}">
+        <span>[ <a href="/list?category=1&num=${page.startpagenum - 1}">이전</a> ]</span>
+    </c:if>
+
+    <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+  <span>
+   <c:if test="${select != num}">
+       <a href="/list?category=1&num=${num}">${num}</a>
+   </c:if>
+
+     <c:if test="${select == num}">
+         <b>${num}</b>
+     </c:if>
+ </span>
+    </c:forEach>
+
+    <c:if test="${page.next}">
+        <span>[ <a href="/list?category=1&num=${page.endpagenum + 1}">다음</a> ]</span>
+    </c:if>
+</div>
+-->
+
+
+  <ul class="pagination">
+      <li class="page-item">
+          <c:if test="${page.prev}">
+            <a href="/list?category=1&num=${page.startpagenum - 1}" class="page-link">이전</a>
+            <span aria-hidden="true"></span>
+            </a>
+          </c:if>
+      </li>
+      <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+        <c:if test="${select != num}">
+                   <li class="page-item"><a href="/list?category=1&num=${num}" class="page-link">${num}</a></li>
+               </c:if>
+
+                 <c:if test="${select == num}">
+                 <li class="page-item active" aria-current="page">
+                   <a class="page-link" href="#">${num}</a>
+                 </li>
+                 </c:if>
+      </c:forEach>
+      <c:if test="${page.next}">
+        <li class="page-item">
+            <a href="/list?category=1&num=${page.endpagenum + 1}" class="page-link">다음</a>
+            <span aria-hidden="true"></span>
+            </a>
+        </li>
+      </c:if>
+    </ul>
+
+
+
+
+<script>
+        let loginUsername = "${user.username}"
+
         function header() {
             let header = '<tr>';
             header    += '<th>번호</th>';
@@ -91,6 +166,9 @@
                     html += '<td>' + readcount  + '</td>';
                     html += '</tr>';
                 };
+                if( loginUsername != "") {
+                    html += '<td colspan="6"><a href="/writeform?username=${user.username}&_id=0&bnum=0&lvl=0&step=0" class="btn btn-primary">새 글 쓰기</a></td>'
+                    }
                 html += '</table>'
                 $('#div1').html(html);
             })
@@ -98,41 +176,5 @@
                 console.log( error );
             });
     </script>
-
-</head>
-<body>
-
-<a  href="/list?category=1&num=1" > 개 </a>
-<a  href="/list?category=2&num=1" > 고양이 </a>
-<a  href="/list?category=3&num=1" > 기타 </a>
-<a  href="/list?category=&num=1" > 전체 </a>
-
-<table id="div1"></table>
-
-<!-- 페이징 -->
-<div style="text-align: center;">
-    <c:if test="${page.prev}">
-        <span>[ <a href="/list?category=1&num=${page.startpagenum - 1}">이전</a> ]</span>
-    </c:if>
-
-    <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
-  <span>
-   <c:if test="${select != num}">
-       <a href="/list?category=1&num=${num}">${num}</a>
-   </c:if>
-
-     <c:if test="${select == num}">
-         <b>${num}</b>
-     </c:if>
- </span>
-    </c:forEach>
-
-    <c:if test="${page.next}">
-        <span>[ <a href="/list?category=1&num=${page.endpagenum + 1}">다음</a> ]</span>
-    </c:if>
-</div>
-
-
-<a href="/writeform?username=1234&_id=0&bnum=0&lvl=0&step=0">새 글 쓰기</a>
 </body>
 </html>

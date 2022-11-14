@@ -8,7 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
     <style>
         table {margin:100px auto;}
@@ -18,10 +21,93 @@
         td:nth-of-type(2) {width:700px;}
         textarea          {width:100%; height:400px; resize:none; border-radius: 8px;}
         input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px;}
+        table, th, td {
+                border : 1px solid  #c0c0c0;
+                border-collapse : collapse;
+            }
     </style>
 
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script>
+
+<%@ include file="/WEB-INF/views/header.jsp" %>
+</head>
+<body>
+
+<!-- ( get방식에는 enctype이 없기때문에 null을 반환한다 ) -->
+<form action="/write_insert" id="form" encType = "multipart/form-data" method="post" >
+    <input type="hidden" name="username"  value=${username} />
+    <input type="hidden" name="_id"       value=${_id} />
+    <input type="hidden" name="bnum"      value=${ bnum } />
+    <input type="hidden" name="lvl"       value=${ lvl  } />
+    <input type="hidden" name="step"      value=${ step } />
+    <input type="hidden" name="readcount" value="0" />
+    <table>
+
+        <c:choose>
+        <c:when test="${ lvl eq 0 }" >
+        <tr>
+            <td>새 글 쓰기</td>
+        </tr>
+        <tr>
+            <td>제목 :</td>
+            <td>
+                <input type="text" name="title" maxLength="20" >
+            </td>
+        </tr>
+
+        <tr>
+            <td>애완동물 :</td>
+            <td>
+                <select size="1" name="category" >
+                    <option name="info" value="0">선택하세요.</option>
+                    <option name="info" value="1">개</option>
+                    <option name="info" value="2">고양이</option>
+                    <option name="info" value="3">기타</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> </td>
+            <td>
+                <textarea maxLength="500" name= "content" placeholder="내용을 입력하세요" value="content"></textarea>
+            </td>
+        </tr>
+        </c:when>
+
+        <c:otherwise>
+        <tr id="reply"></tr>
+        </c:otherwise>
+        </c:choose>
+
+        <tr>
+        <td colspan="2">
+            <div class="container">
+                <div class="image-upload" id="image-upload">
+                    <input type="file" id="chooseFile" name="file" accept="image/*" onchange="loadFile(this)">
+                    <div class="fileContainer">
+                        <div class="fileInput">
+                            <p>FILE NAME: </p>
+                            <p id="fileName"></p>
+                        </div>
+                        <div class="buttonContainer"></div>
+                    </div>
+                </div>
+                <div class="image-show" id="image-show"></div>
+            </div>
+        </td>
+        </tr>
+</form>
+<tr>
+    <td colspan="2">
+        <input type="submit" id="submit" class="btn btn-primary" value="저장" onclick="style.visibility='hidden';" />
+        <a href="/list?category=&num=1" class="btn btn-primary">게시판</a>
+        <a class="btn btn-primary">삭제</a>
+    </td>
+</tr>
+</table>
+
+<script>
 
         $.ajax( {
             url  :  '/viewupdate?_id=' + ${_id} ,
@@ -57,20 +143,21 @@
                     html += '</tr>';
                     html += '<td> 제목 </td>';
                     html += '<td><input type="text" name="title" maxLength="20" value="'+title+'" ></td>';
-                    html += '<td> 카테고리 : </td>';
+                    html += '</tr>';
+                    html += '<tr>';
+                    html += '<td> 애완동물 : </td>';
+                    html += '<td><select aria-label="Disabled select example" disabled>'
                     if(category == '1'){
-                        html += '<td> 강아지 </td>';
-                        html += '<input type="hidden" name="category" value="1" />';
+                    html += '<option value="1" selected>강아지</option>';
                     }
                     else if(category =='2') {
-                        html += '<td> 고양이 </td>';
-                        html += '<input type="hidden" name="category" value="2" />';
+                        html += '<option value="2" selected>고양이</option>'
                     }
                     else if(category =='3') {
-                        html += '<td> 기타 </td>';
-                        html += '<input type="hidden" name="category" value="3" />';
+                        html += '<option value="3" selected>기타</option>'
                     }
-                    html += '</tr>';
+                    html += '</select>'
+                    html += '</td></tr>';
                     html += '<tr>';
                     html += '<td></td>';
                     html += '<td colspan="3"><textarea maxLength="500" name= "content" >'+ content + '\n====================\n</textarea></td>';
@@ -150,82 +237,7 @@
             container.appendChild(newImage);
         };
 
-
-    </script>
-
-</head>
-<body>
-<!-- ( get방식에는 enctype이 없기때문에 null을 반환한다 ) -->
-<form action="/write_insert" id="form" encType = "multipart/form-data" method="post" >
-    <input type="hidden" name="username"  value=${username} />
-    <input type="hidden" name="_id"       value=${_id} />
-    <input type="hidden" name="bnum"      value=${ bnum } />
-    <input type="hidden" name="lvl"       value=${ lvl  } />
-    <input type="hidden" name="step"      value=${ step } />
-    <input type="hidden" name="readcount" value="0" />
-    <table>
-
-        <c:choose>
-        <c:when test="${ lvl eq 0 }" >
-        <tr>
-            <td>새 글 쓰기</td>
-        </tr>
-        <tr>
-            <td>제목 :</td>
-            <td>
-                <input type="text" name="title" maxLength="20" >
-            </td>
-        </tr>
-
-        <tr>
-            <td>애완동물 :</td>
-            <td>
-                <select size="1" name="category" >
-                    <option name="info" value="0">선택하세요.</option>
-                    <option name="info" value="1">개</option>
-                    <option name="info" value="2">고양이</option>
-                    <option name="info" value="3">기타</option>
-                </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td> </td>
-            <td>
-                <textarea maxLength="500" name= "content" placeholder="내용을 입력하세요" value="content"></textarea>
-            </td>
-        </tr>
-        </c:when>
-
-        <c:otherwise>
-        <div id="reply"></div>
-        </c:otherwise>
-        </c:choose>
-
-        <tr>
-            <div class="container">
-                <div class="image-upload" id="image-upload">
-                    <input type="file" id="chooseFile" name="file" accept="image/*" onchange="loadFile(this)">
-                    <div class="fileContainer">
-                        <div class="fileInput">
-                            <p>FILE NAME: </p>
-                            <p id="fileName"></p>
-                        </div>
-                        <div class="buttonContainer"></div>
-                    </div>
-                </div>
-                <div class="image-show" id="image-show"></div>
-            </div>
-        </tr>
-</form>
-<tr>
-    <td colspan="2">
-        <input type="submit" id="submit" value="저장" />
-        <a href="/list?category=&num=1" class="btn btn-primary">게시판</a>
-        <a class="btn btn-primary">삭제</a>
-    </td>
-</tr>
-</table>
+</script>
 
 </body>
 </html>

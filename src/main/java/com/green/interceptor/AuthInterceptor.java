@@ -54,10 +54,15 @@ public class AuthInterceptor implements HandlerInterceptor {
             Object handler,
             ModelAndView mv) throws Exception {
 
+        if(response.getHeader("Content-Type") != null && response.getHeader("Content-Type").contains("application/json")) {
+            return;
+        }
+
         System.out.println(request.getRequestURL());
         HttpSession session = request.getSession();
         UserVo userVo = (UserVo) session.getAttribute("login");
         System.out.println("postHaondle: " + userVo);
+        mv.addObject("user", userVo);
 //        mv.addObject("vo", userVo);
 
         HandlerInterceptor.super.postHandle(request, response, handler, mv);

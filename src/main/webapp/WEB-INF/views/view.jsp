@@ -6,8 +6,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>글쓰기</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>작성글</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charSet="utf-8"></script>
     <style>
         table {margin:100px auto;}
         tr:nth-of-type(4) {text-align: right;}
@@ -22,7 +27,17 @@
     </style>
 
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script>
+
+
+<%@ include file="/WEB-INF/views/header.jsp" %>
+</head>
+
+<body>
+<div id="div2"></div>
+<%@ include file="/WEB-INF/views/comment.jsp" %>
+
+<script>
+        let loginUsername = "${user.username}"
 
         $.ajax( {
             url  :  '/getview?_id=' + ${_id} ,
@@ -39,6 +54,7 @@
                 bnum : $('#bnum').val(),
                 lvl : $('#lvl').val(),
                 step : $('#step').val(),
+
             },
             method   : "GET",
             dataType:  "json"
@@ -95,13 +111,21 @@
                     }
                     html += '</td>';
                     html += '</tr>';
+                    html +=  '<td colspan="4"><a href="/list?category=' + category + '&num=1" class="btn btn-primary"> 게시판 </a>'
+                    console.log("글쓴이" + username );
+                    console.log("로그인유저" + loginUsername );
+                    //console.log("로그인유저" + ${user.username} );
 
-                    html += '<td colspan="3"><a href="/writeform?username=1234&_id='+_id+'&bnum='+ bnum +'&lvl='+ lvl +'&step='+ step +'">답글쓰기</a>'
-                    html +=  '<a href="/updateForm?_id=' + _id + '"> 수정 </a>'
-                    html +=  '<a href="/list?category=' + category + '&num=1" class="btn btn-primary"> 게시판 </a>'
-                    html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-primary"> 삭제 </a>'
+                    if(loginUsername != ""){
+                    console.log("1번");
+                        html += '<a href="/writeform?username=${user.username}&_id='+_id+'&bnum='+ bnum +'&lvl='+ lvl +'&step='+ step +'" class="btn btn-primary" >답글쓰기</a>'
+                        if(username === loginUsername) {
+                            console.log("2번");
+                                html +=  '<a href="/updateForm?_id=' + _id + '" id="update" class="btn btn-primary"> 수정 </a>'
+                                html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-primary"> 삭제 </a>'
+                                }
+                        }
                     html += '</td>'
-
                 };
 
                 $('#div2').html(html);
@@ -110,11 +134,7 @@
                 console.log( error );
             });
 
-    </script>
 
-</head>
-<body>
-<div id="div2"></div>
-<%@ include file="/WEB-INF/views/comment.jsp" %>
+    </script>
 </body>
 </html>

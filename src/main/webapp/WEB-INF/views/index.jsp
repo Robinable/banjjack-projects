@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/index.css">
     <meta charset="UTF-8">
     <title>안녕2</title>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body>
 <div class="container">
