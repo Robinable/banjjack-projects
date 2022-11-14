@@ -35,7 +35,6 @@
         let content_id = param.get('_id');
         let no =1;
         getNum();
-        console.log(no);
         function getNum(){
             if(param.get('num')!=null){
                 no=param.get('num');
@@ -44,7 +43,6 @@
         }
         $(document).ready(function() {
             fnCommentList();
-            console.log("dd");
         });
         //리스트조회
         function fnCommentList() {
@@ -59,10 +57,11 @@
                 error: function (xhr) {
                     alert("통신오류");
                 },
-                done: function (data) {
-                    console.log("s"+data);
+                success: function (data) {
+                        console.log("s"+data);
                     let str = "";
                     $.each(data, function (index, element) {
+                        console.log(element.pagingNum);
 
                         str +=
                             "<div class=\"commentBigBox\">"
@@ -91,6 +90,7 @@
                             + "</div>"
                     })
                     document.getElementById('commentListBox').innerHTML += str;
+
                 }
             });
         } //리스트조회

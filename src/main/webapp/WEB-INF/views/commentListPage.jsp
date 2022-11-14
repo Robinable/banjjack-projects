@@ -66,6 +66,8 @@
                         // if(element.name==""){
                         //     return true;
                         // }
+                        console.log(element.pagingNum);
+
                         str +=
                             "<div class=\"commentBigBox\">"
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"

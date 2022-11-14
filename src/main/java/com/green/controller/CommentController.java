@@ -25,7 +25,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-	@GetMapping("/comment")
+	@GetMapping("/commentListPage")
 	public String commentListPage(Model model, @RequestParam int content_id, @RequestParam int num ) throws Exception {
 
 		page.setNum(num);
@@ -33,7 +33,7 @@ public class CommentController {
 		System.out.println("vpdlwl"+page.getPostnum());
 		model.addAttribute("content_id", content_id);
 		model.addAttribute("page", page);
-		return "/comment";
+		return "/commentListPage";
 	}
 
 	//페이징 된 리스트
@@ -42,8 +42,10 @@ public class CommentController {
 	public List<JSONObject> getCommentList(@RequestParam int content_id, @RequestParam(value="num", required = false, defaultValue = "1") int num) throws Exception {
 
 		page.setNum(num);
+		page.setCount(commentService.commentCount(content_id));
 		int postNum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
+
 
 		List<JSONObject> commentList = new ArrayList<>();
 		for (CommentVo cl : commentService.coommentListPage(content_id, displayPost, postNum)) {
@@ -52,6 +54,7 @@ public class CommentController {
 			obj.put("_id", cl.get_id());
 			obj.put("content", cl.getContent());
 			obj.put("time", cl.getTime());
+			obj.put("pagingNum",displayPost);
 			commentList.add(obj);
 
 		}

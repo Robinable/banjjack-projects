@@ -115,6 +115,6 @@
 </head>
 <body>
 <div id="div2"></div>
-<%@ include file="/WEB-INF/views/comment.jsp" %>
+<%@ include file="/WEB-INF/views/commentListPage.jsp" %>
 </body>
 </html>

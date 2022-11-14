@@ -1,5 +1,6 @@
 package com.green.controller;
 
+import com.green.service.CommentService;
 import com.green.service.WriteService;
 import com.green.vo.PageVo;
 import com.green.vo.WriteVo;
@@ -28,6 +29,8 @@ public class WriteController {
 	PageVo page = new PageVo();
 	@Autowired
 	private WriteService writeService;
+	@Autowired
+	CommentService commentService;
 
 	@PostMapping("/writeAction")
 	public String writeAction() {
@@ -80,9 +83,10 @@ public class WriteController {
 	}
 
 	@GetMapping("/viewform")
-	public String viewForm(Model model, @RequestParam String _id, @RequestParam String category) {
+	public String viewForm(Model model, @RequestParam String _id, @RequestParam String category) throws Exception {
 		model.addAttribute("_id", _id);
 		model.addAttribute("category", category);
+
 		return "/view";
 	}
 
