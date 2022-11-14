@@ -1,16 +1,8 @@
-<%--<!-- <%@ include file="/WEB-INF/include/menus.jsp" %>--%>
-<%--<%@ page language="java" contentType="text/html; charset=UTF-8"--%>
-<%--         pageEncoding="UTF-8"%>--%>
-<%--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->--%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <link rel="stylesheet" href="/resources/css/header.css">
-    <meta charset="UTF-8">
-    <title>타이틀</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--  메뉴목록  -->
+<link rel="stylesheet" href="/css/header.css">
 <div class="menubar">
     <div class="logo">
         <img src="/resources/img/iconmonstr-cat-7-240.png">
@@ -22,6 +14,7 @@
         <div>커뮤니티</div>
         <div>정보</div>
         <div>고객센터</div>
+        <div>${user.userpassword}</div>
         <div class="login-button">
             <div class="bell">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -37,5 +30,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

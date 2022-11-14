@@ -32,8 +32,12 @@
     <script>
         let query = window.location.search;
         let param = new URLSearchParams(query);
-        let content_id = param.get('_id');
+        let content_id = param.get('content_id');
         let num=param.get('num');
+        console.log("ad"+content_id);
+        console.log("ad"+num);
+        // console.log("page"+page);
+        // console.log("dp" + datapost);
         $(document).ready(function() {
             fnCommentList();
         });
@@ -44,10 +48,12 @@
                 url: "comment/getCommentListPage",
                 type: "get",
                 data: {
-                    'content_id' : content_id,
-                    'num' : num
+                    "content_id" : content_id,
+                    "num" : num
                 },
+                dataType:"json",
                 error: function (xhr) {
+                    alert("통신오류");
                 },
                 success: function (data) {
                     console.log(data);
@@ -57,9 +63,9 @@
                     }
                     let str = "";
                     $.each(data, function (index, element) {
-                        if(element.name==""){
-                            return true;
-                        }
+                        // if(element.name==""){
+                        //     return true;
+                        // }
                         str +=
                             "<div class=\"commentBigBox\">"
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
@@ -182,16 +188,28 @@
 
 <div class="commentListBox" id="commentListBox"></div>
 <!--페이징-->
-<div class="paging">
-    <div>
-        <c:forEach begin="1" end="${value.pageNum}" var="num">
-    <span>
-     <a href="/board/listPage?num=${value.num}">${num}</a>
-  </span>
-        </c:forEach>
-    </div>
-</div>
 
+<div style="text-align: center;">
+    <c:if test="${page.prev}">
+        <span>[ <a href="/list?category=1&num=${page.startpagenum - 1}">이전</a> ]</span>
+    </c:if>
+
+    <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+  <span>
+   <c:if test="${select != num}">
+       <a href="/commentListPage?content_id=${content_id}&num=${num}">${num}</a>
+   </c:if>
+
+     <c:if test="${select == num}">
+         <b>${num}</b>
+     </c:if>
+ </span>
+    </c:forEach>
+
+    <c:if test="${page.next}">
+        <span>[ <a href="/list?category=1&num=${page.endpagenum + 1}">다음</a> ]</span>
+    </c:if>
+</div>
 
 
 <!--댓글 입력부 -->

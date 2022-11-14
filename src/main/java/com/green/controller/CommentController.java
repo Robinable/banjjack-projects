@@ -48,17 +48,15 @@ public class CommentController {
 	//페이징 정보 전달
 
 	@GetMapping("/commentListPage")
-	public ModelAndView list(ModelAndView model, @RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num ) throws Exception {
+
+	public ModelAndView commentListPage(@RequestParam int content_id, @RequestParam(value="num", defaultValue = "1") int num ) throws Exception {
 		page.setNum(num);
-		int count = commentService.commentCount(content_id);
-		int postNum = page.getPostnum();
-		int displayPost = page.getDisplaypost();
-		int pageNum= (int)Math.ceil((double)count/postNum);
+		page.setCount(commentService.commentCount(content_id));
+
+		ModelAndView model = new ModelAndView();
+		model.addObject("content_id", content_id);
 		model.addObject("page", page);
 		model.addObject("num", num);
-		model.addObject("displayPost", displayPost);
-		model.addObject("pageNum", pageNum);
-		model.addObject("commentCount", count);
 		model.setViewName("commentListPage");
 		return model;
 	}
