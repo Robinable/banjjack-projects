@@ -94,4 +94,8 @@ public class UserService {
     public UserVo getUserInfo(String username) {
         return userDaoImpl.getUserInfo(username);
     }
+
+    public void deleteUser(String username) {
+        userDaoImpl.deleteUser(username);
+    }
 }

@@ -15,4 +15,8 @@ public class ProfileService {
     public void saveProfileImg(ProfileVo profileVo) {
         profileDaoimpl.saveProfileImg(profileVo);
     }
+
+    public String selectImg(String userFilename) {
+        return profileDaoimpl.selectImg(userFilename);
+    }
 }

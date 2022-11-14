@@ -62,8 +62,15 @@
                 e.preventDefault();
                 alert('반려동물을 입력해주세요.');
                 userpet.focus();
+
             }
+
+            userProfileImg();
+
         }) // form event end
+
+
+
 
         // 이미지 업로드 버튼 이벤트 (이미지 미리보기)
         $('#btnUpload').click(function (e) {
@@ -87,7 +94,6 @@
             }
 
         });
-
 
 
     } // window.onload end
@@ -138,7 +144,12 @@
         return userpetText;
     }
 
-
+    function userProfileImg() {
+        let prevSrc = "/img/icon_unknownUser.png";
+        if($('#preview').src() == prevSrc) {
+            $('#preview').attr('src', '/img/${userProfileImg}');
+        }
+    }
 
 </script>
 </head>
@@ -150,10 +161,10 @@
         <div id="container">
             <ul>
                 <li>
+                <img id="preview" src="/img/icon_unknownUser.png">
                 <input type='file' id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
                        style="display: none;"/></li><br>
                 <button type="button" id="btnUpload">업로드</button>
-                <img id="preview">
                 </li>
                 <li>
                     <input type="text" id="username" name="username" placeholder="아이디" value="${user.username}" readonly><br>
@@ -175,12 +186,13 @@
                         <option value="개">개</option>
                         <option value="기타">기타</option>
                     </select>
-                    <input type="text" id="userpet" name="userpet" value="${user.userpet}"/>
+                    <input type="text" id="userpet" name="userpet" value="${user.userpet}" placeholder=""/>
                     <span id="petCheck"></span>
                 </li>
 
                 <li><input type="submit" id="signup" name="signup" value="수정"/></li>
                 <li><a href="/" id="cancleUpdate" name="cancleUpdate"/>취소</a></li>
+                <li><a href="/leaveUserForm" id="goLeave" name="goLeave"/>탈퇴하기</a></li>
             </ul>
         </div>
     </form>

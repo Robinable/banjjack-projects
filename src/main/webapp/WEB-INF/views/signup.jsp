@@ -245,6 +245,10 @@
             return userpetText;
         }
 
+        function sidoCheck(usersido) {
+            let sidoVaildation =
+        }
+
     </script>
 </head>
 <body>

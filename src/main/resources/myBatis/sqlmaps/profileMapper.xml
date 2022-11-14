@@ -12,7 +12,13 @@
 
     </insert>
 
+    <select id="selectImg"
+            resultType="String">
+        SELECT profiledata
+        FROM   profile_tb
+        WHERE  profiledata = #{userFilename}
 
+    </select>
 
 
 </mapper>

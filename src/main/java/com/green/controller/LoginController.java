@@ -1,20 +1,16 @@
 package com.green.controller;
 
+import com.green.service.LeaveUserService;
 import com.green.service.ProfileService;
 import com.green.service.UserService;
 import com.green.vo.ProfileVo;
 import com.green.vo.UserVo;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -33,7 +29,8 @@ public class LoginController {
     private ProfileService profileService;
 
     @Autowired
-    private  ServletContext servletContext;
+    private LeaveUserService leaveUserService;
+
 
     // 로그인창
     @RequestMapping("/login")
@@ -218,28 +215,28 @@ public class LoginController {
     // 마이페이지창
     @GetMapping("/myPageForm")
     public String myPageForm() {
+
+
         return "/mypage";
     }
 
     // 마이페이지창에서 저장눌렀을 때
     @PostMapping("/myPageSuccess")
-    public String myPage(
-                         @RequestParam(value="profile_img", required = false) MultipartFile file,
+    public String myPage(@RequestParam(value="profile_img", required = false) MultipartFile file,
                          @RequestParam("username")     String username,
                          @RequestParam("usernickname") String usernickname,
                          @RequestParam("usersido")     String usersido,
                          @RequestParam("usergugun")    String usergugun,
                          @RequestParam("userpet")      String userpet,
-                         HttpSession session) throws IOException {
-
-        System.out.println(System.getProperty("user.dir"));
+                         HttpSession session,
+                         Model model) throws IOException {
 
         String uploadDir = "/Users/lsj/Desktop/ggg/green-spring2/src/main/webapp/WEB-INF/resources/img/";
-
 
         if (!file.isEmpty()) {
 
             String filename = file.getOriginalFilename();
+
             // 확장자 앞에 . 점이 몇번째인지
             int dotCount = filename.length() - filename.replace(".", "").length(); //3
             // .을 기준으로 filename의 [dotCount]번째 = 확장자
@@ -250,16 +247,21 @@ public class LoginController {
             String userFilename = uuid + "_" + username + "_profile." + fileDot; // 파일 이름 지정
             //uuid_username_profile.jpg
             String fullPath =  uploadDir + userFilename;
-
+            model.addAttribute("img", fullPath);
 
             file.transferTo(new File(fullPath));
 
             ProfileVo profileVo = new ProfileVo(0, userFilename);
             profileService.saveProfileImg(profileVo);
 
+            String selectImg = profileService.selectImg(userFilename);
+            System.out.println(selectImg);
+            if(selectImg.contains(username)) {
+                model.addAttribute("userProfileImg", selectImg);
+            }
+
+
         }
-
-
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", username);
@@ -313,32 +315,50 @@ public class LoginController {
 
 
     }
-/*
-    @GetMapping("/testForm")
-    public String testForm() {
-        return "/test";
+    @GetMapping("/leaveUserForm")
+    public String leaveUserForm() {
+        return "/leaveUser";
     }
 
-    @PostMapping("/testSuc")
-    public String test(@RequestParam String itemName,
-                       @RequestParam MultipartFile file) throws IOException {
-        String uploadDir = "/Users/lsj/Desktop/ggg/green-spring2/src/main/webapp/WEB-INF/resources/img/";
+    @PostMapping("/leaveUserSuccess")
+    public String leaveUser(@RequestParam("username") String username,
+                            @RequestParam("userpassword") String userpassword,
+                            HttpSession session,
+                            Model model) throws Exception {
+        // 비밀번호 일치 확인
+        String loginCk = userService.loginPasswordCheck(username);
+        System.out.println(loginCk);
 
-        if(!file.isEmpty()) {
+        String returnURL = "";
+        // 일치한다면
+        if (userpassword.equals(loginCk)) {
 
-            String filename = file.getOriginalFilename();
-            int dotCount = filename.length() - filename.replace(".", "").length(); //3
-            String fileDot = filename.split("\\.")[dotCount]; // jpg
-            //d.fg.gh.jpg
-            UUID uuid = UUID.randomUUID();
-            String userFilename = uuid  + fileDot;
+            HashMap<String,String> map = new HashMap<>();
+            map.put("username", username);
+            map.put("userpassword", userpassword);
 
-//            uuid_username_profile.jpg
+            // map으로 userVO를 불러와서 leaveUser에 insert
+            UserVo userVo = userService.selectUserInfo(map);
+            System.out.println(userVo);
+           leaveUserService.insertLeaveUser(userVo);
 
+            // 세션 초기화
+            session.removeAttribute("login");
+            userService.deleteUser(username);
+
+            System.out.println(session.getAttribute("login"));
+            returnURL = "redirect:/";
+
+
+
+            // 일치하지 않으면
+        } else {
+            model.addAttribute("message", "error");
+            returnURL = "/leaveUser";
         }
+        return returnURL;
 
-        return "/test";
     }
-    */
+
 
 }

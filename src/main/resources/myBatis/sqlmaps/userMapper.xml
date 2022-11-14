@@ -163,4 +163,11 @@
         WHERE  username = #{username}
     </select>
 
+    <delete id="deleteUser"
+            parameterType="String">
+        DELETE FROM user_tb
+        WHERE  username = #{username}
+
+    </delete>
+
 </mapper>

@@ -44,4 +44,6 @@ public interface UserDao {
     void mypageUserpetUpdate(HashMap<String, Object> map);
 
     UserVo getUserInfo(String username);
+
+    void deleteUser(String username);
 }
