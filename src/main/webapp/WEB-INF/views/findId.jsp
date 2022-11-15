@@ -46,18 +46,19 @@
             form.addEventListener('submit', function(e) {
                 const useremail = document.getElementById('useremail');
 
-                if(useremail == '') {
+                if(useremail.value == '') {
                     e.preventDefault();
-                    $('#useremailCheck').html('이메일을 입력하세요');
+                    alert('이메일을 입력해주세요.');
                     useremail.focus();
 
-
                 }
-            })
 
-            $('#useremailCheck').html('${username}');
+            });
 
-        } // window.load end
+        $('#useremailCheck').html('아이디: ${username}');
+
+
+    } // window.load end
 
 
     </script>
@@ -76,7 +77,7 @@
             <li><span id="useremailCheck"></span></li>
             <li>
                 <c:if test="${message == 'error'}">
-                    <div style="color:red;">아이디가 일치하지 않습니다 다시 입력해주세요.</div>
+                    <div style="color:red;">잘못된 입력입니다. 다시 입력해주세요.</div>
                 </c:if>
             </li>
             <li><a href="/findPasswordForm" id="findPassword" name="findPassword" >비밀번호찾기</a></li>

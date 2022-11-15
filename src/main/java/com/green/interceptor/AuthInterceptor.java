@@ -61,6 +61,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         System.out.println(request.getRequestURL());
         HttpSession session = request.getSession();
         UserVo userVo = (UserVo) session.getAttribute("login");
+        System.out.println(userVo);
         mv.addObject("user", userVo);
 
         HandlerInterceptor.super.postHandle(request, response, handler, mv);

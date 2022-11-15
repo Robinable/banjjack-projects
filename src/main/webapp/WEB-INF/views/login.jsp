@@ -25,7 +25,7 @@
 
         ul { list-style: none; }
 
-        li:nth-child(n+6):nth-child(-n+8) { display: inline; }
+        li:nth-child(n+5):nth-child(-n+7) { display: inline; }
 
         a { font-size: 13px; }
 
@@ -46,14 +46,16 @@
                 const username = document.getElementById('username');
                 console.log(username);
                 if($('#username').val() == '') {
-                    $('#checkError').text('아이디를 입력하세요');
-                    username.focus();
                     e.preventDefault();
+                    alert('아이디를 입력해주세요.');
+                    username.focus();
+
 
                 } else if (userpassword.value == '') {
-                    $('#checkError').text('비밀번호를 입력하세요');
-                    userpassword.focus();
                     e.preventDefault();
+                    alert('비밀번호를 입력해주세요.');
+                    userpassword.focus();
+
                 }
 
             });
@@ -74,7 +76,6 @@
     <hr />
     <form action="/login/loginCheck" method="POST" id="form1" name="form1">
         <ul id="container">
-
             <li>
                 <input type="text" id="username" name="username" placeholder="아이디" maxlength="20"><br>
                 <span id="unameCheck"></span>
@@ -85,10 +86,6 @@
                 <input type="password" id="userpassword" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                 <span id="pwCheck"></span>
             </li>
-
-
-            <li><span id="checkError"></span></li>
-
 
             <li>
                 <c:if test="${message == 'error'}">

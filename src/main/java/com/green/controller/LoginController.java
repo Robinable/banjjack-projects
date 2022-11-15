@@ -56,13 +56,17 @@ public class LoginController {
 
     // 가입하기 버튼 눌렀을 때 (insert)
     @PostMapping("/signup/register")
-    public String insertInfo(@RequestParam("username") String username, @RequestParam("userpassword") String userpassword,
-                             @RequestParam("usernickname") String usernickname, @RequestParam("useremail") String useremail,
-                             @RequestParam("usersido") String usersido, @RequestParam("usergugun") String usergugun,
+    public String insertInfo(@RequestParam("username") String username,
+                             @RequestParam("userpassword") String userpassword,
+                             @RequestParam("usernickname") String usernickname,
+                             @RequestParam("useremail") String useremail,
+                             @RequestParam("usersido") String usersido,
+                             @RequestParam("usergugun") String usergugun,
                              @RequestParam("userpet") String userpet,
-                             HttpSession session) {
+                             HttpSession session,
+                             String role) {
 
-        UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet);
+        UserVo userVo = new UserVo(0, username, userpassword, usernickname, useremail, usersido, usergugun, userpet, role);
         userService.insertInfo(userVo);
 
 
@@ -95,12 +99,6 @@ public class LoginController {
                              Model model) {
 
         String returnURL = "";
-
-        // 기존 login 세션에 값이 있으면
-//        if (session.getAttribute("login") != null) {
-//            // 기존에 있던 값을 제거함
-//            session.removeAttribute("login");
-//        }
 
         // 비밀번호 일치 확인
         String loginCk = userService.loginPasswordCheck(username);
@@ -149,7 +147,6 @@ public class LoginController {
         // 불러온 이메일이 db 이메일과 일치한다면
         if (useremail.equals(useremail2)) {
             String username = userService.findId(useremail);
-            System.out.println(username);
             model.addAttribute("username", username);
             return "/findId";
 
@@ -189,7 +186,6 @@ public class LoginController {
 
             // 일치하지 않으면
         } else {
-            System.out.println("여기");
             model.addAttribute("message", "error");
             return "/findPasswd";
         }
@@ -197,7 +193,7 @@ public class LoginController {
 
     // findPassword의 다음 버튼이 성공적으로 처리 됐을 때 비밀번호 재설정창
     @PostMapping("/passwdUpdateSuccess")
-    public String findPasswordUpdate(@RequestParam("username") String username,
+    public String findPasswordUpdate(@RequestParam("username")     String username,
                                      @RequestParam("userpassword") String userpassword,
                                      HttpSession session) {
 
@@ -207,6 +203,7 @@ public class LoginController {
 
         userService.updatePassword(map);
         UserVo user = userService.getUserInfo(username);
+        user.setUserpassword("0");
         session.setAttribute("login", user);
 
         return "redirect:/login";
@@ -259,8 +256,6 @@ public class LoginController {
             if(selectImg.contains(username)) {
                 model.addAttribute("userProfileImg", selectImg);
             }
-
-
         }
 
         HashMap<String, Object> map = new HashMap<>();
@@ -276,6 +271,7 @@ public class LoginController {
         userService.mypageUserpetUpdate(map);
 
         UserVo user = userService.getUserInfo(username);
+        user.setUserpassword("0");
         session.setAttribute("login", user);
 
 
@@ -291,9 +287,9 @@ public class LoginController {
 
     // 마이페이지 내비밀번호변경 저장 버튼 눌렀을 때
     @PostMapping("/mypagePasswdUpdate")
-    public  String mypagePasswd(@RequestParam("username")     String username,
+    public  String mypagePasswd(@RequestParam("username")         String username,
                                 @RequestParam("now_userpassword") String now_userpassword,
-                                @RequestParam("userpassword") String userpassword,
+                                @RequestParam("userpassword")     String userpassword,
                                 Model model,
                                 HttpSession session) {
 
@@ -305,6 +301,7 @@ public class LoginController {
             map.put("userpassword", userpassword);
             userService.updateNewPasswd(map);
             UserVo user = userService.getUserInfo(username);
+            user.setUserpassword("0");
             session.setAttribute("login", user);
             return "/mypage";
 
@@ -315,19 +312,21 @@ public class LoginController {
 
 
     }
+
+    // 회원탈퇴창
     @GetMapping("/leaveUserForm")
     public String leaveUserForm() {
         return "/leaveUser";
     }
 
+    // 회원탈퇴 누르고 처리됐을 때
     @PostMapping("/leaveUserSuccess")
-    public String leaveUser(@RequestParam("username") String username,
+    public String leaveUser(@RequestParam("username")     String username,
                             @RequestParam("userpassword") String userpassword,
                             HttpSession session,
                             Model model) throws Exception {
         // 비밀번호 일치 확인
         String loginCk = userService.loginPasswordCheck(username);
-        System.out.println(loginCk);
 
         String returnURL = "";
         // 일치한다면
@@ -346,7 +345,6 @@ public class LoginController {
             session.removeAttribute("login");
             userService.deleteUser(username);
 
-            System.out.println(session.getAttribute("login"));
             returnURL = "redirect:/";
 
 

@@ -191,8 +191,9 @@
                 </li>
 
                 <li><input type="submit" id="signup" name="signup" value="수정"/></li>
-                <li><a href="/" id="cancleUpdate" name="cancleUpdate"/>취소</a></li>
-                <li><a href="/leaveUserForm" id="goLeave" name="goLeave"/>탈퇴하기</a></li>
+                <li><a href="/myPagePasswdForm" id="goMyPagePasswd" name="goMyPagePasswd">비밀번호 변경</a></li>
+                <li><a href="/" id="cancleUpdate" name="cancleUpdate">취소</a></li>
+                <li><a href="/leaveUserForm" id="goLeave" name="goLeave">회원탈퇴</a></li>
             </ul>
         </div>
     </form>

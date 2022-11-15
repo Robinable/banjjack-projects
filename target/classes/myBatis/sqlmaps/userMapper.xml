@@ -56,7 +56,7 @@
     <select id="selectUserInfo"
             resultType="com.green.vo.UserVo"
             parameterType="HashMap">
-        SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet
+        SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet, role
         FROM   user_tb
         WHERE  username = #{username} AND userpassword = #{userpassword}
 

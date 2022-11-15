@@ -46,59 +46,57 @@
             form.addEventListener('submit', function(e) {
                 if(username.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '아이디를 입력하세요.';
+                    alert('아이디를 입력해주세요.');
                     username.focus();
 
 
                 } else if (userpassword.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '비밀번호를 입력하세요.';
+                    alert('비밀번호를 입력해주세요.');
                     userpassword.focus();
 
 
                 } else if (repasswd.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '비밀번호 확인을 입력하세요.';
+                    alert('비밀번호 확인을 입력해주세요.');
                     repasswd.focus();
 
 
                 } else if (usernickname.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '닉네임을 입력하세요.';
+                    alert('닉네임을 입력해주세요.');
                     usernickname.focus();
 
 
                 } else if(useremail.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '이메일을 입력하세요.';
+                    alert('이메일을 입력해주세요.');
                     useremail.focus();
 
 
                 } else if(usersido.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '지역(시/도)를 입력하세요.';
+                    alert('지역(시/도)를 입력해주세요.');
                     usersido.focus();
 
 
                 } else if(usergugun.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '지역(구/군/동/읍/면/리)를 입력하세요.';
+                    alert('지역(구/군/동/읍/면/리)를 입력해주세요.');
                     usergugun.focus();
 
                 } else if(userpet.value == '') {
                     e.preventDefault();
-                    checkError.innerHTML = '반려동물을 선택하세요.';
+                    alert('반려동물을 입력해주세요.');
                     selectPet.focus();
+                } else {
+                    alert($('#usernickname').val() + '님 환영합니다!');
                 }
 
-                alert($('#usernickname').val() + '님 환영합니다!');
+
 
             });
 
-
-            //id에 길이가 1이상이고
-            //비활성화 되어 있다면
-            //id체크로직을 한번 돌린다
 
             $('#username').on('change', function() {
                 const username = document.getElementById('username').value.length;
@@ -140,34 +138,29 @@
 
             $('#useremail').on('change', function() {
                 const useremail = document.getElementById('useremail').value.length;
-                console.log(useremail);
                 if(useremail >= 2) {
                     emailCK(document.getElementById('useremail').value)
-
                 } else {
-                    console.log('dd');
                     $('#emailCheck').text('올바르지 않은 입력입니다. 다시 입력해주세요.');
                 }
             });
 
             // 콤보박스 > input text박스
             $('#selectPet').on('change', function() {
-                if($('#selectPet').val() == '반려동물') {
-                    $('#userpet').attr('value', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 사랑앵무(o)');
+                if($('#selectPet').val() == '기타') {
+                    $('#userpet').attr('placeholder', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 앵무새(o)');
+                } else if($('#selectPet').val() == '반려동물') {
+                    $('#userpet').attr('placeholder', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 앵무새(o)');
                 } else {
                     $('#userpet').attr('value', re_userpetPrint(selectPet));
                 }
 
             });
 
-
-
-
-        } // window.onload end
+    } // window.onload end
 
         // 아이디 중복확인 ajax
         function idCheck(username) {
-            //아이디체크 ajax 해보자 아장자ㅏ!
             $.ajax({
                 url: '/getUser?username=' + username, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
                 method: 'GET'                        // HTTP 요청 메소드(GET, POST 등)
@@ -187,7 +180,7 @@
                 })
                 // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
                 .fail(function(xhr, status, errorThrown) {
-                    $('#unicknameCheck').text('입력이 실패하였습니다. 다시 시도해주세요.');
+                    $('#unameCheck').text('입력이 실패하였습니다. 다시 시도해주세요.');
                 });
         }
 
@@ -241,13 +234,10 @@
         // userpet 콤보박스 text에 옮겨적기
         function re_userpetPrint(selectPet) {
             let userpetText = selectPet.options[selectPet.selectedIndex].text;
-            console.log(userpetText);
             return userpetText;
         }
 
-        function sidoCheck(usersido) {
-            let sidoVaildation =
-        }
+
 
     </script>
 </head>
@@ -296,11 +286,9 @@
                         <option value="개">개</option>
                         <option value="기타">기타</option>
                     </select>
-                    <input type="text" id="userpet" name="userpet" value=""/>
+                    <input type="text" id="userpet" name="userpet" value="" style="width:300px;" placeholder=""/>
                     <span id="petCheck"></span>
                 </li>
-
-                <li><span id="checkError"></span></li>
 
                 <li><input type="submit" id="signup" name="signup" value="가입하기"/></li>
             </ul>

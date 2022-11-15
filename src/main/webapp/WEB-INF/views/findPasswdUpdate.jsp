@@ -64,9 +64,9 @@
                     $('#re_userpassword').val('');
                     $('#re_userpassword').focus();
 
+                } else {
+                    alert('비밀번호가 정상적으로 변경되었습니다.');
                 }
-
-                alert('비밀번호가 정상적으로 변경되었습니다.');
 
             });
 
@@ -79,16 +79,6 @@
                 }
             });
 
-            $('#repasswd').on('change', function() {
-                const repasswd  = document.getElementById('repasswd').value;
-                if(repasswd == $('#userpassword').val()) {
-                    $('#re_pwCheck').text('비밀번호가 일치합니다.');
-                } else {
-                    $('#re_pwCheck').text('비밀번호가 일치하지 않습니다.');
-                    $('#repasswd').val('');
-                    $('#repasswd').focus();
-                }
-            });
 
 
 
@@ -128,8 +118,6 @@
                 <input type="password" id="repasswd" name="repasswd" placeholder="새 비밀번호 확인"/><br>
                 <span id="re_pwCheck"></span>
             </li>
-
-            <li><span id="dataCheck"></span></li>
 
             <li><input type="submit" id="pwOK" name="pwOK" value="확인"/></li>
 

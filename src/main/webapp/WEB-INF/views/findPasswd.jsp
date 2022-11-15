@@ -48,12 +48,12 @@
 
                 if(username.value == '') {
                     e.preventDefault();
-                    $('#dataCheck').html('아이디를 입력하세요.');
+                    alert('아이디를 입력해주세요.');
                     username.focus();
 
                 } else if(useremail.value == '') {
                     e.preventDefault();
-                    $('#dataCheck').html('이메일을 입력하세요.');
+                    alert('이메일을 입력해주세요.');
                     useremail.focus();
 
                 }
@@ -78,7 +78,6 @@
             <li><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요.</label></li>
             <li><input type="text" id="username" name="username" placeholder="아이디"/></li>
             <li><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></li>
-            <li><span id="dataCheck"></span></li>
             <li>
                 <c:if test="${message == 'error'}">
                     <div style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>

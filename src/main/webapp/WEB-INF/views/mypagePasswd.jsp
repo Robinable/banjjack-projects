@@ -81,16 +81,8 @@
                 }
             });
 
-            $('#repasswd').on('change', function() {
-                const repasswd  = document.getElementById('repasswd').value;
-                if(repasswd == $('#userpassword').val()) {
-                    $('#re_pwCheck').text('비밀번호가 일치합니다.');
-                } else {
-                    $('#re_pwCheck').text('비밀번호가 일치하지 않습니다.');
-                    $('#repasswd').val('');
-                    $('#repasswd').focus();
-                }
-            });
+
+
 
 
 
@@ -122,7 +114,7 @@
         <ul id="container">
             <li><label>비밀번호 변경</label></li>
             <hr />
-            <li><input type="hidden" id="username" name="username" value="${sessionScope.login.username}"/></li>
+            <li><input type="hidden" id="username" name="username" value="${user.username}"/></li>
             <li><input type="password" id="now_userpassword" name="now_userpassword" placeholder="현재 비밀번호"/></li>
             <li>
                 <input type="password" id="userpassword" name="userpassword" placeholder="새 비밀번호"/><br>
