@@ -66,7 +66,7 @@
 </head>
 
 <body>
-<div type="hidden" id="username" value='${user.username}' />
+<div type="hidden" id="username" value='1234' />
 <input type="hidden" id="readcount" value="0" />
 <input type="text" id="tag" placeholder="태그" maxlength="20" value="">
 <br>

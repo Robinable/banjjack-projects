@@ -64,19 +64,6 @@
         WHERE  _id  = #{_id}
     </update>
 
-    <select id="commentCount">
-        SELECT *,
-               (SELECT count(*) FROM comment_tb WHERE content_id = _id )
-                AS commentcount
-        FROM community_tb
-    </select>
-    <!--댓글 숫자 쿼리-->
-    <update id="commentCountUpdate">
-        update community_tb
-        SET commentcount = (select count(*) from comment_tb where comment_tb.content_id=community_tb._id AND menu_id=1) ;
-    </update>
-
-
 
 
 </mapper>

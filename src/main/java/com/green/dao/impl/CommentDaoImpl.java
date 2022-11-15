@@ -15,8 +15,8 @@ public class CommentDaoImpl implements CommentDao {
     @Autowired
     private SqlSession sqlSession;
     @Override
-    public List<CommentVo> getCommentList(Map<String, Object> map) {
-        List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", map);
+    public List<CommentVo> getCommentList(int content_id) {
+        List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", content_id);
         return commentList;
     }
 
@@ -26,16 +26,14 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public void commentDelete(CommentVo commentVo) {
-        sqlSession.delete("Comment.commentDelete",  commentVo);
-        sqlSession.update("Comment.commentCountMinus",  commentVo);
+    public void commentDelete(int _id) {
+        sqlSession.delete("Comment.commentDelete", _id);
 
     }
 
     @Override
     public void writeComment(CommentVo commentVo) {
         sqlSession.insert("Comment.writeComment", commentVo);
-        sqlSession.update("Comment.commentCountPlus", commentVo);
     }
 
 
