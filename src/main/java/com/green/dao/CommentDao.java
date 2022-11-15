@@ -15,4 +15,8 @@ public interface CommentDao {
 
    void writeComment(CommentVo commentVo);
 
+   int commentCount(int content_id) throws Exception;
+
+   List commentListPage(int content_id, int displayPost,int postNum) throws Exception;
+
 }
