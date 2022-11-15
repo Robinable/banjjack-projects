@@ -27,12 +27,21 @@ public class CommentController {
 	CommentDao commentDao;
 
 	//댓글 리스트 호출
+	//댓글 jsp파일 호출
+	@GetMapping("/comment")
+
+	public String getComment() {
+
+		return "comment";
+	}
+
+
 	@GetMapping("comment/commentList")
 	@ResponseBody
-	public List<JSONObject> getCommentList(@RequestParam int content_id) {
+	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id) {
 
 		List<JSONObject> commentList = new ArrayList<>();
-		for (CommentVo cl : commentService.getCommentList(content_id)) {
+		for (CommentVo cl : commentService.getCommentList(content_id, menu_id)) {
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
 			obj.put("_id", cl.get_id());
@@ -43,64 +52,62 @@ public class CommentController {
 		}
 		return commentList;
 	}
+
 	//댓글쓰기 전송
 	@PostMapping("comment/writeComment")
 	@ResponseBody
-	public  Map<String, Object>  writeComment(CommentVo commentVo, HttpSession httpSession) {
-		commentVo.setUsername((String) httpSession.getAttribute("username"));
+	public Map<String, Object> writeComment(CommentVo commentVo, HttpSession httpSession) {
 		System.out.println(commentVo);
-		Map<String, Object> map = new HashMap <String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			commentService.writeComment(commentVo);
 			map.put("result", "success");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("result", "fail");
 		}
-		return  map ;
+		return map;
 
 	}
+
 	//댓글수정 전송
 	@PostMapping("comment/updatecomment")
 	@ResponseBody
-	public  Map<String, Object>  commentUpdate(@RequestParam int _id, String content, String username){
-
-		Map<String, Object>commentupdate = new HashMap<String, Object>();
+	public Map<String, Object> commentUpdate(@RequestParam int _id, String content, String username) {
+		Map<String, Object> commentupdate = new HashMap<String, Object>();
 		commentupdate.put("_id", _id);
 		commentupdate.put("content", content);
 		commentupdate.put("username", username);
+		System.out.println(commentupdate);
 
-		Map<String, Object> map = new HashMap <String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			commentService.commentUpdate(commentupdate);
 			map.put("result", "success");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("result", "fail");
 		}
-		return  map ;
+		return map;
 
 	}
+
 	//댓글삭제
 	@PostMapping("comment/deletecomment")
 	@ResponseBody
-	public Map<String, Object> commentDelete(@RequestParam int _id){
-		Map<String, Object> map = new HashMap <String, Object>();
+	public Map<String, Object> commentDelete(@RequestParam int _id) {
+		CommentVo commentVo = new CommentVo();
+		commentVo.set_id(_id);
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			commentService.commentDelete(_id);
+			commentService.commentDelete( commentVo );
 			map.put("result", "success");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("result", "fail");
 		}
-		return  map ;
-
-	}
-
-	//댓글 jsp파일 호출
-	@GetMapping("/comment")
-
-	public String getComment(){
-		return "comment";
+		return map;
 	}
 }
+

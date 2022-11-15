@@ -3,6 +3,7 @@ package com.green.controller;
 import com.green.dao.CommunityDao;
 import com.green.service.CommunityService;
 import com.green.vo.CommunityVo;
+import com.green.vo.UserVo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,8 +83,9 @@ public class CommunityController {
     @PostMapping("/communityWrite")
     @ResponseBody
 
-    public Map<String, Object> communityWrite(CommunityVo communityVo) {
-        System.out.println(communityVo);
+    public Map<String, Object> communityWrite(CommunityVo communityVo, HttpSession httpSession) {
+
+
         Map<String, Object> map = new HashMap<>();
         try{
             communityService.writeCommunity(communityVo);
@@ -130,7 +134,7 @@ public class CommunityController {
         communityUpdateData.put("content", content);
         communityUpdateData.put("title", title);
         communityUpdateData.put("_id", _id);
-
+        System.out.println(communityUpdateData);
         Map<String, Object> map = new HashMap<>();
         try {
             communityService.updateCommunity(communityUpdateData);

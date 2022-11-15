@@ -37,8 +37,8 @@
   <%@ include file="header.jsp"%>
 </head>
 
-<body>
-<input type="hidden" id="username" value='1234' />
+<body style="background-color: white">
+<input type="hidden" id="username" value=${user.username} />
 <input type="hidden" id="readcount" value="0" />
 <input type="text" id="tag" placeholder="태그" maxlength="20">
 <br>

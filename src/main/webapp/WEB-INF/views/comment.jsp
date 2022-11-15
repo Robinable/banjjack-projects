@@ -9,13 +9,16 @@
 <html>
 <head>
     <title>on progress</title>
+    <c:out value="${param.menu_id}/"></c:out>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet">
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <style>
         div.commentListBox { width:600px; height: auto ; }
         div.commentBigBox { padding-bottom: 20px; display: inline-block;}
@@ -33,11 +36,12 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
-        let query = window.location.search;
-        let param = new URLSearchParams(query);
-        let content_id = param.get('_id');
-        let username =
 
+        let query = window.location.search;
+        let params = new URLSearchParams(query);
+        let content_id = params.get('_id');
+        let menu_id='${param.menu_id}';
+        console.log(menu_id);
         $(document).ready(function() {
             fnCommentList();
         });
@@ -46,14 +50,15 @@
             $.ajax({
                 url: "/comment/commentList",
                 type: "get",
-                data: { 'content_id' : content_id},
+                data: { 'content_id' : content_id,
+                        'menu_id' : menu_id },
                 error: function (xhr) {
                 },
                 success: function (data) {
                     let str = "";
                     $.each(data, function (index, element) {
-                        str +=
-                            "<div class=\"commentBigBox\">"
+                        str =str
+                            + "<div class=\"commentBigBox\">"
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                             + "<div class=\"commentIcon\">"
                             + "<span class=\"material-icons-outlined\">"
@@ -63,11 +68,14 @@
                             + "<div class=\"commentBox\">"
                             + "<span class=\"comWriter\">"
                             + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
-
+                        if(element.name == "${user.username}" ) {
+                            str=str
                             + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
 
                             + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
                             + "</span>"
+                        }
+                            str=str
                             + "<span class=\"commentDate\">"
                             + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
                             + "</span>"
@@ -87,25 +95,22 @@
         //작성버튼
         $(document).ready(function() {
             $('#commentWriteButton').click(function () {
-
-                let commentWriteData =
-
-                    {
-                        username: $('#commName').val(),
-                        content_id: content_id,
-                        content: $('#commContent').val()
-                    }
-
+                let commentWriteData = {
+                    'username': $('#commName').val(),
+                    'content_id': content_id,
+                    'content': $('#commContent').val(),
+                    'menu_id': menu_id
+                }
                 console.log(commentWriteData);
-
-
                 $.ajax({
                     url: "/comment/writeComment",
                     type: "post",
-                    data: commentWriteData,
+                    data:  commentWriteData,
                     error: function (xhr) {
+                        console.log(xhr);
                     },
-                    success: function (commentWriteData) {
+                    success: function (data) {
+                        console.log(data);
                         $("#commentListBox").empty();
                         fnCommentList();
                         $("#commContent").val('');
@@ -119,8 +124,8 @@
             $.ajax({
                 url: "/comment/deletecomment/",
                 type: "post",
-                data: {"_id" : _id},
-                dataType: "json",
+                data: {"_id" : _id,
+                        "menu_id": menu_id },
                 error: function (xhr) {
                 },
                 success: function (result) {
@@ -134,7 +139,7 @@
         function fnEditClick(_id) {
             var content = document.getElementById(_id)
             let updateform = "";
-            updateform += "<input type=\"hidden\" id=\"updateCommName\" name=\"username\" value=\"1234\">";
+            updateform += "<input type=\"hidden\" id=\"updateCommName\" name=\"username\" value=\"${user.username}\">";
             updateform += "<input type=\"hidden\" id=\"updateComm_id\" name=\"_id\" value= _id>";
             updateform += "<textarea id=\"updateCommentInput\" name=\"updateCommentContent\" cols=\"80\" rows=\"3\">";
             updateform += content.textContent
@@ -145,23 +150,23 @@
         }
 
         function fnCommentUpdate(_id) {
-            console.log("뿅");
-            let commentUpdateData =
-                {
-                    _id: _id,
-                    username: $('#updateCommName').val(),
-                    content: $('#updateCommentInput').val(),
-                }
-            console.log(commentUpdateData);
+            let commentUpdateData = {
+                'username': $('#updateCommName').val(),
+                'content': $('#updateCommentInput').val(),
+                'menu_id': menu_id,
+                '_id': _id
+            }
+            console.log("dd"+$('#updateCommentInput').val());
+            console.log("ud"+commentUpdateData);
             $.ajax({
                 url: "/comment/updatecomment/",
                 type: "post",
                 data: commentUpdateData,
-                dataType: "json",
                 error: function (xhr) {
+                    console.log(xhr);
+                    alert("?");
                 },
-                success: function (data) {
-                },
+
                 success: function (data) {
                     $("#commentListBox").empty();
                     fnCommentList();
@@ -190,7 +195,7 @@
 
 <div class="commentInputBox">
     <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
-    <input type="hidden" id="commName" name="username" value="1234">
+    <input type="hidden" id="commName" name="username" value="${user.username}">
     <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
     <%--            <input type="hidden" id="commTime" name="time" value="">--%>
     <textarea class="commentInput" id="commContent" name="content" cols="80" rows="3" ></textarea>

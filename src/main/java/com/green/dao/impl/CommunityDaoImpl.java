@@ -34,6 +34,7 @@ public class CommunityDaoImpl implements CommunityDao {
     public List<CommunityVo> readCommunity(int _id) {
         List<CommunityVo> voList =
                 sqlSession.selectList("Community.communityRead", _id);
+        sqlSession.update("Community.updateReadCount", _id);
         return voList;
     }
 

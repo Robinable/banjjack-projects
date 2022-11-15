@@ -1,3 +1,4 @@
+<%@ page import="com.green.vo.UserVo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -64,7 +65,7 @@
     </script>
     <%@ include file="header.jsp"%>
 </head>
-<body>
+<body style="background-color: white">
 <form id = "listform" method="get" action="/communityRead">
     <input type="hidden" id="_id" name="_id">
     <div class="articleList " id="articleListBox">
@@ -85,11 +86,11 @@
 <%
         //세션의 정보는 Object타입으로 저장되어있음
         //다운 캐스팅 : 자식클래스의 변수 = (자식클래스 타입) 부모타입의 데이터
-        String se = (String) session.getAttribute("login");
+        UserVo se = (UserVo) session.getAttribute("login");
         out.print(se);
     %>
 </div>
-<button id="communityWriteForm" onClick="location.href='communityWriteForm'"> 쓰기 </button>
+<button id="communityWriteForm" onClick="location.href='communityWriteForm'" > 쓰기 </button>
 </body>
 
 </html>

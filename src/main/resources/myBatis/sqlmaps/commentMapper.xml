@@ -17,12 +17,14 @@
             comment_tb
         WHERE
             content_id = #{content_id}
+        AND
+            menu_id = #{menu_id}
 
     </select>
 <!--코멘트 쓰기-->
     <insert id="writeComment">
-        INSERT INTO  comment_tb( content_id, username, content, time)
-        VALUES (#{content_id}, #{username}, #{content}, NOW())
+        INSERT INTO  comment_tb( content_id, username, content, time, menu_id)
+        VALUES (#{content_id}, #{username}, #{content}, NOW(), #{menu_id})
     </insert>
 <!--코멘트 수정-->
     <update id="commentUpdate">
@@ -37,5 +39,20 @@
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
     </delete>
+<!--코멘트 업데이트 -->
+    <update id="commentCountPlus">
+        UPDATE community_tb
+        SET commentcount = commentcount + 1
+        where  _id = #{content_id}
+          and    menu_id=#{menu_id}
+    </update>
+
+    <update id="commentCountMinus">
+        UPDATE community_tb
+        SET commentcount = commentcount - 1
+        where  _id = #{content_id}
+          and  menu_id=#{menu_id}
+    </update>
+
 
 </mapper>

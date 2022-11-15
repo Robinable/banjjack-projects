@@ -5,6 +5,7 @@ import com.green.vo.CommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,16 +15,20 @@ public class CommentService {
     @Autowired
     private CommentDao commentDao;
 
-    public List<CommentVo> getCommentList(int content_id) {
-        List<CommentVo> commentList = commentDao.getCommentList(content_id);
+    public List<CommentVo> getCommentList(int content_id, int menu_id ) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("content_id", content_id);
+        map.put("menu_id", menu_id);
+
+        List<CommentVo> commentList = commentDao.getCommentList(map);
         return     commentList;
     }
     public void commentUpdate(Map<String, Object> map) {
 
         commentDao.commentUpdate(map);
     }
-    public void commentDelete(int _id) {
-        commentDao.commentDelete(_id);
+    public void commentDelete(CommentVo  commentVo) {
+        commentDao.commentDelete( commentVo);
     }
     public void writeComment(CommentVo commentVo) {
         commentDao.writeComment( commentVo );
