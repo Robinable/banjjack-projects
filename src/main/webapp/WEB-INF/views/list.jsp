@@ -12,18 +12,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <style>
         table {margin:100px auto;}
-        tr:nth-of-type(1) {width:100%;}
+        tr:nth-of-type(1) {width:100%; text-align:center;}
 
         td                {padding:3px}
-        td:nth-of-type(1) {width:90px; text-align: right;}
-        td:nth-of-type(2) {width:700px;}
+        td:nth-of-type(1) {width:90px; text-align: center;}
+        td:nth-of-type(2) {width:700px; text-align: left;}
         textarea          {width:100%; height:400px; resize:none; border-radius: 8px;}
         input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px;}
+        .left   { text-align:left !important;}
+        .center { text-align:center !important;}
+        .right  { text-align:right !important;}
 
-        table, th, td {
-            border : 1px solid  #c0c0c0;
-            border-collapse : collapse;
-        }
+
         a { text-decoration-line: none; }
     </style>
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -32,50 +32,27 @@
 </head>
 <body>
 
-<a  href="/list?category=1&num=1" class="btn btn-primary"> 개 </a>
-<a  href="/list?category=2&num=1" class="btn btn-primary"> 고양이 </a>
-<a  href="/list?category=3&num=1" class="btn btn-primary"> 기타 </a>
-<a  href="/list?category=&num=1" class="btn btn-primary"> 전체 </a>
-
-<table id="div1">
-</table>
-
-<!-- 페이징
-<div style="text-align: center;">
-    <c:if test="${page.prev}">
-        <span>[ <a href="/list?category=1&num=${page.startpagenum - 1}">이전</a> ]</span>
-    </c:if>
-
-    <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
-  <span>
-   <c:if test="${select != num}">
-       <a href="/list?category=1&num=${num}">${num}</a>
-   </c:if>
-
-     <c:if test="${select == num}">
-         <b>${num}</b>
-     </c:if>
- </span>
-    </c:forEach>
-
-    <c:if test="${page.next}">
-        <span>[ <a href="/list?category=1&num=${page.endpagenum + 1}">다음</a> ]</span>
-    </c:if>
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <a  href="/list?category=1&num=1" class="btn btn-outline-primary"> 개 </a>
+  <a  href="/list?category=2&num=1" class="btn btn-outline-primary"> 고양이 </a>
+  <a  href="/list?category=3&num=1" class="btn btn-outline-primary"> 기타 </a>
+  <a  href="/list?category=&num=1" class="btn btn-outline-primary"> 전체 </a>
 </div>
--->
 
-
+<table class="table" id="div1">
+</table>
+<div class="center">
   <ul class="pagination">
       <li class="page-item">
           <c:if test="${page.prev}">
-            <a href="/list?category=1&num=${page.startpagenum - 1}" class="page-link">이전</a>
+            <a href="/list?category=${category}&num=${page.startpagenum - 1}" class="page-link">이전</a>
             <span aria-hidden="true"></span>
             </a>
           </c:if>
       </li>
       <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
         <c:if test="${select != num}">
-                   <li class="page-item"><a href="/list?category=1&num=${num}" class="page-link">${num}</a></li>
+                   <li class="page-item"><a href="/list?category=${category}&num=${num}" class="page-link">${num}</a></li>
                </c:if>
 
                  <c:if test="${select == num}">
@@ -86,28 +63,29 @@
       </c:forEach>
       <c:if test="${page.next}">
         <li class="page-item">
-            <a href="/list?category=1&num=${page.endpagenum + 1}" class="page-link">다음</a>
+            <a href="/list?category=${category}&num=${page.endpagenum + 1}" class="page-link">다음</a>
             <span aria-hidden="true"></span>
             </a>
         </li>
       </c:if>
     </ul>
-
-
-
+</div>
 
 <script>
         let loginUsername = "${user.username}"
 
         function header() {
-            let header = '<tr>';
-            header    += '<th>번호</th>';
-            header    += '<th>제목</th>';
-            header    += '<th>글쓴이</th>';
-            header    += '<th>카테고리</th>';
-            header    += '<th>날짜</th>';
-            header    += '<th>조회수</th>';
+            let header = '<thead>';
+            header    += '<tr>';
+            header    += '<th scope="col">번호</th>';
+            header    += '<th scope="col">제목</th>';
+            header    += '<th scope="col">글쓴이</th>';
+            header    += '<th scope="col">카테고리</th>';
+            header    += '<th scope="col">날짜</th>';
+            header    += '<th scope="col">조회수</th>';
             header    += '</tr>';
+            header    += '</thead>';
+            header    += '<tbody class="table-group-divider">';
             return header;
         }
 
@@ -144,11 +122,12 @@
                     var lvl = result[i].lvl
                     var step = result[i].step
 
+
                     html += '<tr>';
                     html += '<td>' + _id   + '</td>';
                     if(lvl > 1){
                         var space = lvl * 20
-                        html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '"> <b style="padding-left:'+space+'px">[답글]' + title  + '</a> </b> </td>';
+                        html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '" style="padding-left:'+space+'px">[답글]' + title  + '</a> </b> </td>';
                     } else {
                         html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  + '</a> </td>';
                     }
@@ -165,9 +144,10 @@
                     html += '<td>' + time   + '</td>';
                     html += '<td>' + readcount  + '</td>';
                     html += '</tr>';
+                    html += '</tbody>';
                 };
                 if( loginUsername != "") {
-                    html += '<td colspan="6"><a href="/writeform?username=${user.username}&_id=0&bnum=0&lvl=0&step=0" class="btn btn-primary">새 글 쓰기</a></td>'
+                    html += '<td colspan="6"><a href="/writeform?username=${user.username}&_id=0&bnum=0&lvl=0&step=0" class="btn btn-primary right">새 글 쓰기</a></td>'
                     }
                 html += '</table>'
                 $('#div1').html(html);

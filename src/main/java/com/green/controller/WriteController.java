@@ -49,7 +49,7 @@ public class WriteController {
 
 	@GetMapping("/getlist")
 	@ResponseBody
-	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num) {
+	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, Model model) {
 		int postnum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 

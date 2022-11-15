@@ -14,16 +14,18 @@
 
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charSet="utf-8"></script>
     <style>
-        table {margin:100px auto;}
-        tr:nth-of-type(4) {text-align: right;}
-        td                {padding:3px}
-        td:nth-of-type(1) {width:90px; text-align: right;}
-        td:nth-of-type(2) {width:700px;}
-        tr:ntn-of-type(4) {height:400px;}
-        table, th, td {
-            border : 1px solid  #c0c0c0;
-            border-collapse : collapse;
-        }
+
+        td                {padding:2px}
+        td:nth-of-type(1) {width:75px;}
+        td:nth-of-type(2) {width:70px;}
+
+        #content {height:500px; width:700px;  text-align:left;}
+        .left   { text-align:left !important;}
+        .center   { text-align:center !important;}
+        .right  { text-align:right !important;}
+        .rounded-pill{background:#fdf100;}
+        .title {border-bottom: 1pt solid black;}
+        .bg {background: #f8f9fa;}
     </style>
 
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -33,9 +35,10 @@
 </head>
 
 <body>
-<div id="div2"></div>
-<%@ include file="/WEB-INF/views/comment.jsp" %>
+<div id="div2">
 
+</div>
+<%@ include file="/WEB-INF/views/comment.jsp" %>
 <script>
         let loginUsername = "${user.username}"
 
@@ -78,40 +81,38 @@
                     var step = result[i].step
 
                     html += '<tr>';
-                    html += '<td>번호</td>';
-                    html += '<td>' + _id   + '</td>';
-                    html += '<td>조회수</td>';
-                    html += '<td>' + readcount   + '</td>';
-                    html += '</tr>';
-                    html += '<tr>';
-                    html += '<td>작성일</td>';
-                    html += '<td>' + time   + '</td>';
-                    html += '<td>작성자</td>';
-                    html += '<td>' + username + '</td>';
-                    html += '</tr>';
-                    html += '<tr>';
-                    html += '<td>제목</td>';
-                    html += '<td>' +  title  + '</td>';
-                    html += '<td>카테고리</td>';
                     if(category == '1'){
-                        html += '<td>강아지</td>';
+                        html += '<td class="rounded-pill center" >강아지</td>';
                     }
                     else if(category =='2') {
-                        html += '<td>고양이</td>';
+                        html += '<td class="rounded-pill center">고양이</td>';
                     }
                     else if(category =='3') {
-                        html += '<td>기타</td>';
+                        html += '<td class="rounded-pill center">기타</td>';
                     }
+                    html += '<td colspan="4"></td>';
+                    html += '</tr>';
+                    html += '<tr class="bottom-border">';
+                    html += '<td colspan="6" class="left border-bottom"><h2>' + title + '<h2></td>';
+                    html += '<tr/>';
+                    html += '<tr>';
+                    html += '<td class="left border-bottom bg">작성자 :</td>';
+                    html += '<td class="left border-bottom bg">' + username + '</td>';
+                    html += '<td class="border-bottom bg">조회수 :</td>';
+                    html += '<td class="left border-bottom bg">' + readcount   + '</td>';
+                    html += '<td class="border-bottom bg">작성일 :</td>';
+                    html += '<td class="left border-bottom bg">' + time   + '</td>';
                     html += '</tr>';
                     html += '<tr>';
-                    html += '<td>내용</td>';
-                    html += '<td colspan="3">' +  content ;
+                    html += '</tr>';
+                    html += '<tr>';
+                    html += '<td colspan="6" class="border-bottom" id="content">' +  content ;
                     if(filepath != null){
-                        html += '<br><img src="' + filepath + '" style="width:200px; height:200px;">'
+                        html += '<br><img src="' + filepath + '" style="width:50%; height:60%;">'
                     }
                     html += '</td>';
                     html += '</tr>';
-                    html +=  '<td colspan="4"><a href="/list?category=' + category + '&num=1" class="btn btn-primary"> 게시판 </a>'
+                    html +=  '<td  class="right" colspan="6"><a href="/list?category=' + category + '&num=1" class="btn btn-primary"> 게시판 </a>'
                     console.log("글쓴이" + username );
                     console.log("로그인유저" + loginUsername );
                     //console.log("로그인유저" + ${user.username} );

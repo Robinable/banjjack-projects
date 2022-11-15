@@ -57,6 +57,14 @@
         LIMIT #{displaypost},#{postnum}
     </select>
 
+    <!-- 댓글 갯수 -->
+    <select id="commentCount"
+            resultType="com.green.vo.FileVo">
+        SELECT content_id
+        FROM   comment_tb
+        WHERE  content_id = #{_id}
+    </select>
+
     <!-- 페이징 -->
     <select id= "listCount" resultType="int">
         SELECT COUNT(_id) FROM content_tb
@@ -102,5 +110,6 @@
         DELETE FROM content_tb
         WHERE _id = #{_id}
     </delete>
+
 
 </mapper>
