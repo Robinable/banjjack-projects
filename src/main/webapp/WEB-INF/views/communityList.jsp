@@ -62,6 +62,7 @@
             form.submit();
         }
     </script>
+    <%@ include file="header.jsp"%>
 </head>
 <body>
 <form id = "listform" method="get" action="/communityRead">
@@ -80,6 +81,14 @@
 
     </div>
 </form>
+<div>
+<%
+        //세션의 정보는 Object타입으로 저장되어있음
+        //다운 캐스팅 : 자식클래스의 변수 = (자식클래스 타입) 부모타입의 데이터
+        String se = (String) session.getAttribute("login");
+        out.print(se);
+    %>
+</div>
 <button id="communityWriteForm" onClick="location.href='communityWriteForm'"> 쓰기 </button>
 </body>
 

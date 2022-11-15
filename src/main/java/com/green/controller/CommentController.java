@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +46,8 @@ public class CommentController {
 	//댓글쓰기 전송
 	@PostMapping("comment/writeComment")
 	@ResponseBody
-	public  Map<String, Object>  writeComment(CommentVo commentVo) {
+	public  Map<String, Object>  writeComment(CommentVo commentVo, HttpSession httpSession) {
+		commentVo.setUsername((String) httpSession.getAttribute("username"));
 		System.out.println(commentVo);
 		Map<String, Object> map = new HashMap <String, Object>();
 		try {
