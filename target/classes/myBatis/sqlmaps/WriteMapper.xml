@@ -47,14 +47,23 @@
     <!-- 게시판 불러오기 -->
     <select id="boardList"
             resultType="com.green.vo.WriteVo">
-        SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step
-        FROM content_tb
+        SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step,
+               (select count(*) from comment_tb where content_id = c._id and menu_id = ${menu_id})replycnt
+        FROM content_tb c
         <if test="category != null and category != ''">
             WHERE
             category = #{category}
         </if>
         ORDER BY bnum desc, step  ASC
         LIMIT #{displaypost},#{postnum}
+    </select>
+
+    <!-- 댓글 갯수 -->
+    <select id="commentCount"
+            resultType="com.green.vo.FileVo">
+        SELECT content_id
+        FROM   comment_tb
+        WHERE  content_id = #{_id}
     </select>
 
     <!-- 페이징 -->
@@ -102,5 +111,6 @@
         DELETE FROM content_tb
         WHERE _id = #{_id}
     </delete>
+
 
 </mapper>

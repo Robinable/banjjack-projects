@@ -14,14 +14,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
     <style>
-        table {margin:100px auto;}
+        table             {margin:100px auto;}
         tr:nth-of-type(4) {text-align: right;}
         td                {padding:3px}
         td:nth-of-type(1) {width:500px; text-align: right;}
         td:nth-of-type(2) {width:80px;}
         textarea          {width:100%; height:400px; resize:none; border-radius: 8px;}
         input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px;}
-        .left   { text-align:left !important;}
+        .left             { text-align:left !important;}
+        .layer            { text-align: center; }
+        .layer .content   { display: inline-block; }
 
     </style>
 
@@ -30,6 +32,15 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body>
+
+<div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+      <a  href="/list?category=1&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 개 </a>
+      <a  href="/list?category=2&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 고양이 </a>
+      <a  href="/list?category=3&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 기타 </a>
+      <a  href="/list?category=&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
+    </div>
+</div>
 
 <!-- ( get방식에는 enctype이 없기때문에 null을 반환한다 ) -->
 <form action="/write_insert" id="form" encType = "multipart/form-data" method="post" >
@@ -98,7 +109,7 @@
 <tr>
     <td colspan="3">
         <input type="submit" id="submit" class="btn btn-primary" value="저장"  />
-        <a href="/list?category=&num=1" class="btn btn-primary">게시판</a>
+        <a href="/list?category=&num=1&menu_id=2" class="btn btn-primary">게시판</a>
         <a class="btn btn-primary">삭제</a>
     </td>
 </tr>
@@ -175,19 +186,23 @@
 
                             e.preventDefault();
                             e.stopPropagation();
+                            return start;
                         }
                         if( $('[name=category]').val() == '0'){
-                            alert('반려동물을 선택하세요');
+                            alert('카테고리를 선택하세요');
 
                             e.preventDefault();
                             e.stopPropagation();
+                            return start;
                         }
                         if( $('[name=content]').val() == ''){
                             alert('내용을 입력하세요');
                             e.preventDefault();
                             e.stopPropagation();
+                            return start;
                         }
                     });
+
                     $('#form').on('submit', function(e) {
                             cnt++
                             if(cnt > 1) {

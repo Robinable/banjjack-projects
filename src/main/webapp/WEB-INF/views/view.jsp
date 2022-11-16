@@ -18,14 +18,17 @@
         td                {padding:2px}
         td:nth-of-type(1) {width:75px;}
         td:nth-of-type(2) {width:70px;}
+        #content          {height:500px; width:700px;  text-align:left; vertical-align:top; padding: 10px;}
+        .left             { text-align:left !important;}
+        .center           { text-align:center !important;}
+        .right            { text-align:right !important;}
+        .rounded-pill     {background:#fdf100;}
+        .title            {border-bottom: 1pt solid black;}
 
-        #content {height:500px; width:700px;  text-align:left;}
-        .left   { text-align:left !important;}
-        .center   { text-align:center !important;}
-        .right  { text-align:right !important;}
-        .rounded-pill{background:#fdf100;}
-        .title {border-bottom: 1pt solid black;}
-        .bg {background: #f8f9fa;}
+        .layer            { text-align: center; }
+        .layer .content   { display: inline-block; }
+
+
     </style>
 
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -35,10 +38,26 @@
 </head>
 
 <body>
-<div id="div2">
 
+<div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+      <a  href="/list?category=1&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 개 </a>
+      <a  href="/list?category=2&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 고양이 </a>
+      <a  href="/list?category=3&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 기타 </a>
+      <a  href="/list?category=&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
+    </div>
 </div>
-<%@ include file="/WEB-INF/views/comment.jsp" %>
+
+<div><br></div>
+
+<div class="layer" id="div2">
+</div>
+
+<c:import url="/comment" >
+    <c:param name="content_id" value="${id}"/>
+    <c:param name="menu_id" value="2"/>
+</c:import>
+
 <script>
         let loginUsername = "${user.username}"
 
@@ -80,6 +99,7 @@
                     var lvl = result[i].lvl
                     var step = result[i].step
 
+                    html += '<table class="content">';
                     html += '<tr>';
                     if(category == '1'){
                         html += '<td class="rounded-pill center" >강아지</td>';
@@ -104,29 +124,32 @@
                     html += '<td class="left border-bottom bg">' + time   + '</td>';
                     html += '</tr>';
                     html += '<tr>';
-                    html += '</tr>';
-                    html += '<tr>';
                     html += '<td colspan="6" class="border-bottom" id="content">' +  content ;
                     if(filepath != null){
                         html += '<br><img src="' + filepath + '" style="width:50%; height:60%;">'
                     }
                     html += '</td>';
                     html += '</tr>';
-                    html +=  '<td  class="right" colspan="6"><a href="/list?category=' + category + '&num=1" class="btn btn-primary"> 게시판 </a>'
+                    html += '<tr>';
+                    html += '<td  class="right" colspan="6">'
+                    html += '<div class="btn-group" role="group" aria-label="Basic outlined example"><a href="/list?category=' + category + '&num=1&menu_id=2" class="btn btn-outline-primary"> 게시판 </a>'
                     console.log("글쓴이" + username );
                     console.log("로그인유저" + loginUsername );
                     //console.log("로그인유저" + ${user.username} );
 
                     if(loginUsername != ""){
                     console.log("1번");
-                        html += '<a href="/writeform?username=${user.username}&_id='+_id+'&bnum='+ bnum +'&lvl='+ lvl +'&step='+ step +'" class="btn btn-primary" >답글쓰기</a>'
+                        html += '<a href="/writeform?username=${user.username}&_id='+_id+'&bnum='+ bnum +'&lvl='+ lvl +'&step='+ step +'" class="btn btn-outline-primary" >답글쓰기</a>'
                         if(username === loginUsername) {
                             console.log("2번");
-                                html +=  '<a href="/updateForm?_id=' + _id + '" id="update" class="btn btn-primary"> 수정 </a>'
-                                html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-primary"> 삭제 </a>'
+                                html +=  '<a href="/updateForm?_id=' + _id + '&menu_id=2" id="update" class="btn btn-outline-primary"> 수정 </a>'
+                                html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-outline-primary"> 삭제 </a>'
                                 }
                         }
+                    html += '</div>'
                     html += '</td>'
+                    html += '</tr>'
+                    html += '</table>'
                 };
 
                 $('#div2').html(html);
@@ -134,7 +157,6 @@
             .fail(function( error ) {
                 console.log( error );
             });
-
 
     </script>
 </body>

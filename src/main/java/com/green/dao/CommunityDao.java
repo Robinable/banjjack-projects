@@ -8,7 +8,9 @@ import java.util.Map;
 public interface CommunityDao {
 
     //리스트조회
-    List<CommunityVo> getCommunityList() ;
+    List<CommunityVo> getCommunityList(Map<String, Object> map) ;
+    //페이징
+    int listCount();
 
     //쓰기
     void writeCommunity(CommunityVo communityVo);
@@ -21,6 +23,5 @@ public interface CommunityDao {
 
     //삭제
     void deleteCommunity(String _id);
-
 
 }

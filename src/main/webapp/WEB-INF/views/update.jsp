@@ -12,32 +12,49 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <style>
-    table {margin:100px auto;}
-    tr:nth-of-type(4) {text-align: right;}
+    table             {margin:100px auto;}
+    tr:nth-of-type(5) {text-align: right;}
     td                {padding:3px}
-    td:nth-of-type(1) {width:90px; text-align: right;}
-    td:nth-of-type(2) {width:700px;}
-    tr:ntn-of-type(4) {height:400px;}
+    td:nth-of-type(1) {width:700px; text-align: right;}
+    td:nth-of-type(2) {width:100px;}
+    td:nth-of-type(3) {width:80px;}
     input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px;}
-    textarea {width:100%; height:400px; resize:none; border-radius: 8px;}
-    .left    { text-align:left !important;}
-    .center  { text-align:center !important;}
-    .right   { text-align:right !important;}
-    table, th, td {
-          border : 1px solid  #c0c0c0;
-          border-collapse : collapse;
-       }
+    textarea          {width:100%; height:400px; resize:none; border-radius: 8px;}
+    .rounded-pill     {background:#fdf100;}
+    .left             { text-align:left !important;}
+    .center           { text-align:center !important;}
+    .right            { text-align:right !important;}
+    .layer            { text-align: center; }
+    .layer .content   { display: inline-block; }
+
 </style>
 
 <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body>
+
+<div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+      <a  href="/list?category=1&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 개 </a>
+      <a  href="/list?category=2&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 고양이 </a>
+      <a  href="/list?category=3&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 기타 </a>
+      <a  href="/list?category=&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
+    </div>
+</div>
+
 <form action="/update" id="update" encType = "multipart/form-data" method="post">
-    <div id="div2"></div>
-<input type="submit" id="submit" class="btn btn-primary" value="수정"  />
-<a href="/list?category=&num=1" class="btn btn-primary">게시판</a>
-<a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
+<table>
+<tr id="div2"></tr>
+<tr>
+<td class="right">
+  <input type="submit" id="submit" class="btn btn-primary" value="수정"  />
+  <a href="/list?category=&num=1&menu_id=2" class="btn btn-primary">게시판</a>
+  <a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
+</td>
+</tr>
+</table>
+
 </form>
 
 <script>
@@ -74,33 +91,22 @@
                  var filepath = result[i].filepath
 
                  html += '<tr>';
-                 html += '<td> 번호 </td>';
-                 html += '<td>' + _id   + '</td>';
-                 html += '<td> 조회수 </td>';
-                 html += '<td>' + readcount   + '</td>';
+                 html += '<td class="left" colspan = "4"><h2> 수정 </h2></td>';
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td> 작성일 </td>';
-                 html += '<td>' + time   + '</td>';
-                 html += '<td> 작성자 </td>';
-                 html += '<td>' + username + '</td>';
-                 html += '</tr>';
-                 html += '<tr>';
-                 html += '<td> 제목 </td>';
                  html += '<td><input type="text" name="title" maxLength="20" value="' + title + '" ></td>';
                  html += '<td> 카테고리 </td>';
                  if(category == '1'){
-                    html += '<td> 강아지 </td>';
+                    html += '<td class="rounded-pill center"> 강아지 </td>';
                     }
                  else if(category =='2') {
-                    html += '<td> 고양이 </td>';
+                    html += '<td class="rounded-pill center"> 고양이 </td>';
                     }
                  else if(category =='3') {
-                    html += '<td> 기타 </td>';
+                    html += '<td class="rounded-pill center"> 기타 </td>';
                     }
                  html += '</tr>';
                  html += '<tr>';
-                 html += '<td> 내용 </td>';
                  html += '<td colspan="3" class="left">' +  '<textarea maxLength="500" name= "content" >' + content + '</textarea>'  + '</td>';
                  html += '</tr>';
                  html += '<tr>';
@@ -133,6 +139,7 @@
 
                      e.preventDefault();
                      e.stopPropagation();
+                     return start;
                  }
 
                  if( $('[name=content]').val() == ''){
@@ -140,6 +147,7 @@
 
                      e.preventDefault();
                      e.stopPropagation();
+                     return start;
                  }
              });
              $('#form').on('submit', function(e) {

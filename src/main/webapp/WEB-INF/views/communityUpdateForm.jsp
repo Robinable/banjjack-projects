@@ -4,8 +4,14 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
         let query = window.location.search;
@@ -17,7 +23,6 @@
         }
         function UpdateSet() {
 
-            console.log(id);
             $.ajax({
                 url: "/getCommunityUpdateForm?id="+id ,
                 type: "get",
@@ -25,12 +30,9 @@
                 dataType:"json",
                 async:false,
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
-                    alert("F");
 
                 },
                 success: function (data) {
-                    console.log(data);
 
                     $.each(data, function( index, element) {
                         $('#tag').val(element.tag);
@@ -53,28 +55,24 @@
                 dataType: 'json',
 
                 error: function (xhr) {
-                    console.log("error html = " + xhr.statusText);
                     alert("F");
 
                 },
                 success: function (data) {
                     alert("s")
-                    console.log(data);
                     var url = "<c:url value="/communityRead"/>";
                     url = url +"?_id="+id;
-                    console.log(url);
                     window.location.href = url;
 
                 }
             })
         }
-
-
     </script>
+    <%@ include file="header.jsp"%>
 </head>
 
 <body>
-<div type="hidden" id="username" value='1234' />
+<div type="hidden" id="username" value='${user.username}' />
 <input type="hidden" id="readcount" value="0" />
 <input type="text" id="tag" placeholder="태그" maxlength="20" value="">
 <br>

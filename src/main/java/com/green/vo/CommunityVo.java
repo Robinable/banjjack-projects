@@ -8,8 +8,9 @@ public class CommunityVo {
     private String time;
     private String content;
     private int readcount;
+    private int commentcount;
 
-    public CommunityVo(int _id, String tag, String title, String username, String time, String content, int readcount) {
+    public CommunityVo(int _id, String tag, String title, String username, String time, String content, int readcount, int commentcount) {
         this._id = _id;
         this.tag = tag;
         this.title = title;
@@ -17,11 +18,24 @@ public class CommunityVo {
         this.time = time;
         this.content = content;
         this.readcount = readcount;
+        this.commentcount = commentcount;
     }
+
+
+
 
     public CommunityVo() {
 
     }
+
+    public int getCommentcount() {
+        return commentcount;
+    }
+
+    public void setCommentcount(int commentcount) {
+        this.commentcount = commentcount;
+    }
+
     public int get_id() {
         return _id;
     }
@@ -88,6 +102,7 @@ public class CommunityVo {
                 ", time='" + time + '\'' +
                 ", content='" + content + '\'' +
                 ", readcount=" + readcount +
+                ", commentCount=" + commentcount +
                 '}';
     }
 }
