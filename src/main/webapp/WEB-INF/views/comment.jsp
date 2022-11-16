@@ -55,7 +55,8 @@
                 error: function (xhr) {
                 },
                 success: function (data) {
-                    let str = "";
+                    var commentcount = data[0].commentcount;
+                    let str = ""
                     $.each(data, function (index, element) {
                         str =str
                             + "<div class=\"commentBigBox\">"
@@ -89,6 +90,7 @@
 
                     })
                     document.getElementById('commentListBox').innerHTML += str;
+                    document.getElementById('count').textContent = commentcount;
                 }
             });
         } //리스트조회
@@ -182,7 +184,7 @@
 
 </head>
 <body>
-<div class="commentCount"> 댓글 <span id = "count">0</span></div>
+<div class="commentCount"> 댓글 <span id = "count"></span></div>
 
 <div class="commentListBox" id="commentListBox">
 

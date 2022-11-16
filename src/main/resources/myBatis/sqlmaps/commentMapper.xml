@@ -12,7 +12,8 @@
             _id,
             username,
             time,
-            content
+            content,
+            (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
             comment_tb
         WHERE

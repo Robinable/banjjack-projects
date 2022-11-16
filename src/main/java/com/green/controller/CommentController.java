@@ -47,9 +47,11 @@ public class CommentController {
 			obj.put("_id", cl.get_id());
 			obj.put("content", cl.getContent());
 			obj.put("time", cl.getTime());
+			obj.put("commentcount", cl.getCommentcount());
 			commentList.add(obj);
 
 		}
+		System.out.println(commentList);
 		return commentList;
 	}
 
