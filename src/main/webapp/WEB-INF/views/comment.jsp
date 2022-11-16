@@ -41,7 +41,6 @@
         let params = new URLSearchParams(query);
         let content_id = params.get('_id');
         let menu_id='${param.menu_id}';
-        console.log(menu_id);
         $(document).ready(function() {
             fnCommentList();
         });
@@ -103,19 +102,17 @@
                     'content': $('#commContent').val(),
                     'menu_id': menu_id
                 }
-                console.log(commentWriteData);
                 $.ajax({
                     url: "/comment/writeComment",
                     type: "post",
                     data:  commentWriteData,
                     error: function (xhr) {
-                        console.log(xhr);
                     },
                     success: function (data) {
-                        console.log(data);
                         $("#commentListBox").empty();
                         fnCommentList();
                         $("#commContent").val('');
+                        document.getElementById('countNum').innerHTML = '( 0/ 300)';
                     }
                 });
             }); //등록버튼
@@ -158,14 +155,11 @@
                 'menu_id': menu_id,
                 '_id': _id
             }
-            console.log("dd"+$('#updateCommentInput').val());
-            console.log("ud"+commentUpdateData);
             $.ajax({
                 url: "/comment/updatecomment/",
                 type: "post",
                 data: commentUpdateData,
                 error: function (xhr) {
-                    console.log(xhr);
                     alert("?");
                 },
 
@@ -201,7 +195,7 @@
     <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
     <%--            <input type="hidden" id="commTime" name="time" value="">--%>
     <textarea class="commentInput" id="commContent" name="content" cols="80" rows="3" ></textarea>
-    <div class="countNum">
+    <div id="countNum">
         ( 0/ 300)
     </div>
     <div class="regBtn">
@@ -214,7 +208,7 @@
 <script>
 
     $('.commentInput').on('keyup', function() {
-        $('.countNum').html("("+$(this).val().length+" / 300)");
+        $('#countNum').html("("+$(this).val().length+" / 300)");
 
         if($(this).val().length > 300) {
             $(this).val($(this).val().substring(0, 300));

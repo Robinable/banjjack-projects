@@ -51,7 +51,6 @@ public class CommentController {
 			commentList.add(obj);
 
 		}
-		System.out.println(commentList);
 		return commentList;
 	}
 
@@ -59,8 +58,7 @@ public class CommentController {
 	@PostMapping("comment/writeComment")
 	@ResponseBody
 	public Map<String, Object> writeComment(CommentVo commentVo, HttpSession httpSession) {
-		System.out.println(commentVo);
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		try {
 			commentService.writeComment(commentVo);
 			map.put("result", "success");
@@ -76,11 +74,10 @@ public class CommentController {
 	@PostMapping("comment/updatecomment")
 	@ResponseBody
 	public Map<String, Object> commentUpdate(@RequestParam int _id, String content, String username) {
-		Map<String, Object> commentupdate = new HashMap<String, Object>();
+		Map<String, Object> commentupdate = new HashMap<>();
 		commentupdate.put("_id", _id);
 		commentupdate.put("content", content);
 		commentupdate.put("username", username);
-		System.out.println(commentupdate);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {

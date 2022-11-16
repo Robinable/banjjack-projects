@@ -49,7 +49,6 @@ public class CommunityController {
             obj.put("commentcount", vo.getCommentcount());
             getList.add(obj);
         }
-        System.out.println("dd"+getList);
         return getList;
     }
     //리스트출력
@@ -155,7 +154,6 @@ public class CommunityController {
         communityUpdateData.put("content", content);
         communityUpdateData.put("title", title);
         communityUpdateData.put("_id", _id);
-        System.out.println(communityUpdateData);
         Map<String, Object> map = new HashMap<>();
         try {
             communityService.updateCommunity(communityUpdateData);
