@@ -3,10 +3,12 @@ package com.green.controller;
 import com.green.dao.CommentDao;
 import com.green.service.CommentService;
 import com.green.vo.CommentVo;
+import com.green.vo.PageVo;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,7 @@ import java.util.Map;
 
 @Controller
 public class CommentController {
-
+	PageVo page = new PageVo();
 	@Autowired
 	CommentService commentService;
 
@@ -30,18 +32,30 @@ public class CommentController {
 	//댓글 jsp파일 호출
 	@GetMapping("/comment")
 
-	public String getComment() {
+	public String getComment(Model model, @RequestParam int num, int menu_id, int content_id) {
+		page.setNum(num);
+		page.setCount(commentService.listCount());
 
-		return "comment";
+		model.addAttribute("page", page);
+		model.addAttribute("num", num);
+		model.addAttribute("content_id", content_id);
+		model.addAttribute("menu_id", menu_id);
+
+		return "/comment";
 	}
 
 
 	@GetMapping("comment/commentList")
 	@ResponseBody
-	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id) {
+	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) {
+		page.setNum(num);
+		int displaypost = page.getDisplaypost();
+		int postnum = page.getPostnum();
+		//서비스에 전달
+
 
 		List<JSONObject> commentList = new ArrayList<>();
-		for (CommentVo cl : commentService.getCommentList(content_id, menu_id)) {
+		for (CommentVo cl : commentService.getCommentList(content_id, menu_id, displaypost, postnum)) {
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
 			obj.put("_id", cl.get_id());

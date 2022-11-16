@@ -41,6 +41,10 @@
         let params = new URLSearchParams(query);
         let content_id = params.get('_id');
         let menu_id='${param.menu_id}';
+        let num = params.get('num');
+        if (num=="") {
+            num = 1;
+        }
         $(document).ready(function() {
             fnCommentList();
         });
@@ -50,7 +54,8 @@
                 url: "/comment/commentList",
                 type: "get",
                 data: { 'content_id' : content_id,
-                    'menu_id' : menu_id },
+                    'menu_id' : menu_id,
+                    'num' : num },
                 error: function (xhr) {
                 },
                 success: function (data) {
@@ -183,8 +188,36 @@
 <div class="commentListBox" id="commentListBox">
 
 </div>
-</div>
 
+<div class="center">
+    <ul class="pagination">
+        <li class="page-item">
+            <c:if test="${page.prev}">
+                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.startpagenum - 1}" class="page-link">이전</a>
+                <span aria-hidden="true"></span>
+                </a>
+            </c:if>
+        </li>
+        <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+            <c:if test="${select != num}">
+                <li class="page-item"><a href="/communityList?num=${num}" class="page-link">${num}</a></li>
+            </c:if>
+
+            <c:if test="${select == num}">
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">${num}</a>
+                </li>
+            </c:if>
+        </c:forEach>
+        <c:if test="${page.next}">
+            <li class="page-item">
+                <a href="/communityList?num=${page.endpagenum + 1}" class="page-link">다음</a>
+                <span aria-hidden="true"></span>
+                </a>
+            </li>
+        </c:if>
+    </ul>
+</div>
 
 
 <!--댓글 입력부 -->

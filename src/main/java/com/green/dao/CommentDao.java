@@ -9,6 +9,8 @@ public interface CommentDao {
 
    List<CommentVo> getCommentList(Map<String, Object> map);
 
+   int listCount();
+
    void commentUpdate(Map<String, Object> map);
 
    void commentDelete( CommentVo  commentVo);
