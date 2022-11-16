@@ -28,7 +28,9 @@ public class PageVo {
         this.count = count;
         dataCalc();
     }
-
+    public int getCount() {
+        return count;
+    }
     public int getPostnum() {
         return postnum;
     }
@@ -65,7 +67,7 @@ public class PageVo {
 
         endpagenum = (int)(Math.ceil((double)num / (double)pagenum_cnt) * pagenum_cnt);
         startpagenum = endpagenum - (pagenum_cnt - 1);
-
+        //마지막번호 계산
         int endpagenum_tmp = (int)(Math.ceil((double)count / (double)postnum));
 
         if(endpagenum > endpagenum_tmp) {

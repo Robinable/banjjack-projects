@@ -88,7 +88,8 @@ public class CommunityController {
     }
     //게시글 표시
     @GetMapping("/communityRead")
-    public String communityRead(){
+    public String communityRead(Model model, @RequestParam int _id){
+        model.addAttribute("id", _id);
 
         return "/communityRead";
     }

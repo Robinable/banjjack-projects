@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>on progress</title>
-    <c:out value="${param.menu_id}/"></c:out>
+
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet">
@@ -34,17 +34,22 @@
         textarea { width:600px; resize:none; }
         div.regBtn { float:right;}
     </style>
+<%--    <c:out value="${param.menu_id}/"></c:out>--%>
+<%--    <c:out value="${pram.content_id}/"></c:out>--%>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
 
         let query = window.location.search;
         let params = new URLSearchParams(query);
-        let content_id = params.get('_id');
+        let content_id='${param.content_id}';
         let menu_id='${param.menu_id}';
         let num = params.get('num');
-        if (num=="") {
+        if (num==null) {
             num = 1;
         }
+        console.log("ci"+${param.content_id});
+        console.log("mi"+${param.menu_id});
+
         $(document).ready(function() {
             fnCommentList();
         });
@@ -57,6 +62,7 @@
                     'menu_id' : menu_id,
                     'num' : num },
                 error: function (xhr) {
+                    console.log("err"+xhr)
                 },
                 success: function (data) {
                     var commentcount = data[0].commentcount;
@@ -200,7 +206,7 @@
         </li>
         <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
             <c:if test="${select != num}">
-                <li class="page-item"><a href="/communityList?num=${num}" class="page-link">${num}</a></li>
+                <li class="page-item"><a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${num}" class="page-link">${num}</a></li>
             </c:if>
 
             <c:if test="${select == num}">
@@ -211,7 +217,7 @@
         </c:forEach>
         <c:if test="${page.next}">
             <li class="page-item">
-                <a href="/communityList?num=${page.endpagenum + 1}" class="page-link">다음</a>
+                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.endpagenum + 1}" class="page-link">다음</a>
                 <span aria-hidden="true"></span>
                 </a>
             </li>

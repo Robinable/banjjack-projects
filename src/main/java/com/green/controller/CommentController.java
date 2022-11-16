@@ -32,15 +32,16 @@ public class CommentController {
 	//댓글 jsp파일 호출
 	@GetMapping("/comment")
 
-	public String getComment(Model model, @RequestParam int num, int menu_id, int content_id) {
+	public String getComment(Model model, @RequestParam int num, @RequestParam int menu_id, @RequestParam int content_id) {
 		page.setNum(num);
-		page.setCount(commentService.listCount());
-
+		System.out.println("num"+num+"menu_id"+menu_id+"content_id"+content_id);
+		page.setCount(commentService.listCount(num, menu_id, content_id));
 		model.addAttribute("page", page);
 		model.addAttribute("num", num);
 		model.addAttribute("content_id", content_id);
 		model.addAttribute("menu_id", menu_id);
-
+		model.addAttribute("select", num);
+		System.out.println("count" + page.getCount());
 		return "/comment";
 	}
 
@@ -51,6 +52,7 @@ public class CommentController {
 		page.setNum(num);
 		int displaypost = page.getDisplaypost();
 		int postnum = page.getPostnum();
+		System.out.println("postnum"+postnum+"dp"+displaypost);
 		//서비스에 전달
 
 

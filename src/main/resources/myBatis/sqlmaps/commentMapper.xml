@@ -23,8 +23,12 @@
         Order BY _id DESC
         LIMIT #{displaypost},#{postnum}
     </select>
-    <select id= "listCount" resultType="int">
+    <select id= "listCount"
+            parameterType="hashMap"
+            resultType="int">
     SELECT COUNT(*) FROM community_tb
+    WHERE content_id = #{content_id}
+    AND menu_id = #{menu_id}
     </select>
     <!--코멘트 쓰기-->
     <insert id="writeComment">

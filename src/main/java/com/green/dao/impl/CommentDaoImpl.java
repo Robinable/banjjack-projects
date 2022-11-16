@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,12 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public int listCount() {
-       int count= sqlSession.selectOne("comment.listCount");
+    public int listCount(int num, int menu_id, int content_id) {
+        Map<String, Object>map = new HashMap<>();
+        map.put("num", num);
+        map.put("menu_id", menu_id);
+        map.put("content_id", content_id);
+        int count= sqlSession.selectOne("comment.listCount", map);
         return count;
     }
 

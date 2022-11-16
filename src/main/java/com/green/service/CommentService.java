@@ -25,8 +25,8 @@ public class CommentService {
         List<CommentVo> commentList = commentDao.getCommentList(map);
         return     commentList;
     }
-    public int listCount() {
-        int count = commentDao.listCount();
+    public int listCount(int num, int menu_id, int content_id) {
+        int count = commentDao.listCount(num, menu_id, content_id);
         return count;
     }
 
