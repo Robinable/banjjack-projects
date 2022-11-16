@@ -99,20 +99,6 @@
     } // window.onload end
 
 
-    // 프로필 이미지 업로드
-    function readURL(input) {
-        console.log(input.files[0]);
-        if(input.files && input.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('preview').src = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            document.getElementById('preview').src = "";
-        }
-    }
-
     function nicknameCheck(usernickname) {
         $.ajax({
             url: '/getNickname?usernickname=' + usernickname,
@@ -144,12 +130,62 @@
         return userpetText;
     }
 
-    function userProfileImg() {
-        let prevSrc = "/img/icon_unknownUser.png";
-        if($('#preview').src() == prevSrc) {
-            $('#preview').attr('src', '/img/${userProfileImg}');
+    function readURL(input) {
+        let fileName;
+        let fileSrc;
+        console.log(input.files[0]);
+
+        if(input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+                fileName = input.files[0].name;
+                fileSrc  = e.target.result;
+                convertContent(fileName, fileSrc);
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            document.getElementById('preview').src = "";
         }
     }
+    function convertContent(name, content){
+        let imgcount = content.split('data:image/').length -1;
+        let str = content.split(";base64,");
+        let imgjson = new Object();
+        imgjson.extension = str[0].split("image/")[1];
+        imgjson.base64 = str[1];
+        imgjson.name = name;
+
+        return sendFile(JSON.stringify(imgjson));
+    }
+    function sendFile(imgjson){
+        $.ajax({
+            type: "post",
+            url: "/uploadimg",
+            data: imgjson,
+            async: false,
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            success : function (data){
+                //console.log(data);
+                result = data;
+                console.log("결과 = " + result);
+                return result;
+
+            },
+            error : function(e){
+                console.log("post.js오류!!" + e)
+            }
+        });
+
+    }
+
+
 
 </script>
 </head>
@@ -161,7 +197,7 @@
         <div id="container">
             <ul>
                 <li>
-                <img id="preview" src="/img/icon_unknownUser.png">
+                <img id="preview" />
                 <input type='file' id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
                        style="display: none;"/></li><br>
                 <button type="button" id="btnUpload">업로드</button>

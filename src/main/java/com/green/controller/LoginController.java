@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -250,12 +251,6 @@ public class LoginController {
 
             ProfileVo profileVo = new ProfileVo(0, userFilename);
             profileService.saveProfileImg(profileVo);
-
-            String selectImg = profileService.selectImg(userFilename);
-            System.out.println(selectImg);
-            if(selectImg.contains(username)) {
-                model.addAttribute("userProfileImg", selectImg);
-            }
         }
 
         HashMap<String, Object> map = new HashMap<>();
@@ -356,6 +351,35 @@ public class LoginController {
         }
         return returnURL;
 
+    }
+
+    @PostMapping("/uploadimg")
+    @ResponseBody
+    public String up_img(@RequestBody String jsondata) throws IOException {
+        URL url = new URL("http://donipop.com:8000/single/upload");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type","application/json");
+        connection.setDoOutput(true);
+
+        DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+        outputStream.writeBytes(jsondata);
+        outputStream.flush();
+        outputStream.close();
+
+        //var responseCode = connection.getResponseCode();
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder stringBuffer = new StringBuilder();
+        String inputLine;
+
+        while ((inputLine = bufferedReader.readLine()) != null){
+            stringBuffer.append(inputLine);
+        }
+        bufferedReader.close();
+
+        String response = stringBuffer.toString();
+        return response;
     }
 
 
