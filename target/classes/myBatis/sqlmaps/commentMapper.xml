@@ -24,9 +24,8 @@
         LIMIT #{displaypost},#{postnum}
     </select>
     <select id= "listCount"
-            parameterType="hashMap"
-            resultType="int">
-    SELECT COUNT(*) FROM community_tb
+                 resultType="int">
+    SELECT COUNT(*) FROM comment_tb
     WHERE content_id = #{content_id}
     AND menu_id = #{menu_id}
     </select>

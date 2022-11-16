@@ -28,7 +28,8 @@ public class CommentDaoImpl implements CommentDao {
         map.put("num", num);
         map.put("menu_id", menu_id);
         map.put("content_id", content_id);
-        int count= sqlSession.selectOne("comment.listCount", map);
+        System.out.println(map);
+        int count= sqlSession.selectOne("Comment.listCount", map);
         return count;
     }
 

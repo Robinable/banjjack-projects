@@ -206,7 +206,7 @@
         </li>
         <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
             <c:if test="${select != num}">
-                <li class="page-item"><a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${num}" class="page-link">${num}</a></li>
+                <li class="page-item"><a href="/comment?content_id=${content_id}&menu_id=${menu_id}&num=${num}" class="page-link">${num}</a></li>
             </c:if>
 
             <c:if test="${select == num}">

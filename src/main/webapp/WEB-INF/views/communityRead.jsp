@@ -97,11 +97,12 @@
 <%--    <jsp:param name="content_id" value="${id}"/>--%>
 <%--    <jsp:param name="menu_id" value="1"/>--%>
 <%--</jsp:include>--%>
-
-<c:import url="http://localhost:8080/comment" >
-    <c:param name="content_id" value="${21}"/>
+<c:import url="/comment" >
+    <c:param name="content_id" value="${id}"/>
     <c:param name="menu_id" value="1"/>
+    <c:param name="num" value="1"/>
 </c:import>
+
 </body>
 <script>
 

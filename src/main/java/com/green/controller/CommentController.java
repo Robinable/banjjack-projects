@@ -32,9 +32,10 @@ public class CommentController {
 	//댓글 jsp파일 호출
 	@GetMapping("/comment")
 
-	public String getComment(Model model, @RequestParam int num, @RequestParam int menu_id, @RequestParam int content_id) {
+	public String getComment(Model model, @RequestParam int num,
+							 @RequestParam int menu_id, @RequestParam int content_id) {
+		System.out.println("야호"+num);
 		page.setNum(num);
-		System.out.println("num"+num+"menu_id"+menu_id+"content_id"+content_id);
 		page.setCount(commentService.listCount(num, menu_id, content_id));
 		model.addAttribute("page", page);
 		model.addAttribute("num", num);
