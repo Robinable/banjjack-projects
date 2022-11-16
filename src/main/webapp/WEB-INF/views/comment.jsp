@@ -14,11 +14,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet">
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
     <style>
         div.commentListBox { width:600px; height: auto ; }
         div.commentBigBox { padding-bottom: 20px; display: inline-block;}
@@ -36,6 +32,11 @@
     </style>
 <%--    <c:out value="${param.menu_id}/"></c:out>--%>
 <%--    <c:out value="${pram.content_id}/"></c:out>--%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
 
@@ -65,42 +66,81 @@
                     console.log("err"+xhr)
                 },
                 success: function (data) {
-                    var commentcount = data[0].commentcount;
+                    console.log(data);
+                    let next = data[0].next;
+                    let startPageNum = data[0].startPageNum;
+                    let select = data[0].num;
+                    let endPageNum = data[0].endPageNum;
+                    let num = data[0].num;
+                    let prev = data[0].prev;
+                    let commentCount = data[0].commentCount;
+                    console.log(next, num, select, endPageNum);
                     let str = ""
-                    $.each(data, function (index, element) {
-                        str =str
-                            + "<div class=\"commentBigBox\">"
-                            + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
-                            + "<div class=\"commentIcon\">"
-                            + "<span class=\"material-icons-outlined\">"
-                            + "android"
-                            + "</span>"
-                            + "</div>"
-                            + "<div class=\"commentBox\">"
-                            + "<span class=\"comWriter\">"
-                            + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
-                        if(element.name == "${user.username}" ) {
-                            str=str
-                                + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
+                    let paging = "";
 
-                                + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
+                        $.each(data, function (index, element) {
+                                if(element.next == true || element.next ==false)
+                                return;
+                            str =str
+                                + "<div class=\"commentBigBox\">"
+                                + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
+                                + "<div class=\"commentIcon\">"
+                                + "<span class=\"material-icons-outlined\">"
+                                + "android"
                                 + "</span>"
-                        }
-                        str=str
-                            + "<span class=\"commentDate\">"
-                            + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
-                            + "</span>"
-                            + "<div class=\"commentText\" id= \'" + element._id + "\' >"
-                            + element.content
-                            + "<br>"
-                            + "</div>"
-                            + "</div>"
-                            + "</div>"
+                                + "</div>"
+                                + "<div class=\"commentBox\">"
+                                + "<span class=\"comWriter\">"
+                                + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
+                            if(element.name == "${user.username}" ) {
+                                str=str
+                                    + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
 
+                                    + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
+                                    + "</span>"
+                            }
+                            str=str
+                                + "<span class=\"commentDate\">"
+                                + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
+                                + "</span>"
+                                + "<div class=\"commentText\" id= \'" + element._id + "\' >"
+                                + element.content
+                                + "<br>"
+                                + "</div>"
+                                + "</div>"
+                                + "</div>"
+                        })
 
-                    })
+                    paging = paging
+                        +"<"+"c:if test="+prev+">"
+                        +"<a href=\"javascript:void(0);\" onclick=\"fnCommentList(); return false;\" class=\"page-link\">이전</a>"
+                        +"<span aria-hidden=\"true\"></span>"
+                        +"</a>"
+                        +"<"+"/c:if>"
+                        +"</li>"
+                        +"<"+"c:forEach begin="+"\'"+ startPageNum +" \'"+"end=\""+endPageNum+"\""+"var="+"\'num\'>"
+                        +"<"+"c:if test=\'"+select+"!="+num+"\'>"
+                        +"<li class=\"page-item\"><a href=\"javascript:void(0);\" onclick=\"fnCommentList(); return false;\" class=\"page-link\">"+ num +"</a></li>"
+                        +"<"+"/c:if>"
+                        +"<"+"c:if test=\'"+select+"=="+num+"\'>"
+                        +"<li class=\"page-item active\" aria-current=\"page\">"
+                        +"<a class=\"page-link\" href=\"#\">"+ num +"</a>"
+                        +"</li>"
+                        +"<"+"/c:if>"
+                        +"<"+"/c:forEach>"
+                        +"<"+"c:if test="+"\'"+next+"\'"+">"
+                        +"<li class=\"page-item\">"
+                        +"<a href=\"javascript:void(0);\" onclick=\"fnCommentList(); return false;\" class=\"page-link\">다음</a>"
+                        +"<span aria-hidden=\"true\"></span>"
+                        +"</a>"
+                        +"</li>"
+                        +"<"+"/c:if"+">"
+                        +"</ul>"
+                        +"</div>"
+                    console.log(paging);
+                    document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
-                    document.getElementById('count').textContent = commentcount;
+                    document.getElementById('pagingBox').innerHTML += paging;
                 }
             });
         } //리스트조회
@@ -194,36 +234,35 @@
 <div class="commentListBox" id="commentListBox">
 
 </div>
-
-<div class="center">
-    <ul class="pagination">
-        <li class="page-item">
-            <c:if test="${page.prev}">
-                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.startpagenum - 1}" class="page-link">이전</a>
-                <span aria-hidden="true"></span>
-                </a>
-            </c:if>
-        </li>
-        <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
-            <c:if test="${select != num}">
-                <li class="page-item"><a href="/comment?content_id=${content_id}&menu_id=${menu_id}&num=${num}" class="page-link">${num}</a></li>
-            </c:if>
-
-            <c:if test="${select == num}">
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">${num}</a>
-                </li>
-            </c:if>
-        </c:forEach>
-        <c:if test="${page.next}">
-            <li class="page-item">
-                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.endpagenum + 1}" class="page-link">다음</a>
-                <span aria-hidden="true"></span>
-                </a>
-            </li>
-        </c:if>
-    </ul>
-</div>
+<div class="pagingBox" id="pagingBox"> </div>
+<%--<div class="center">--%>
+<%--    <ul class="pagination">--%>
+<%--        <li class="page-item">--%>
+<%--            <c:if test="${prev}">--%>
+<%--                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.startpagenum - 1}" class="page-link">이전</a>--%>
+<%--                <span aria-hidden="true"></span>--%>
+<%--                </a>--%>
+<%--            </c:if>--%>
+<%--        </li>--%>
+<%--        <c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">--%>
+<%--            <c:if test="${select != num}">--%>
+<%--                <li class="page-item"><a href="" class="page-link">${num}</a></li>--%>
+<%--            </c:if>--%>
+<%--            <c:if test="${select == num}">--%>
+<%--                <li class="page-item active" aria-current="page">--%>
+<%--                    <a class="page-link" href="#">${num}</a>--%>
+<%--                </li>--%>
+<%--            </c:if>--%>
+<%--        </c:forEach>--%>
+<%--        <c:if test="${next}">--%>
+<%--            <li class="page-item">--%>
+<%--                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.endpagenum + 1}" class="page-link">다음</a>--%>
+<%--                <span aria-hidden="true"></span>--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--        </c:if>--%>
+<%--    </ul>--%>
+<%--</div>--%>
 
 
 <!--댓글 입력부 -->

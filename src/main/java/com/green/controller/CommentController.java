@@ -32,17 +32,8 @@ public class CommentController {
 	//댓글 jsp파일 호출
 	@GetMapping("/comment")
 
-	public String getComment(Model model, @RequestParam int num,
-							 @RequestParam int menu_id, @RequestParam int content_id) {
-		System.out.println("야호"+num);
-		page.setNum(num);
-		page.setCount(commentService.listCount(num, menu_id, content_id));
-		model.addAttribute("page", page);
-		model.addAttribute("num", num);
-		model.addAttribute("content_id", content_id);
-		model.addAttribute("menu_id", menu_id);
-		model.addAttribute("select", num);
-		System.out.println("count" + page.getCount());
+	public String getComment() {
+
 		return "/comment";
 	}
 
@@ -51,23 +42,32 @@ public class CommentController {
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) {
 		page.setNum(num);
+		page.setCount(commentService.listCount(num, menu_id, content_id));
+
 		int displaypost = page.getDisplaypost();
 		int postnum = page.getPostnum();
-		System.out.println("postnum"+postnum+"dp"+displaypost);
-		//서비스에 전달
-
 
 		List<JSONObject> commentList = new ArrayList<>();
+			JSONObject paging = new JSONObject();
+			paging.put("commentCount", page.getCount());
+			paging.put("num", num);
+			paging.put("startPageNum", page.getStartpagenum());
+			paging.put("endPageNum", page.getEndpagenum());
+			paging.put("prev", page.getPrev());
+			paging.put("next", page.getNext());
+			paging.put("select", num);
+			commentList.add(paging);
+
 		for (CommentVo cl : commentService.getCommentList(content_id, menu_id, displaypost, postnum)) {
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
 			obj.put("_id", cl.get_id());
 			obj.put("content", cl.getContent());
 			obj.put("time", cl.getTime());
-			obj.put("commentcount", cl.getCommentcount());
-			commentList.add(obj);
 
+			commentList.add(obj);
 		}
+		System.out.println("CL"+commentList);
 		return commentList;
 	}
 
