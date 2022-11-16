@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Community">
-<!--    커뮤니티 리스트 조회-->
+
+    <!-- 게시판 불러오기 -->
     <select id="communityList"
             parameterType="Integer"
             resultType="com.green.vo.CommunityVo">
@@ -12,12 +13,18 @@
             _id,
             username,
             tag,
-            time,
             title,
-            readcount
-
-        FROM community_tb
-        ORDER BY _id DESC
+            content,
+            time,
+            readcount,
+            (SELECT count(*) from comment_tb where content_id = c._id and menu_id = 1)commentcount
+        FROM community_tb c
+        Order BY _id DESC
+        LIMIT #{displaypost},#{postnum}
+    </select>
+    <!--페이징-->
+    <select id= "listCount" resultType="int">
+        SELECT COUNT(*) FROM community_tb
     </select>
     <!--쓰기-->
     <insert id="communityWrite"
@@ -63,20 +70,6 @@
         SET    readcount = readcount + 1
         WHERE  _id  = #{_id}
     </update>
-
-    <select id="commentCount">
-        SELECT *,
-               (SELECT count(*) FROM comment_tb WHERE content_id = _id )
-                AS commentcount
-        FROM community_tb
-    </select>
-    <!--댓글 숫자 쿼리-->
-    <update id="commentCountUpdate">
-        update community_tb
-        SET commentcount = (select count(*) from comment_tb where comment_tb.content_id=community_tb._id AND menu_id=1) ;
-    </update>
-
-
 
 
 </mapper>

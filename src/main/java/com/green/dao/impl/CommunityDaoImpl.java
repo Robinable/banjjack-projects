@@ -19,10 +19,16 @@ public class CommunityDaoImpl implements CommunityDao {
     @Autowired
     SqlSession sqlSession;
     @Override
-    public List<CommunityVo> getCommunityList() {
+    public List<CommunityVo> getCommunityList(Map<String, Object> map) {
         List<CommunityVo> communityList
-                = sqlSession.selectList("Community.communityList");
+                = sqlSession.selectList("Community.communityList", map);
+
         return communityList;
+    }
+    @Override
+    public int listCount() {
+        int count = sqlSession.selectOne("Write.listCount");
+        return count;
     }
 
     @Override
@@ -34,6 +40,7 @@ public class CommunityDaoImpl implements CommunityDao {
     public List<CommunityVo> readCommunity(int _id) {
         List<CommunityVo> voList =
                 sqlSession.selectList("Community.communityRead", _id);
+        sqlSession.update("Community.updateReadCount", _id);
         return voList;
     }
 

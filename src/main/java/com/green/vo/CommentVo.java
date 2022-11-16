@@ -9,17 +9,26 @@ public class CommentVo {
     private String content;
     private String time;
     private String username;
+    private int menu_id;
 
-
-    public CommentVo(int _id, int content_id, String content, String time, String username) {
+    public CommentVo(int _id, int content_id, String content, String time, String username, int menu_id) {
         this._id = _id;
         this.content_id = content_id;
         this.content = content;
         this.time = time;
         this.username = username;
+        this.menu_id = menu_id;
     }
 
     public CommentVo() {
+    }
+
+    public int getMenu_id() {
+        return menu_id;
+    }
+
+    public void setMenu_id(int menu_id) {
+        this.menu_id = menu_id;
     }
 
     public int get_id() { return _id;  }
@@ -68,8 +77,7 @@ public class CommentVo {
                 ", content='" + content + '\'' +
                 ", time='" + time + '\'' +
                 ", username='" + username + '\'' +
+                ", menu_id=" + menu_id +
                 '}';
     }
-
-
 }

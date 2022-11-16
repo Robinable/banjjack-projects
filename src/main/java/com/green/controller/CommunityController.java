@@ -3,14 +3,19 @@ package com.green.controller;
 import com.green.dao.CommunityDao;
 import com.green.service.CommunityService;
 import com.green.vo.CommunityVo;
+import com.green.vo.PageVo;
+import com.green.vo.UserVo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +23,7 @@ import java.util.Map;
 
 @Controller
 public class CommunityController {
+    PageVo page = new PageVo();
     @Autowired
     CommunityService communityService;
     @Autowired
@@ -27,8 +33,12 @@ public class CommunityController {
     @GetMapping("/getCommunityList")
     @ResponseBody
     public List<JSONObject> getCommunityList() {
+        int displaypost =page.getDisplaypost();
+        int postnum = page.getPostnum();
+
+
         List<JSONObject> getList = new ArrayList<>();
-        for(CommunityVo vo : communityService.getCommunityList()) {
+        for(CommunityVo vo : communityService.getCommunityList(displaypost, postnum)) {
             JSONObject obj = new JSONObject();
             obj.put("_id", vo.get_id());
             obj.put("username", vo.getUsername());
@@ -36,19 +46,33 @@ public class CommunityController {
             obj.put("tag", vo.getTag());
             obj.put("time", vo.getTime());
             obj.put("readcount", vo.getReadcount());
+            obj.put("commentcount", vo.getCommentcount());
             getList.add(obj);
         }
+        System.out.println("dd"+getList);
         return getList;
     }
     //리스트출력
     @GetMapping("/communityList")
-    public String CommunityList(){
+    public String CommunityList(Model model, @RequestParam(defaultValue = "1") int num){
+
+        page.setNum(num);
+        page.setCount(communityService.listCount());
+
+
+        model.addAttribute("page", page);
+        model.addAttribute("select", num);
+        model.addAttribute("num", num);
+
         return "/communityList";
     }
     //게시글 조회
     @GetMapping("/getCommunityRead")
     @ResponseBody
     public List<JSONObject> getCommunityRead(@RequestParam int _id) {
+        int displaypost =page.getDisplaypost();
+        int postnum = page.getPostnum();
+
         List<JSONObject> getRead = new ArrayList<>();
         for(CommunityVo vo: communityService.readCommunity(_id)){
             JSONObject obj = new JSONObject();
@@ -80,8 +104,9 @@ public class CommunityController {
     @PostMapping("/communityWrite")
     @ResponseBody
 
-    public Map<String, Object> communityWrite(CommunityVo communityVo) {
-        System.out.println(communityVo);
+    public Map<String, Object> communityWrite(CommunityVo communityVo, HttpSession httpSession) {
+
+
         Map<String, Object> map = new HashMap<>();
         try{
             communityService.writeCommunity(communityVo);
@@ -130,7 +155,7 @@ public class CommunityController {
         communityUpdateData.put("content", content);
         communityUpdateData.put("title", title);
         communityUpdateData.put("_id", _id);
-
+        System.out.println(communityUpdateData);
         Map<String, Object> map = new HashMap<>();
         try {
             communityService.updateCommunity(communityUpdateData);

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Comment">
-<!--   리스트 조회 -->
+    <!--   리스트 조회 -->
     <select id="commentList"
             parameterType="Integer"
             resultType="com.green.vo.CommentVo">
@@ -17,35 +17,16 @@
             comment_tb
         WHERE
             content_id = #{content_id}
-        AND
+          AND
             menu_id = #{menu_id}
 
     </select>
-
-<!-- 리스트 10개씩 -->
-    <select id="commentListpage" parameterType="hashMap" resultType="com.green.vo.CommentVo">
-        SELECT
-            _id,
-            username,
-            time,
-            content
-        FROM comment_tb
-        order by _id desc
-            limit #{displayPost}, #{postNum}
-    </select>
-<!--댓글 카운트-->
-    <select id="commentCount" resultType="int">
-        SELECT
-            count(_id)
-        FROM comment_tb
-        WHERE content_id=#{content_id}
-    </select>
-<!--코멘트 쓰기-->
+    <!--코멘트 쓰기-->
     <insert id="writeComment">
         INSERT INTO  comment_tb( content_id, username, content, time, menu_id)
         VALUES (#{content_id}, #{username}, #{content}, NOW(), #{menu_id})
     </insert>
-<!--코멘트 수정-->
+    <!--코멘트 수정-->
     <update id="commentUpdate">
         UPDATE comment_tb
         SET content =  #{content}
@@ -53,25 +34,11 @@
           AND _id      = #{_id}
     </update>
 
-<!--코멘트 삭제-->
+    <!--코멘트 삭제-->
     <delete id="commentDelete">
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
     </delete>
-<!--코멘트 업데이트 -->
-    <update id="commentCountPlus">
-        UPDATE community_tb
-        SET commentcount = commentcount + 1
-        where  _id = #{content_id}
-          and    menu_id=#{menu_id}
-    </update>
-
-    <update id="commentCountMinus">
-        UPDATE community_tb
-        SET commentcount = commentcount - 1
-        where  _id = #{content_id}
-          and  menu_id=#{menu_id}
-    </update>
 
 
 </mapper>
