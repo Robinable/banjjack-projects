@@ -96,6 +96,11 @@
         });
 
 
+        let profileImg = "${profileImg}";
+                    if(profileImg != "") {
+                    document.getElementById('preview').src = "http://donipop.com:8000/img/" + profileImg;
+                    }
+
     } // window.onload end
 
 

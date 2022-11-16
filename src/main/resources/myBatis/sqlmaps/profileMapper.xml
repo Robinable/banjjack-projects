@@ -6,19 +6,34 @@
 <mapper namespace="Profile">
 
     <insert id="saveProfileImg"
-            parameterType="com.green.vo.ProfileVo">
-        INSERT INTO profile_tb (_id, profiledata)
-        VALUES                 (#{_id}, #{profiledata})
+            parameterType="HashMap">
+        INSERT INTO profile_tb (_id, profiledata, username)
+        VALUES                 (#{_id}, #{fileDot}, #{username})
 
     </insert>
 
-    <select id="selectImg"
+    <select id="getUserProfile"
             resultType="String">
         SELECT profiledata
         FROM   profile_tb
-        WHERE  profiledata = #{userFilename}
+        WHERE  username = #{username}
 
     </select>
 
+    <select id="getUserByUsername"
+            resultType="String">
+        SELECT username
+        FROM   profile_tb
+        WHERE  username = #{username}
+
+    </select>
+
+    <update id="updateUsername"
+            parameterType="HashMap">
+        UPDATE profile_tb
+        SET    profiledata = #{fileDot}
+        WHERE  username = #{username}
+
+    </update>
 
 </mapper>

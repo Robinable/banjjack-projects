@@ -229,29 +229,8 @@ public class LoginController {
                          HttpSession session,
                          Model model) throws IOException {
 
-        String uploadDir = "/Users/lsj/Desktop/ggg/green-spring2/src/main/webapp/WEB-INF/resources/img/";
-
-        if (!file.isEmpty()) {
-
-            String filename = file.getOriginalFilename();
-
-            // 확장자 앞에 . 점이 몇번째인지
-            int dotCount = filename.length() - filename.replace(".", "").length(); //3
-            // .을 기준으로 filename의 [dotCount]번째 = 확장자
-            // fileDot = 확장자
-            String fileDot = filename.split("\\.")[dotCount]; // jpg
-            //d.fg.gh.jpg
-            UUID uuid = UUID.randomUUID(); // 랜덤
-            String userFilename = uuid + "_" + username + "_profile." + fileDot; // 파일 이름 지정
-            //uuid_username_profile.jpg
-            String fullPath =  uploadDir + userFilename;
-            model.addAttribute("img", fullPath);
-
-            file.transferTo(new File(fullPath));
-
-            ProfileVo profileVo = new ProfileVo(0, userFilename);
-            profileService.saveProfileImg(profileVo);
-        }
+        String profileData = profileService.getUserProfile(username);
+        model.addAttribute("profileImg", profileData);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", username);
@@ -355,7 +334,8 @@ public class LoginController {
 
     @PostMapping("/uploadimg")
     @ResponseBody
-    public String up_img(@RequestBody String jsondata) throws IOException {
+    public String up_img(@RequestBody String jsondata,
+                         HttpSession session) throws IOException {
         URL url = new URL("http://donipop.com:8000/single/upload");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -379,8 +359,42 @@ public class LoginController {
         bufferedReader.close();
 
         String response = stringBuffer.toString();
+        int dotCount = response.length() - response.replace("/", "").length(); // "/"의 개수 세기 = 4
+        String fileDot = response.split("/")[dotCount]; // "/"를 기준으로 4번째에 있는 것
+
+        UserVo vo = (UserVo) session.getAttribute("login");
+        HashMap <String,String> map = new HashMap<>();
+        map.put("username", vo.getUsername());
+        map.put("fileDot", fileDot);
+
+
+        String username = vo.getUsername();
+        System.out.println("vo username: " + username);
+        String getUser = profileService.getUserByUsername(username);
+        System.out.println("username으로 뽑아낸 유저네임: " + getUser);
+        if(getUser != null) {
+            profileService.updateUsername(map);
+        } else {
+            profileService.saveProfileImg(map);
+        }
+
         return response;
     }
+
+    @GetMapping("/UserprofileImg")
+    @ResponseBody
+    public String UserprofileImg() {
+
+        return "";
+    }
+    /*
+    * 내가 해야될것
+    * vo에 있는 username이랑 같은 유저네임일때 profildata를 반환하고 싶음
+    *
+    *
+    *
+    *
+    * */
 
 
 }

@@ -6,17 +6,31 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+
 @Repository("profileDao")
 public class ProfileDaoImpl implements ProfileDao {
 
     @Autowired
     private SqlSession sqlSession;
 
-    public void saveProfileImg(ProfileVo profileVo) {
-        sqlSession.insert("Profile.saveProfileImg", profileVo);
+    public void saveProfileImg(HashMap<String,String> map) {
+        sqlSession.insert("Profile.saveProfileImg", map);
     }
 
-    public String selectImg(String userFilename) {
-        return sqlSession.selectOne("Profile.selectImg", userFilename);
+    @Override
+    public String getUserProfile(String username) {
+        return sqlSession.selectOne("Profile.getUserProfile", username);
     }
+
+    @Override
+    public String getUserByUsername(String username) {
+        return sqlSession.selectOne("Profile.getUserByUsername", username);
+    }
+
+    @Override
+    public void updateUsername(HashMap<String, String> map) {
+        sqlSession.update("Profile.updateUsername", map);
+    }
+
 }

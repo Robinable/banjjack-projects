@@ -2,9 +2,15 @@ package com.green.dao;
 
 import com.green.vo.ProfileVo;
 
+import java.util.HashMap;
+
 public interface ProfileDao {
 
-    void saveProfileImg(ProfileVo profileVo);
+    void saveProfileImg(HashMap<String,String> map);
 
-    String selectImg(String userFilename);
+    String getUserProfile(String username);
+
+    String getUserByUsername(String username);
+
+    void updateUsername(HashMap<String, String> map);
 }

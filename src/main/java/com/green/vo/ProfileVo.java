@@ -9,9 +9,12 @@ public class ProfileVo {
 
     private String profiledata;
 
-    public ProfileVo(int _id, String profiledata) {
+    private int user_id;
+
+    public ProfileVo(int _id, String profiledata, int user_id) {
         this._id = _id;
         this.profiledata = profiledata;
+        this.user_id = user_id;
     }
 
     public ProfileVo() {
@@ -33,12 +36,20 @@ public class ProfileVo {
         this.profiledata = profiledata;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
     @Override
     public String toString() {
         return "ProfileVo{" +
                 "_id=" + _id +
                 ", profiledata='" + profiledata + '\'' +
+                ", user_id=" + user_id +
                 '}';
     }
-
 }
