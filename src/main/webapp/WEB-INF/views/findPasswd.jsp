@@ -5,35 +5,51 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>비밀번호 재설정</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <style>
+
         *     { box-sizing:border-box;  }
 
-        .login-form { width:600px; margin:0 auto; }
+        body  { text-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;}
 
-        .login-form input {
+        main {
+            display: block;
+        }
+
+        .findPasswdForm { width:600px; margin:0 auto; }
+
+        .findPasswdForm input{
 
             border:1px solid grey;
-            border-radius:5px;
-
+            border-radius:10px;
+            width: 40%;
             padding: 10px;
             margin:5px;
 
         }
 
-        div  { text-align: center; padding: 0;}
+        div  { width: 100%; text-align: center; padding: 0;}
 
-        ul { list-style: none; }
-
-        li:nth-child(n+6):nth-child(-n+7) { display: inline; }
-
-        a { font-size: 13px; }
-
-        #container { width:100% }
+        .con { width:100% }
 
         #form1 { width:100%; }
+        #goPasswdUpdate { width: 15%; margin-top: 20px; border:1px solid;}
 
-        hr  { width:400px; margin-bottom:70px; }
+        hr  {  margin-bottom:70px; }
+
+        .findPasswdlabel { margin-top: 50px; }
+
+        .error { margin-top: 20px; text-align: center; margin-bottom: 20px;}
+
+        .label1 { margin-bottom: 20px;}
 
 
     </style>
@@ -65,27 +81,27 @@
 
 
 
-    </script>
-
-
+</script>
 </head>
 <body>
-<div class="login-form">
+<main class="form-signin w-100 m-auto">
+<div class="findPasswdForm">
+    <h2 class="findPasswdlabel">비밀번호 찾기</h2>
+    <hr />
     <form action="/findPasswdSuccess" method="POST" id="form1" name="form1">
-        <ul id="container">
-            <li><label>비밀번호 찾기</label></li>
-            <hr />
-            <li><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요.</label></li>
-            <li><input type="text" id="username" name="username" placeholder="아이디"/></li>
-            <li><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></li>
-            <li>
+        <div class="con">
+            <div class="label1"><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요!</label></div>
+            <div><input type="text" id="username" name="username" placeholder="아이디"/></div>
+            <div><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></div>
+            <div>
                 <c:if test="${message == 'error'}">
-                    <div style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>
+                    <div class="error" style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>
                 </c:if>
-            </li>
-            <li><input type="submit" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></li>
-        </ul>
+            </div>
+            <div><input type="submit" class="btn btn-primary" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></div>
+        </div>
     </form>
 </div>
+</main>
 </body>
 </html>
