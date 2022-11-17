@@ -4,6 +4,7 @@ import com.green.dao.CommentDao;
 import com.green.service.CommentService;
 import com.green.vo.CommentVo;
 import com.green.vo.PageVo;
+import com.green.vo.TimeGap;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.Map;
 @Controller
 public class CommentController {
 	PageVo page = new PageVo();
+	TimeGap timeGap = new TimeGap();
 	@Autowired
 	CommentService commentService;
 
@@ -40,7 +44,7 @@ public class CommentController {
 
 	@GetMapping("comment/commentList")
 	@ResponseBody
-	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) {
+	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) throws ParseException {
 		page.setNum(num);
 		page.setCount(commentService.listCount(num, menu_id, content_id));
 
@@ -59,11 +63,12 @@ public class CommentController {
 			commentList.add(paging);
 
 		for (CommentVo cl : commentService.getCommentList(content_id, menu_id, displaypost, postnum)) {
+			timeGap.setTime(cl.getTime());
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
 			obj.put("_id", cl.get_id());
 			obj.put("content", cl.getContent());
-			obj.put("time", cl.getTime());
+			obj.put("time", timeGap.getTime());
 
 			commentList.add(obj);
 		}

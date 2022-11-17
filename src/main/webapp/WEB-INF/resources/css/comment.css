@@ -1,13 +1,14 @@
-div.commentListBox { width:600px; height: auto ; }
-div.commentBigBox { padding-bottom: 20px; display: inline-block; border-top: solid gray;}
+.list-group list-group-flush { width:600px; height: auto ; margin-left: auto; margin-right: auto;}
+.list-group-item { width:580px; padding-bottom: 20px; display: inline-block; border-top: solid gray;margin-left: auto; margin-right: auto;}
 div.commentIcon { float:left; width:50px; position : relative ;
     margin-top: auto ; margin-bottom: auto; margin-left:1px ;
     text-align: center;}
-div.commentBox { float:right; width:530px; }
+div.commentBox { float:right; width:480px; }
 div.commentText { width:600px; display: flex ; flex-direction: column; margin-top:2px;}
 span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;}
-
+span.buttonSpan{float:right; }
 div.commentInputBox{width:550px; margin-top:30px;}
-span.commentDate > input { border:none;}
+span.commentDate{float:right; width: 50px; display: flex; flex-direction: column;}
+span.commentDate > input { border:none; width: 50px; display: flex; flex-direction:  column;}
 textarea { width:600px; resize:none; }
 div.regBtn { float:right;}

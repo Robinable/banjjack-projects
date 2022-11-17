@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%--<% String username = request.getParameter("username"); %>--%>
@@ -66,11 +67,12 @@
                     let str = ""
                     let paging = "";
 
+
                         $.each(data, function (index, element) {
                                 if(element.next == true || element.next ==false)
                                 return;
                             str =str
-                                + "<div class=\"commentBigBox\">"
+                                + "<li class=\"list-group-item\" name= \"commentBigBox\">"
                                 + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                                 + "<div class=\"commentIcon\">"
                                 + "<span class=\"material-icons-outlined\">"
@@ -84,20 +86,25 @@
                                 + "<div class=\"commentBox\">"
                                 + "<span class=\"comWriter\">"
                                 + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
+                                + "</span>"
                             if(element.name == "${user.username}" ) {
                                 str=str
+                                    +"<span class=\"buttonSpan\">"
                                     + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
 
                                     + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
-                                    + "</span>"
+                                    +"</span>"
                             }
+
+
+
                             str=str
-                                + "<div class=\"commentText\" id= \'" + element._id + "\' >"
-                                + element.content
+                                + "<div class=\"commentText\" id= \'" + element._id + "\' style= \"white-space:pre-wrap\" >"
+                                +  element.content
                                 + "<br>"
                                 + "</div>"
                                 + "</div>"
-                                + "</div>"
+                                + "</li>"
                         })
                     for(let i=startPageNum; i<=endPageNum; i++){
                         paging +=" <a href=\"javascript:void(0)\" onClick=\"fnCommentList("+i+");\" return false;>"+i+"</a>"
@@ -198,44 +205,13 @@
 <br>
 <div class="commentCount"> 댓글 <span id = "count"></span></div>
 <br>
-<div class="commentListBox" id="commentListBox">
 
-</div>
+<ul class="list-group list-group-flush" id="commentListBox">
+
+</ul>
+
 <div class="pagingBox" id="pagingBox"> </div>
 
-
-<%--<c:forEach var="i" begin = "1" end="4" >--%>
-<%--    ${i}--%>
-<%--</c:forEach>--%>
-
-<%--<div class="center">--%>
-<%--    <ul class="pagination">--%>
-<%--        <li class="page-item">--%>
-<%--            <c:if test="${prev}">--%>
-<%--                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.startpagenum - 1}" class="page-link">이전</a>--%>
-<%--                <span aria-hidden="true"></span>--%>
-<%--                </a>--%>
-<%--            </c:if>--%>
-<%--        </li>--%>
-<%--        <c:forEach begin="${startpagenum}" end="${endpagenum}" var="num">--%>
-<%--            <c:if test="${select != num}">--%>
-<%--                <li class="page-item"><a href="" class="page-link">${num}</a></li>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${select == num}">--%>
-<%--                <li class="page-item active" aria-current="page">--%>
-<%--                    <a class="page-link" href="#">${num}</a>--%>
-<%--                </li>--%>
-<%--            </c:if>--%>
-<%--        </c:forEach>--%>
-<%--        <c:if test="${next}">--%>
-<%--            <li class="page-item">--%>
-<%--                <a href="/comment?content_id=${content_id}&menu_id=${menu_id}num=${page.endpagenum + 1}" class="page-link">다음</a>--%>
-<%--                <span aria-hidden="true"></span>--%>
-<%--                </a>--%>
-<%--            </li>--%>
-<%--        </c:if>--%>
-<%--    </ul>--%>
-<%--</div>--%>
 
 
 <!--댓글 입력부 -->
