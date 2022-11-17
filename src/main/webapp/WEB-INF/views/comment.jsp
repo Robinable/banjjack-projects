@@ -13,31 +13,11 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/comment.css">
     <!-- CSS only -->
-
-    <style>
-        div.commentListBox { width:600px; height: auto ; }
-        div.commentBigBox { padding-bottom: 20px; display: inline-block;}
-        div.commentIcon { float:left; width:50px; position : relative ;
-            margin-top: auto ; margin-bottom: auto; margin-left:1px ;
-            text-align: center;}
-        div.commentBox { float:right; width:530px; }
-        div.commentText { width:600px; display: flex ; flex-direction: column;}
-        span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;}
-        div.commentText { width:540px; margin-top:2px;}
-        div.commentInputBox{width:600px; margin-top:30px;}
-        span.commentDate > input { border:none;}
-        textarea { width:600px; resize:none; }
-        div.regBtn { float:right;}
-    </style>
-<%--    <c:out value="${param.menu_id}/"></c:out>--%>
-<%--    <c:out value="${pram.content_id}/"></c:out>--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script>
 
         let query = window.location.search;
@@ -45,6 +25,7 @@
         let content_id='${param.content_id}';
         let menu_id='${param.menu_id}';
         let num = params.get('num');
+        let i=0;
         if (num==null) {
             num = 1;
         }
@@ -52,10 +33,17 @@
         console.log("mi"+${param.menu_id});
 
         $(document).ready(function() {
-            fnCommentList();
+            fnCommentList(i);
         });
         //리스트조회
-        function fnCommentList() {
+        function fnCommentList(i) {
+            if (i == 0 ){
+                num = 1;
+             }else{
+                num = i;
+            }
+            $("#commentListBox").empty();
+            $("#pagingBox").empty();
             $.ajax({
                 url: "/comment/commentList",
                 type: "get",
@@ -63,7 +51,7 @@
                     'menu_id' : menu_id,
                     'num' : num },
                 error: function (xhr) {
-                    console.log("err"+xhr)
+                    console.log(xhr)
                 },
                 success: function (data) {
                     console.log(data);
@@ -88,6 +76,10 @@
                                 + "<span class=\"material-icons-outlined\">"
                                 + "android"
                                 + "</span>"
+                                + " <br>"
+                                + "<span class=\"commentDate\">"
+                                + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
+                                + "</span>"
                                 + "</div>"
                                 + "<div class=\"commentBox\">"
                                 + "<span class=\"comWriter\">"
@@ -100,9 +92,6 @@
                                     + "</span>"
                             }
                             str=str
-                                + "<span class=\"commentDate\">"
-                                + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
-                                + "</span>"
                                 + "<div class=\"commentText\" id= \'" + element._id + "\' >"
                                 + element.content
                                 + "<br>"
@@ -110,33 +99,9 @@
                                 + "</div>"
                                 + "</div>"
                         })
-
-                    paging = paging
-                        +"<"+"c:if test="+prev+">"
-                        +"<a href=\"javascript:void(0);\" onclick=\"fnCommentList(); return false;\" class=\"page-link\">이전</a>"
-                        +"<span aria-hidden=\"true\"></span>"
-                        +"</a>"
-                        +"<"+"/c:if>"
-                        +"</li>"
-                        +"<"+"c:forEach begin="+"\'"+ startPageNum +" \'"+"end=\""+endPageNum+"\""+"var="+"\'num\'>"
-                        +"<"+"c:if test=\'"+select+"!="+num+"\'>"
-                        +"<li class=\"page-item\"><a href=\"javascript:void(0);\" onclick=\"fnCommentList(); return false;\" class=\"page-link\">"+ num +"</a></li>"
-                        +"<"+"/c:if>"
-                        +"<"+"c:if test=\'"+select+"=="+num+"\'>"
-                        +"<li class=\"page-item active\" aria-current=\"page\">"
-                        +"<a class=\"page-link\" href=\"#\">"+ num +"</a>"
-                        +"</li>"
-                        +"<"+"/c:if>"
-                        +"<"+"/c:forEach>"
-                        +"<"+"c:if test="+"\'"+next+"\'"+">"
-                        +"<li class=\"page-item\">"
-                        +"<a href=\"javascript:void(0);\" onclick=\"fnCommentList(); return false;\" class=\"page-link\">다음</a>"
-                        +"<span aria-hidden=\"true\"></span>"
-                        +"</a>"
-                        +"</li>"
-                        +"<"+"/c:if"+">"
-                        +"</ul>"
-                        +"</div>"
+                    for(let i=startPageNum; i<=endPageNum; i++){
+                        paging +=" <a href=\"javascript:void(0)\" onClick=\"fnCommentList("+i+");\" return false;>"+i+"</a>"
+                    }
                     console.log(paging);
                     document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
@@ -161,7 +126,7 @@
                     },
                     success: function (data) {
                         $("#commentListBox").empty();
-                        fnCommentList();
+                        fnCommentList(i);
                         $("#commContent").val('');
                         document.getElementById('countNum').innerHTML = '( 0/ 300)';
                     }
@@ -180,7 +145,7 @@
                 },
                 success: function (result) {
                     $("#commentListBox").empty();
-                    fnCommentList();
+                    fnCommentList(1);
                 }
             });
         } //삭제버튼
@@ -216,25 +181,33 @@
 
                 success: function (data) {
                     $("#commentListBox").empty();
-                    fnCommentList();
+                    fnCommentList(i);
                 }
             })
         }
         function fnCommentUpdateCancel(){
             $("#commentListBox").empty();
-            fnCommentList();
+            fnCommentList(i);
         }
 
     </script>
-
+<br>
 </head>
 <body>
-<div class="commentCount"> 댓글 <span id = "count"></span></div>
 
+<br>
+<div class="commentCount"> 댓글 <span id = "count"></span></div>
+<br>
 <div class="commentListBox" id="commentListBox">
 
 </div>
 <div class="pagingBox" id="pagingBox"> </div>
+
+
+<%--<c:forEach var="i" begin = "1" end="4" >--%>
+<%--    ${i}--%>
+<%--</c:forEach>--%>
+
 <%--<div class="center">--%>
 <%--    <ul class="pagination">--%>
 <%--        <li class="page-item">--%>
