@@ -8,31 +8,7 @@
     <title>Insert title here</title>
 
     <style>
-        *     { box-sizing:border-box;  }
-
-        .signupForm { width:600px; margin:0 auto; }
-
-        .signupForm input {
-
-            border:1px solid grey;
-            border-radius:5px;
-
-            padding: 10px;
-            margin:5px;
-
-        }
-
-        div  { text-align: center; padding: 0;}
-
-        ul { list-style: none; }
-
-        #container { width:100% }
-
-        #form1 { width:100%; }
-
-        hr          { width:400px; margin-bottom:70px; }
-
-        #preview { width: 128px; height: 128px; }
+       
 
 
 
@@ -146,14 +122,26 @@
             });
 
             // 콤보박스 > input text박스
-            $('#selectPet').on('change', function() {
+            $('#selectPet').on('change', function(e) {
+
                 if($('#selectPet').val() == '기타') {
+                    $('#userpet').attr('value', '');
                     $('#userpet').attr('placeholder', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 앵무새(o)');
-                } else if($('#selectPet').val() == '반려동물') {
-                    $('#userpet').attr('placeholder', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 앵무새(o)');
-                } else {
-                    $('#userpet').attr('value', re_userpetPrint(selectPet));
                 }
+
+                if($('#selectPet').val() == '반려동물') {
+                    $('#userpet').attr('value', '');
+                    $('#userpet').attr('placeholder', '반려동물의 종을 간단히 적으세요. ex) 사랑앵무(x), 앵무새(o)');
+                }
+
+                if($('#selectPet').val() == '개' || $('#selectPet').val() == '고양이') {
+                    $('#userpet').attr('placeholder', '');
+                    $('#userpet').attr('value', $('#selectPet').val());
+
+                }
+
+
+
 
             });
 
@@ -236,7 +224,7 @@
             let userpetText = selectPet.options[selectPet.selectedIndex].text;
             return userpetText;
         }
-
+        
 
 
     </script>
@@ -286,7 +274,7 @@
                         <option value="개">개</option>
                         <option value="기타">기타</option>
                     </select>
-                    <input type="text" id="userpet" name="userpet" value="" style="width:300px;" placeholder=""/>
+                    <input type="text" id="userpet" name="userpet" style="width:300px;" />
                     <span id="petCheck"></span>
                 </li>
 

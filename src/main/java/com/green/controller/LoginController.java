@@ -212,8 +212,10 @@ public class LoginController {
 
     // 마이페이지창
     @GetMapping("/myPageForm")
-    public String myPageForm() {
-
+    public String myPageForm(HttpSession session) {
+        if(session.getAttribute("login") == null) {
+            return "redirect:/login";
+        }
 
         return "/mypage";
     }
@@ -369,9 +371,7 @@ public class LoginController {
 
 
         String username = vo.getUsername();
-        System.out.println("vo username: " + username);
         String getUser = profileService.getUserByUsername(username);
-        System.out.println("username으로 뽑아낸 유저네임: " + getUser);
         if(getUser != null) {
             profileService.updateUsername(map);
         } else {
@@ -381,11 +381,13 @@ public class LoginController {
         return response;
     }
 
-    @GetMapping("/UserprofileImg")
+    @GetMapping("/userprofileImg")
     @ResponseBody
-    public String UserprofileImg() {
-
-        return "";
+    public String UserprofileImg(HttpSession session,
+                                 @RequestParam String username) {
+        UserVo vo = (UserVo) session.getAttribute("login");
+        String UserprofileImg = profileService.getUserProfile(username);
+        return UserprofileImg;
     }
     /*
     * 내가 해야될것

@@ -24,7 +24,7 @@
 
     div  { text-align: center; padding: 0;}
 
-    ul { list-style: none; }
+    table { list-style: none; }
 
     #container { width:100% }
 
@@ -40,6 +40,7 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
+
     window.onload = function() {
         const form = document.querySelector('form');
         form.addEventListener('submit', function(e) {
@@ -65,10 +66,8 @@
 
             }
 
-            userProfileImg();
 
         }) // form event end
-
 
 
 
@@ -95,11 +94,11 @@
 
         });
 
-
-        let profileImg = "${profileImg}";
-                    if(profileImg != "") {
-                    document.getElementById('preview').src = "http://donipop.com:8000/img/" + profileImg;
-                    }
+        // db에 저장된 profiledata 가져오기
+        /*let profileImg = "${profileImg}";
+            if(profileImg != "") {
+            document.getElementById('preview').src = "http://donipop.com:8000/img/" + profileImg;
+            }*/
 
     } // window.onload end
 
@@ -184,11 +183,35 @@
 
             },
             error : function(e){
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
                 console.log("post.js오류!!" + e)
             }
         });
-
     }
+
+
+        $.ajax({
+            method: "get",
+            url:  "/userprofileImg?username=${user.username}",
+            success : function (data){
+                    result = data;
+                    console.log("결과 = " + result);
+                    let html = "";
+                    if(result == '') {
+                        html = '<img id="preview" src=""/>'
+                        $('#test').html(html);
+                    } else {
+                        html = '<img id="preview" src="http://donipop.com:8000/img/' + result + '"/>'
+                        $('#test').html(html);
+                    }
+                },
+                error : function(e){
+                    alert('오류가 발생했습니다. 다시 시도해주세요.');
+                    console.log("post.js오류!!" + e)
+                }
+        });
+
+
 
 
 
@@ -200,27 +223,27 @@
     <hr />
     <form action="/myPageSuccess" method="POST" id="form1" enctype="multipart/form-data" attribute>
         <div id="container">
-            <ul>
-                <li>
-                <img id="preview" />
+            <table>
+                <span id="test"></span>
+                <div>
                 <input type='file' id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
-                       style="display: none;"/></li><br>
+                       style="display: none;"/></div><br>
                 <button type="button" id="btnUpload">업로드</button>
-                </li>
-                <li>
+
+                <div>
                     <input type="text" id="username" name="username" placeholder="아이디" value="${user.username}" readonly><br>
                     <span id="unameCheck"></span>
-                </li>
-                <li>
+                </div>
+                <div>
                     <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" value="${user.usernickname}"><br>
                     <span id="unicknameCheck"></span>
-                </li>
-                <li>
+                </div>
+                <div>
                     <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)" value="${user.usersido}"/>
                     <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)" value="${user.usergugun}"/>
                     <span id="localCheck"></span>
-                </li>
-                <li>
+                </div>
+                <div>
                     <select id="selectPet" name="selectPet" >
                         <option value="반려동물" selected>반려동물</option>
                         <option value="고양이">고양이</option>
@@ -229,13 +252,13 @@
                     </select>
                     <input type="text" id="userpet" name="userpet" value="${user.userpet}" placeholder=""/>
                     <span id="petCheck"></span>
-                </li>
+                </div>
 
-                <li><input type="submit" id="signup" name="signup" value="수정"/></li>
-                <li><a href="/myPagePasswdForm" id="goMyPagePasswd" name="goMyPagePasswd">비밀번호 변경</a></li>
-                <li><a href="/" id="cancleUpdate" name="cancleUpdate">취소</a></li>
-                <li><a href="/leaveUserForm" id="goLeave" name="goLeave">회원탈퇴</a></li>
-            </ul>
+                <div><input type="submit" id="signup" name="signup" value="수정"/></div>
+                <div><a href="/myPagePasswdForm" id="goMyPagePasswd" name="goMyPagePasswd">비밀번호 변경</a></div>
+                <div><a href="/" id="cancleUpdate" name="cancleUpdate">취소</a></div>
+                <div><a href="/leaveUserForm" id="goLeave" name="goLeave">회원탈퇴</a></div>
+            </table>
         </div>
     </form>
 </div>

@@ -6,12 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <style>
         *     { box-sizing:border-box;  }
 
-        .login-form { width:600px; margin:0 auto; }
+        .loginform { width:600px; margin:0 auto; }
 
-        .login-form input {
+        .loginform input {
 
             border:1px solid grey;
             border-radius:5px;
@@ -23,9 +27,7 @@
 
         div  { text-align: center; padding: 0;}
 
-        ul { list-style: none; }
-
-        li:nth-child(n+5):nth-child(-n+7) { display: inline; }
+        div:nth-child(n+5):nth-child(-n+7) { display: inline; }
 
         a { font-size: 13px; }
 
@@ -33,7 +35,9 @@
 
         #form1 { width:100%; }
 
-        hr  { width:400px; margin-bottom:70px; }
+        hr  {  margin-bottom:70px; }
+
+        .loginlabel { margin-top: 50px; }
 
 
     </style>
@@ -71,39 +75,38 @@
 
 </head>
 <body>
-<div class="login-form">
-    <h2>로그인 페이지</h2>
+<div class="loginform">
+    <h2 class="loginlabel">로그인</h2>
     <hr />
     <form action="/login/loginCheck" method="POST" id="form1" name="form1">
-        <ul id="container">
-            <li>
+        <table id="con">
+            <div>
                 <input type="text" id="username" name="username" placeholder="아이디" maxlength="20"><br>
                 <span id="unameCheck"></span>
-            </li>
+            </div>
 
-
-            <li>
+            <div>
                 <input type="password" id="userpassword" name="userpassword" placeholder="비밀번호" maxlength="20"><br>
                 <span id="pwCheck"></span>
-            </li>
+            </div>
 
-            <li>
+            <div>
                 <c:if test="${message == 'error'}">
                     <div style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다.</div>
                 </c:if>
-            </li>
+            </div>
 
 
-            <li colspan="2">
+            <div colspan="2">
                 <input type="submit" id="login" name="login" value="로그인"/>
-            </li>
+            </div>
 
 
-            <li><a href="/signup" id="gosignup" name="gosignup">회원가입</a></li>
-            <li><a href="/findIdForm" id="findId" name="findId" >아이디 찾기</a></li>
-            <li><a href="/findPasswordForm" id="findPasswd" name="findPasswd">비밀번호 찾기</a></li>
+            <div><a href="/signup" id="gosignup" name="gosignup">회원가입</a></div>
+            <div><a href="/findIdForm" id="findId" name="findId" >아이디 찾기</a></div>
+            <div><a href="/findPasswordForm" id="findPasswd" name="findPasswd">비밀번호 찾기</a></div>
 
-        </ul>
+        </table>
     </form>
 </div>
 </body>
