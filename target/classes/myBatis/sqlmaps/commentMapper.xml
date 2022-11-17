@@ -8,17 +8,13 @@
     <select id="commentList"
             parameterType="Integer"
             resultType="com.green.vo.CommentVo">
-            <![CDATA[
+
         SELECT
-                CASE WHEN GAP<= 60 then '방금전'
-                    WHEN GAP <= 60*24 THEN TRUNC(GAP / 60) '시간전'
-                    ELSE TO_CHAR (time, 'MM-DD')
             _id,
             username,
             time,
             content,
-            (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount,
-            TRUNC ( (SYSDATE - time)* 24 * 60) AS GAP
+            (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
             comment_tb
         WHERE
@@ -28,13 +24,13 @@
         Order BY _id DESC
         LIMIT #{displaypost},#{postnum}
     </select>
+
     <select id= "listCount"
                  resultType="int">
     SELECT COUNT(*) FROM comment_tb
     WHERE content_id = #{content_id}
     AND menu_id = #{menu_id}
 
-            ]]>
     </select>
     <!--코멘트 쓰기-->
     <insert id="writeComment">
