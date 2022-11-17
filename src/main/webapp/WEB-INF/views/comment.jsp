@@ -85,14 +85,13 @@
                                 + "</div>"
                                 + "<div class=\"commentBox\">"
                                 + "<span class=\"comWriter\">"
-                                + "<input type=\"text\" name=\"comWriter\" value=\'" + element.name + "\'>"
+                                + element.name
                                 + "</span>"
                             if(element.name == "${user.username}" ) {
                                 str=str
                                     +"<span class=\"buttonSpan\">"
-                                    + "<button class=\"commentDelBtn\" onClick=\"fnDelClick(" + element._id + ")\" > 삭제 </button>"
-
-                                    + "<button class=\"commentEditBtn\" onClick=\"fnEditClick(" + element._id + ")\" > 수정 </button>"
+                                    + "<button class=\"btn btn-outline-secondary\" onClick=\"fnDelClick(" + element._id + ")\" style=' font-size: 13px;width: 55px; height: 30px;'> 삭제 </button>"
+                                    + "<button class=\"btn btn-outline-secondary\" onClick=\"fnEditClick(" + element._id + ")\"style=' font-size: 13px;width: 55px; height: 30px;' > 수정 </button>"
                                     +"</span>"
                             }
 
@@ -105,13 +104,13 @@
                                 + "</li>"
                         })
                     //페이징
-                    paging+="<a href=\"javascript:void(0)\"class=\"page-link\">이전</a>"
+                    paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\"class=\"page-link\" id=\"prev\">이전</a></li>"
                           +"<span aria-hidden=\"true\"></span>"
                     for(let i=startPageNum; i<=endPageNum; i++){
                         paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+i+");\" return false; class=\"page-link\">"+i+"</a></li>"
                     }
-                    paging+="<span aria-hidden=\"true\"></span>"
-                          +"<a href=\"javascript:void(0)\"class=\"page-link\">다음</a>"
+                    paging+="<li class=\"page-item\"><span aria-hidden=\"true\"></span></li>"
+                          +"<a href=\"javascript:void(0)\"class=\"page-link\" id=\"next\">다음</a>"
                     console.log(paging);
                     document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
@@ -169,8 +168,8 @@
             updateform += "<textarea id=\"updateCommentInput\" name=\"updateCommentContent\" cols=\"80\" rows=\"3\">";
             updateform += content.textContent
             updateform += "</textarea>";
-            updateform += "<button class=\"commentUpdateBtn\" onClick=\"fnCommentUpdate(" + _id + ")\"> 수정 </button>";
-            updateform += "<button class=\"commentUpdateCancelBtn\" onClick= \"fnCommentUpdateCancel()\" > 취소 </button>";
+            updateform += "<button class=\"btn btn-outline-secondary\" onClick=\"fnCommentUpdate(" + _id + ")\"> 수정 </button>";
+            updateform += "<button class=\"btn btn-outline-secondary\" onClick= \"fnCommentUpdateCancel()\" > 취소 </button>";
             document.getElementById(_id).innerHTML = updateform;
         }
 
@@ -213,11 +212,14 @@
 
 </ul>
 <%--댓글페이징--%>
+<nav aria-label="Page navigation">
 <div class="center">
     <ul class="pagination" id="pagingBox">
 
     </ul>
 </div>
+</nav>
+
 
 
 
