@@ -80,7 +80,7 @@
                                 + "</span>"
                                 + " <br>"
                                 + "<span class=\"commentDate\">"
-                                + "<input type=\"text\" name=\"commentDate\" value=\'" +element.time + "\'>"
+                                + element.time
                                 + "</span>"
                                 + "</div>"
                                 + "<div class=\"commentBox\">"
@@ -96,8 +96,6 @@
                                     +"</span>"
                             }
 
-
-
                             str=str
                                 + "<div class=\"commentText\" id= \'" + element._id + "\' style= \"white-space:pre-wrap\" >"
                                 +  element.content
@@ -106,9 +104,14 @@
                                 + "</div>"
                                 + "</li>"
                         })
+                    //페이징
+                    paging+="<a href=\"javascript:void(0)\"class=\"page-link\">이전</a>"
+                          +"<span aria-hidden=\"true\"></span>"
                     for(let i=startPageNum; i<=endPageNum; i++){
-                        paging +=" <a href=\"javascript:void(0)\" onClick=\"fnCommentList("+i+");\" return false;>"+i+"</a>"
+                        paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+i+");\" return false; class=\"page-link\">"+i+"</a></li>"
                     }
+                    paging+="<span aria-hidden=\"true\"></span>"
+                          +"<a href=\"javascript:void(0)\"class=\"page-link\">다음</a>"
                     console.log(paging);
                     document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
@@ -205,12 +208,16 @@
 <br>
 <div class="commentCount"> 댓글 <span id = "count"></span></div>
 <br>
-
+<%--댓글리스트 출력부--%>
 <ul class="list-group list-group-flush" id="commentListBox">
 
 </ul>
+<%--댓글페이징--%>
+<div class="center">
+    <ul class="pagination" id="pagingBox">
 
-<div class="pagingBox" id="pagingBox"> </div>
+    </ul>
+</div>
 
 
 
@@ -221,13 +228,14 @@
     <input type="hidden" id="commName" name="username" value="${user.username}">
     <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
     <%--            <input type="hidden" id="commTime" name="time" value="">--%>
-    <textarea class="commentInput" id="commContent" name="content" cols="80" rows="3" ></textarea>
-    <div id="countNum">
+    <textarea class="commentInput" id="commContent" name="content" cols="70" rows="3" ></textarea>
+    <span class="regBtn">
+        <button type="submit" class="btn btn-secondary btn-lg" id= commentWriteButton > 등록</button>
+    </span>
+        <br>
+    <span id="countNum">
         ( 0/ 300)
-    </div>
-    <div class="regBtn">
-        <input type="submit" id= commentWriteButton value="등록">
-    </div>
+    </span>
     <%--            </form>--%>
 </div>
 

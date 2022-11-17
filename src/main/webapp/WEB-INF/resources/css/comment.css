@@ -1,14 +1,24 @@
+/* 댓글 리스트 */
+
 .list-group list-group-flush { width:600px; height: auto ; margin-left: auto; margin-right: auto;}
-.list-group-item { width:580px; padding-bottom: 20px; display: inline-block; border-top: solid gray;margin-left: auto; margin-right: auto;}
+.list-group-item { width:580px; padding-bottom: 20px; display: inline-block; border-top: solid gray; margin-left: auto; margin-right: auto;}
 div.commentIcon { float:left; width:50px; position : relative ;
     margin-top: auto ; margin-bottom: auto; margin-left:1px ;
     text-align: center;}
+span.commentDate{float:left; width: 50px; display: flex; flex-direction: column; font-size: 7px;}
 div.commentBox { float:right; width:480px; }
 div.commentText { width:600px; display: flex ; flex-direction: column; margin-top:2px;}
 span.comWriter > input { width:100px ; border:none; font-weight: 600; font-size: large;}
 span.buttonSpan{float:right; }
-div.commentInputBox{width:550px; margin-top:30px;}
-span.commentDate{float:right; width: 50px; display: flex; flex-direction: column;}
-span.commentDate > input { border:none; width: 50px; display: flex; flex-direction:  column;}
-textarea { width:600px; resize:none; }
-div.regBtn { float:right;}
+/*댓글 페이징*/
+.enter{width: 580px; margin-left: auto; margin-right: auto; text-align: center; }
+.pagination{width:300px; margin-left: auto; margin-right: auto; text-align: center; display : inline-block;}
+.page-item{text-align: center;}
+.page-link{text-align: center; }
+
+/*댓글 작성부*/
+.commentInputBox{width:580px; margin-top:30px; margin-left: auto; margin-right: auto;}
+.commentInput { resize:none; width: 520px;  height: 100px; margin-left: auto; margin-right: auto;}
+#commentWriteButton { width: 50px; height : 100px; float:right; margin-right : 0px; font-size: 10px;}
+.commentCount{float:left; margin-right: auto;}
+.commentInputBox{margin-left: auto; margin-right: auto;}
