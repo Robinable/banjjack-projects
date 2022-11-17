@@ -24,7 +24,7 @@
         Order BY _id DESC
         LIMIT #{displaypost},#{postnum}
     </select>
-
+<!--댓글숫자-->
     <select id= "listCount"
                  resultType="int">
     SELECT COUNT(*) FROM comment_tb

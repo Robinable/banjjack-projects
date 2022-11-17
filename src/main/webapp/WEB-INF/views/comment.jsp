@@ -34,15 +34,11 @@
         console.log("mi"+${param.menu_id});
 
         $(document).ready(function() {
-            fnCommentList(i);
+            fnCommentList(num);
         });
         //리스트조회
-        function fnCommentList(i) {
-            if (i == 0 ){
-                num = 1;
-             }else{
-                num = i;
-            }
+        function fnCommentList(num) {
+
             $("#commentListBox").empty();
             $("#pagingBox").empty();
             $.ajax({
@@ -104,20 +100,28 @@
                                 + "</li>"
                         })
                     //페이징
-                    paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\"class=\"page-link\" id=\"prev\">이전</a></li>"
-                          +"<span aria-hidden=\"true\"></span>"
-                    for(let i=startPageNum; i<=endPageNum; i++){
-                        paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+i+");\" return false; class=\"page-link\">"+i+"</a></li>"
+                    if (prev === true){
+                        paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+startPageNum -1 +");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
+                            +"<span aria-hidden=\"true\"></span>"
                     }
-                    paging+="<li class=\"page-item\"><span aria-hidden=\"true\"></span></li>"
-                          +"<a href=\"javascript:void(0)\"class=\"page-link\" id=\"next\">다음</a>"
+                    for(let num=startPageNum; num<=endPageNum; num++){
+                        if (select != num){
+                        paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+num+");\" return false; class=\"page-link\">"+num+"</a></li>"
+                         }else{
+                        paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" + \" return false; class=\"page-link\"><p>"+num+"</p></li>"
+                        }
+                        if (next === true) {
+                            paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + endPageNum +1 + ");\" return false; class=\"page-link\" id=\"prev\">다음</a></li>"
+                                + "<span aria-hidden=\"true\"></span>"
+                        }
+                    }
                     console.log(paging);
                     document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
                     document.getElementById('pagingBox').innerHTML += paging;
-                }
-            });
-        } //리스트조회
+                } //리스트조회
+            })
+        }
         //작성버튼
         $(document).ready(function() {
             $('#commentWriteButton').click(function () {
@@ -135,7 +139,7 @@
                     },
                     success: function (data) {
                         $("#commentListBox").empty();
-                        fnCommentList(i);
+                        fnCommentList(num);
                         $("#commContent").val('');
                         document.getElementById('countNum').innerHTML = '( 0/ 300)';
                     }
@@ -154,7 +158,7 @@
                 },
                 success: function (result) {
                     $("#commentListBox").empty();
-                    fnCommentList(1);
+                    fnCommentList(num);
                 }
             });
         } //삭제버튼
@@ -190,13 +194,13 @@
 
                 success: function (data) {
                     $("#commentListBox").empty();
-                    fnCommentList(i);
+                    fnCommentList(num);
                 }
             })
         }
         function fnCommentUpdateCancel(){
             $("#commentListBox").empty();
-            fnCommentList(i);
+            fnCommentList(num);
         }
 
     </script>
