@@ -13,10 +13,7 @@
 
 
     <style>
-       table, th, td {
-          border : 1px solid  #c0c0c0;
-          border-collapse : collapse;
-       }
+
         td                {padding:2px}
         td:nth-of-type(1) {width:75px;}
         td:nth-of-type(2) {width:70px;}
@@ -103,26 +100,34 @@
     <%@ include file="header.jsp"%>
 </head>
 <body style="background-color: white">
-<div id="view">
-<table>
+
+<div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+      <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+      <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
+      <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
+      <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+    </div>
+</div>
+
+<div id="view" class="layer">
+<table class="content">
   <tr>
-    <td id="tag">tag:</td>
+    <td id="tag" class="rounded-pill center">tag:</td>
   </tr>
   <tr>
-    <td> 제목 </td>
-    <td colspan="5"> <span id="title">title:</span> </td>
+    <td colspan="6" class="left border-bottom"> <h2> <span id="title" >title:</span> </h2> </td>
   </tr>
   <tr>
-    <td> 작성자 </td>
-    <td> <span id="username">username:</span> </td>
-    <td> 조회수 </td>
-    <td> <span id="readcount">readcount:</span> </td>
-    <td> 작성일 </td>
-    <td> <span id="time">time:</span> </td>
+    <td class="right border-bottom bg"> 작성자 : </td>
+    <td class="left border-bottom bg"> <span id="username">username:</span> </td>
+    <td class="right border-bottom bg"> 조회수 : </td>
+    <td class="left border-bottom bg"> <span id="readcount">readcount:</span> </td>
+    <td class="right border-bottom bg"> 작성일 : </td>
+    <td class="left border-bottom bg"> <span id="time">time:</span> </td>
   </tr>
   <tr>
-    <td> 내용 </td>
-    <td colspan="5"> <div id="content">content:</div> </td>
+    <td colspan="6" class="border-bottom"> <div id="content">content:</div> </td>
   </tr>
 </table>
 

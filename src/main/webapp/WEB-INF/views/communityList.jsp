@@ -105,7 +105,8 @@
 
     <table class="table" id="articleListBox" >
     </table>
-    <button id="communityWriteForm" onClick="location.href='communityWriteForm'" class="btn btn-primary"  style="float: right;" > 쓰기 </button>
+    <button id="communityWriteForm" onClick="location.href='/communityWriteForm'" class="btn btn-primary"  style="float: right;" > 쓰기 </button>
+    <a href="/communityWriteForm">글쓰기</a>
     <br>
 </form>
 
