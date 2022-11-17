@@ -1,13 +1,13 @@
 /* 댓글 리스트 */
 
-.list-group list-group-flush { width:600px; height: auto ; margin-left: auto; margin-right: auto;}
-.list-group-item { width:580px; padding-bottom: 20px; display: inline-block; border-top: solid gray; margin-left: auto; margin-right: auto;}
-div.commentIcon { float:left; width:50px; position : relative ;
+.list-group list-group-flush { width:700px; height: auto ; margin-left: auto; margin-right: auto;}
+.list-group-item { width:680px; padding-bottom: 20px; display: inline-block; border-top: solid gray; margin-left: auto; margin-right: auto;}
+div.commentIcon { float:left; width:80px; position : relative ;
     margin-top: auto ; margin-bottom: auto; margin-left:1px ;
     text-align: center;}
-span.commentDate{float:left; width: 50px; display: flex; flex-direction: column; font-size: 7px;}
-div.commentBox { float:right; width:480px; }
-div.commentText { width:600px; display: flex ; flex-direction: column; margin-top:2px; font-size: 15px;}
+span.commentDate{float:left; width: 80px; display: flex; flex-direction: column; font-size: 7px;}
+div.commentBox { float:right; width: 550px; }
+div.commentText { width:550px; display: flex ; flex-direction: column; margin-top:2px; font-size: 15px;}
 span.comWriter { width:100px ; border:none; font-weight: 600; font-size: 17px; padding-bottom:3px;}
 span.buttonSpan{float:right; }
 댓글 페이징
