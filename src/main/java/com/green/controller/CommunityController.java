@@ -69,8 +69,7 @@ public class CommunityController {
     @GetMapping("/getCommunityRead")
     @ResponseBody
     public List<JSONObject> getCommunityRead(@RequestParam int _id) {
-        int displaypost =page.getDisplaypost();
-        int postnum = page.getPostnum();
+
 
         List<JSONObject> getRead = new ArrayList<>();
         for(CommunityVo vo: communityService.readCommunity(_id)){
@@ -119,7 +118,7 @@ public class CommunityController {
 
     }
 
-    //수정폼세팅
+    //수정폼 변수세팅
     @GetMapping("/getCommunityUpdateForm")
     @ResponseBody
     public List<JSONObject> getcommunityUpdateForm(int _id){

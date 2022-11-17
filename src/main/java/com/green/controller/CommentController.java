@@ -32,7 +32,7 @@ public class CommentController {
 	@Autowired
 	CommentDao commentDao;
 
-	//댓글 리스트 호출
+
 	//댓글 jsp파일 호출
 	@GetMapping("/comment")
 
@@ -41,7 +41,7 @@ public class CommentController {
 		return "/comment";
 	}
 
-
+	//댓글 리스트 호출
 	@GetMapping("comment/commentList")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) throws ParseException {

@@ -29,7 +29,7 @@ public class TimeGap {
         //시간 차 구하기
         Date timeNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(thistime);
         Date incTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(time);
-        //기본적으로 밀리초이기 때문에 1000으로 나눠줌
+        //밀리초이기 때문에 1000으로 나눠줌
         int timeGapSec = (int)((Math.floor(timeNow.getTime())-Math.floor(incTime.getTime())))/1000;
         System.out.println(timeGapSec);
         // 결과값 변환 ( 60초 이내 , 60분 이내, 24시간 으로 구분)
