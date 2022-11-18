@@ -66,4 +66,26 @@ public class EventDaoImpl implements EventDao {
         List<EventVo> vo = sqlSession.selectList("Event.pasteventlist",map);
         return vo;
     }
+
+    @Override
+    public void writeevent(EventVo eventVo) {
+        sqlSession.insert("Event.writeevent",eventVo);
+    }
+
+    @Override
+    public EventVo selectCont(int _id) {
+        EventVo vo = sqlSession.selectOne("Event.selectCont",_id);
+        return vo;
+    }
+
+    @Override
+    public void readcntup(int _id) {
+        sqlSession.selectOne("Event.readcntup",_id);
+    }
+
+    @Override
+    public void eventupdate(EventVo eventVo) {
+        sqlSession.update("Event.eventupdate",eventVo);
+        System.out.println("확인:"+eventVo);
+    }
 }

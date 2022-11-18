@@ -28,7 +28,6 @@
         .layer            { text-align: center; }
         .layer .content   { display: inline-block; }
 
-
     </style>
 
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>

@@ -24,9 +24,6 @@
         .right            { text-align:right !important;}
         .layer            { text-align: center; }
         .layer .content   { display: inline-block; }
-
-
-
     </style>
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
 
@@ -43,8 +40,11 @@
     </div>
 </div>
 
+
 <table class="table" id="div1">
 </table>
+
+
 <div class="layer">
   <span class="content">
     <ul class="pagination">

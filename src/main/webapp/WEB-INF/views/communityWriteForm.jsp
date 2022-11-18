@@ -53,7 +53,7 @@
       });
     }
   </script>
-  <%@ include file="header.jsp"%>
+  <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 
 <body style="background-color: white">
@@ -79,7 +79,12 @@
   </td>
   <td >태그 : </td>
   <td>
-    <input type="text" id="tag" placeholder="태그" maxlength="20">
+    <select class="form-select" size="1" name="tag" id="tag">
+        <option name="info" value="0">선택하세요.</option>
+        <option name="info" value="1">test1</option>
+        <option name="info" value="2">test2</option>
+        <option name="info" value="3">test3</option>
+    </select>
   </td>
 </tr>
 <tr>

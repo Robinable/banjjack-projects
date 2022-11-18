@@ -86,7 +86,7 @@
             form.submit();
         }
     </script>
-    <%@ include file="header.jsp"%>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body style="background-color: white">
 
@@ -105,8 +105,7 @@
 
     <table class="table" id="articleListBox" >
     </table>
-    <button id="communityWriteForm" onClick="location.href='/communityWriteForm'" class="btn btn-primary"  style="float: right;" > 쓰기 </button>
-    <a href="/communityWriteForm">글쓰기</a>
+    <a href="/communityWriteForm" class="btn btn-primary" style="float: right;">글쓰기</a>
     <br>
 </form>
 

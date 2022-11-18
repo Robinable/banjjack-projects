@@ -50,6 +50,30 @@
         LIMIT #{displaypost}, #{postnum}
     </select>
 
+    <insert id="writeevent"
+            parameterType="com.green.vo.EventVo" useGeneratedKeys="true" keyProperty="_id">
+        INSERT INTO event_tb (content, title, writer, start_time, end_time, eventimage)
+        VALUES (#{content}, #{title}, #{writer}, #{start_time}, #{end_time}, #{eventimage})
+    </insert>
+
+    <select id="selectCont"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <update id="readcntup">
+        UPDATE event_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
+    <update id="eventupdate">
+        UPDATE event_tb
+        SET    title = #{title}, content =#{content}, start_time=#{start_time}, end_time=#{end_time}
+        WHERE  _id  = #{_id}
+    </update>
 
 
 

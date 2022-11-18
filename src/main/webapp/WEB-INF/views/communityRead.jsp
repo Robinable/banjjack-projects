@@ -97,7 +97,7 @@
             document.getElementById("UDButton").innerHTML += str2;
         }
     </script>
-    <%@ include file="header.jsp"%>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body style="background-color: white">
 

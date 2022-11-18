@@ -31,7 +31,6 @@ public class CommunityService {
     //쓰기
     public void writeCommunity(CommunityVo communityVo){
         communityDao.writeCommunity(communityVo);
-
     }
 
     //게시글조회

@@ -17,4 +17,12 @@ public interface EventDao {
     List<EventVo> noweventlist(LocalDate now, int displaypost, int postnum);
 
     List<EventVo> pasteventlist(LocalDate now, int displaypost, int postnum);
+
+    void writeevent(EventVo eventVo);
+
+    EventVo selectCont(int _id);
+
+    void readcntup(int _id);
+
+    void eventupdate(EventVo eventVo);
 }
