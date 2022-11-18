@@ -31,12 +31,14 @@
 </head>
 <body>
 
+
+
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
       <a  href="/list?category=1&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 개 </a>
       <a  href="/list?category=2&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 고양이 </a>
       <a  href="/list?category=3&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 기타 </a>
-      <a  href="/list?category=&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
+      <a  href="/list?category=0&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
     </div>
 </div>
 

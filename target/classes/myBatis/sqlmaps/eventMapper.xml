@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Event">
+
+
+    <select id="eventlist"
+            parameterType="hashMap"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+
+    <select id= "eventcount" resultType="int">
+        SELECT COUNT(_id) FROM event_tb
+    </select>
+
+
+    <select id= "noweventcount" resultType="int">
+        SELECT COUNT(_id) FROM event_tb where str_to_date(end_time, '%Y-%m-%d') >= str_to_date(#{now}, '%Y-%m-%d')
+    </select>
+
+
+    <select id= "pasteventcount" resultType="int">
+        SELECT COUNT(_id) FROM event_tb where str_to_date(#{now}, '%Y-%m-%d') > str_to_date(end_time, '%Y-%m-%d')
+    </select>
+
+    <select id="noweventlist"
+            parameterType="hashMap"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        where str_to_date(end_time, '%Y-%m-%d') >= str_to_date(#{now}, '%Y-%m-%d')
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+    <select id="pasteventlist"
+            parameterType="hashMap"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        where str_to_date(#{now}, '%Y-%m-%d') > str_to_date(end_time, '%Y-%m-%d')
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+    <insert id="writeevent"
+            parameterType="com.green.vo.EventVo" useGeneratedKeys="true" keyProperty="_id">
+        INSERT INTO event_tb (content, title, writer, start_time, end_time, eventimage)
+        VALUES (#{content}, #{title}, #{writer}, #{start_time}, #{end_time}, #{eventimage})
+    </insert>
+
+    <select id="selectCont"
+            resultType="com.green.vo.EventVo">
+        SELECT *
+        FROM event_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <update id="readcntup">
+        UPDATE event_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
+    <update id="eventupdate">
+        UPDATE event_tb
+        SET    title = #{title}, content =#{content}, start_time=#{start_time}, end_time=#{end_time}
+        WHERE  _id  = #{_id}
+    </update>
+
+
+
+
+
+</mapper>
