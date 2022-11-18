@@ -291,7 +291,13 @@ public class LoginController {
 
     // 회원탈퇴창
     @GetMapping("/leaveUserForm")
-    public String leaveUserForm() {
+    public String leaveUserForm(HttpSession session, Model model) {
+        UserVo user = (UserVo) session.getAttribute("login");
+        String username = user.getUsername();
+        String userpassword = userService.idUsername(username);
+        model.addAttribute("username", username);
+        model.addAttribute("userpassword", userpassword);
+
         return "/leaveUser";
     }
 
@@ -303,6 +309,8 @@ public class LoginController {
                             Model model) throws Exception {
         // 비밀번호 일치 확인
         String loginCk = userService.loginPasswordCheck(username);
+        // 아이디 확인
+//        String idCk = userService.loginIdCheck(userpassword);
 
         String returnURL = "";
         // 일치한다면
@@ -314,8 +322,7 @@ public class LoginController {
 
             // map으로 userVO를 불러와서 leaveUser에 insert
             UserVo userVo = userService.selectUserInfo(map);
-            System.out.println(userVo);
-           leaveUserService.insertLeaveUser(userVo);
+            leaveUserService.insertLeaveUser(userVo);
 
             // 세션 초기화
             session.removeAttribute("login");
@@ -323,12 +330,12 @@ public class LoginController {
 
             returnURL = "redirect:/";
 
-
-
             // 일치하지 않으면
         } else {
+
             model.addAttribute("message", "error");
             returnURL = "/leaveUser";
+
         }
         return returnURL;
 
@@ -392,7 +399,14 @@ public class LoginController {
         String UserprofileImg = profileService.getUserProfile(username);
         return UserprofileImg;
     }
-
+    /*
+     * 내가 해야될것
+     * vo에 있는 username이랑 같은 유저네임일때 profildata를 반환하고 싶음
+     *
+     *
+     *
+     *
+     * */
 
 
 }

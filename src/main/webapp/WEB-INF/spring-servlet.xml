@@ -73,19 +73,6 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-
-            <mvc:exclude-mapping path="/login"/>
-            <mvc:exclude-mapping path="/login/loginCheck"/>
-            <mvc:exclude-mapping path="/signup"/>
-            <mvc:exclude-mapping path="/signup/register"/>
-            <mvc:exclude-mapping path="/findIdForm"/>
-            <mvc:exclude-mapping path="/findId"/>
-            <mvc:exclude-mapping path="/findIdSuccess"/>
-            <mvc:exclude-mapping path="/findPasswordForm"/>
-            <mvc:exclude-mapping path="/findPasswd"/>
-            <mvc:exclude-mapping path="/findPasswdSuccess"/>
-            <mvc:exclude-mapping path="/findPasswdUpdate"/>
-            <mvc:exclude-mapping path="/passwdUpdateSuccess"/>
             <mvc:exclude-mapping path="/img/**"/>
             <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/files/**"/>

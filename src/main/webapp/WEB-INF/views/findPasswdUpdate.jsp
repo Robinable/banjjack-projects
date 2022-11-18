@@ -60,7 +60,7 @@
 
             form.addEventListener('submit', function(e) {
                 const userpassword = document.getElementById('userpassword');
-                const re_userpassword = document.getElementById('re_userpassword');
+                const repasswd = document.getElementById('repasswd');
 
                 if(userpassword.value == '') {
                     e.preventDefault();
@@ -112,17 +112,17 @@
 
 
 
-    // 비밀번호 유효성 검사
-    function passwordCheck(userpassword) {
-        // 비밀번호 정규식
-        // 비밀번호: 영문대소문자/숫자/특수문자 각각 한개 이상 조합
-        const pwVaildation = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
-        if(!pwVaildation.test(userpassword.trim())) {
-            $('#pwCheck').text('비밀번호는 영문 대소문자와 숫자, 특수문자의 조합으로 입력해주세요.').css('color', 'red').css('font-size', '14px');
-        } else {
-            $('#pwCheck').text('');
+        // 비밀번호 유효성 검사
+        function passwordCheck(userpassword) {
+            // 비밀번호 정규식
+            // 비밀번호: 영문대소문자/숫자/특수문자 각각 한개 이상 조합
+            const pwVaildation = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[$@$!%*?&*-])[A-Za-z\d$@$!%*?&*-]{8,21}$/g;
+            if(!pwVaildation.test(userpassword.trim())) {
+                $('#pwCheck').text('비밀번호는 영문 대소문자와 숫자, 특수문자의 조합으로 입력해주세요.').css('color', 'red').css('font-size', '14px');
+            } else {
+                $('#pwCheck').text('');
+            }
         }
-    }
 
 
     </script>
@@ -131,7 +131,7 @@
 </head>
 <body>
 <div class="findPasswdUpdateForm">
-<h2 class="findPasswUpdatelabel">비밀번호 재설정</h2>
+    <h2 class="findPasswUpdatelabel">비밀번호 재설정</h2>
     <hr />
     <form action="/passwdUpdateSuccess" method="POST" id="form1" name="form1">
         <div class="con">

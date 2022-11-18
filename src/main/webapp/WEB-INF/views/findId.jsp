@@ -70,36 +70,37 @@
             $('#useremailCheck').html('아이디: ${username}').css('font-size', '18px');
 
 
-    } // window.load end
+        } // window.load end
 
-</script>
+    </script>
 
 
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
-<div class="findIdForm">
-    <h2 class="findIdlabel">아이디 찾기</h2>
-    <hr />
-    <form action="/findIdSuccess" method="POST" id="form1" name="form1">
-        <div class="con">
-            <div><label>가입하신 이메일을 입력해주세요!</label></div>
-            <div class="span1"><span id="useremailCheck"></span></div>
-            <div><input type="text" id="useremail" name="useremail"/></div>
-            <div><input type="submit" class="btn btn-primary" id="searchID" name="searchID" value="검색"/></div>
-            <div>
-                <c:if test="${message == 'error'}">
-                    <div class="error" style="color:red;">잘못된 입력입니다. 다시 입력해주세요.</div>
-                </c:if>
-            </div>
-            <div>
-                <a href="/findPasswordForm" id="findPassword">비밀번호찾기</a>
-                <a href="/login" id="goLogin">로그인</a>
-            </div>
+    <div class="findIdForm">
+        <h2 class="findIdlabel">아이디 찾기</h2>
+        <hr />
+        <form action="/findIdSuccess" method="POST" id="form1" name="form1">
+            <div class="con">
+                <div><label>가입하신 이메일을 입력해주세요!</label></div>
+                <div class="span1"><span id="useremailCheck"></span></div>
+                <div><input type="text" id="useremail" name="useremail"/></div>
+                <div><input type="submit" class="btn btn-primary" id="searchID" name="searchID" value="검색"/></div>
+                <div>
+                    <c:if test="${message == 'error'}">
+                        <div class="error" style="color:red;">잘못된 입력입니다. 다시 입력해주세요.</div>
+                    </c:if>
+                </div>
+                <div>
+                    <a href="/findPasswordForm" id="findPassword">비밀번호찾기</a>
+                    <span>⏐</span>
+                    <a href="/login" id="goLogin">로그인</a>
+                </div>
 
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
 </main>
 </body>
 </html>

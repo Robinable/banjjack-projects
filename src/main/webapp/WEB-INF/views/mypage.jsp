@@ -4,98 +4,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>마이페이지</title>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
 
-<style>
-    *     { box-sizing:border-box;  }
+    <style>
+        *     { box-sizing:border-box;  }
 
-    body  { text-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;}
+        body  { text-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;}
 
-    main {
-        display: block;
-    }
+        main {
+            display: block;
+        }
 
-    .myPageForm { width:600px; margin:0 auto; }
+        .myPageForm { width:600px; margin:0 auto; }
 
-    .img { margin-bottom: 3px; }
+        .img { margin-bottom: 3px; }
 
-    button {
+        button {
 
-        font-size: 14px;
-        border: 1px solid grey;
-        border-radius: 5px;
-        padding: 5px;
-        margin-top: -1px;
-        margin-bottom: 10px;
-
-
-    }
-
-    .myPageForm select {
-        border: 1px solid grey;
-        border-radius: 5px;
-        padding: 5px;
-        margin: 5px;
-    }
-
-    .myPageForm input {
-
-        border: 1px solid grey;
-        border-radius: 5px;
-
-        padding: 10px;
-        margin: 5px;
-
-    }
+            font-size: 14px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: -1px;
+            margin-bottom: 10px;
 
 
-    div  { width: 100%; text-align: center; padding: 0;}
+        }
+
+        .myPageForm select {
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .myPageForm input {
+
+            border: 1px solid grey;
+            border-radius: 5px;
+
+            padding: 10px;
+            margin: 5px;
+
+        }
 
 
-    a { text-decoration: none; font-size: 16px; }
-
-    div:nth-child(n+10):nth-child(-n+12) { display: inline; }
-
-    .con { width:100% }
-
-    #form1 { width:100%; }
-    input { width: 50%; }
-    #btnUpdate { border: 1px solid; margin-top: 20px; margin-bottom: 30px; width: 20%; }
-
-    hr  {  margin-bottom:70px; }
+        div  { width: 100%; text-align: center; padding: 0;}
 
 
-    .mypagelabel { margin-top: 50px; }
+        a { text-decoration: none; font-size: 16px; }
+
+        div:nth-child(n+10):nth-child(-n+14) { display: inline; }
+
+        .con { width:100% }
+
+        #form1 { width:100%; }
+        input { width: 50%; }
+        #btnUpdate { border: 1px solid; margin-top: 20px; margin-bottom: 30px; width: 20%; }
+
+        hr  {  margin-bottom:70px; }
 
 
-    #preview { width: 150px; height: 150px; border-radius: 40px;}
-
-    .myPageForm label { margin: 0 auto; text-align: center; padding: 10px; }
-
-    .myPageForm #usergugun { margin-left: 57px; }
-
-    .myPageForm #username { margin-left: 20px; }
-
-    .myPageForm #userpet { margin-left: -10px; width: 300px; margin-right: 41px; }
-
-    .myPageForm #selectPet { height: 46px; }
-
-    .myPageForm .idlavel { margin-left: 8px; margin-right: -10px;}
+        .mypagelabel { margin-top: 50px; }
 
 
+        #preview { width: 150px; height: 150px; border-radius: 40px;}
+
+        .myPageForm label { margin: 0 auto; text-align: center; padding: 10px; }
+
+        .myPageForm #usergugun { margin-left: 57px; }
+
+        .myPageForm #username { margin-left: 20px; }
+
+        .myPageForm #userpet { margin-left: -10px; width: 300px; margin-right: 41px; }
+
+        .myPageForm #selectPet { height: 46px; }
+
+        .myPageForm .idlavel { margin-left: 8px; margin-right: -10px;}
 
 
-</style>
+
+
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
 
         window.onload = function() {
             const form = document.querySelector('form');
+            const text = $('unicknameCheck').text('');
             form.addEventListener('submit', function(e) {
                 if(usernickname.value == '') {
                     e.preventDefault();
@@ -117,21 +118,26 @@
                     alert('반려동물을 입력해주세요.');
                     userpet.focus();
 
-                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.' || $('#unicknameCheck').text() != '') {
+                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.' && $('#unicknameCheck').text().length != 0 && usernickname.value > 2) {
+                    console.log( $('#unicknameCheck').text().length);
+                    e.preventDefault();
                     alert('닉네임 형식이 올바르지 않습니다.');
                     usernickname.value = '';
                     usernickname.focus();
-                    e.preventDefault();
+
                 } else {
-                    alert('회원수정이 완료되었습니다.');
+                    let result = confirm('회원정보를 수정하시겠습니까?');
+                    if(result == true) {
+                        alert('회원수정이 완료되었습니다.');
+                    } else {
+                        e.preventDefault();
+                        location.reload();
+                    }
+
                 }
 
 
             }) // form event end
-
-
-
-
 
 
             // 이미지 업로드 버튼 이벤트 (이미지 미리보기)
@@ -140,16 +146,15 @@
             });
 
 
+            $('usernickname').on('')
 
-            $('#usernickname').on('change keydown', function() {
+            $('#usernickname').on('change keyup', function() {
                 const usernickname = document.getElementById('usernickname').value.length;
                 if(usernickname >= 2) {
                     nicknameCheck(document.getElementById('usernickname').value)
                 } else if(usernickname < 2 && usernickname > 0) {
                     $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요.').css('color', 'red').css('font-size', '14px');
                 } else if(usernickname == 0) {
-                    $('#unicknameCheck').text('');
-                } else {
                     $('#unicknameCheck').text('');
                 }
             });
@@ -163,19 +168,19 @@
 
                 if($('#selectPet').val() == '기타') {
                     $('#userpet').attr('value', '');
-                    $('#userpet').removeAttr('disabled');
+                    $('#userpet').removeAttr('readonly');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
 
                 if($('#selectPet').val() == '반려동물') {
                     $('#userpet').attr('value', '');
-                    $('#userpet').attr('disabled', 'disabled');
+                    $('#userpet').attr('readonly', 'readonly');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
 
                 if($('#selectPet').val() == '개' || $('#selectPet').val() == '고양이') {
                     $('#userpet').attr('placeholder', '');
-                    $('#userpet').removeAttr('disabled');
+                    $('#userpet').removeAttr('readonly');
                     $('#userpet').attr('value', $('#selectPet').val());
 
                 }
@@ -296,54 +301,56 @@
         });
 
 
-</script>
+    </script>
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
-<div class="myPageForm">
-    <h2 class="mypagelabel">마이페이지</h2>
-    <hr />
-    <form action="/myPageSuccess" method="POST" id="form1" enctype="multipart/form-data" attribute>
-        <div class="con">
-            <span id="test"></span>
-            <div>
-                <input type='file' class="img" id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
-                       style="display: none;"/></div><br>
+    <div class="myPageForm">
+        <h2 class="mypagelabel">마이페이지</h2>
+        <hr />
+        <form action="/myPageSuccess" method="POST" id="form1" enctype="multipart/form-data" attribute>
+            <div class="con">
+                <span id="test"></span>
+                <div>
+                    <input type='file' class="img" id="profile_img" accept=".jpg, .png, .jpeg" name="profile_img" onchange="readURL(this);"
+                           style="display: none;"/></div><br>
                 <button type="button" id="btnUpload">업로드</button>
-            <div>
-                <label class="idlavel">ID</label>
-                <input type="text" id="username" name="username" placeholder="아이디" value="${user.username}" readonly><br>
-                <span id="unameCheck"></span>
-            </div>
-            <div>
-                <label>이름</label>
-                <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" value="${user.usernickname}"><br>
-                <span id="unicknameCheck"></span>
-            </div>
-            <div>
-                <label>지역</label>
-                <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)" value="${user.usersido}"/>
-                <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)" value="${user.usergugun}"/>
-                <span id="localCheck"></span>
-            </div>
-            <div>
-                <select id="selectPet" name="selectPet" >
-                    <option value="반려동물" selected>반려동물</option>
-                    <option value="고양이">고양이</option>
-                    <option value="개">개</option>
-                    <option value="기타">기타</option>
-                </select>
-                <input type="text" id="userpet" name="userpet" value="${user.userpet}" placeholder=""/>
-                <span id="petCheck"></span>
-            </div>
+                <div>
+                    <label class="idlavel">ID</label>
+                    <input type="text" id="username" name="username" placeholder="아이디" value="${user.username}" readonly><br>
+                    <span id="unameCheck"></span>
+                </div>
+                <div>
+                    <label>이름</label>
+                    <input type="text" id="usernickname" name="usernickname" placeholder="닉네임" maxlength="15" value="${user.usernickname}"><br>
+                    <span id="unicknameCheck"></span>
+                </div>
+                <div>
+                    <label>지역</label>
+                    <input type="text" id="usersido" name="usersido" placeholder="지역(시/도)" value="${user.usersido}"/>
+                    <input type="text" id="usergugun" name="usergugun" placeholder="지역(구/군/동/읍/면/리)" value="${user.usergugun}"/>
+                    <span id="localCheck"></span>
+                </div>
+                <div>
+                    <select id="selectPet" name="selectPet" >
+                        <option value="반려동물" selected>반려동물</option>
+                        <option value="고양이">고양이</option>
+                        <option value="개">개</option>
+                        <option value="기타">기타</option>
+                    </select>
+                    <input type="text" id="userpet" name="userpet" value="${user.userpet}" placeholder=""/>
+                    <span id="petCheck"></span>
+                </div>
 
-            <div><input type="submit"  class="btn btn-primary" id="btnUpdate" name="btnUpdate" value="수정"/></div>
-            <div><a href="/" id="cancleUpdate">취소</a></div>
-            <div><a href="/myPagePasswdForm" id="goMyPagePasswd">비밀번호변경</a></div>
-            <div><a href="/leaveUserForm" id="goLeave" name="goLeave">회원탈퇴</a></div>
-        </div>
-    </form>
-</div>
+                <div><input type="submit"  class="btn btn-primary" id="btnUpdate" name="btnUpdate" value="수정"/></div>
+                <div><a href="/" id="cancleUpdate">취소</a></div>
+                <div><span>⏐</span></div>
+                <div><a href="/myPagePasswdForm" id="goMyPagePasswd">비밀번호변경</a></div>
+                <div><span>⏐</span></div>
+                <div><a href="/leaveUserForm" id="goLeave">회원탈퇴</a></div>
+            </div>
+        </form>
+    </div>
 </main>
 </body>
 </html>

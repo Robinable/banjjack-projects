@@ -77,27 +77,27 @@
 
 
 
-</script>
+    </script>
 </head>
 <body>
 <main class="form-signin w-100 m-auto">
-<div class="findPasswdForm">
-    <h2 class="findPasswdlabel">비밀번호 찾기</h2>
-    <hr />
-    <form action="/findPasswdSuccess" method="POST" id="form1" name="form1">
-        <div class="con">
-            <div class="label1"><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요!</label></div>
-            <div><input type="text" id="username" name="username" placeholder="아이디"/></div>
-            <div><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></div>
-            <div>
-                <c:if test="${message == 'error'}">
-                    <div class="error" style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>
-                </c:if>
+    <div class="findPasswdForm">
+        <h2 class="findPasswdlabel">비밀번호 찾기</h2>
+        <hr />
+        <form action="/findPasswdSuccess" method="POST" id="form1" name="form1">
+            <div class="con">
+                <div class="label1"><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요!</label></div>
+                <div><input type="text" id="username" name="username" placeholder="아이디"/></div>
+                <div><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></div>
+                <div>
+                    <c:if test="${message == 'error'}">
+                        <div class="error" style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>
+                    </c:if>
+                </div>
+                <div><input type="submit" class="btn btn-primary" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></div>
             </div>
-            <div><input type="submit" class="btn btn-primary" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </main>
 </body>
 </html>
