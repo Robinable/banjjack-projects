@@ -392,14 +392,7 @@ public class LoginController {
         String UserprofileImg = profileService.getUserProfile(username);
         return UserprofileImg;
     }
-    /*
-    * 내가 해야될것
-    * vo에 있는 username이랑 같은 유저네임일때 profildata를 반환하고 싶음
-    *
-    *
-    *
-    *
-    * */
+
 
 
 }
