@@ -82,7 +82,7 @@
     </script>
 </head>
 <body>
-
+<div class="container">
 
 <section>
     <div>
@@ -156,6 +156,6 @@
         $('#adminlist').css('display','none');
     }
 </script>
-
+</div>
 </body>
 </html>

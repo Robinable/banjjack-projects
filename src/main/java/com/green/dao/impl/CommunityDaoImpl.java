@@ -20,8 +20,14 @@ public class CommunityDaoImpl implements CommunityDao {
     SqlSession sqlSession;
     @Override
     public List<CommunityVo> getCommunityList(Map<String, Object> map) {
-        List<CommunityVo> communityList
-                = sqlSession.selectList("Community.communityList", map);
+        List<CommunityVo> communityList;
+
+        System.out.println("tag" + map.get("tag"));
+        if(map.get("tag").equals("100")) {
+            communityList = sqlSession.selectList("Community.getTop10", map);
+        } else {
+                communityList = sqlSession.selectList("Community.communityList", map);
+        }
 
         return communityList;
     }

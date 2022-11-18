@@ -36,7 +36,7 @@
 
         function fnCommunityList() {
             $.ajax({
-                url: "/getCommunityList",
+                url: "/getCommunityList?tag=${tag}",
                 data: {"num" : num},
                 dataType:"json",
                 type: "get",
@@ -45,6 +45,7 @@
                     alert("실패");
                 },
                 success: function (data) {
+                console.log(data)
                     let str = "";
                     str += "<table class=\"elist\" >"
                         + "<thead>"
@@ -58,16 +59,20 @@
                         + "</thead>"
                         + '<tbody class="table-group-divider">'
                     $.each(data, function (index, element) {
-                        str +=
-                            "<table class=\"elist\" >"
-                            +"<tr>"
-                            +"<td> "+ element.tag +"</td>"
-                            +"<td style=\'cursor:pointer\' onclick=\'communityRead(" + element._id +")\'> "+ element.title +" [ "+element.commentcount+"] </td>"
-                            +"<td> "+ element.username +"</td>"
-                            +"<td> "+ element.time + "</td>"
-                            +"<td> "+ element.readcount +"</td>"
-                            +"</tr>"
-                            +"</table>"
+                        str += "<table class=\"elist\" >"
+                        str += "<tr>"
+                        if(element.tag == 1) {
+                            str += "<td>자유</td>" }
+                        else if(element.tag == 2) {
+                            str += "<td>자랑</td>" }
+                        else if(element.tag == 3) {
+                            str += "<td>질문</td>" }
+                        str += "<td style=\'cursor:pointer\' onclick=\'communityRead(" + element._id +")\'> "+ element.title +" ["+element.commentcount+"] </td>"
+                        str += "<td> "+ element.username +"</td>"
+                        str += "<td> "+ element.time + "</td>"
+                        str += "<td> "+ element.readcount +"</td>"
+                        str += "</tr>"
+                        str += "</table>"
                     })
                     console.log(str);
                     document.getElementById('articleListBox').innerHTML += str;
@@ -83,13 +88,14 @@
 
 </head>
 <body style="background-color: white">
-
+<div class="container">
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-        <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
-        <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
-        <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
-        <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+        <a  href="/communityList?tag=100" class="btn btn-outline-primary"> 인기글 </a>
+        <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
+        <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
+        <a  href="/communityList?tag=2" class="btn btn-outline-primary">반려자랑 </a>
+        <a  href="/communityList?tag=3" class="btn btn-outline-primary"> 질문게시판 </a>
     </div>
 </div>
 
@@ -141,6 +147,7 @@
     <%--        UserVo se = (UserVo) session.getAttribute("login");--%>
     <%--        out.print(se);--%>
     <%--    %>--%>
+</div>
 </div>
 </body>
 

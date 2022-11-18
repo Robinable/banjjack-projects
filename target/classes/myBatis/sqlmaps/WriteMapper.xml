@@ -50,7 +50,7 @@
         SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step,
         (select count(*) from comment_tb where content_id = c._id and menu_id = ${menu_id})replycnt
         FROM content_tb c
-        <if test="category != null and category != ''">
+        <if test="category != 0 and category != ''">
             WHERE
             category = #{category}
         </if>
@@ -58,18 +58,11 @@
         LIMIT #{displaypost},#{postnum}
     </select>
 
-    <!-- 댓글 갯수 -->
-    <select id="commentCount"
-            resultType="com.green.vo.FileVo">
-        SELECT content_id
-        FROM   comment_tb
-        WHERE  content_id = #{_id}
-    </select>
 
     <!-- 페이징 -->
     <select id= "listCount" resultType="int">
         SELECT COUNT(_id) FROM content_tb
-        <if test="category != null and category != ''">
+        <if test="category != 0 and category != ''">
             WHERE
             category = #{category}
         </if>

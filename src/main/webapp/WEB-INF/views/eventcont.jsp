@@ -5,9 +5,35 @@
 <head>
     <meta charset="UTF-8">
     <title>이벤트 내용보기</title>
-    <link rel="stylesheet" href="/css/message.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <%@ include file="header.jsp"%>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
+    <style>
+
+        a                 { text-decoration-line: none; color: black; }
+        .left             { text-align:left !important;}
+        .center           { text-align:center !important;}
+        .right            { text-align:right !important;}
+        .layer            { text-align: center; width:100%; height: 700px; }
+        .layer .content   { display: inline-block; height:500px;}
+        .textarea         { height:300px; resize:none; border-radius: 8px;}
+        ul                { list-style: none;}
+        li                { margin:10px;}
+        .flex-container{
+
+            display: inline-flex;
+        }
+        .flex-item{
+            margin: 4px;
+
+            text-align: center;
+        }
+
+        li div.flex-item:nth-child(2) {
+           width: 300px;
+        }
+
+
+    </style>
+
     <script>
 
 
@@ -32,10 +58,14 @@
                 console.log(writer)
 
 
-                document.getElementById("time").innerHTML = start_time+'~'+end_time
+                document.getElementById("time").innerHTML = start_time+' ~ '+end_time
                 document.getElementById("title").value = title
-                document.getElementById("cont").innerHTML = content
+                document.getElementById("title").innerHTML = title
+                document.getElementById("content").value = content
+                document.getElementById("content").innerHTML = content
                 document.getElementById("_id").value = _id
+                document.getElementById("writer").value = writer
+                document.getElementById("writer").innerHTML = writer
             })
             .fail(function(error, textStatus, errorThrown ) {
                 console.log ( error );
@@ -46,38 +76,29 @@
     </script>
 </head>
 <body>
+<div class="container">
 <section>
-    <div id="main_content">
-        <div id="message_box">
-            <h3 id="write_title">이벤트 내용보기</h3>
-
-
-            <ul class="top_buttons">
-                <li><a href="/eventlistform">이벤트 목록</a></li>
-
-            </ul>
+    <div>
+        <div>
+            <h3 class="center">이벤트 내용보기</h3>
             <form action="/eventupdateForm" method ="GET" name = "message_form" id="a">
             <input type="hidden" id ="_id" name="_id">
-                <div id="write_msg">
-                    <ul>
+                <div class="layer">
+                    <ul class="content">
                         <li>
-                            <span class="col1">작성자 : </span>
-                            <span class="col2"><div id="writer">${user.username}</div></span>
+                            <h2 id="title" class="left"></h2>
                         </li>
-                        <li>
-                            <span class="col1">이벤트 기간 : </span>
-                            <span class="col2"><div id="time"></div></span>
+                        <li class="left flex-container border-bottom border-top">
+                            <div class="flex-item left">작성자 :</div>
+                            <div class="flex-item left" id="writer"></div>
+                            <div class="flex-item right">이벤트 기간 : </div>
+                            <div class="flex-item left" id="time"></div>
                         </li>
-                        <li>
-                            <span class="col1">제목 : </span>
-                            <span class="col2"><input type='text' id="title" readonly></span>
+                        <li class="left textarea border-bottom">
+                            <div id="content"></div>
                         </li>
-                        <li id="textarea">
-                            <span class="col1">내용 : </span>
-                            <span class="col2"><textarea name="content" id = "cont" readonly ></textarea></span>
-                        </li>
+                        <li class="right"> <input type="submit" value="수정(관리자용)" id="adminlist" class="btn btn-primary"> <a href="/eventlistform" class="btn btn-primary">이벤트 목록</a></li>
                     </ul>
-                    <input type="submit" value="수정(관리자용)" id="adminlist">
                 </div>
             </form>
         </div>
@@ -90,6 +111,6 @@ if('${user.role}' != 'ADMIN'){
                 $('#adminlist').css('display','none');
                 }
 </script>
-
+</div>
 </body>
 </html>

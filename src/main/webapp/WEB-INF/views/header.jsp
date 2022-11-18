@@ -103,7 +103,7 @@ function onMessage(evt){
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="/noticeList" class="nav-link px-2 link-secondary">새소식</a></li>
             <li><a href="/list?category=&num=1&menu_id=0" class="nav-link px-2 link-dark">반짝찾기</a></li>
-            <li><a href="/communityList" class="nav-link px-2 link-dark">커뮤니티</a></li>
+            <li><a href="/communityList?tag=0" class="nav-link px-2 link-dark">커뮤니티</a></li>
             <li><a href="/information" class="nav-link px-2 link-dark">정보</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">고객센터</a></li>
           </ul>

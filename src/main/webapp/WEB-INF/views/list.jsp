@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판</title>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <style>
         table             {margin:100px auto;}
@@ -23,7 +24,6 @@
         .layer .content   { display: inline-block; }
     </style>
 
-    <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body>
 <div class="container">
@@ -32,7 +32,7 @@
         <a  href="/list?category=1&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 개 </a>
         <a  href="/list?category=2&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 고양이 </a>
         <a  href="/list?category=3&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 기타 </a>
-        <a  href="/list?category=&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
+        <a  href="/list?category=0&num=1&menu_id=${menu_id}" class="btn btn-outline-primary"> 전체 </a>
     </div>
 </div>
 
@@ -134,13 +134,13 @@
                     var space = lvl * 20
                     html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '" style="padding-left:'+space+'px">[답글]' + title;
                     if(replycnt >0) {
-                        html += '<b>&nbsp('+replycnt+')</b>';
+                        html += '&nbsp['+replycnt+']';
                     }
                     html += '</a> </td>';
                 } else {
                     html += '<td> <a href="/viewform?_id=' + _id + '&category=' + category + '">' +  title  ;
                     if(replycnt >0) {
-                        html += '<b>&nbsp('+replycnt+')</b>';
+                        html += '&nbsp['+replycnt+']';
                     }
                     html += '</a> </td>';
                 }

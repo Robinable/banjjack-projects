@@ -32,13 +32,14 @@ public class CommunityController {
     //리스트획득
     @GetMapping("/getCommunityList")
     @ResponseBody
-    public List<JSONObject> getCommunityList() {
+    public List<JSONObject> getCommunityList(@RequestParam String tag) {
         int displaypost =page.getDisplaypost();
         int postnum = page.getPostnum();
+        System.out.println(tag);
 
 
         List<JSONObject> getList = new ArrayList<>();
-        for(CommunityVo vo : communityService.getCommunityList(displaypost, postnum)) {
+        for(CommunityVo vo : communityService.getCommunityList(displaypost, postnum, tag)) {
             JSONObject obj = new JSONObject();
             obj.put("_id", vo.get_id());
             obj.put("username", vo.getUsername());
@@ -53,7 +54,7 @@ public class CommunityController {
     }
     //리스트출력
     @GetMapping("/communityList")
-    public String CommunityList(Model model, @RequestParam(defaultValue = "1") int num){
+    public String CommunityList(Model model, @RequestParam(defaultValue = "1") int num, @RequestParam String tag){
 
         page.setNum(num);
         page.setCount(communityService.listCount());
@@ -62,7 +63,7 @@ public class CommunityController {
         model.addAttribute("page", page);
         model.addAttribute("select", num);
         model.addAttribute("num", num);
-        System.out.println("머");
+        model.addAttribute("tag", tag);
         return "/communityList";
     }
     //게시글 조회

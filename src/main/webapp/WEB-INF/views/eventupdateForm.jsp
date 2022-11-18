@@ -5,8 +5,39 @@
 <head>
     <meta charset="UTF-8">
     <title>이벤트 내용수정</title>
-    <link rel="stylesheet" href="/css/message.css">
-    <%@ include file="header.jsp"%>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
+
+    <style>
+
+        a                 { text-decoration-line: none; color: black; }
+        .left             { text-align:left !important;}
+        .center           { text-align:center !important;}
+        .right            { text-align:right !important;}
+        .layer            { text-align: center; width:100%; height: 700px; }
+        .layer .content   { display: inline-block; height:500px;}
+        .textarea         { height:400px; width:100%; resize:none; border-radius: 8px;}
+        input[type=text]  {border:1px solid; width:100%; height:30px; border-radius: 8px;}
+        ul                { list-style: none;}
+        li                { margin:5px;}
+        .flex-container{
+            width: 800px;
+            display: inline-flex;
+        }
+        .flex-item{
+            margin: 4px;
+            text-align: center;
+        }
+        li div.flex-item:nth-child(2) {
+            width: 180px;
+        }
+        li div.flex-item:nth-child(4) {
+            width: 200px;
+        }
+
+
+
+    </style>
+
     <script>
 
 
@@ -20,6 +51,7 @@
                 console.log( result );
                 var resultStr = JSON.stringify( result ); // JSOn -> string
 
+
                 var _id = result[0]._id
                 var writer = result[0].writer
                 var title = result[0].title
@@ -28,11 +60,12 @@
                 var end_time = result[0].end_time
                 var readcount = result[0].readcount
                 var eventimage = result[0].eventimage
+                result = content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
 
                 document.getElementById("start_time").value = start_time
                 document.getElementById("end_time").value = end_time
                 document.getElementById("title").value = title
-                document.getElementById("cont").innerHTML = content
+                document.getElementById("cont").innerHTML = result
                 document.getElementById("_id").value = _id
             })
             .fail(function(error, textStatus, errorThrown ) {
@@ -44,39 +77,37 @@
     </script>
 </head>
 <body>
+<div class="container">
 <section>
-    <div id="main_content">
-        <div id="message_box">
-            <h3 id="write_title">이벤트 내용 수정</h3>
+    <div>
+        <div>
+            <h3 class="center">이벤트 내용 수정</h3>
 
-
-            <ul class="top_buttons">
-                <li><a href="/eventlistform">이벤트 목록</a></li>
-
-            </ul>
             <form action="/eventupdate" method ="post">
-                <input type="hidden" id="_id" name="_id">
-                <div id="write_msg">
-                    <ul>
-                        <li>
-                            <span class="col1">작성자 : </span>
-                            <span class="col2"><div name="writer" id="writer">${user.username}</div></span>
+            <input type="hidden" id="_id" name="_id">
+                <div class="layer">
+                    <ul class="content">
+                        <li class="left flex-container border-bottom border-top">
+                            <div class="flex-item left">작성자 : </div>
+                            <div class="flex-item left" name="writer" id="writer">${user.username}</div>
+                        </li><br>
+                        <li class="left flex-container">
+                            <div class="flex-item left">시작일</div>
+                            <div class="flex-item left"><input type="date" name="start_time" id="start_time" style="width:80%;"></div>
+                            <div class="flex-item left">종료일</div>
+                            <div class="flex-item left"><input type="date" name="end_time" id="end_time" style="width:80%;"></div>
                         </li>
                         <li>
-                            <span class="col1">이벤트 기간 : </span>
-                            <span class="col2">시작일:<input type="date" name="start_time" id="start_time" style="width:80%;">~</span>
-                            <span class="col2">종료일:<input type="date" name="end_time" id="end_time" style="width:80%;"></span>
+                            <div><input type='text' id="title" name ="title" ></div>
                         </li>
                         <li>
-                            <span class="col1">제목 : </span>
-                            <span class="col2"><input type='text' id="title" name ="title" ></span>
+                            <div ><textarea name="content" id = "cont" name ="cont" class="textarea" ></textarea></div>
                         </li>
-                        <li id="textarea">
-                            <span class="col1">내용 : </span>
-                            <span class="col2"><textarea name="content" id = "cont" name ="cont" ></textarea></span>
+                        <li class="right">
+                            <a href="/eventlistform" class="btn btn-primary">이벤트 목록</a>
+                            <input type="submit" value="수정하기" id="adminlist" class="btn btn-primary">
                         </li>
                     </ul>
-                    <input type="submit" value="수정하기" id="adminlist">
                 </div>
             </form>
         </div>
@@ -85,6 +116,6 @@
 
 </section>
 
-
+</div>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>글쓰기</title>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <style>
         table             {margin:100px auto;}
@@ -26,16 +27,15 @@
 
     </style>
 
-    <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body>
-
+<div class="container">
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-        <a  href="/list?category=1&num=1&menu_id=2" class="btn btn-outline-primary"> 개 </a>
-        <a  href="/list?category=2&num=1&menu_id=2" class="btn btn-outline-primary"> 고양이 </a>
-        <a  href="/list?category=3&num=1&menu_id=2" class="btn btn-outline-primary"> 기타 </a>
-        <a  href="/list?category=&num=1&menu_id=2" class="btn btn-outline-primary"> 전체 </a>
+        <a  href="/list?category=1&num=1&menu_id=0" class="btn btn-outline-primary"> 개 </a>
+        <a  href="/list?category=2&num=1&menu_id=0" class="btn btn-outline-primary"> 고양이 </a>
+        <a  href="/list?category=3&num=1&menu_id=0" class="btn btn-outline-primary"> 기타 </a>
+        <a  href="/list?category=0&num=1&menu_id=0" class="btn btn-outline-primary"> 전체 </a>
     </div>
 </div>
 
@@ -45,7 +45,7 @@
         <tr>
             <td class="right">
                 <input type="submit" id="submit" class="btn btn-primary" value="수정"  />
-                <a href="/list?category=&num=1&menu_id=2" class="btn btn-primary">게시판</a>
+                <a href="/list?category=0&num=1&menu_id=0" class="btn btn-primary">게시판</a>
                 <a href="/delete?_id=${_id}&category=${category}" class="btn btn-primary">삭제</a>
             </td>
         </tr>
@@ -158,5 +158,6 @@
 
 
 </script>
+</div>
 </body>
 </html>

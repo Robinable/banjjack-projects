@@ -70,7 +70,6 @@
 
                 },
                 success: function (data) {
-                    alert("s")
                     var url = "<c:url value="/communityRead"/>";
                     url = url +"?_id="+id;
                     window.location.href = url;
@@ -83,13 +82,14 @@
 </head>
 
 <body>
-
+<div class="container">
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
         <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
-        <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
-        <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
-        <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+        <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
+        <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
+        <a  href="/communityList?tag=2" class="btn btn-outline-primary"> 반려자랑 </a>
+        <a  href="/communityList?tag=3" class="btn btn-outline-primary"> 질문게시판 </a>
     </div>
 </div>
 
@@ -117,7 +117,7 @@
     </tr>
     <tr>
         <td colspan="3">
-            <button id="writebutton" onClick="fnWriteClick()">수정</button>
+            <button class="btn btn-primary" id="writebutton" onClick="fnWriteClick()">수정</button>
         </td>
     </tr>
 
@@ -125,5 +125,6 @@
 
 
 </table>
+</div>
 </body>
 </html>
