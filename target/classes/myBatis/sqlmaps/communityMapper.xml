@@ -19,6 +19,10 @@
             readcount,
             (SELECT count(*) from comment_tb where content_id = c._id and menu_id = 1)commentcount
         FROM community_tb c
+        <if test="tag != 0 and tag != ''">
+            WHERE
+            tag = #{tag}
+        </if>
         Order BY _id DESC
         LIMIT #{displaypost},#{postnum}
     </select>
@@ -70,6 +74,17 @@
         SET    readcount = readcount + 1
         WHERE  _id  = #{_id}
     </update>
+
+    <!-- 인기글 조회 -->
+    <select id="getTop10"
+            resultType="com.green.vo.CommunityVo">
+        select * from community_tb
+        where time >= now()-86400
+        ORDER BY readcount DESC
+        LIMIT 10;
+    </select>
+
+
 
 
 </mapper>
