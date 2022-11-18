@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Write">
+    <!-- 글쓰기 -->
+    <insert id="insertWrite">
+        INSERT INTO content_tb (username, title, content, category, time, readcount, bnum, lvl, step)
+        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount}, (SELECT IFNULL(MAX(a._id),0)+1 FROM content_tb a), 1, 0 )
+        <selectKey keyProperty="_id" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 파일 저장할때 사용할 글번호 가져오기 -->
+    <select id="get_id"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id
+        FROM   content_tb
+        where  _id = #{_id}
+    </select>
+
+    <!-- 파일이름, 경로 저장 -->
+    <insert id="writeFile">
+        INSERT INTO content_files_tb (filename, filepath, content_id)
+        VALUES (#{filename}, #{filepath}, #{content_id})
+    </insert>
+
+    <!-- 답글 step 증가 -->
+    <update id="UpdateRef">
+        UPDATE content_tb
+        SET    STEP = STEP + 1
+        WHERE  bnum = #{ bnum }
+          AND    STEP > #{ step }
+    </update>
+
+    <!-- 답글 작성 -->
+    <insert id="BoardReply">
+        INSERT INTO content_tb (username, title, content, category, time, readcount, bnum, lvl, step)
+        VALUES (#{username}, #{title}, #{content}, #{category}, now(), #{readcount}, #{bnum}, #{lvl} + 1 , #{step} + 1 )
+        <selectKey keyProperty="_id" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 게시판 불러오기 -->
+    <select id="boardList"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step
+        FROM content_tb
+        <if test="category != null and category != ''">
+            WHERE
+            category = #{category}
+        </if>
+        ORDER BY bnum desc, step  ASC
+        LIMIT #{displaypost},#{postnum}
+    </select>
+
+    <!-- 페이징 -->
+    <select id= "listCount" resultType="int">
+        SELECT COUNT(_id) FROM content_tb
+        <if test="category != null and category != ''">
+            WHERE
+            category = #{category}
+        </if>
+    </select>
+
+    <!-- 글보기 -->
+    <select id="getView"
+            resultType="com.green.vo.WriteVo">
+        SELECT _id, username, title, content, category, time, readcount, bnum, lvl, step
+        FROM content_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <!-- 글보기에서 이미지정보 가져오기 -->
+    <select id="getFile"
+            resultType="com.green.vo.FileVo">
+        SELECT filename, filepath, content_id
+        FROM   content_files_tb
+        WHERE  content_id = #{_id}
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="updateReadCount">
+        UPDATE content_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
+    <!-- 글 수정 -->
+    <update id="updateBoard">
+        UPDATE content_tb
+        SET    title = #{title},
+               content = #{content}
+        WHERE  _id = #{_id}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        DELETE FROM content_tb
+        WHERE _id = #{_id}
+    </delete>
+
+</mapper>

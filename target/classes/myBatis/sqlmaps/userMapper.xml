@@ -12,7 +12,7 @@
     <insert id="insertUser"
             parameterType="com.green.vo.UserVo">
         INSERT INTO user_tb (_id, username, userpassword, usernickname)
-        VALUES (#{_id},#{username}, #{userpassword}, #{usernickname})
+        VALUES (#{_id}, #{username}, #{userpassword}, #{usernickname})
     </insert>
 
     <select id="usernameCheck"
@@ -56,7 +56,7 @@
     <select id="selectUserInfo"
             resultType="com.green.vo.UserVo"
             parameterType="HashMap">
-        SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet
+        SELECT _id, username, userpassword, usernickname, useremail, usersido, usergugun, userpet, role
         FROM   user_tb
         WHERE  username = #{username} AND userpassword = #{userpassword}
 
@@ -116,7 +116,7 @@
             resultType="String">
         SELECT userpassword
         FROM   user_tb
-        WHERE  userpassword = #{now_userpassword}
+        WHERE  username = #{username}
 
     </select>
 
@@ -124,8 +124,50 @@
             parameterType="HashMap">
         UPDATE user_tb
         SET    userpassword = #{userpassword}
-        WHERE  userpassword = #{now_userpassword}
+        WHERE  username = #{username}
 
     </update>
+
+    <update id="mypageUsernicknameUpdate"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    usernickname = #{usernickname}
+        WHERE  username = #{username}
+    </update>
+
+    <update id="mypageUsersidoUpdate"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    usersido = #{usersido}
+        WHERE  username = #{username}
+    </update>
+
+    <update id="mypageUsergugunUpdate"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    usergugun = #{usergugun}
+        WHERE  username = #{username}
+    </update>
+
+    <update id="mypageUserpetUpdate"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpet = #{userpet}
+        WHERE  username = #{username}
+    </update>
+
+    <select id="getUserInfo"
+            resultType="com.green.vo.UserVo">
+        SELECT *
+        FROM   user_tb
+        WHERE  username = #{username}
+    </select>
+
+    <delete id="deleteUser"
+            parameterType="String">
+        DELETE FROM user_tb
+        WHERE  username = #{username}
+
+    </delete>
 
 </mapper>

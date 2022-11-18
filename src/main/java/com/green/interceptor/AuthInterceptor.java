@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
-
 @Log
 public class AuthInterceptor implements HandlerInterceptor {
     // preHandle
@@ -35,7 +33,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 //            response.sendRedirect("/login");
             return true;                         // 로그인페이지로 넘어갔기 때문에 컨트롤러 요청 더 받지않음
         } else {
-            System.out.println("세션시간 초기화");
             session.setMaxInactiveInterval(30*60);
             return true;
         }
@@ -63,12 +60,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         System.out.println(request.getRequestURL());
         HttpSession session = request.getSession();
-        System.out.println("여기  :  " + response.getHeader("Content-Type"));
-
         UserVo userVo = (UserVo) session.getAttribute("login");
+        System.out.println(userVo);
         mv.addObject("user", userVo);
-        System.out.println("postHaondle: " + userVo);
-//        mv.addObject("vo", userVo);
 
         HandlerInterceptor.super.postHandle(request, response, handler, mv);
 

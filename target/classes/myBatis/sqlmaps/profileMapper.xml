@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Profile">
+
+    <insert id="saveProfileImg"
+            parameterType="HashMap">
+        INSERT INTO profile_tb (_id, profiledata, username)
+        VALUES                 (#{_id}, #{fileDot}, #{username})
+
+    </insert>
+
+    <select id="getUserProfile"
+            resultType="String">
+        SELECT profiledata
+        FROM   profile_tb
+        WHERE  username = #{username}
+
+    </select>
+
+    <select id="getUserByUsername"
+            resultType="String">
+        SELECT username
+        FROM   profile_tb
+        WHERE  username = #{username}
+
+    </select>
+
+    <update id="updateUsername"
+            parameterType="HashMap">
+        UPDATE profile_tb
+        SET    profiledata = #{fileDot}
+        WHERE  username = #{username}
+
+    </update>
+
+</mapper>

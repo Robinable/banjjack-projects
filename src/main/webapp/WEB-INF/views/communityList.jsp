@@ -7,19 +7,20 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
-
+    <%@ include file="/WEB-INF/views/header.jsp" %>
     <style>
-        table.elist {width: 690px; border:1px solid black;}
-        td {border:1px solid black;}
-        div.articleList {margin: 100px; border:1px solid black;}
+        table             {margin:100px auto;}
+        tr:nth-of-type(1) {width:100%; text-align:center;}
+        td                {padding:3px}
+        td:nth-of-type(1) {width:90px; text-align: center;}
+        td:nth-of-type(2) {width:700px; text-align: left;}
+        a                 { text-decoration-line: none; color: black; }
+        .left             { text-align:left !important;}
+        .center           { text-align:center !important;}
+        .right            { text-align:right !important;}
+        .layer            { text-align: center; }
+        .layer .content   { display: inline-block; }
     </style>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
         let query = window.location.search;
         let params = new URLSearchParams(query);
@@ -45,11 +46,21 @@
                 },
                 success: function (data) {
                     let str = "";
+                    str += "<table class=\"elist\" >"
+                        + "<thead>"
+                        + "<tr>"
+                        + '<th scope="col">태그</th>'
+                        + '<th scope="col">제목</th>'
+                        + '<th scope="col">글쓴이</th>'
+                        + '<th scope="col">날짜</th>'
+                        + '<th scope="col">조회수</th>'
+                        + "</tr>"
+                        + "</thead>"
+                        + '<tbody class="table-group-divider">'
                     $.each(data, function (index, element) {
                         str +=
                             "<table class=\"elist\" >"
                             +"<tr>"
-                            +"<td> "+ element._id + "</td>"
                             +"<td> "+ element.tag +"</td>"
                             +"<td style=\'cursor:pointer\' onclick=\'communityRead(" + element._id +")\'> "+ element.title +" [ "+element.commentcount+"] </td>"
                             +"<td> "+ element.username +"</td>"
@@ -69,54 +80,59 @@
             form.submit();
         }
     </script>
-    <%@ include file="header.jsp"%>
+
 </head>
 <body style="background-color: white">
+
+<div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+        <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+        <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
+        <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
+        <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+    </div>
+</div>
+
+
 <form id = "listform" method="get" action="/communityRead">
     <input type="hidden" id="_id" name="_id">
-    <div class="articleList " id="articleListBox">
-        <table class="elist" >
-            <tr>
-                <td>  _id  </td>
-                <td>  tag  </td>
-                <td>  title  </td>
-                <td>  username </td>
-                <td>  time  </td>
-                <td>  readcount</td>
-            </tr>
-        </table>
 
-    </div>
+    <table class="table" id="articleListBox" >
+    </table>
+    <a href="/communityWriteForm" class="btn btn-primary" style="float: right;">글쓰기</a>
+    <br>
 </form>
 
-<div class="center">
-    <ul class="pagination">
-        <li class="page-item">
-            <c:if test="${page.prev}">
-                <a href="/communityList?num=${page.startpagenum - 1}" class="page-link">이전</a>
-                <span aria-hidden="true"></span>
-                </a>
-            </c:if>
-        </li>
-        <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
-            <c:if test="${select != num}">
-                <li class="page-item"><a href="/communityList?num=${num}" class="page-link">${num}</a></li>
-            </c:if>
+<div class="layer">
+    <div class="content">
+        <ul class="pagination">
+            <li class="page-item">
+                <c:if test="${page.prev}">
+                    <a href="/communityList?num=${page.startpagenum - 1}" class="page-link">이전</a>
+                    <span aria-hidden="true"></span>
+                    </a>
+                </c:if>
+            </li>
+            <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+                <c:if test="${select != num}">
+                    <li class="page-item"><a href="/communityList?num=${num}" class="page-link">${num}</a></li>
+                </c:if>
 
-            <c:if test="${select == num}">
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">${num}</a>
+                <c:if test="${select == num}">
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">${num}</a>
+                    </li>
+                </c:if>
+            </c:forEach>
+            <c:if test="${page.next}">
+                <li class="page-item">
+                    <a href="/communityList?num=${page.endpagenum + 1}" class="page-link">다음</a>
+                    <span aria-hidden="true"></span>
+                    </a>
                 </li>
             </c:if>
-        </c:forEach>
-        <c:if test="${page.next}">
-            <li class="page-item">
-                <a href="/communityList?num=${page.endpagenum + 1}" class="page-link">다음</a>
-                <span aria-hidden="true"></span>
-                </a>
-            </li>
-        </c:if>
-    </ul>
+        </ul>
+    </div>
 </div>
 <div>
     <%--<%--%>
@@ -126,7 +142,6 @@
     <%--        out.print(se);--%>
     <%--    %>--%>
 </div>
-<button id="communityWriteForm" onClick="location.href='communityWriteForm'" > 쓰기 </button>
 </body>
 
 </html>

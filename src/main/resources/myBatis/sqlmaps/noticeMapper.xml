@@ -29,5 +29,15 @@
         SELECT COUNT(_id) FROM notice_tb
     </select>
 
+    <insert id="writenotice"
+            parameterType="com.green.vo.NoticeVo" useGeneratedKeys="true" keyProperty="_id">
+        INSERT INTO notice_tb (content, title, writer) VALUES (#{content}, #{title}, #{writer})
+    </insert>
+
+    <update id="update">
+        UPDATE notice_tb
+        SET    title = #{title}, content =#{content}
+        WHERE  _id  = #{_id}
+    </update>
 
 </mapper>

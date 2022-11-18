@@ -33,4 +33,11 @@ public class NoticeService {
         int count = noticeDaoImpl.noticecount();
         return count;
     }
+
+    public void writenotice(NoticeVo noticeVo) {
+        noticeDaoImpl.writenotice(noticeVo);
+    }
+
+
+    public void noticeupdate(NoticeVo noticeVo) { noticeDaoImpl.noticeupdate(noticeVo); }
 }

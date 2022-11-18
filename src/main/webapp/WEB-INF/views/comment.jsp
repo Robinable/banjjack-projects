@@ -5,9 +5,7 @@
 <%--<% String username = request.getParameter("username"); %>--%>
 <%--<% String content_id = request.getParameter("_id"); %>--%>
 
-<!DOCTYPE html>
 
-<html>
 <head>
     <title>on progress</title>
 
@@ -15,13 +13,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/comment.css">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <style>
-        .pagination{ width: 100px ; margin-left: auto; margin-right: auto; text-align: center; display : flex; flex-direction: row;}
-    </style>
+
     <script>
 
         let query = window.location.search;
@@ -33,8 +25,8 @@
         if (num==null) {
             num = 1;
         }
-        console.log("ci"+${param.content_id});
-        console.log("mi"+${param.menu_id});
+        console.log("ci"+"${param.content_id}");
+        console.log("mi"+"${param.menu_id}");
 
         $(document).ready(function() {
             fnCommentList(num);
@@ -67,49 +59,48 @@
                     let paging = "";
 
 
-                        $.each(data, function (index, element) {
-                                if(element.next == true || element.next ==false)
-                                return;
-                            str =str
-                                + "<li class=\"list-group-item\" name= \"commentBigBox\">"
-                                + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
-                                + "<div class=\"commentIcon\">"
-                                + "<span class=\"material-icons-outlined\">"
-                            //프로필사진 불러오기 (리사이징 될 때 까지 주석처리)
-                            // if (element.profiledata == '') {
-                            //     str = str
-                            //         + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
-                            // }else{
-                            //     str = str
-                            //     + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
-                            // }
-                               str = str
-                                + "</span>"
-                                + " <br>"
-                                + "<span class=\"commentDate\">"
-                                + element.time
-                                + "</span>"
-                                + "</div>"
-                                + "<div class=\"commentBox\">"
-                                + "<span class=\"comWriter\">"
-                                + element.name
-                                + "</span>"
-                            if(element.name == "${user.username}" ) {
-                                str=str
-                                    +"<span class=\"buttonSpan\">"
-                                    + "<button class=\"btn btn-outline-secondary\" onClick=\"fnDelClick(" + element._id + ")\" style=' font-size: 13px;width: 55px; height: 30px;'> 삭제 </button>"
-                                    + "<button class=\"btn btn-outline-secondary\" onClick=\"fnEditClick(" + element._id + ")\"style=' font-size: 13px;width: 55px; height: 30px;' > 수정 </button>"
-                                    +"</span>"
-                            }
-
+                    $.each(data, function (index, element) {
+                        if(element.next == true || element.next ==false)
+                            return;
+                        str =str
+                            + "<li class=\"list-group-item\" name= \"commentBigBox\">"
+                            + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
+                            + "<div class=\"commentIcon\">"
+                            + "<span class=\"material-icons-outlined\">"
+                        if (element.profiledata == '') {
+                            str = str
+                                + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                        }else{
+                            str = str
+                                + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                        }
+                        str = str
+                            + "</span>"
+                            + " <br>"
+                            + "<span class=\"commentDate\">"
+                            + element.time
+                            + "</span>"
+                            + "</div>"
+                            + "<div class=\"commentBox\">"
+                            + "<span class=\"comWriter\">"
+                            + element.name
+                            + "</span>"
+                        if(element.name == "${user.username}" ) {
                             str=str
-                                + "<div class=\"commentText\" id= \'" + element._id + "\' style= \"white-space:pre-wrap\" >"
-                                +  element.content
-                                + "<br>"
-                                + "</div>"
-                                + "</div>"
-                                + "</li>"
-                        })
+                                +"<span class=\"buttonSpan\">"
+                                + "<button class=\"btn btn-outline-secondary\" onClick=\"fnDelClick(" + element._id + ")\" style=' font-size: 13px;width: 55px; height: 30px;'> 삭제 </button>"
+                                + "<button class=\"btn btn-outline-secondary\" onClick=\"fnEditClick(" + element._id + ")\"style=' font-size: 13px;width: 55px; height: 30px;' > 수정 </button>"
+                                +"</span>"
+                        }
+
+                        str=str
+                            + "<div class=\"commentText\" id= \'" + element._id + "\' style= \"white-space:pre-wrap\" >"
+                            +  element.content
+                            + "<br>"
+                            + "</div>"
+                            + "</div>"
+                            + "</li>"
+                    })
                     //페이징
                     if (prev === true){
                         paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+startPageNum -1 +");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
@@ -117,9 +108,9 @@
                     }
                     for(let num=startPageNum; num<=endPageNum; num++){
                         if (select != num){
-                        paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+num+");\" return false; class=\"page-link\">"+num+"</a></li>"
-                         }else{
-                        paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" + \" return false; class=\"page-link\"><p>"+num+"</p></li>"
+                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+num+");\" return false; class=\"page-link\">"+num+"</a></li>"
+                        }else{
+                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" + \" return false; class=\"page-link\"><p>"+num+"</p></li>"
                         }
                         if (next === true) {
                             paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + endPageNum +1 + ");\" return false; class=\"page-link\" id=\"prev\">다음</a></li>"
@@ -215,9 +206,8 @@
         }
 
     </script>
-<br>
 </head>
-<body>
+<div class="container">
 
 <br>
 <div class="commentCount"> 댓글 <span id = "count"></span></div>
@@ -228,11 +218,11 @@
 </ul>
 <%--댓글페이징--%>
 <nav aria-label="Page navigation">
-<div class="center">
-    <ul class="pagination" id="pagingBox">
+    <div class="center">
+        <ul class="pagination" id="pagingBox">
 
-    </ul>
-</div>
+        </ul>
+    </div>
 </nav>
 
 
@@ -249,7 +239,7 @@
     <span class="regBtn">
         <button type="submit" class="btn btn-secondary btn-lg" id= commentWriteButton > 등록</button>
     </span>
-        <br>
+    <br>
     <span id="countNum">
         ( 0/ 300)
     </span>
@@ -270,6 +260,4 @@
     });
 </script>
 
-</body>
-
-</html>
+</div>

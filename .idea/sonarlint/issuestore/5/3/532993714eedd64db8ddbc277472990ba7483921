@@ -1,0 +1,7 @@
+
+]	java:S107"AConstructor has 8 parameters, which is greater than 7 authorized.(é‰îò8®Í£Æ0
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é‰îò8¶Í£Æ0
+r	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©öùÙşÿÿÿÿ8¶Í£Æ0
+j	java:S116"NRename this field "_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äî››8ÂÍ£Æ0
+i	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÆC8ÅÍ£Æ0
+o	java:S100 "NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©öùÙşÿÿÿÿ8ÅÍ£Æ0

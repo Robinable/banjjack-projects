@@ -1,0 +1,17 @@
+
+c	java:S107"BConstructor has 11 parameters, which is greater than 7 authorized.(ü¢°üÿÿÿÿ8Ş¯ë¢Æ0
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ü¢°üÿÿÿÿ8Ş¯ë¢Æ0
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Â ³B8Ş¯ë¢Æ0
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Â ³B8Ş¯ë¢Æ0
+r	java:S1171"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©öùÙşÿÿÿÿ8Ş¯ë¢Æ0
+r	java:S117y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬š•îøÿÿÿÿ8Ş¯ë¢Æ0
+n	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È·Óé8Ş¯ë¢Æ0
+j	java:S116"NRename this field "_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äî››8ã¯ë¢Æ0
+v	java:S116"URename this field "start_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•³Úùÿÿÿÿ8ä¯ë¢Æ0
+t	java:S116"SRename this field "end_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¾  øÿÿÿÿ8ä¯ë¢Æ0
+i	java:S100-"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÆC8è¯ë¢Æ0
+o	java:S1001"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©öùÙşÿÿÿÿ8è¯ë¢Æ0
+j	java:S100u"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£¡·Â8ê¯ë¢Æ0
+o	java:S100y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬š•îøÿÿÿÿ8ê¯ë¢Æ0
+j	java:S100}"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄäŸ¢8ê¯ë¢Æ0
+k	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È·Óé8ê¯ë¢Æ0

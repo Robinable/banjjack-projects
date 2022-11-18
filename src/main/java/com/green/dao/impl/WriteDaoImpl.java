@@ -57,11 +57,12 @@ public class WriteDaoImpl implements WriteDao {
 
     //게시판 불러오기
     @Override
-    public List<WriteVo> getList(String category, int displayPost, int postnum) {
+    public List<WriteVo> getList(String category, int displayPost, int postnum, int menu_id) {
         HashMap map = new HashMap();
         map.put("displaypost", displayPost);
         map.put("postnum", postnum);
         map.put("category", category);
+        map.put("menu_id", menu_id);
 
         List<WriteVo> boardList = sqlSession.selectList("Write.boardList", map);
         return boardList;

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Note">
+
+    <insert id="insertNote"
+            parameterType="com.green.vo.NoteVo" useGeneratedKeys="true" keyProperty="_id">
+        INSERT INTO note_tb (content, recept, send) VALUES (#{content}, #{recept}, #{send})
+    </insert>
+
+    <select id="selectRecept"
+            resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE recept = #{recept}
+    </select>
+
+    <select id="selectSend"
+            resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE send = #{send}
+    </select>
+
+    <select id="selectCont"
+            resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE _id = #{_id}
+    </select>
+
+    <delete id="deleteNote">
+        DELETE FROM note_tb
+        WHERE _id = #{_id}
+    </delete>
+
+    <!-- 페이징 -->
+    <select id= "receptcount" resultType="int">
+        SELECT COUNT(_id) FROM note_tb
+        WHERE recept = #{recept}
+    </select>
+
+
+    <select id="receptpage" parameterType="hashMap" resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE recept = #{recept}
+        ORDER BY _id desc
+        LIMIT #{displaypost},#{postnum}
+    </select>
+
+    <select id= "sendcount" resultType="int">
+        SELECT COUNT(_id) FROM note_tb
+        WHERE send = #{send}
+    </select>
+
+    <select id="sendpage" parameterType="hashMap" resultType="com.green.vo.NoteVo">
+        SELECT *
+        FROM note_tb
+        WHERE send = #{send}
+        ORDER BY _id desc
+        LIMIT #{displaypost},#{postnum}
+    </select>
+
+    <select id="chkrecept" resultType="int">
+        SELECT COUNT(*)
+        FROM user_tb
+        WHERE username = #{recept}
+    </select>
+
+
+
+</mapper>

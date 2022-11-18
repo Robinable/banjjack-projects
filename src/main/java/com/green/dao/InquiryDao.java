@@ -14,4 +14,10 @@ public interface InquiryDao {
     List<InquiryVo> caselist(int category, int displaypost, int postnum);
 
     int casecount(int category);
+
+    int mylistcount(String send);
+
+    List<InquiryVo> inquirymylist(String send, int displaypost, int postnum);
+
+    InquiryVo selectCont(int _id);
 }

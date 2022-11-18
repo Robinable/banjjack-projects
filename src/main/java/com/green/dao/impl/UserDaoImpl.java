@@ -80,15 +80,46 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public String findNowPasswd(String now_userpassword) {
-        return sqlSession.selectOne("User.findNowPasswd", now_userpassword);
+    public String findNowPasswd(String username) {
+        return sqlSession.selectOne("User.findNowPasswd", username);
     }
 
     @Override
     public void updateNewPasswd(HashMap<String,String> map) {
         sqlSession.update("User.updateNewPasswd", map);
     }
-}
 
+    @Override
+    public void mypageUsernicknameUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUsernicknameUpdate", map);
+    }
+
+    @Override
+    public void mypageUsersidoUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUsersidoUpdate", map);
+    }
+
+    @Override
+    public void mypageUsergugunUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUsergugunUpdate", map);
+    }
+
+    @Override
+    public void mypageUserpetUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUserpetUpdate", map);
+    }
+
+    @Override
+    public UserVo getUserInfo(String username) {
+        return sqlSession.selectOne("User.getUserInfo", username);
+    }
+
+    @Override
+    public void deleteUser(String username) {
+        sqlSession.delete("User.deleteUser", username);
+    }
+
+
+}
 
 

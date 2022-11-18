@@ -62,7 +62,7 @@ public class CommunityController {
         model.addAttribute("page", page);
         model.addAttribute("select", num);
         model.addAttribute("num", num);
-
+        System.out.println("머");
         return "/communityList";
     }
     //게시글 조회

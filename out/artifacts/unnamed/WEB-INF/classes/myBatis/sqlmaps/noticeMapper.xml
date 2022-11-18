@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Notice">
+
+    <select id="noticeList"
+            parameterType="hashMap"
+            resultType="com.green.vo.NoticeVo">
+        SELECT *
+        FROM notice_tb
+        ORDER BY _id desc
+        LIMIT #{displaypost}, #{postnum}
+    </select>
+
+    <select id="selectcont"
+            resultType="com.green.vo.NoticeVo">
+        SELECT * from notice_tb where _id=#{_id}
+    </select>
+
+    <update id="cntup">
+        UPDATE notice_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
+    <select id= "noticecount" resultType="int">
+        SELECT COUNT(_id) FROM notice_tb
+    </select>
+
+
+</mapper>

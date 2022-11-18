@@ -21,13 +21,14 @@ public class NoteController {
 	@Autowired private NoteService noteService;
 	PageVo page = new PageVo();
 
-	// 쪽지함
+	// 쪽지 쓰기
 	@RequestMapping ("/writeNoteForm")
-	public String writeNoteForm(Model model) {
+	public String writeNoteForm(@RequestParam (required = false)String reply, Model model) {
 		String content_ = (String) model.getAttribute("content_value");
 		String error_ = (String) model.getAttribute("error");
 		model.addAttribute("content_value",content_);
 		model.addAttribute("error",error_);
+		model.addAttribute("reply",reply);
 		return "/writeNoteForm";
 	}
 
@@ -56,7 +57,7 @@ public class NoteController {
 
 	// // 받은 쪽지함 + 페이징 (받은 아이디로 조회)
 	@GetMapping ("/receptNote")   // /receptNote?recept=로그인아이디&num=1
-	public String recept(@RequestParam int num, @RequestParam String recept, Model model){
+	public String recept(@RequestParam(required = false, defaultValue = "1") int num, @RequestParam String recept, Model model){
 
 		page.setNum(num);
 		page.setCount(noteService.receptcount(recept));
@@ -70,10 +71,9 @@ public class NoteController {
 	}
 
 
-	@GetMapping("/getreceptnote")  // ajax 용
+	@GetMapping("/getreceptnote")  // 받은 쪽지함 ajax 용
 	@ResponseBody
 	public  List<JSONObject> getreceptnote(@RequestParam String recept, @RequestParam int num){
-		System.out.println(num);
 
 		int postnum = page.getPostnum();
 		int displaypost = page.getDisplaypost();
@@ -95,7 +95,7 @@ public class NoteController {
 
 	// 보낸쪽지확인 + 페이징 (보낸 아이디로 조회)
 	@GetMapping("/sendNote")    // /sendNote?send=로그인아이디&num=1
-	public String sendNote(@RequestParam int num, @RequestParam String send, Model model){
+	public String sendNote(@RequestParam(required = false, defaultValue = "1") int num, @RequestParam String send, Model model){
 
 		page.setNum(num);
 		page.setCount(noteService.sendcount(send));
@@ -109,7 +109,7 @@ public class NoteController {
 
 
 
-	@GetMapping("/getsendnote")  // ajax 용
+	@GetMapping("/getsendnote")  // 보낸 쪽지함 ajax 용
 	@ResponseBody
 	public  List<JSONObject> getsendnote(@RequestParam String send, @RequestParam int num) {
 
@@ -126,7 +126,7 @@ public class NoteController {
 
 			NoteVoList.add(obj);
 		}
-		System.out.println(NoteVoList);
+
 		return NoteVoList;
 	}
 
@@ -134,15 +134,23 @@ public class NoteController {
 
 
 	// 쪽지 내용 확인
-	@GetMapping("/readNote")
-	public String readNote(@RequestParam int _id, Model model) {
-		//int _id = Integer.valueOf(request.getParameter("_id"));
-		model.addAttribute("_id",_id);
+	@GetMapping("/readreceptNote")
+	public String readreceptNote(@RequestParam int _id, @RequestParam String send, Model model) {
 
-		return "/contNote";
+		model.addAttribute("_id",_id);
+		model.addAttribute("reply",send);
+		return "/receptcontNote";
 	}
 
-	@GetMapping("/getcontNote")  // ajax용
+	@GetMapping("/readsendNote")
+	public String readsendNote(@RequestParam int _id, Model model) {
+
+		model.addAttribute("_id",_id);
+
+		return "/sendcontNote";
+	}
+
+	@GetMapping("/getcontNote")  // 내용확인 ajax용
 	@ResponseBody
 	public  List<JSONObject> getcontnote(@RequestParam int _id) {
 		List<JSONObject> NoteVoList = new ArrayList<>();
@@ -163,10 +171,10 @@ public class NoteController {
 	public String deletenote(@RequestParam int _id){
 		noteService.deleteNote(_id);
 
-		return "/receptNote";
+		return "redirect:/receptNote?recept=1234";
 	}
 
-	@PostMapping("/selectDeleteNote")
+	@PostMapping("/selectDeleteNote")   // 선택삭제
 	public String selectDeleteNote(HttpServletRequest request){
 
 		String[] a = request.getParameterValues("valueArr");
@@ -176,11 +184,9 @@ public class NoteController {
 			noteService.deleteNote(Integer.parseInt(a[i]));
 		}
 
-		return "receptNote";
+		return "redirect:/receptNote?recept=1234";
 	}
 
 
 }
 
-
-//@RequestParam 주소줄 값 가져옴, HttpServletRequest 본문 값 가져옴(?)

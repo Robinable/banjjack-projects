@@ -15,4 +15,8 @@ public interface NoticeDao {
     void cntup(int _id);
 
     int noticecount();
+
+    void writenotice(NoticeVo noticeVo);
+
+    void noticeupdate(NoticeVo noticeVo);
 }

@@ -45,6 +45,7 @@ public class CommentController {
 	@GetMapping("comment/commentList")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) throws ParseException {
+		System.out.println("dy");
 		page.setNum(num);
 		page.setCount(commentService.listCount(num, menu_id, content_id));
 
@@ -52,17 +53,18 @@ public class CommentController {
 		int postnum = page.getPostnum();
 
 		List<JSONObject> commentList = new ArrayList<>();
-			JSONObject paging = new JSONObject();
-			paging.put("commentCount", page.getCount());
-			paging.put("num", num);
-			paging.put("startPageNum", page.getStartpagenum());
-			paging.put("endPageNum", page.getEndpagenum());
-			paging.put("prev", page.getPrev());
-			paging.put("next", page.getNext());
-			paging.put("select", num);
-			commentList.add(paging);
+		JSONObject paging = new JSONObject();
+		paging.put("commentCount", page.getCount());
+		paging.put("num", num);
+		paging.put("startPageNum", page.getStartpagenum());
+		paging.put("endPageNum", page.getEndpagenum());
+		paging.put("prev", page.getPrev());
+		paging.put("next", page.getNext());
+		paging.put("select", num);
+		commentList.add(paging);
 
 		for (CommentVo cl : commentService.getCommentList(content_id, menu_id, displaypost, postnum)) {
+			System.out.println("du");
 			timeGap.setTime(cl.getTime());
 			JSONObject obj = new JSONObject();
 			obj.put("name", cl.getUsername());
@@ -132,4 +134,3 @@ public class CommentController {
 		return map;
 	}
 }
-

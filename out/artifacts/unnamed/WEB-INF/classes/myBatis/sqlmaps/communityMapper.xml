@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Community">
+    <select id="communityList"
+            parameterType="Integer"
+            resultType="com.green.vo.CommunityVo">
+        SELECT
+            _id,
+            username,
+            tag,
+            time,
+            title,
+            readcount
+
+        FROM community_tb
+        ORDER BY _id DESC
+    </select>
+    <!--쓰기-->
+    <insert id="communityWrite"
+            parameterType="com.green.vo.CommunityVo">
+        INSERT INTO community_tb( tag, title, username, content, readcount )
+        VALUES (#{tag}, #{title}, #{username}, #{content}, #{readcount})
+    </insert>
+    <!--수정-->
+    <update id="communityUpdate"
+            parameterType="com.green.vo.CommunityVo">
+        UPDATE community_tb
+        SET content = #{content},
+            title = #{title}
+        WHERE _id=#{_id}
+    </update>
+
+    <!--    삭제-->
+    <delete id="communityDelete">
+        DELETE FROM community_tb
+        WHERE _id=#{_id}
+    </delete>
+
+    <!--    읽기-->
+    <select id="communityRead"
+            parameterType="Integer"
+            resultType="com.green.vo.CommunityVo">
+        SELECT
+            _id,
+            tag,
+            title,
+            username,
+            time,
+            readcount,
+            content
+        FROM community_tb
+        WHERE _id=#{_id}
+    </select>
+
+    <!--  조회수 -->
+
+    <update id="updateReadCount">
+        UPDATE community_tb
+        SET    readcount = readcount + 1
+        WHERE  _id  = #{_id}
+    </update>
+
+
+
+</mapper>

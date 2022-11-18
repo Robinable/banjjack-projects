@@ -37,4 +37,19 @@ public class InquiryService {
         int count = inquiryDaoImpl.casecount(category);
         return count;
     }
+
+    public int mylistcount(String send) {
+        int count = inquiryDaoImpl.mylistcount(send);
+        return count;
+    }
+
+    public List<InquiryVo> inquirymylist(String send, int displaypost, int postnum) {
+        List<InquiryVo> vo = inquiryDaoImpl.inquirymylist(send, displaypost, postnum);
+        return vo;
+    }
+
+    public InquiryVo selectCont(int _id) {
+        InquiryVo vo = inquiryDaoImpl.selectCont(_id);
+        return vo;
+    }
 }

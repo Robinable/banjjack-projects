@@ -17,7 +17,7 @@ public class CommentDaoImpl implements CommentDao {
     private SqlSession sqlSession;
     @Override
     public List<CommentVo> getCommentList(Map<String, Object> map) {
-
+        System.out.println("da = " + map);
         List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", map);
 
         return commentList;

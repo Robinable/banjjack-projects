@@ -67,11 +67,35 @@ public class UserService {
         return userDaoImpl.findEmailByUseremail(useremail);
     }
 
-    public String findNowPasswd(String now_userpassword) {
-        return userDaoImpl.findNowPasswd(now_userpassword);
+    public String findNowPasswd(String username) {
+        return userDaoImpl.findNowPasswd(username);
     }
 
     public void updateNewPasswd(HashMap<String,String> map) {
         userDaoImpl.updateNewPasswd(map);
+    }
+
+    public void mypageUsernicknameUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUsernicknameUpdate(map);
+    }
+
+    public void mypageUsersidoUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUsersidoUpdate(map);
+    }
+
+    public void mypageUsergugunUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUsergugunUpdate(map);
+    }
+
+    public void mypageUserpetUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUserpetUpdate(map);
+    }
+
+    public UserVo getUserInfo(String username) {
+        return userDaoImpl.getUserInfo(username);
+    }
+
+    public void deleteUser(String username) {
+        userDaoImpl.deleteUser(username);
     }
 }

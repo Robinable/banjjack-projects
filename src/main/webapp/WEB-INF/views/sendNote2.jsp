@@ -7,14 +7,32 @@
 	<meta charset="UTF-8">
 	<title>받은 쪽지함</title>
 
-	<link rel="stylesheet" href="/css/messageBox.css">
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<style>
+		.cc {
+			width:200px;
+			padding:0 10px;
+			overflow:hidden;
+			text-overflow:ellipsis;
+			white-space:nowrap;}
+		#main_content{width: 90%; height: 80%; margin: 0 auto;}
+		#message_box h3{margin-top: 10px; padding: 5px; border-bottom: solid 2px #516e7f;font-size: 20px;}
+		#message_box .buttons {text-align: right; margin: 20px 0 40px 0;}
+		#message_box .buttons li {display: inline;}
+		th{text-align: center;}
+		body { overflow: hidden; }
+		.layer            { text-align: center; }
+		.layer .content   { display: inline-block; }
+	</style>
 	<script>
 
 
 		$.ajax( {
-			url  :  '/getsendnote?send=1234&num=${num}'  ,
+			url  :  '/getsendnote?send=${user.username}&num=${num}'  ,
 			data :  {
 				_id : $('#_id').val() ,
 				content : $('#content').val(),
@@ -33,7 +51,7 @@
 						var _id = result[i]._id
 						var content = result[i].content
 						var recept = result[i].recept
-						var time = 1234
+						var time = result[i].time
 
 						console.log(recept + "i = " + result[i].content)
 
@@ -41,9 +59,9 @@
 						html         += "<tr>";
 						html         += '<td></td>';
 						html         += '<td style="text-align: center;">' + _id + '</td>';
-						html         += '<td style="text-align: center; padding-left:30px;">';
+						html         += '<td style="text-align: center; padding-left:90px;">';
 						html         += '<div class="cc">';
-						html         += '<a href ="/readNote?_id='+_id +'">'+ content +'</a>';
+						html         += '<a href ="/readsendNote?_id='+_id +'">'+ content +'</a>';
 						html         += '</div></td>';
 						html         += '<td style="width:170px; text-align: center;">'+ recept +'</td>';
 						html         += '<td style="width:200px; text-align: center;">'+ time +'</td>';
@@ -76,15 +94,9 @@
 
 			<div>
 
-				<table class="table_box" >
-					<colgroup><col width="5%">
-						<col width="10%">
-						<col width="40%">
-						<col width="25%">
-						<col width="20%">
-					</colgroup>
+				<table class="table" >
 
-					<thead>
+					<thead class="table-light">
 					<tr>
 						<th></th>
 						<th>번호</th>
@@ -99,33 +111,43 @@
 					</tbody>
 
 				</table>
-				<div style="text-align: center;">
-					<c:if test="${page.prev}">
-						<span>[ <a href="/sendNote?send=1234&num=${page.startpagenum-1}">이전</a> ]</span>
-					</c:if>
-
-					<c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
-  <span>
-   <c:if test="${select != num}">
-	   <a href="/sendNote?send=1234&num=${num}">${num}</a>
-   </c:if>
-
-        <c:if test="${select == num}">
-			<b>${num}</b>
-		</c:if>
- </span>
-					</c:forEach>
-
-					<c:if test="${page.next}">
-						<span>[ <a href="/sendNote?send=1234&num=${page.endpagenum + 1}">다음</a> ]</span>
-					</c:if>
+				<div class="layer">
+  <span class="content">
+    <ul class="pagination">
+      <li class="page-item">
+          <c:if test="${page.prev}">
+            <a href="/sendNote?send=${user.username}&num=${page.startpagenum - 1}" class="page-link">이전
+            <span aria-hidden="true"></span>
+            </a>
+		  </c:if>
+      </li>
+      <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+		  <c:if test="${select != num}">
+          <li class="page-item">
+            <a href="/sendNote?send=${user.username}&num=${num}" class="page-link">${num}</a>
+          </li>
+		  </c:if>
+		  <c:if test="${select == num}">
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">${num}</a>
+          </li>
+		  </c:if>
+	  </c:forEach>
+      <c:if test="${page.next}">
+        <li class="page-item">
+            <a href="/sendNote?send=${user.username}&num=${page.endpagenum + 1}" class="page-link">다음
+            <span aria-hidden="true"></span>
+            </a>
+        </li>
+	  </c:if>
+    </ul>
+  </span>
 				</div>
 
 				<!-- 쪽지함 이동 버튼들 -->
 				<ul class="buttons">
-					<li><button onclick="location.href='/SendMessage?send=1234&num=1'">삭제</button></li>
-					<li><button onclick="location.href='/receptNote?recept=1234&num=1'">받은 쪽지함</button></li>
-					<li><button onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
+					<li><button class="btn btn-primary btn-sm" onclick="location.href='/receptNote?recept=${user.username}&num=1'">받은 쪽지함</button></li>
+					<li><button class="btn btn-primary btn-sm" onclick="location.href='/writeNoteForm'">쪽지 보내기</button></li>
 				</ul>
 			</div>
 

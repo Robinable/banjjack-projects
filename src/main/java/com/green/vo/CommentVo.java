@@ -11,7 +11,6 @@ public class CommentVo {
     private String username;
     private int menu_id;
     private int commentcount;
-
     private String profiledata;
 
     public CommentVo(int _id, int content_id, String content, String time, String username, int menu_id, int commentcount, String profiledata) {

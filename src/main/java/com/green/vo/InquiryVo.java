@@ -15,8 +15,14 @@ public class InquiryVo {
 
     private int category;
 
+    private int bnum;
+
+    private int lvl;
+
+    private int step;
+
     public InquiryVo(){}
-    public InquiryVo(int _id, String content, String title, String recept, String send, String time, int category) {
+    public InquiryVo(int _id, String content, String title, String recept, String send, String time, int category, int bnum, int lvl, int step) {
         this._id = _id;
         this.content = content;
         this.title = title;
@@ -24,6 +30,11 @@ public class InquiryVo {
         this.send = send;
         this.time = time;
         this.category = category;
+        this.bnum = bnum;
+        this.lvl = lvl;
+        this.step = step;
+
+
     }
 
     public int get_id() {
@@ -82,6 +93,30 @@ public class InquiryVo {
         this.category = category;
     }
 
+    public int getBnum() {
+        return bnum;
+    }
+
+    public void setBnum(int bnum) {
+        this.bnum = bnum;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
     @Override
     public String toString() {
         return "InquiryVo{" +
@@ -91,6 +126,9 @@ public class InquiryVo {
                 ", recept='" + recept + '\'' +
                 ", send='" + send + '\'' +
                 ", time='" + time + '\'' +
+                ", bnum='" + bnum + '\'' +
+                ", lvl='" + lvl + '\'' +
+                ", step='" + step + '\'' +
                 ", category=" + category +
                 '}';
     }

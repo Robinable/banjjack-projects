@@ -20,8 +20,8 @@ public class WriteService {
     }
 
     //게시판 불러오기
-    public List<WriteVo> getList(String category, int displayPost, int postnum) {
-        List<WriteVo> boardList = writeDao.getList(category, displayPost, postnum);
+    public List<WriteVo> getList(String category, int displayPost, int postnum, int menu_id) {
+        List<WriteVo> boardList = writeDao.getList(category, displayPost, postnum, menu_id);
         return boardList;
     }
 

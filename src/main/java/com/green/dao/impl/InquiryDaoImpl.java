@@ -15,7 +15,13 @@ public class InquiryDaoImpl implements InquiryDao {
 
     @Override
     public void writeinquiry(InquiryVo inquiryVo) {
-        sqlSession.insert("Inquiry.write",inquiryVo);
+        int lvl = inquiryVo.getLvl();
+        if (lvl == 0) {
+            sqlSession.insert("Inquiry.write",inquiryVo);
+        } else {
+            sqlSession.update("Inquiry.UpdateRef", inquiryVo);
+            sqlSession.insert("Inquiry.BoardReply", inquiryVo);
+        }
     }
 
     @Override
@@ -50,5 +56,28 @@ public class InquiryDaoImpl implements InquiryDao {
     public int casecount(int category) {
         int count = sqlSession.selectOne("Inquiry.casecount", category);
         return count;
+    }
+
+    @Override
+    public int mylistcount(String send) {
+        int count = sqlSession.selectOne("Inquiry.mylistcount", send);
+        return count;
+    }
+
+    @Override
+    public List<InquiryVo> inquirymylist(String send, int displaypost, int postnum) {
+        HashMap map = new HashMap<>();
+        map.put("displaypost",displaypost);
+        map.put("postnum",postnum);
+        map.put("send",send);
+
+        List<InquiryVo> vo = sqlSession.selectList("Inquiry.inquirymylist",map);
+        return vo;
+    }
+
+    @Override
+    public InquiryVo selectCont(int _id) {
+        InquiryVo vo = sqlSession.selectOne("Inquiry.selectCont",_id);
+        return vo;
     }
 }

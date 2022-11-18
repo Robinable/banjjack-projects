@@ -42,4 +42,21 @@ public class EventService {
         List<EventVo> vo = eventDaoImpl.pasteventlist(now,displaypost,postnum);
         return vo;
     }
+
+    public void writeevent(EventVo eventVo) {
+        eventDaoImpl.writeevent(eventVo);
+    }
+
+    public EventVo selectCont(int _id) {
+        EventVo vo = eventDaoImpl.selectCont(_id);
+        return vo;
+    }
+
+    public void readcntup(int _id) {
+        eventDaoImpl.readcntup(_id);
+    }
+
+    public void eventupdate(EventVo eventVo) {
+        eventDaoImpl.eventupdate(eventVo);
+    }
 }

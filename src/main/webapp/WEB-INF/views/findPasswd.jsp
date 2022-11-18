@@ -5,35 +5,47 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>비밀번호 재설정</title>
     <style>
+
         *     { box-sizing:border-box;  }
 
-        .login-form { width:600px; margin:0 auto; }
+        body  { text-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;}
 
-        .login-form input {
+        main {
+            display: block;
+        }
+
+        .findPasswdForm { width:600px; margin:0 auto; }
+
+        .findPasswdForm input{
 
             border:1px solid grey;
-            border-radius:5px;
-
+            border-radius:10px;
+            width: 40%;
             padding: 10px;
             margin:5px;
 
         }
 
-        div  { text-align: center; padding: 0;}
+        div  { width: 100%; text-align: center; padding: 0;}
 
-        ul { list-style: none; }
-
-        li:nth-child(n+6):nth-child(-n+7) { display: inline; }
-
-        a { font-size: 13px; }
-
-        #container { width:100% }
+        .con { width:100% }
 
         #form1 { width:100%; }
+        #goPasswdUpdate { width: 15%; margin-top: 20px; border:1px solid;}
 
-        hr  { width:400px; margin-bottom:70px; }
+        hr  {  margin-bottom:70px; }
+
+        .findPasswdlabel { margin-top: 50px; }
+
+        .error { margin-top: 20px; text-align: center; margin-bottom: 20px;}
+
+        .label1 { margin-bottom: 20px;}
 
 
     </style>
@@ -48,12 +60,12 @@
 
                 if(username.value == '') {
                     e.preventDefault();
-                    $('#dataCheck').html('아이디를 입력하세요.');
+                    alert('아이디를 입력해주세요.');
                     username.focus();
 
                 } else if(useremail.value == '') {
                     e.preventDefault();
-                    $('#dataCheck').html('이메일을 입력하세요.');
+                    alert('이메일을 입력해주세요.');
                     useremail.focus();
 
                 }
@@ -66,27 +78,26 @@
 
 
     </script>
-
-
 </head>
 <body>
-<div class="login-form">
-    <form action="/findPasswdSuccess" method="POST" id="form1" name="form1">
-        <ul id="container">
-            <li><label>비밀번호 찾기</label></li>
-            <hr />
-            <li><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요.</label></li>
-            <li><input type="text" id="username" name="username" placeholder="아이디"/></li>
-            <li><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></li>
-            <li><span id="dataCheck"></span></li>
-            <li>
-                <c:if test="${message == 'error'}">
-                    <div style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>
-                </c:if>
-            </li>
-            <li><input type="submit" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></li>
-        </ul>
-    </form>
-</div>
+<main class="form-signin w-100 m-auto">
+    <div class="findPasswdForm">
+        <h2 class="findPasswdlabel">비밀번호 찾기</h2>
+        <hr />
+        <form action="/findPasswdSuccess" method="POST" id="form1" name="form1">
+            <div class="con">
+                <div class="label1"><label>비밀번호를 찾을 아이디와 이메일을 입력해주세요!</label></div>
+                <div><input type="text" id="username" name="username" placeholder="아이디"/></div>
+                <div><input type="text" id="useremail" name="useremail" placeholder="E-mail"/></div>
+                <div>
+                    <c:if test="${message == 'error'}">
+                        <div class="error" style="color:red;"> 아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.</div>
+                    </c:if>
+                </div>
+                <div><input type="submit" class="btn btn-primary" id="goPasswdUpdate" name="goPasswdUpdate" value="다음"/></div>
+            </div>
+        </form>
+    </div>
+</main>
 </body>
 </html>

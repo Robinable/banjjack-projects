@@ -41,4 +41,14 @@ public class NoticeDaoImpl implements NoticeDao {
         int count = sqlSession.selectOne("Notice.noticecount");
         return count;
     }
+
+    @Override
+    public void writenotice(NoticeVo noticeVo) {
+        sqlSession.insert("Notice.writenotice",noticeVo);
+    }
+
+    @Override
+    public void noticeupdate(NoticeVo noticeVo) { sqlSession.update("Notice.update",noticeVo);
+
+    }
 }

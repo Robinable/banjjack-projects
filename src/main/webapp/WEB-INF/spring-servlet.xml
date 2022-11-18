@@ -5,10 +5,12 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xmlns:beans="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <context:component-scan base-package="com.*"></context:component-scan>
     <mvc:annotation-driven />
@@ -79,19 +81,19 @@
             <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/files/**"/>
             <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/ws/**"/>
             <bean id="authInterceptor" class="com.green.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-    <!--  공통 Interceptor -->
-    <!--    <mvc:interceptors>-->
-    <!--        <mvc:interceptor>-->
-    <!--            <mvc:mapping path="/**"/>-->
-    <!--            <mvc:exclude-mapping path="/resources/**"/>-->
-    <!--            <mvc:exclude-mapping path="/static/**"/>-->
-    <!--            <bean id="authInterceptor"-->
-    <!--                  class="com.green.interceptor.AuthInterceptor">-->
-    <!--            </bean>-->
-    <!--        </mvc:interceptor>-->
-    <!--    </mvc:interceptors>-->
+    <!--  socket  -->
+    <bean id="MessageHandler" class="com.green.socket.MessageHandler" />
+    <websocket:handlers>
+        <websocket:mapping handler="MessageHandler" path="/ws" />
+        <websocket:handshake-interceptors>
+            <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+        </websocket:handshake-interceptors>
+        <websocket:sockjs />
+    </websocket:handlers>
+
 
 </beans>

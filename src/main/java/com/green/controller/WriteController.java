@@ -35,7 +35,7 @@ public class WriteController {
 	}
 
 	@GetMapping("/list")
-	public String list(Model model, @RequestParam String category, @RequestParam int num) {
+	public String list(Model model, @RequestParam String category, @RequestParam int num, @RequestParam int menu_id) {
 		page.setNum(num);
 		page.setCount(writeService.listCount(category));
 
@@ -43,26 +43,21 @@ public class WriteController {
 		model.addAttribute("category", category);
 		model.addAttribute("select", num);
 		model.addAttribute("num", num);
+		model.addAttribute("menu_id", menu_id);
 
 		return "/list";
 	}
 
 	@GetMapping("/getlist")
 	@ResponseBody
-	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num) {
+	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, @RequestParam int menu_id) {
 		int postnum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
 
+		List<WriteVo> writeVo = writeService.getList(category, displayPost, postnum, menu_id);
 
-
-		System.out.println("postnum : " + postnum + "displayPost : " + displayPost + "num : " + num);
-
-
-		List<WriteVo> writeVo = writeService.getList(category, displayPost, postnum);
-		System.out.println(writeVo);
 		List<JSONObject> getList = new ArrayList<>();
 		for (WriteVo vo : writeVo) {
-			System.out.println("vo : " + vo);
 			JSONObject data = new JSONObject();
 			data.put("_id", vo.get_id());
 			data.put("title", vo.getTitle());
@@ -73,6 +68,7 @@ public class WriteController {
 			data.put("bnum", vo.getBnum());
 			data.put("lvl", vo.getLvl());
 			data.put("step", vo.getStep());
+			data.put("replycnt", vo.getReplycnt());
 			getList.add(data);
 		}
 		return getList;
@@ -161,7 +157,7 @@ public class WriteController {
 			writeService.writeFile(fileVo);
 		}
 
-		return "redirect:/list?num=1&category=" + writeVo.getCategory();
+		return "redirect:/list?num=1&menu_id=2&category=" + writeVo.getCategory();
 	}
 
 	@GetMapping("/updateForm")
@@ -224,13 +220,13 @@ public class WriteController {
 			writeService.writeFile(fileVo);
 		}
 
-		return "redirect:/list?num=1&category=" + writeVo.getCategory();
+		return "redirect:/list?num=1&menu_id=2&category=" + writeVo.getCategory();
 	}
 
 	@GetMapping("/delete")
 	public String delete(@RequestParam String _id, @RequestParam String category) {
 		writeService.delete(_id);
-		return "redirect:/list?num=1&category=" + category;
+		return "redirect:/list?num=1&menu_id=2&category=" + category;
 	}
 
 
