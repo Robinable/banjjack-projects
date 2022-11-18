@@ -86,7 +86,7 @@
             if (uname==="${user.username}") {
                 str2=str2
                     +"<button class =\"buttons\" id=\"edit\" onClick=\"fnEdit($('id'))\"> 수정 </button>"
-                    +"<button class = \"buttons\" id=\"delete\" onClick=\"fnDelete($('id'))\"> 삭제 </button>"
+                    +"<button class = \"buttons\"  id=\"delete\" onClick=\"fnDelete($('id'))\"> 삭제 </button>"
             }
             document.getElementById("UDButton").innerHTML += str2;
         }

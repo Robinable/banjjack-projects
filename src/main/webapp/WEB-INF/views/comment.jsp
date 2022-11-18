@@ -33,7 +33,7 @@
         });
         //리스트조회
         function fnCommentList(num) {
-
+            console.log("num"+num);
             $("#commentListBox").empty();
             $("#pagingBox").empty();
             $.ajax({
@@ -42,18 +42,19 @@
                 data: { 'content_id' : content_id,
                     'menu_id' : menu_id,
                     'num' : num },
+
                 error: function (xhr) {
                     console.log(xhr)
                 },
                 success: function (data) {
                     console.log(data);
                     let next = data[0].next;
-                    let startPageNum = data[0].startPageNum;
-                    let select = data[0].num;
-                    let endPageNum = data[0].endPageNum;
-                    let num = data[0].num;
+                    let startPageNum = Number(data[0].startPageNum);
+                    let select = Number(data[0].num)*1;
+                    let endPageNum = Number(data[0].endPageNum);
+                    let num = Number(data[0].num);
                     let prev = data[0].prev;
-                    let commentCount = data[0].commentCount;
+                    let commentCount = Number(data[0].commentCount);
                     console.log(next, num, select, endPageNum);
                     let str = ""
                     let paging = "";
@@ -102,23 +103,29 @@
                             + "</div>"
                             + "</li>"
                     })
+                    console.log("ep1/"+endPageNum)
                     //페이징
                     if (prev === true){
-                        paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+startPageNum -1 +");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
+                        startPageNum=Number(startPageNum)-1;
+                        console.log(startPageNum)
+                        paging+="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+ startPageNum + ");\" return false; class=\"page-link\" id=\"prev\">이전</a></li>"
                             +"<span aria-hidden=\"true\"></span>"
                     }
-                    for(let num=startPageNum; num<=endPageNum; num++){
-                        if (select != num){
-                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList("+num+");\" return false; class=\"page-link\">"+num+"</a></li>"
-                        }else{
-                            paging +="<li class=\"page-item\"><a href=\"javascript:void(0)\" + \" return false; class=\"page-link\"><p>"+num+"</p></li>"
-                        }
-                        if (next === true) {
-                            paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + endPageNum +1 + ");\" return false; class=\"page-link\" id=\"prev\">다음</a></li>"
-                                + "<span aria-hidden=\"true\"></span>"
+                    for(let num=startPageNum; num<=endPageNum; num++) {
+                        if (select != num) {
+                            paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" + num + ");\" return false; class=\"page-link\">"+num+"</a></li>"
+                        } else {
+                            paging += " <li class=\"page-item active\" aria-current=\"page\"><a href=\"#\"class=\"page-link\">"+num+"</li>"
                         }
                     }
-                    console.log(paging);
+                    if (next === true) {
+                        endPageNum=Number(endPageNum)+1;
+                        paging += "<li class=\"page-item\"><a href=\"javascript:void(0)\" onClick=\"fnCommentList(" +endPageNum + ");\" return false; class=\"page-link\" id=\"next\">다음</a></li>"
+                            + "<span aria-hidden=\"true\"></span>"
+                    }
+                    console.log("ep2/"+endPageNum)
+
+                    console.log("ep3/"+endPageNum+1);
                     document.getElementById('count').textContent = commentCount;
                     document.getElementById('commentListBox').innerHTML += str;
                     document.getElementById('pagingBox').innerHTML += paging;

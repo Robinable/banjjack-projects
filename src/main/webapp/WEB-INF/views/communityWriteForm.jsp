@@ -22,6 +22,7 @@
 
   <meta charset="UTF-8">
   <script>
+
     function fnWriteClick() {
       let writeData =
               {
@@ -42,6 +43,7 @@
         },
         success: function (WriteData) {
           var url = "<c:url value="/communityList"/>";
+
           window.location.href = url
         }
 
