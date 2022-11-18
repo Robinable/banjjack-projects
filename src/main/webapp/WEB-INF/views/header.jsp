@@ -103,7 +103,7 @@ function onMessage(evt){
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="/noticeList" class="nav-link px-2 link-secondary">새소식</a></li>
             <li><a href="/list?category=&num=1&menu_id=0" class="nav-link px-2 link-dark">반짝찾기</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">커뮤니티</a></li>
+            <li><a href="/communityList" class="nav-link px-2 link-dark">커뮤니티</a></li>
             <li><a href="/information" class="nav-link px-2 link-dark">정보</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">고객센터</a></li>
           </ul>
@@ -138,7 +138,7 @@ function onMessage(evt){
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/myPageForm" style="background-color: #fff;"><i class="me-2"></i>내정보</a></li>
-                <li><a class="dropdown-item" href="/receptNote?recept=" style="background-color: #fff;"><i class="me-2"></i>쪽지함</a></li>
+                <li><div type="button" class="dropdown-item" style="background-color: #fff;" onclick="window.open('/receptNote?recept=', 'a', 'width=800, height=600, left=100, top=50');"><i class="me-2"></i>쪽지함</div></li>
                 <li><a class="dropdown-item" href="/logout" style="background-color: #fff;"><i class="me-2"></i>로그아웃</a></li>
               </ul>
             </div>
