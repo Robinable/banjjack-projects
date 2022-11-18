@@ -2,8 +2,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%--<% String username = request.getParameter("username"); %>--%>
-<%--<% String content_id = request.getParameter("_id"); %>--%>
 
 
 <head>
@@ -85,8 +83,9 @@
                             + "</div>"
                             + "<div class=\"commentBox\">"
                             + "<span class=\"comWriter\">"
-                            + element.name
+                            + element.usernickname
                             + "</span>"
+                            + "<input type= \"hidden\" name=\"username\" value=\'"+element.name+"\'>"
                         if(element.name == "${user.username}" ) {
                             str=str
                                 +"<span class=\"buttonSpan\">"

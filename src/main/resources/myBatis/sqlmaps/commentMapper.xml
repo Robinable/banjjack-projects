@@ -12,12 +12,15 @@
         SELECT
             c._id,
             c.username,
+            u.usernickname,
             c.time,
             p.profiledata,
             c.content,
             (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
             comment_tb as c
+        join user_tb as u
+        on c.username = u.username
         LEFT OUTER JOIN profile_tb as p
         on c.username = p.username
         WHERE

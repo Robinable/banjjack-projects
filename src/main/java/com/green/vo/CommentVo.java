@@ -13,7 +13,9 @@ public class CommentVo {
     private int commentcount;
     private String profiledata;
 
-    public CommentVo(int _id, int content_id, String content, String time, String username, int menu_id, int commentcount, String profiledata) {
+    private String usernickname;
+
+    public CommentVo(int _id, int content_id, String content, String time, String username, int menu_id, int commentcount, String profiledata, String usernickname) {
         this._id = _id;
         this.content_id = content_id;
         this.content = content;
@@ -22,9 +24,18 @@ public class CommentVo {
         this.menu_id = menu_id;
         this.commentcount = commentcount;
         this.profiledata = profiledata;
+        this.usernickname = usernickname;
     }
 
     public CommentVo() {
+    }
+
+    public String getUsernickname() {
+        return usernickname;
+    }
+
+    public void setUsernickname(String usernickname) {
+        this.usernickname = usernickname;
     }
 
     public String getProfiledata() {
@@ -100,6 +111,7 @@ public class CommentVo {
                 ", menu_id=" + menu_id +
                 ", commentcount=" + commentcount +
                 ", profiledata='" + profiledata + '\'' +
+                ", usernickname='" + usernickname + '\'' +
                 '}';
     }
 }
