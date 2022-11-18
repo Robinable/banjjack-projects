@@ -52,14 +52,20 @@
 						var content = result[i].content
 						var recept = result[i].recept
 						var time = result[i].time
-
-						console.log(recept + "i = " + result[i].content)
+						var readchk = result[i].readchk
+						var chk = '[읽지않음]'
+						if(readchk == 1){
+							chk='[읽음]'
+						}
 
 
 						html         += "<tr>";
 						html         += '<td></td>';
-						html         += '<td style="text-align: center;">' + _id + '</td>';
-						html         += '<td style="text-align: center; padding-left:90px;">';
+						if(readchk == 1){
+							html         += '<td style="text-align: center; color:yellowgreen;" >[읽음]</td>';}
+						else{
+							html         += '<td style="text-align: center; color:gray;" >[읽지않음]</td>';}
+						html         += '<td style="text-align: center; padding-left:60px;">';
 						html         += '<div class="cc">';
 						html         += '<a href ="/readsendNote?_id='+_id +'">'+ content +'</a>';
 						html         += '</div></td>';
@@ -99,7 +105,7 @@
 					<thead class="table-light">
 					<tr>
 						<th></th>
-						<th>번호</th>
+						<th>읽음표시</th>
 						<th>내용</th>
 						<th>받는사람</th>
 						<th>등록일</th>

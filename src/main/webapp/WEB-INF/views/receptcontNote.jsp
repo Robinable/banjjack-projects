@@ -83,7 +83,7 @@
             <ul class="top_buttons">
                 <a class="btn btn-primary btn-sm" href="/receptNote?recept=${user.username}">받은 쪽지함</a>
                 <a class="btn btn-primary btn-sm" href="/sendNote?send=${user.username}">보낸 쪽지함</a>
-                <a class="btn btn-primary btn-sm" id="delete" name="delete" href="/deleteNote?_id=${_id}" >쪽지 삭제</a>
+                <a class="btn btn-primary btn-sm" id="delete" name="delete" href="/deleteNote?_id=${_id}&recept=${user.username}" >쪽지 삭제</a>
             </ul>
             <form action="/writeNoteForm?reply=${reply}" method="post" name="message_form">
                 <div id="write_msg">

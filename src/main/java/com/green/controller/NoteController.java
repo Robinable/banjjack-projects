@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class NoteController {
 	PageVo page = new PageVo();
 
 	// 쪽지 쓰기
-	@RequestMapping ("/writeNoteForm1")
+	@RequestMapping ("/writeNoteForm")
 	public String writeNoteForm(@RequestParam (required = false)String reply, Model model) {
 		String content_ = (String) model.getAttribute("content_value");
 		String error_ = (String) model.getAttribute("error");
@@ -57,17 +58,22 @@ public class NoteController {
 
 	// // 받은 쪽지함 + 페이징 (받은 아이디로 조회)
 	@GetMapping ("/receptNote")   // /receptNote?recept=로그인아이디&num=1
-	public String recept(@RequestParam(required = false, defaultValue = "1") int num, @RequestParam String recept, Model model){
+	public String recept(@RequestParam(required = false, defaultValue = "1") int num, @RequestParam String recept, Model model, HttpSession session){
 
-		page.setNum(num);
-		page.setCount(noteService.receptcount(recept));
 
-		model.addAttribute("page",page);
-		model.addAttribute("select", num);
-		model.addAttribute("num", num);
+		if (session.getAttribute("login") == null) {
+			return "redirect:/login";
+		}
+        else {
+			page.setNum(num);
+			page.setCount(noteService.receptcount(recept));
 
-		return "/receptNote2";
+			model.addAttribute("page", page);
+			model.addAttribute("select", num);
+			model.addAttribute("num", num);
 
+			return "/receptNote2";
+		}
 	}
 
 
@@ -85,6 +91,8 @@ public class NoteController {
 			obj.put("content", vo.getContent());
 			obj.put("send", vo.getSend());
 			obj.put("time", vo.getTime());
+			obj.put("readchk", vo.getReadchk());
+
 
 
 			NoteVoList.add(obj);
@@ -123,6 +131,7 @@ public class NoteController {
 			obj.put("content", vo.getContent());
 			obj.put("recept", vo.getRecept());
 			obj.put("time", vo.getTime());
+			obj.put("readchk", vo.getReadchk());
 
 			NoteVoList.add(obj);
 		}
@@ -137,6 +146,10 @@ public class NoteController {
 	@GetMapping("/readreceptNote")
 	public String readreceptNote(@RequestParam int _id, @RequestParam String send, Model model) {
 
+        noteService.chkcount(_id);
+		int check = noteService.readcheck(_id);
+
+        model.addAttribute("readchk",check);
 		model.addAttribute("_id",_id);
 		model.addAttribute("reply",send);
 		return "/receptcontNote";
@@ -168,10 +181,10 @@ public class NoteController {
 
 	// 쪽지 삭제
 	@GetMapping("/deleteNote")
-	public String deletenote(@RequestParam int _id){
+	public String deletenote(@RequestParam int _id, @RequestParam String recept){
 		noteService.deleteNote(_id);
-
-		return "redirect:/receptNote?recept=1234";
+        String rec = recept;
+		return "redirect:/receptNote?recept=rec";
 	}
 
 	@PostMapping("/selectDeleteNote")   // 선택삭제

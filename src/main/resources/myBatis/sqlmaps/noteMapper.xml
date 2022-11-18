@@ -70,6 +70,19 @@
         WHERE username = #{recept}
     </select>
 
+    <select id="readcheck" resultType="int">
+        SELECT readchk
+        FROM note_tb
+        WHERE _id = #{_id}
+    </select>
+
+  <update id="chkcount">
+      UPDATE note_tb
+      SET    readchk = 1
+      WHERE  _id  = #{_id}
+
+  </update>
+
 
 
 </mapper>

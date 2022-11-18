@@ -49,11 +49,20 @@
                     var content = result[i].content
                     var send = result[i].send
                     var time = result[i].time
+                    var readchk = result[i].readchk
+                    var chk = '[읽지않음]'
+                    if(readchk == 1){
+                        chk='[읽음]'
+                    }
+
                     console.log(send)
                     html         += "<tr>";
                     html         += '<td><input class="form-check-input" type ="checkbox" name = "RowCheck" value ="'+_id+'"</td>';
-                    html         += '<td style="text-align: center;">' + _id + '</td>';
-                    html         += '<td style="text-align: center; padding-left:90px;">';
+                    if(readchk == 1){
+                        html         += '<td style="text-align: center; color:yellowgreen;" >[읽음]</td>';}
+                    else{
+                        html         += '<td style="text-align: center; color:gray;" >[읽지않음]</td>';}
+                    html         += '<td style="text-align: center; padding-left:60px;">';
                     html         += '<div class="cc">';
                     html         += '<a href ="/readreceptNote?_id='+_id +'&send='+send+'">'+ content +'</a>';
                     html         += '</div></td>';
@@ -139,7 +148,7 @@
                     <thead class="table-light">
                     <tr>
                         <th><input class="form-check-input" type ="checkbox" name = "allCheck"></th>
-                        <th>번호</th>
+                        <th>읽음표시</th>
                         <th>내용</th>
                         <th>보낸사람</th>
                         <th>등록일</th>

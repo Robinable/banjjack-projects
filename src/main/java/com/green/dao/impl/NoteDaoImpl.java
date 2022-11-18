@@ -80,7 +80,20 @@ public class NoteDaoImpl implements NoteDao {
 
     @Override
     public int chkrecept(String recept) {
-        int chk = sqlSession.selectOne("chkrecept",recept);
+        int chk = sqlSession.selectOne("Note.chkrecept",recept);
         return chk;
     }
+
+    @Override
+    public int readcheck(int _id) {
+        int check = sqlSession.selectOne("Note.readcheck",_id);
+        return check;
+    }
+
+    @Override
+    public void chkcount(int _id) {
+        sqlSession.selectOne("Note.chkcount",_id);
+    }
+
+
 }

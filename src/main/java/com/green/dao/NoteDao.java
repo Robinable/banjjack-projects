@@ -24,4 +24,10 @@ public interface NoteDao {
     List<NoteVo> sendpage(String send, int displaypost, int postnum);
 
     int chkrecept(String recept);
+
+    int readcheck(int _id);
+
+    void chkcount(int id);
+
+
 }

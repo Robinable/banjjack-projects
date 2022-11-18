@@ -63,4 +63,14 @@ public class NoteService {
         int chk = noteDaoImpl.chkrecept(recept);
         return chk;
     }
+
+    public int readcheck(int _id) {
+        int check = noteDaoImpl.readcheck(_id);
+        return check;
+    }
+
+
+    public void chkcount(int _id) {
+        noteDaoImpl.chkcount(_id);
+    }
 }

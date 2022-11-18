@@ -138,7 +138,7 @@ function onMessage(evt){
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/myPageForm" style="background-color: #fff;"><i class="me-2"></i>내정보</a></li>
-                <li><div type="button" class="dropdown-item" style="background-color: #fff;" onclick="window.open('/receptNote?recept=', 'a', 'width=800, height=600, left=100, top=50');"><i class="me-2"></i>쪽지함</div></li>
+                <li><div type="button" class="dropdown-item" style="background-color: #fff;" onclick="window.open('/receptNote?recept=', 'a', 'width=880, height=650, left=100, top=50');"><i class="me-2"></i>쪽지함</div></li>
                 <li><a class="dropdown-item" href="/logout" style="background-color: #fff;"><i class="me-2"></i>로그아웃</a></li>
               </ul>
             </div>
