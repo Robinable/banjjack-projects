@@ -19,6 +19,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <style>
+        .pagination{ width: 100px ; margin-left: auto; margin-right: auto; text-align: center; display : flex; flex-direction: row;}
+    </style>
     <script>
 
         let query = window.location.search;
@@ -72,13 +75,14 @@
                                 + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                                 + "<div class=\"commentIcon\">"
                                 + "<span class=\"material-icons-outlined\">"
-                            if (element.profiledata == '') {
-                                str = str
-                                    + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
-                            }else{
-                                str = str
-                                + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
-                            }
+                            //프로필사진 불러오기 (리사이징 될 때 까지 주석처리)
+                            // if (element.profiledata == '') {
+                            //     str = str
+                            //         + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                            // }else{
+                            //     str = str
+                            //     + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                            // }
                                str = str
                                 + "</span>"
                                 + " <br>"
