@@ -69,6 +69,7 @@ public class CommentController {
 			obj.put("_id", cl.get_id());
 			obj.put("content", cl.getContent());
 			obj.put("time", timeGap.getTime());
+			obj.put("profiledata", cl.getProfiledata());
 
 			commentList.add(obj);
 		}

@@ -10,13 +10,16 @@
             resultType="com.green.vo.CommentVo">
 
         SELECT
-            _id,
-            username,
-            time,
-            content,
+            c._id,
+            c.username,
+            c.time,
+            p.profiledata,
+            c.content,
             (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
-            comment_tb
+            comment_tb as c
+        JOIN profile_tb as p
+        on c.username = p.username
         WHERE
             content_id = #{content_id}
           AND
@@ -50,6 +53,11 @@
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
     </delete>
-
-
+<!--프로필 사진 불러오기 -->
+    <select id="getUserProfile"
+            resultType="String">
+    SELECT profiledata
+    FROM   profile_tb
+    WHERE  username = #{username}
+    </select>
 </mapper>

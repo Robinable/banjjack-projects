@@ -19,6 +19,7 @@ public class CommentDaoImpl implements CommentDao {
     public List<CommentVo> getCommentList(Map<String, Object> map) {
 
         List<CommentVo> commentList = sqlSession.selectList("Comment.commentList", map);
+
         return commentList;
     }
 

@@ -72,7 +72,14 @@
                                 + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                                 + "<div class=\"commentIcon\">"
                                 + "<span class=\"material-icons-outlined\">"
-                                + "android"
+                            if (element.profiledata == '') {
+                                str = str
+                                    + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                            }else{
+                                str = str
+                                + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                            }
+                               str = str
                                 + "</span>"
                                 + " <br>"
                                 + "<span class=\"commentDate\">"
