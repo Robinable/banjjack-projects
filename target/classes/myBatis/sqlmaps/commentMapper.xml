@@ -6,7 +6,7 @@
 <mapper namespace="Comment">
     <!--   리스트 조회 -->
     <select id="commentList"
-            parameterType="Integer"
+            parameterType="HashMap"
             resultType="com.green.vo.CommentVo">
 
         SELECT
@@ -18,21 +18,21 @@
             (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
             comment_tb as c
-        JOIN profile_tb as p
+            JOIN profile_tb as p
         on c.username = p.username
         WHERE
             content_id = #{content_id}
           AND
             menu_id = #{menu_id}
         Order BY _id DESC
-        LIMIT #{displaypost},#{postnum}
+            LIMIT #{displaypost},#{postnum}
     </select>
-<!--댓글숫자-->
+    <!--댓글숫자-->
     <select id= "listCount"
-                 resultType="int">
-    SELECT COUNT(*) FROM comment_tb
-    WHERE content_id = #{content_id}
-    AND menu_id = #{menu_id}
+            resultType="int">
+        SELECT COUNT(*) FROM comment_tb
+        WHERE content_id = #{content_id}
+          AND menu_id = #{menu_id}
 
     </select>
     <!--코멘트 쓰기-->
@@ -53,11 +53,11 @@
         DELETE FROM comment_tb
         WHERE _id  = #{_id}
     </delete>
-<!--프로필 사진 불러오기 -->
+    <!--프로필 사진 불러오기 -->
     <select id="getUserProfile"
             resultType="String">
-    SELECT profiledata
-    FROM   profile_tb
-    WHERE  username = #{username}
+        SELECT profiledata
+        FROM   profile_tb
+        WHERE  username = #{username}
     </select>
 </mapper>
