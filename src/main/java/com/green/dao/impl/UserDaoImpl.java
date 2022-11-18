@@ -119,6 +119,11 @@ public class UserDaoImpl implements UserDao {
         sqlSession.delete("User.deleteUser", username);
     }
 
+    @Override
+    public String idUsername(String username) {
+        return sqlSession.selectOne("User.idUsername", username);
+    }
+
 
 }
 

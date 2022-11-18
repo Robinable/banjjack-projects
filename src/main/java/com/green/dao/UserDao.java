@@ -46,4 +46,6 @@ public interface UserDao {
     UserVo getUserInfo(String username);
 
     void deleteUser(String username);
+
+    String idUsername(String username);
 }

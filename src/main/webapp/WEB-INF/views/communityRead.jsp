@@ -85,54 +85,60 @@
             let   str2=""
             if (uname==="${user.username}") {
                 str2=str2
-                    +"<button class =\"buttons\" id=\"edit\" onClick=\"fnEdit($('id'))\"> 수정 </button>"
-                    +"<button class = \"buttons\"  id=\"delete\" onClick=\"fnDelete($('id'))\"> 삭제 </button>"
+                    +"<button class =\"buttons btn btn-primary btn-sm\" id=\"edit\" onClick=\"fnEdit($('id'))\"> 수정 </button>"
+                    +"<button class = \"buttons btn btn-primary btn-sm\" id=\"delete\" onClick=\"fnDelete($('id'))\"> 삭제 </button>"
             }
             document.getElementById("UDButton").innerHTML += str2;
         }
     </script>
 </head>
 <body style="background-color: white">
-
-<div class="layer">
-    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-        <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
-        <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
-        <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
-        <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+<div class="container">
+    <div class="layer">
+        <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+            <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+            <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
+            <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
+            <a  href="/communityList?tag=2" class="btn btn-outline-primary">반려자랑 </a>
+            <a  href="/communityList?tag=3" class="btn btn-outline-primary"> 질문게시판 </a>
+        </div>
     </div>
-</div>
 
-<div id="view" class="layer">
-    <table class="content">
-        <tr>
-            <td id="tag" class="rounded-pill center">tag:</td>
-        </tr>
-        <tr>
-            <td colspan="6" class="left border-bottom"> <h2> <span id="title" >title:</span> </h2> </td>
-        </tr>
-        <tr>
-            <td class="right border-bottom bg"> 작성자 : </td>
-            <td class="left border-bottom bg"> <span id="username">username:</span> </td>
-            <td class="right border-bottom bg"> 조회수 : </td>
-            <td class="left border-bottom bg"> <span id="readcount">readcount:</span> </td>
-            <td class="right border-bottom bg"> 작성일 : </td>
-            <td class="left border-bottom bg"> <span id="time">time:</span> </td>
-        </tr>
-        <tr>
-            <td colspan="6" class="border-bottom"> <div id="content">content:</div> </td>
-        </tr>
-    </table>
+    <div id="view" class="layer">
+        <table class="content">
+            <tr>
+                <td id="tag" class="rounded-pill center">tag:</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="left border-bottom"> <h2> <span id="title" >title:</span> </h2> </td>
+            </tr>
+            <tr>
+                <td class="right border-bottom bg"> 작성자 : </td>
+                <td class="left border-bottom bg"> <span id="username">username:</span> </td>
+                <td class="right border-bottom bg"> 조회수 : </td>
+                <td class="left border-bottom bg"> <span id="readcount">readcount:</span> </td>
+                <td class="right border-bottom bg"> 작성일 : </td>
+                <td class="left border-bottom bg"> <span id="time">time:</span> </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="border-bottom"> <div id="content">content:</div> </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="right">
+                    <span id="UDButton"></span>
+                    <button class="btn btn-primary btn-sm" id="goList" onClick="location.href='/communityList'"  >목록</button>
+                </td>
+            </tr>
+        </table>
 
-</div>
-<div id="UDButton"></div>
-<button class=\"buttons"\ id="goList" onClick="location.href='/communityList'" >목록</button>
+    </div>
 </body>
 
 <c:import url="/comment" >
     <c:param name="content_id" value="${id}"/>
     <c:param name="menu_id" value="1"/>
 </c:import>
+</div>
 </body>
 
 </html>

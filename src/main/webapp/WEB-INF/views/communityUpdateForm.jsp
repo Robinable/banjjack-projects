@@ -70,7 +70,6 @@
 
                 },
                 success: function (data) {
-                    alert("s")
                     var url = "<c:url value="/communityRead"/>";
                     url = url +"?_id="+id;
                     window.location.href = url;
@@ -83,47 +82,49 @@
 </head>
 
 <body>
-
-<div class="layer">
-    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-        <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
-        <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
-        <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
-        <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+<div class="container">
+    <div class="layer">
+        <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+            <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+            <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
+            <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
+            <a  href="/communityList?tag=2" class="btn btn-outline-primary"> 반려자랑 </a>
+            <a  href="/communityList?tag=3" class="btn btn-outline-primary"> 질문게시판 </a>
+        </div>
     </div>
+
+    <div type="hidden" id="username" value='${user.username}' />
+    <input type="hidden" id="readcount" value="0" />
+    <table>
+        <tr>
+            <td class="left" colspan="4">
+                <h2>수정</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text"  id="title" maxLength="20" value="" />
+            </td>
+            <td class="right"> 태그 : </td>
+            <td>
+                <input type="text" id="tag" maxlength="20" value="">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <textarea maxlength="500" id="content" value="" > </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button class="btn btn-primary" id="writebutton" onClick="fnWriteClick()">수정</button>
+            </td>
+        </tr>
+
+
+
+
+    </table>
 </div>
-
-<div type="hidden" id="username" value='${user.username}' />
-<input type="hidden" id="readcount" value="0" />
-<table>
-    <tr>
-        <td class="left" colspan="4">
-            <h2>수정</h2>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="text"  id="title" maxLength="20" value="" />
-        </td>
-        <td class="right"> 태그 : </td>
-        <td>
-            <input type="text" id="tag" maxlength="20" value="">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <textarea maxlength="500" id="content" value="" > </textarea>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <button id="writebutton" onClick="fnWriteClick()">수정</button>
-        </td>
-    </tr>
-
-
-
-
-</table>
 </body>
 </html>

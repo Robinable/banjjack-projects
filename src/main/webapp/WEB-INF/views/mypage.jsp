@@ -59,7 +59,7 @@
 
         a { text-decoration: none; font-size: 16px; }
 
-        div:nth-child(n+10):nth-child(-n+12) { display: inline; }
+        div:nth-child(n+10):nth-child(-n+14) { display: inline; }
 
         .con { width:100% }
 
@@ -96,6 +96,7 @@
 
         window.onload = function() {
             const form = document.querySelector('form');
+            const text = $('unicknameCheck').text('');
             form.addEventListener('submit', function(e) {
                 if(usernickname.value == '') {
                     e.preventDefault();
@@ -117,21 +118,26 @@
                     alert('반려동물을 입력해주세요.');
                     userpet.focus();
 
-                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.' || $('#unicknameCheck').text() != '') {
+                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.' && $('#unicknameCheck').text().length != 0 && usernickname.value > 2) {
+                    console.log( $('#unicknameCheck').text().length);
+                    e.preventDefault();
                     alert('닉네임 형식이 올바르지 않습니다.');
                     usernickname.value = '';
                     usernickname.focus();
-                    e.preventDefault();
+
                 } else {
-                    alert('회원수정이 완료되었습니다.');
+                    let result = confirm('회원정보를 수정하시겠습니까?');
+                    if(result == true) {
+                        alert('회원수정이 완료되었습니다.');
+                    } else {
+                        e.preventDefault();
+                        location.reload();
+                    }
+
                 }
 
 
             }) // form event end
-
-
-
-
 
 
             // 이미지 업로드 버튼 이벤트 (이미지 미리보기)
@@ -140,16 +146,15 @@
             });
 
 
+            $('usernickname').on('')
 
-            $('#usernickname').on('change keydown', function() {
+            $('#usernickname').on('change keyup', function() {
                 const usernickname = document.getElementById('usernickname').value.length;
                 if(usernickname >= 2) {
                     nicknameCheck(document.getElementById('usernickname').value)
                 } else if(usernickname < 2 && usernickname > 0) {
                     $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요.').css('color', 'red').css('font-size', '14px');
                 } else if(usernickname == 0) {
-                    $('#unicknameCheck').text('');
-                } else {
                     $('#unicknameCheck').text('');
                 }
             });
@@ -163,19 +168,19 @@
 
                 if($('#selectPet').val() == '기타') {
                     $('#userpet').attr('value', '');
-                    $('#userpet').removeAttr('disabled');
+                    $('#userpet').removeAttr('readonly');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
 
                 if($('#selectPet').val() == '반려동물') {
                     $('#userpet').attr('value', '');
-                    $('#userpet').attr('disabled', 'disabled');
+                    $('#userpet').attr('readonly', 'readonly');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
 
                 if($('#selectPet').val() == '개' || $('#selectPet').val() == '고양이') {
                     $('#userpet').attr('placeholder', '');
-                    $('#userpet').removeAttr('disabled');
+                    $('#userpet').removeAttr('readonly');
                     $('#userpet').attr('value', $('#selectPet').val());
 
                 }
@@ -339,8 +344,10 @@
 
                 <div><input type="submit"  class="btn btn-primary" id="btnUpdate" name="btnUpdate" value="수정"/></div>
                 <div><a href="/" id="cancleUpdate">취소</a></div>
+                <div><span>⏐</span></div>
                 <div><a href="/myPagePasswdForm" id="goMyPagePasswd">비밀번호변경</a></div>
-                <div><a href="/leaveUserForm" id="goLeave" name="goLeave">회원탈퇴</a></div>
+                <div><span>⏐</span></div>
+                <div><a href="/leaveUserForm" id="goLeave">회원탈퇴</a></div>
             </div>
         </form>
     </div>

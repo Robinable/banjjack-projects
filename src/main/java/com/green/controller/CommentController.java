@@ -45,7 +45,6 @@ public class CommentController {
 	@GetMapping("comment/commentList")
 	@ResponseBody
 	public List<JSONObject> getCommentList(@RequestParam int content_id, int menu_id, int num) throws ParseException {
-		System.out.println("num"+num);
 		page.setNum(num);
 		page.setCount(commentService.listCount(num, menu_id, content_id));
 
@@ -83,16 +82,14 @@ public class CommentController {
 	//댓글쓰기 전송
 	@PostMapping("comment/writeComment")
 	@ResponseBody
-	public Map<String, Object> writeComment(CommentVo commentVo, HttpSession session) {
+	public Map<String, Object> writeComment(CommentVo commentVo, HttpSession httpSession) {
 		Map<String, Object> map = new HashMap<>();
-
-		if(session.getAttribute("login")==null) {
-
-			map.put("result", "loginFail");
-
-		}else{
+		try {
 			commentService.writeComment(commentVo);
 			map.put("result", "success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", "fail");
 		}
 		return map;
 

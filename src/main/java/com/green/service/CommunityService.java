@@ -16,10 +16,11 @@ public class CommunityService {
     @Autowired
     private CommunityDao communityDao;
     //리스트조회
-    public List<CommunityVo> getCommunityList(int displaypost, int postnum) {
+    public List<CommunityVo> getCommunityList(int displaypost, int postnum, String tag) {
         Map<String, Object> map = new HashMap<>();
         map.put("displaypost", displaypost);
         map.put("postnum", postnum);
+        map.put("tag", tag);
         List<CommunityVo> communityList = communityDao.getCommunityList(map);
         return    communityList;
     }

@@ -60,7 +60,7 @@
 
             form.addEventListener('submit', function(e) {
                 const userpassword = document.getElementById('userpassword');
-                const re_userpassword = document.getElementById('re_userpassword');
+                const repasswd = document.getElementById('repasswd');
 
                 if(userpassword.value == '') {
                     e.preventDefault();

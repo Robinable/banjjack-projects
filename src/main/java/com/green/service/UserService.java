@@ -98,4 +98,8 @@ public class UserService {
     public void deleteUser(String username) {
         userDaoImpl.deleteUser(username);
     }
+
+    public String idUsername(String username) {
+        return userDaoImpl.idUsername(username);
+    }
 }

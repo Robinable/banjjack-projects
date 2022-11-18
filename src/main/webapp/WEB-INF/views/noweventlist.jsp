@@ -76,56 +76,56 @@
     </script>
 </head>
 <body>
+<div class="container">
+
+    <section>
+        <div>
+            <div style="text-align: center;">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1" onclick="location.href='/eventlistform?num=1'">전체 이벤트</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="btnradio2" onclick="location.href='/noweventlist?num=1'">진행중인 이벤트</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3" onclick="location.href='/pasteventlist?num=1'">종료된 이벤트</label>
+                </div>
+
+                <div>
 
 
-<section>
-    <div>
-        <div style="text-align: center;">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio1" onclick="location.href='/eventlistform?num=1'">전체 이벤트</label>
+                    <table class="table" >
 
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio2" onclick="location.href='/noweventlist?num=1'">진행중인 이벤트</label>
+                        <thead>
+                        <tr>
+                            <td colspan="5" style="border-bottom: none;">
+                                <h3 class="center">
+                                    진행중인 이벤트
+                                </h3>
+                            </td>
+                        </tr>
+                        </thead >
+                        <tbody id = "noticeList">
 
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio3" onclick="location.href='/pasteventlist?num=1'">종료된 이벤트</label>
-            </div>
+                        </tbody>
 
-            <div>
+                    </table>
 
-
-                <table class="table" >
-
-                    <thead>
-                    <tr>
-                        <td colspan="5" style="border-bottom: none;">
-                            <h3 class="center">
-                                진행중인 이벤트
-                            </h3>
-                        </td>
-                    </tr>
-                    </thead >
-                    <tbody id = "noticeList">
-
-                    </tbody>
-
-                </table>
-
-                <div style="text-align: center;">
-                    <!-- 쪽지함 이동 버튼들 -->
-                    <ul class="buttons right">
+                    <div style="text-align: center;">
+                        <!-- 쪽지함 이동 버튼들 -->
+                        <ul class="buttons right">
 
 
 
-                    </ul>
+                        </ul>
 
 
-                    <c:if test="${page.prev}">
-                        <span>[ <a href="/eventlist?num=${page.startpagenum - 1}">이전</a> ]</span>
-                    </c:if>
+                        <c:if test="${page.prev}">
+                            <span>[ <a href="/eventlist?num=${page.startpagenum - 1}">이전</a> ]</span>
+                        </c:if>
 
-                    <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
+                        <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
   <span>
    <c:if test="${select != num}">
        <a href="/eventlist?num=${num}">${num}</a>
@@ -135,19 +135,19 @@
          <b>${num}</b>
      </c:if>
  </span>
-                    </c:forEach>
+                        </c:forEach>
 
-                    <c:if test="${page.next}">
-                        <span>[ <a href="/eventlist?num=${page.endpagenum + 1}">다음</a> ]</span>
-                    </c:if>
+                        <c:if test="${page.next}">
+                            <span>[ <a href="/eventlist?num=${page.endpagenum + 1}">다음</a> ]</span>
+                        </c:if>
+                    </div>
+
+
                 </div>
 
-
             </div>
-
         </div>
-    </div>
-</section>
-
+    </section>
+</div>
 </body>
 </html>

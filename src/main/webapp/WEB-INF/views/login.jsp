@@ -117,7 +117,9 @@
 
                 <div class="a-tag">
                     <a href="/signup" id="gosignup">회원가입</a>
+                    <span>⏐</span>
                     <a href="/findIdForm" id="findId">아이디 찾기</a>
+                    <span>⏐</span>
                     <a href="/findPasswordForm" id="findPasswd">비밀번호 찾기</a>
                 </div>
             </div>

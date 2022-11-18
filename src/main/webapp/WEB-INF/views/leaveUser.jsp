@@ -56,28 +56,25 @@
             const form = document.querySelector('form');
 
             form.addEventListener('submit', function(e) {
-                const username = document.getElementById('username');
-                const userpassword = document.getElementById('userpassword');
+                const username = document.getElementById('username').value;
+                const userpassword = document.getElementById('userpassword').value;
 
-                if(username.value == '') {
+                if(username == '') {
                     e.preventDefault();
                     alert('아이디를 입력해주세요.');
-                    username.focus();
-
-
-                } else if(userpassword.value == '') {
+                } else if(userpassword == '') {
                     e.preventDefault();
                     alert('비밀번호를 입력해주세요.');
-                    userpassword.focus();
-
-                } else if((${user.username}) == username.value && (${user.userpassword}) == userpassword.value) {
+                } else if(username == '${username}' && userpassword == '${userpassword}') {
                     let result = confirm('탈퇴하시겠습니까?');
                     if(result == true) {
-                        alert('탈퇴가 정상적으로 처리되었습니다');
+                        alert('회원탈퇴가 완료되었습니다.');
                     } else {
+                        e.preventDefault();
                         location.reload();
                     }
                 }
+
 
             });
 

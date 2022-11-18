@@ -22,15 +22,14 @@
 
   <meta charset="UTF-8">
   <script>
-
     function fnWriteClick() {
+      var tag = document.getElementById('tag');
       let writeData =
               {
                 username: $('#username').val(),
                 tag: $('#tag').val(),
                 title: $('#title').val(),
                 content: $('#content').val(),
-
               }
       console.log(writeData);
       $.ajax({
@@ -42,8 +41,8 @@
 
         },
         success: function (WriteData) {
-          var url = "<c:url value="/communityList"/>";
-
+          console.log(tag)
+          var url = "<c:url value="/communityList?tag=0"/>";
           window.location.href = url
         }
 
@@ -53,48 +52,49 @@
 </head>
 
 <body style="background-color: white">
-
-<div class="layer">
-  <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-    <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
-    <a  href="/communityList" class="btn btn-outline-primary"> 자유게시판 </a>
-    <a  href="#" class="btn btn-outline-primary">반려자랑 </a>
-    <a  href="#" class="btn btn-outline-primary"> 질문게시판 </a>
+<div class="container">
+  <div class="layer">
+    <div class="btn-group layer" role="group" aria-label="Basic outlined example">
+      <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+      <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
+      <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
+      <a  href="/communityList?tag=2" class="btn btn-outline-primary">반려자랑 </a>
+      <a  href="/communityList?tag=3" class="btn btn-outline-primary"> 질문게시판 </a>
+    </div>
   </div>
+
+  <input type="hidden" id="username" value=${user.username} />
+  <input type="hidden" id="readcount" value="0" />
+  <table>
+    <tr>
+      <td class="left" colspan = "4"><h2> 새 글 쓰기 </h2></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text"  id="title" placeholder="제목"maxLength="20" />
+      </td>
+      <td >태그 : </td>
+      <td>
+        <select class="form-select" size="1" name="tag" id="tag">
+          <option name="info" value="0">선택하세요.</option>
+          <option name="info" value="1">자유게시판</option>
+          <option name="info" value="2">반려자랑</option>
+          <option name="info" value="3">질문게시판</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <textarea maxlength="500" id="content" placeholder="내용" ></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <button id="writebutton" class="btn btn-primary" onClick="fnWriteClick()">작성</button>
+        <a href="/communityList" class="btn btn-primary">게시판</a>
+      </td>
+    </tr>
+  </table>
 </div>
-
-<input type="hidden" id="username" value=${user.username} />
-<input type="hidden" id="readcount" value="0" />
-<table>
-  <tr>
-    <td class="left" colspan = "4"><h2> 새 글 쓰기 </h2></td>
-  </tr>
-  <tr>
-    <td>
-      <input type="text"  id="title" placeholder="제목"maxLength="20" />
-    </td>
-    <td >태그 : </td>
-    <td>
-      <select class="form-select" size="1" name="tag" id="tag">
-        <option name="info" value="0">선택하세요.</option>
-        <option name="info" value="1">test1</option>
-        <option name="info" value="2">test2</option>
-        <option name="info" value="3">test3</option>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="3">
-      <textarea maxlength="500" id="content" placeholder="내용" ></textarea>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="3">
-      <button id="writebutton" class="btn btn-primary" onClick="fnWriteClick()">작성</button>
-      <a href="/communityList" class="btn btn-primary">게시판</a>
-    </td>
-  </tr>
-</table>
-
 </body>
 </html>

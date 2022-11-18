@@ -22,7 +22,7 @@ public class NoteController {
 	PageVo page = new PageVo();
 
 	// 쪽지 쓰기
-	@RequestMapping ("/writeNoteForm")
+	@RequestMapping ("/writeNoteForm1")
 	public String writeNoteForm(@RequestParam (required = false)String reply, Model model) {
 		String content_ = (String) model.getAttribute("content_value");
 		String error_ = (String) model.getAttribute("error");

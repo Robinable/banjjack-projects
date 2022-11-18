@@ -157,7 +157,7 @@ public class WriteController {
 			writeService.writeFile(fileVo);
 		}
 
-		return "redirect:/list?num=1&menu_id=2&category=" + writeVo.getCategory();
+		return "redirect:/list?num=1&menu_id=0&category=" + writeVo.getCategory();
 	}
 
 	@GetMapping("/updateForm")

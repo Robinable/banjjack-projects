@@ -221,55 +221,55 @@
 </head>
 <div class="container" style="width: 700px;">
 
-<br>
-<div class="commentCount"> 댓글 <span id = "count"></span></div>
-<br>
-<%--댓글리스트 출력부--%>
-<ul class="list-group list-group-flush" id="commentListBox">
+    <br>
+    <div class="commentCount"> 댓글 <span id = "count"></span></div>
+    <br>
+    <%--댓글리스트 출력부--%>
+    <ul class="list-group list-group-flush" id="commentListBox">
 
-</ul>
-<%--댓글페이징--%>
-<nav aria-label="Page navigation">
-    <div class="center">
-        <ul class="pagination" id="pagingBox">
+    </ul>
+    <%--댓글페이징--%>
+    <nav aria-label="Page navigation">
+        <div class="center">
+            <ul class="pagination" id="pagingBox">
 
-        </ul>
-    </div>
-</nav>
-
-
+            </ul>
+        </div>
+    </nav>
 
 
-<!--댓글 입력부 -->
 
-<div class="commentInputBox">
-    <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
-    <input type="hidden" id="commName" name="username" value="${user.username}">
-    <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
-    <%--            <input type="hidden" id="commTime" name="time" value="">--%>
-    <textarea class="commentInput" id="commContent" name="content" cols="70" rows="3" ></textarea>
-    <span class="regBtn">
+
+    <!--댓글 입력부 -->
+
+    <div class="commentInputBox">
+        <%--            <form  action="/comment/writeComment" id="writecom1" method="post" >--%>
+        <input type="hidden" id="commName" name="username" value="${user.username}">
+        <%--            <input type="hidden" id="commCont_id" name="content_id" value="1">--%>
+        <%--            <input type="hidden" id="commTime" name="time" value="">--%>
+        <textarea class="commentInput" id="commContent" name="content" cols="70" rows="3" ></textarea>
+        <span class="regBtn">
         <button type="submit" class="btn btn-secondary btn-lg" id= commentWriteButton > 등록</button>
     </span>
-    <br>
-    <span id="countNum">
+        <br>
+        <span id="countNum">
         ( 0/ 300)
     </span>
-    <%--            </form>--%>
-</div>
+        <%--            </form>--%>
+    </div>
 
 
-<script>
+    <script>
 
-    $('.commentInput').on('keyup', function() {
-        $('#countNum').html("("+$(this).val().length+" / 300)");
+        $('.commentInput').on('keyup', function() {
+            $('#countNum').html("("+$(this).val().length+" / 300)");
 
-        if($(this).val().length > 300) {
-            $(this).val($(this).val().substring(0, 300));
-            $('.countNum').html("(300 / 300)");
-            alert("300자가 초과되었습니다")
-        }
-    });
-</script>
+            if($(this).val().length > 300) {
+                $(this).val($(this).val().substring(0, 300));
+                $('.countNum').html("(300 / 300)");
+                alert("300자가 초과되었습니다")
+            }
+        });
+    </script>
 
 </div>

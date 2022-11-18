@@ -94,6 +94,7 @@
                 </div>
                 <div>
                     <a href="/findPasswordForm" id="findPassword">비밀번호찾기</a>
+                    <span>⏐</span>
                     <a href="/login" id="goLogin">로그인</a>
                 </div>
 
