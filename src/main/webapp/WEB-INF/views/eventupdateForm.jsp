@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>이벤트 내용수정</title>
-    <%@ include file="header.jsp"%>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <style>
 

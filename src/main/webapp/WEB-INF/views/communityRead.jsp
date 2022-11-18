@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
-    <%@ include file="header.jsp"%>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <style>
 

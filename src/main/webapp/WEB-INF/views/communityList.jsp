@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
+    <%@ include file="/WEB-INF/views/header.jsp" %>
 
     <style>
         table             {margin:100px auto;}
@@ -74,13 +75,14 @@
                 }
             });
         }
+
         function communityRead(_id){
             const form = document.getElementById("listform");
             $('#_id').val(_id);
             form.submit();
         }
     </script>
-    <%@ include file="/WEB-INF/views/header.jsp" %>
+
 </head>
 <body style="background-color: white">
 <div class="container">
@@ -142,6 +144,6 @@
 <%--        out.print(se);--%>
 <%--    %>--%>
 </div>
-</body>
 </div>
+</body>
 </html>
