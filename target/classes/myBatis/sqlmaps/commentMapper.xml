@@ -18,7 +18,7 @@
             (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
             comment_tb as c
-            JOIN profile_tb as p
+        LEFT OUTER JOIN profile_tb as p
         on c.username = p.username
         WHERE
             content_id = #{content_id}
