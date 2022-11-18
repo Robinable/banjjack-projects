@@ -334,6 +334,7 @@ public class LoginController {
 
     }
 
+    // 사진 주소값 (http://donipop.com/img/ ~ 뒤쪽 파일 이름값을 문자 그대로 반환
     @PostMapping("/uploadimg")
     @ResponseBody
     public String up_img(@RequestBody String jsondata,
@@ -381,11 +382,13 @@ public class LoginController {
         return response;
     }
 
+    // 프로필 사진 불러오기
     @GetMapping("/userprofileImg")
     @ResponseBody
     public String UserprofileImg(HttpSession session,
                                  @RequestParam String username) {
         UserVo vo = (UserVo) session.getAttribute("login");
+        // 세션에 담긴 아이디로 프로필 사진 불러오기 (db에 저장된 파일 이름)
         String UserprofileImg = profileService.getUserProfile(username);
         return UserprofileImg;
     }

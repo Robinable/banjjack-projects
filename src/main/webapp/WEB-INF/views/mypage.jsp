@@ -6,10 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 <style>
     *     { box-sizing:border-box;  }
@@ -69,7 +65,7 @@
 
     #form1 { width:100%; }
     input { width: 50%; }
-    #btnUpdate { margin-top: 20px; margin-bottom: 30px; width: 20%; }
+    #btnUpdate { border: 1px solid; margin-top: 20px; margin-bottom: 30px; width: 20%; }
 
     hr  {  margin-bottom:70px; }
 
@@ -121,7 +117,7 @@
                     alert('반려동물을 입력해주세요.');
                     userpet.focus();
 
-                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.') {
+                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.' || $('#unicknameCheck').text() != '') {
                     alert('닉네임 형식이 올바르지 않습니다.');
                     usernickname.value = '';
                     usernickname.focus();
@@ -152,6 +148,8 @@
                 } else if(usernickname < 2 && usernickname > 0) {
                     $('#unicknameCheck').text('아이디는 2자 이상 15자 이내로 입력해주세요.').css('color', 'red').css('font-size', '14px');
                 } else if(usernickname == 0) {
+                    $('#unicknameCheck').text('');
+                } else {
                     $('#unicknameCheck').text('');
                 }
             });
