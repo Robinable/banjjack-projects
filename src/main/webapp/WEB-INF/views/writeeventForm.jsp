@@ -75,6 +75,7 @@
 
 </head>
 <body>
+<div class="container">
 <section>
 
   <div id="main_content" class="layer">
@@ -119,6 +120,6 @@
 
 
 </section>
-
+</div>
 </body>
 </html>

@@ -30,7 +30,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body>
-
+<div class="container">
 
 
 <div class="layer">
@@ -172,5 +172,6 @@
                 console.log( error );
             });
     </script>
+</div>
 </body>
 </html>

@@ -95,7 +95,7 @@
     <%@ include file="/WEB-INF/views/header.jsp" %>
 </head>
 <body style="background-color: white">
-
+<div class="container">
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
       <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
@@ -135,6 +135,7 @@
     <c:param name="content_id" value="${id}"/>
     <c:param name="menu_id" value="1"/>
 </c:import>
+</div>
 </body>
 
 </html>

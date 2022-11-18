@@ -37,13 +37,13 @@
 </head>
 
 <body>
-
+<div class="container">
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-      <a  href="/list?category=1&num=1&menu_id=2" class="btn btn-outline-primary"> 개 </a>
-      <a  href="/list?category=2&num=1&menu_id=2" class="btn btn-outline-primary"> 고양이 </a>
-      <a  href="/list?category=3&num=1&menu_id=2" class="btn btn-outline-primary"> 기타 </a>
-      <a  href="/list?category=&num=1&menu_id=2" class="btn btn-outline-primary"> 전체 </a>
+      <a  href="/list?category=1&num=1&menu_id=0" class="btn btn-outline-primary"> 개 </a>
+      <a  href="/list?category=2&num=1&menu_id=0" class="btn btn-outline-primary"> 고양이 </a>
+      <a  href="/list?category=3&num=1&menu_id=0" class="btn btn-outline-primary"> 기타 </a>
+      <a  href="/list?category=0&num=1&menu_id=0" class="btn btn-outline-primary"> 전체 </a>
     </div>
 </div>
 
@@ -54,7 +54,7 @@
 
 <c:import url="/comment" >
     <c:param name="content_id" value="${id}"/>
-    <c:param name="menu_id" value="2"/>
+    <c:param name="menu_id" value="0"/>
 </c:import>
 
 <script>
@@ -131,7 +131,7 @@
                     html += '</tr>';
                     html += '<tr>';
                     html += '<td  class="right" colspan="6">'
-                    html += '<div class="btn-group" role="group" aria-label="Basic outlined example"><a href="/list?category=' + category + '&num=1&menu_id=2" class="btn btn-outline-primary"> 게시판 </a>'
+                    html += '<div class="btn-group" role="group" aria-label="Basic outlined example"><a href="/list?category=' + category + '&num=1&menu_id=0" class="btn btn-outline-primary"> 게시판 </a>'
                     console.log("글쓴이" + username );
                     console.log("로그인유저" + loginUsername );
                     //console.log("로그인유저" + ${user.username} );
@@ -141,7 +141,7 @@
                         html += '<a href="/writeform?username=${user.username}&_id='+_id+'&bnum='+ bnum +'&lvl='+ lvl +'&step='+ step +'" class="btn btn-outline-primary" >답글쓰기</a>'
                         if(username === loginUsername) {
                             console.log("2번");
-                                html +=  '<a href="/updateForm?_id=' + _id + '&menu_id=2" id="update" class="btn btn-outline-primary"> 수정 </a>'
+                                html +=  '<a href="/updateForm?_id=' + _id + '&menu_id=0" id="update" class="btn btn-outline-primary"> 수정 </a>'
                                 html +=  '<a href="/delete?_id=' + _id + '&category=' + category + '" class="btn btn-outline-primary"> 삭제 </a>'
                                 }
                         }
@@ -158,5 +158,6 @@
             });
 
     </script>
+</div>
 </body>
 </html>

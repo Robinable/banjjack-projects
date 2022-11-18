@@ -83,7 +83,7 @@
 </head>
 
 <body>
-
+<div class="container">
 <div class="layer">
     <div class="btn-group layer" role="group" aria-label="Basic outlined example">
       <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
@@ -125,5 +125,6 @@
 
 
 </table>
+</div>
 </body>
 </html>
