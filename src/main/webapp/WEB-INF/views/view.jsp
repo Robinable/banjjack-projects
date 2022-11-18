@@ -47,7 +47,7 @@
 
 <c:import url="/comment" >
     <c:param name="content_id" value="${_id}"/>
-    <c:param name="menu_id" value="2"/>
+    <c:param name="menu_id" value="0"/>
 </c:import>
 
 <script>

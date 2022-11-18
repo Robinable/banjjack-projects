@@ -82,14 +82,16 @@ public class CommentController {
 	//댓글쓰기 전송
 	@PostMapping("comment/writeComment")
 	@ResponseBody
-	public Map<String, Object> writeComment(CommentVo commentVo, HttpSession httpSession) {
+	public Map<String, Object> writeComment(CommentVo commentVo, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
-		try {
+
+		if(session.getAttribute("login")==null) {
+
+			map.put("result", "loginFail");
+
+		}else{
 			commentService.writeComment(commentVo);
 			map.put("result", "success");
-		} catch (Exception e) {
-			e.printStackTrace();
-			map.put("result", "fail");
 		}
 		return map;
 

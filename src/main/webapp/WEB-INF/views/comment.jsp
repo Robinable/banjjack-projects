@@ -67,13 +67,14 @@
                             + "<input type=\"hidden\" name=\"_id\" value=\'" + element._id + "\'>"
                             + "<div class=\"commentIcon\">"
                             + "<span class=\"material-icons-outlined\">"
-                        if (element.profiledata == '') {
-                            str = str
-                                + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
-                        }else{
-                            str = str
-                                + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
-                        }
+                        //프로필 임시 주석처리
+                        // if (element.profiledata == '') {
+                        //     str = str
+                        //         + "<img id=\"preview\" src=\"/img/icon_unknownUser.png\"/>"
+                        // }else{
+                        //     str = str
+                        //         + '<img id=\"preview\" src=\"http://donipop.com:8000/img/'+element.profiledata+'"/>'
+                        // }
                         str = str
                             + "</span>"
                             + " <br>"
@@ -124,7 +125,7 @@
                 } //리스트조회
             })
         }
-        //작성버튼
+        //쓰기
         $(document).ready(function() {
             $('#commentWriteButton').click(function () {
                 let commentWriteData = {
@@ -140,10 +141,15 @@
                     error: function (xhr) {
                     },
                     success: function (data) {
-                        $("#commentListBox").empty();
-                        fnCommentList(num);
-                        $("#commContent").val('');
-                        document.getElementById('countNum').innerHTML = '( 0/ 300)';
+                        if (data.result =="loginFail") {
+                            alert("로그인하세요!")
+                            window.location.href = "/login";
+                        }else {
+                            $("#commentListBox").empty();
+                            fnCommentList(num);
+                            $("#commContent").val('');
+                            document.getElementById('countNum').innerHTML = '( 0/ 300)';
+                        }
                     }
                 });
             }); //등록버튼
@@ -207,7 +213,7 @@
 
     </script>
 </head>
-<div class="container">
+<div class="container" style="width: 700px;">
 
 <br>
 <div class="commentCount"> 댓글 <span id = "count"></span></div>
