@@ -145,7 +145,7 @@ public class CommunityController {
         return "/communityUpdateForm";
     };
 
-    //수정 메소드
+    //수정 메소드1
     @PostMapping("/communityUpdate")
     @ResponseBody
     public Map<String, Object> communityUpdate(@RequestParam String content, String title, int _id){
