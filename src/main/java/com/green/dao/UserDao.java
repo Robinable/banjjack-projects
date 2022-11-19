@@ -48,4 +48,6 @@ public interface UserDao {
     void deleteUser(String username);
 
     String idUsername(String username);
+
+    void mypageUserpetinfoUpdate(HashMap<String, Object> map);
 }

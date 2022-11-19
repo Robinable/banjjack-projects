@@ -102,4 +102,8 @@ public class UserService {
     public String idUsername(String username) {
         return userDaoImpl.idUsername(username);
     }
+
+    public void mypageUserpetinfoUpdate(HashMap<String, Object> map) {
+        userDaoImpl.mypageUserpetinfoUpdate(map);
+    }
 }

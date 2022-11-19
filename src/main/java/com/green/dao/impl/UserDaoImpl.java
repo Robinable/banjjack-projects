@@ -124,6 +124,11 @@ public class UserDaoImpl implements UserDao {
         return sqlSession.selectOne("User.idUsername", username);
     }
 
+    @Override
+    public void mypageUserpetinfoUpdate(HashMap<String, Object> map) {
+        sqlSession.update("User.mypageUserpetinfoUpdate", map);
+    }
+
 
 }
 

@@ -15,7 +15,9 @@ public class UserVo {
 
     private String role;
 
-    public UserVo(int _id, String username, String userpassword, String usernickname, String useremail, String usersido, String usergugun, String userpet, String role) {
+    private String userpetinfo;
+
+    public UserVo(int _id, String username, String userpassword, String usernickname, String useremail, String usersido, String usergugun, String userpet, String role, String userpetinfo) {
         this._id = _id;
         this.username = username;
         this.userpassword = userpassword;
@@ -25,6 +27,7 @@ public class UserVo {
         this.usergugun = usergugun;
         this.userpet = userpet;
         this.role = role;
+        this.userpetinfo = userpetinfo;
     }
 
     public UserVo() {
@@ -102,6 +105,14 @@ public class UserVo {
         this.role = role;
     }
 
+    public String getUserpetinfo() {
+        return userpetinfo;
+    }
+
+    public void setUserpetinfo(String userpetinfo) {
+        this.userpetinfo = userpetinfo;
+    }
+
     @Override
     public String toString() {
         return "UserVo{" +
@@ -114,6 +125,7 @@ public class UserVo {
                 ", usergugun='" + usergugun + '\'' +
                 ", userpet='" + userpet + '\'' +
                 ", role='" + role + '\'' +
+                ", userpetinfo='" + userpetinfo + '\'' +
                 '}';
     }
 }

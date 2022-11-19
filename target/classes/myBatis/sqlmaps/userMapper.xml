@@ -177,4 +177,11 @@
         WHERE  username = #{username}
     </select>
 
+    <update id="mypageUserpetinfoUpdate"
+            parameterType="HashMap">
+        UPDATE user_tb
+        SET    userpetinfo = #{userpetinfo}
+        WHERE  username = #{username}
+    </update>
+
 </mapper>
