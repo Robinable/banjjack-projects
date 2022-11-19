@@ -35,11 +35,22 @@
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                if( $('[name=title]').val() == ''){
+                else if( $('[name=title]').val() == ''){
                     alert('제목을 입력하세요');
                     e.preventDefault();
                     e.stopPropagation();
+
                 }
+                else if( $('[name=start_time]').val() == '' || $('[name=end_time]').val() == '' ) {
+                    alert('이벤트기한을 입력하세요');
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                else if( $('[name=start_time]').val() > $('[name=end_time]').val()  ) {
+                    alert('이벤트기한을 다시 확인해주세요.');
+                    e.preventDefault();
+                    e.stopPropagation();}
+
             })
 
             $('form').on('submit', function(e){
@@ -101,7 +112,7 @@
                                     </span>
                         </li>
                         <li class="right">
-                            <input type="submit" value="이벤트 작성" class="btn btn-primary">
+                            <input type="submit" value="이벤트 작성" name="sub" id="sub" class="btn btn-primary">
                             <a href='/eventlistform' class="btn btn-primary">이벤트 목록</a>
                         </li>
                     </ul>

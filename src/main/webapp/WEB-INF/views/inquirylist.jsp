@@ -19,15 +19,18 @@
             overflow:hidden;
             text-overflow:ellipsis;
             white-space:nowrap;}
-        #main_content{width: 90%; height: 80%; margin: 0 auto;}
+
         #message_box h3{margin-top: 10px; padding: 5px; border-bottom: solid 2px #516e7f;font-size: 20px;}
         #message_box .buttons {text-align: right; margin: 20px 0 40px 0;}
         #message_box .buttons li {display: inline;}
         th{text-align: center;}
         body { overflow: hidden; }
         .form-select{margin: 10px; width: 200px;}
-        .layer            { text-align: center; }
+
         .layer .content   { display: inline-block; }
+        .layer            { text-align: center; width:100%; }
+
+
     </style>
 
     <script>
@@ -164,7 +167,7 @@
 <div class="container">
 
     <section>
-        <div id="main_content">
+        <div id="main_content" class="layer">
             <div id="message_box">
                 <h3>
                     1:1 문의함(관리자용)

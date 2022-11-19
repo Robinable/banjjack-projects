@@ -46,6 +46,7 @@
                 }
             });
 
+
             $('#form').on('submit', function(e){
                 cnt ++;
                 alert("쪽지 보냄")

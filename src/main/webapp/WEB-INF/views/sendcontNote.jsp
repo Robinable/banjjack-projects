@@ -77,13 +77,13 @@
 <section>
     <div id="main_content">
         <div id="message_box">
-            <h3 id="write_title">받은 쪽지 내용 보기</h3>
+            <h3 id="write_title">보낸 쪽지 내용 보기</h3>
 
 
             <ul class="top_buttons">
                 <a class="btn btn-primary btn-sm" href="/receptNote?recept=${user.username}">받은 쪽지함</a>
                 <a class="btn btn-primary btn-sm" href="/sendNote?send=${user.username}">보낸 쪽지함</a>
-                <a class="btn btn-primary btn-sm" id="delete" name="delete" href="/deleteNote?_id=${_id}&recept=${user.username}" >쪽지 삭제</a>
+
             </ul>
             <form action="/writeNoteForm?reply=${reply}" method="post" name="message_form">
                 <div id="write_msg">
@@ -106,7 +106,7 @@
                             <textarea class="form-control" name="content" id="cont" rows="13" style="resize: none;" readonly></textarea>
                         </li>
                     </ul>
-                    <input type="submit" class="btn btn-primary" value="답장 보내기" >
+
                 </div>
             </form>
         </div>

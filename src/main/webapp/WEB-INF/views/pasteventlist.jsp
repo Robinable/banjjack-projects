@@ -128,13 +128,13 @@
 
 
                         <c:if test="${page.prev}">
-                            <span>[ <a href="/eventlist?num=${page.startpagenum - 1}">이전</a> ]</span>
+                            <span>[ <a href="/pasteventlist?num=${page.startpagenum - 1}">이전</a> ]</span>
                         </c:if>
 
                         <c:forEach begin="${page.startpagenum}" end="${page.endpagenum}" var="num">
   <span>
    <c:if test="${select != num}">
-       <a href="/eventlist?num=${num}">${num}</a>
+       <a href="/pasteventlist?num=${num}">${num}</a>
    </c:if>
 
      <c:if test="${select == num}">
@@ -144,7 +144,7 @@
                         </c:forEach>
 
                         <c:if test="${page.next}">
-                            <span>[ <a href="/eventlist?num=${page.endpagenum + 1}">다음</a> ]</span>
+                            <span>[ <a href="/pasteventlist?num=${page.endpagenum + 1}">다음</a> ]</span>
                         </c:if>
                     </div>
 
