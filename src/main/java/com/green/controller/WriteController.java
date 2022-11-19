@@ -2,6 +2,7 @@ package com.green.controller;
 
 import com.green.service.WriteService;
 import com.green.vo.PageVo;
+import com.green.vo.TimeGap;
 import com.green.vo.WriteVo;
 import com.green.vo.FileVo;
 import org.json.simple.JSONObject;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +27,7 @@ import java.util.UUID;
 @Controller
 public class WriteController {
 	PageVo page = new PageVo();
+	TimeGap timeGap = new TimeGap();
 	@Autowired
 	private WriteService writeService;
 
@@ -50,20 +53,20 @@ public class WriteController {
 
 	@GetMapping("/getlist")
 	@ResponseBody
-	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, @RequestParam int menu_id) {
+	public List<JSONObject> getList(@RequestParam String category, @RequestParam int num, @RequestParam int menu_id) throws ParseException {
 		int postnum = page.getPostnum();
 		int displayPost = page.getDisplaypost();
-
 		List<WriteVo> writeVo = writeService.getList(category, displayPost, postnum, menu_id);
 
 		List<JSONObject> getList = new ArrayList<>();
 		for (WriteVo vo : writeVo) {
+			timeGap.setTime(vo.getTime());
 			JSONObject data = new JSONObject();
 			data.put("_id", vo.get_id());
 			data.put("title", vo.getTitle());
 			data.put("username", vo.getUsername());
 			data.put("category", vo.getCategory());
-			data.put("time", vo.getTime());
+			data.put("time", timeGap.getTime());
 			data.put("readcount", vo.getReadcount());
 			data.put("bnum", vo.getBnum());
 			data.put("lvl", vo.getLvl());

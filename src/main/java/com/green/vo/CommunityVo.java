@@ -10,7 +10,9 @@ public class CommunityVo {
     private int readcount;
     private int commentcount;
 
-    public CommunityVo(int _id, String tag, String title, String username, String time, String content, int readcount, int commentcount) {
+    private String usernickname;
+
+    public CommunityVo(int _id, String tag, String title, String username, String time, String content, int readcount, int commentcount, String usernickname) {
         this._id = _id;
         this.tag = tag;
         this.title = title;
@@ -19,13 +21,19 @@ public class CommunityVo {
         this.content = content;
         this.readcount = readcount;
         this.commentcount = commentcount;
+        this.usernickname = usernickname;
     }
-
-
-
 
     public CommunityVo() {
 
+    }
+
+    public String getUsernickname() {
+        return usernickname;
+    }
+
+    public void setUsernickname(String usernickname) {
+        this.usernickname = usernickname;
     }
 
     public int getCommentcount() {
@@ -102,7 +110,8 @@ public class CommunityVo {
                 ", time='" + time + '\'' +
                 ", content='" + content + '\'' +
                 ", readcount=" + readcount +
-                ", commentCount=" + commentcount +
+                ", commentcount=" + commentcount +
+                ", usernickname='" + usernickname + '\'' +
                 '}';
     }
 }

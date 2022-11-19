@@ -23,6 +23,20 @@
         .layer            { text-align: center; }
         .layer .content   { display: inline-block; }
     </style>
+    <script>
+
+        window.onload = function() {
+            const btng = document.getElementsByClassName("btn-group");
+            const atag = btng[0].getElementsByTagName("a");
+
+            if( ${category} != 0 && ${category} != null){
+                atag[${category}-1].classList.add("active");
+            }if( ${category} == 0){
+                atag[3].classList.add("active");
+            }
+        }
+
+    </script>
 
 </head>
 <body>
@@ -76,6 +90,7 @@
 
     <script>
         let loginUsername = "${user.username}"
+
 
         function header() {
             let header = '<thead>';

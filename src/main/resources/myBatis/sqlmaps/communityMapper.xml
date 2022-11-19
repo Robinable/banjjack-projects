@@ -10,15 +10,18 @@
             parameterType="Integer"
             resultType="com.green.vo.CommunityVo">
         SELECT
-        _id,
-        username,
-        tag,
-        title,
-        content,
-        time,
-        readcount,
+        c._id,
+        c.username,
+        u.usernickname,
+        c.tag,
+        c.title,
+        c.content,
+        c.time,
+        c.readcount,
         (SELECT count(*) from comment_tb where content_id = c._id and menu_id = 1)commentcount
         FROM community_tb c
+        JOIN user_tb as u
+        on c.username = u.username
         <if test="tag != 0 and tag != ''">
             WHERE
             tag = #{tag}
@@ -56,15 +59,18 @@
             parameterType="Integer"
             resultType="com.green.vo.CommunityVo">
         SELECT
-            _id,
-            tag,
-            title,
-            username,
-            time,
-            readcount,
-            content
-        FROM community_tb
-        WHERE _id=#{_id}
+            c._id,
+            c.tag,
+            c.title,
+            c.username,
+            c.time,
+            c.readcount,
+            c.content,
+            u.usernickname
+        FROM community_tb AS c
+        JOIN user_tb AS u
+        ON c.username = u.username
+        WHERE c._id=#{_id}
     </select>
 
     <!--  조회수 -->

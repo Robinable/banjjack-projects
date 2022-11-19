@@ -68,9 +68,10 @@
                         else if(element.tag == 3) {
                             str += "<td>질문</td>" }
                         str += "<td style=\'cursor:pointer\' onclick=\'communityRead(" + element._id +")\'> "+ element.title +" ["+element.commentcount+"] </td>"
-                        str += "<td> "+ element.username +"</td>"
+                        str += "<td> "+ element.usernickname +"</td>"
                         str += "<td> "+ element.time + "</td>"
                         str += "<td> "+ element.readcount +"</td>"
+                        str += "<td><input type = \"hidden\" name=\"username\" value=\'"+element.username+"\'></td>"
                         str += "</tr>"
                         str += "</table>"
                     })

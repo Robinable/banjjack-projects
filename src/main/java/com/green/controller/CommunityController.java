@@ -4,6 +4,7 @@ import com.green.dao.CommunityDao;
 import com.green.service.CommunityService;
 import com.green.vo.CommunityVo;
 import com.green.vo.PageVo;
+import com.green.vo.TimeGap;
 import com.green.vo.UserVo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Array;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Controller
 public class CommunityController {
     PageVo page = new PageVo();
+    TimeGap timeGap = new TimeGap();
     @Autowired
     CommunityService communityService;
     @Autowired
@@ -32,7 +35,7 @@ public class CommunityController {
     //리스트획득
     @GetMapping("/getCommunityList")
     @ResponseBody
-    public List<JSONObject> getCommunityList(@RequestParam String tag) {
+    public List<JSONObject> getCommunityList(@RequestParam String tag) throws ParseException {
         int displaypost =page.getDisplaypost();
         int postnum = page.getPostnum();
         System.out.println(tag);
@@ -41,11 +44,13 @@ public class CommunityController {
         List<JSONObject> getList = new ArrayList<>();
         for(CommunityVo vo : communityService.getCommunityList(displaypost, postnum, tag)) {
             JSONObject obj = new JSONObject();
+            timeGap.setTime(vo.getTime());
             obj.put("_id", vo.get_id());
             obj.put("username", vo.getUsername());
+            obj.put("usernickname", vo.getUsernickname());
             obj.put("title", vo.getTitle());
             obj.put("tag", vo.getTag());
-            obj.put("time", vo.getTime());
+            obj.put("time", timeGap.getTime());
             obj.put("readcount", vo.getReadcount());
             obj.put("commentcount", vo.getCommentcount());
             getList.add(obj);
@@ -74,6 +79,7 @@ public class CommunityController {
 
         List<JSONObject> getRead = new ArrayList<>();
         for(CommunityVo vo: communityService.readCommunity(_id)){
+
             JSONObject obj = new JSONObject();
             obj.put("_id", vo.get_id());
             obj.put("username", vo.getUsername());

@@ -19,14 +19,14 @@
             (SELECT count(_id) from comment_tb where content_id = #{content_id} and menu_id = #{menu_id})commentcount
         FROM
             comment_tb as c
-            join user_tb as u
-        on c.username = u.username
-            LEFT OUTER JOIN profile_tb as p
-            on c.username = p.username
+        JOIN user_tb as u
+        ON c.username = u.username
+        LEFT OUTER JOIN profile_tb as p
+        ON c.username = p.username
         WHERE
-            content_id = #{content_id}
+            c.content_id = #{content_id}
           AND
-            menu_id = #{menu_id}
+            c.menu_id = #{menu_id}
         Order BY _id DESC
             LIMIT #{displaypost},#{postnum}
     </select>
