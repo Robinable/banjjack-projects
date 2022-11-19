@@ -6,12 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>회원탈퇴</title>
+    <%@ include file="/WEB-INF/views/header.jsp"%>
     <style>
         *     { box-sizing:border-box;  }
 
         body  { text-align: center;
             align-items: center;
-            padding-top: 40px;
             padding-bottom: 40px;
             background-color: #f5f5f5;}
 
@@ -33,7 +33,7 @@
 
         div  { width: 100%; text-align: center; padding: 0;}
 
-        a { font-size: 13px; }
+        a { text-decoration: none; font-size: 16px; }
 
         .con { width:100% }
 
@@ -42,11 +42,13 @@
 
         hr  {  margin-bottom:70px; }
 
-        .leaveUserlabel { margin-top: 50px; }
+        .leaveUserlabel { margin-top: 20px; }
 
         .error { margin-top: 20px; text-align: center; margin-bottom: 20px;}
 
         .label1 { margin-bottom: 20px; }
+
+        .bottom-a { margin-top: 20px; }
 
 
     </style>
@@ -102,6 +104,7 @@
             </div>
 
             <div><input type="submit" class="btn btn-primary" id="pwOK" name="pwOK" value="탈퇴하기"/></div>
+            <div class="bottom-a"><a href="javascript:history.back()">이전으로</a></div>
 
 
         </div>

@@ -147,8 +147,6 @@
             });
 
 
-            $('usernickname').on('')
-
             $('#usernickname').on('change keyup', function() {
                 const usernickname = document.getElementById('usernickname').value.length;
                 if(usernickname >= 2) {

@@ -6,12 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>마이페이지 비밀번호 변경</title>
+    <%@ include file="/WEB-INF/views/header.jsp"%>
     <style>
         *     { box-sizing:border-box;  }
 
         body  { text-align: center;
             align-items: center;
-            padding-top: 40px;
             padding-bottom: 40px;
             background-color: #f5f5f5;}
 
@@ -33,7 +33,7 @@
 
         div  { width: 100%; text-align: center; padding: 0;}
 
-        a { font-size: 13px; }
+        a { text-decoration: none; font-size: 16px; }
 
         .con { width:100% }
 
@@ -43,10 +43,11 @@
 
         hr  {  margin-bottom:70px; }
 
-        .mypagePasswdlabel { margin-top: 50px; }
+        .mypagePasswdlabel { margin-top: 20px; }
 
         .error { margin-top: 20px; text-align: center; margin-bottom: 20px;}
 
+        .bottom-a { margin-top: 20px; }
 
 
     </style>
@@ -148,6 +149,7 @@
                 </c:if>
             </div>
             <div><input type="submit" class="btn btn-primary" id="pwOK" name="pwOK" value="변경"/></div>
+            <div class="bottom-a"><a href="/myPageForm">이전으로</a></div>
 
         </div>
     </form>
