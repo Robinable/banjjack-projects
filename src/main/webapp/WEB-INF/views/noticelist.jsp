@@ -13,6 +13,7 @@
         #main_content{width: 90%; height: 80%; margin: 0 auto;}
         li{list-style: none; margin-top: 10px; }
         #message_box {width: 800px; margin: 30px 150px; }
+        a { text-decoration-line: none; color: black; }
         .cc {
             width:200px;
             padding:0 5px;

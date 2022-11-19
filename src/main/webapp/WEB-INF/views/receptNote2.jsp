@@ -13,6 +13,7 @@
     <%--        <link rel="stylesheet" href="/css/messageBox.css">--%>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <style>
+        a { text-decoration-line: none; color: black; }
         .cc {
             width:200px;
             padding:0 5px;

@@ -8,6 +8,7 @@
     <%@ include file="header.jsp"%>
     <title>1:1 문의함(관리자용)</title>
     <style>
+        a { text-decoration-line: none; color: black; }
         h3{margin-top: 10px; padding: 5px; border-bottom: solid 2px #516e7f;font-size: 20px;}
         #main_content{width: 90%; height: 80%; margin: 0 auto;}
         li{list-style: none; margin-top: 10px; }
@@ -64,7 +65,7 @@
 
                         html         += "<tr>";
                         html         += '<td style="text-align: center;">' + _id + '</td>';
-                        html         += '<td style="text-align: center;">' + cat + '</td>';
+                        html         += '<td style="text-align: center; color:gray;">' + cat + '</td>';
                         html         += '<td style="text-align: center; padding-left:30px;">';
                         html         += '<div class="cc">';
                         html         += '<a href ="/inquirycont?_id='+_id +'">'+ title +'</a>';
@@ -84,7 +85,7 @@
 
         function caselist(){
             $.ajax( {
-                url  :  '/caselist?num=${num}'  ,
+                url  :  '/caselist?num=${num}' ,
                 data :  {
                     title : $('#title').val() ,
                     content : $('#content').val(),
@@ -115,8 +116,8 @@
 
                         html         += "<tr>";
                         html         += '<td style="text-align: center;">' + _id + '</td>';
-                        html         += '<td style="text-align: center;">' + cat + '</td>';
-                        html         += '<td style="text-align: center; padding-left:50px;">';
+                        html         += '<td style="text-align: center; color:gray;">' + cat + '</td>';
+                        html         += '<td style="text-align: center; padding-left:30px;">';
                         html         += '<div class="cc">';
                         html         += '<a href ="/inquirycont?_id='+_id +'">'+ title +'</a>';
                         html         += '</div></td>';

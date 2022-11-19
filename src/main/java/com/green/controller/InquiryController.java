@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,17 @@ public class InquiryController {
     @GetMapping("/writeinquiryForm")
     public String writeinquiryForm(Model model, @RequestParam (required = false, defaultValue = "0") int bnum,
                                    @RequestParam (required = false, defaultValue = "0") int lvl ,
-                                   @RequestParam (required = false, defaultValue = "0") int step) {
+                                   @RequestParam (required = false, defaultValue = "0") int step , HttpSession session)  {
 
+        if (session.getAttribute("login") == null) {
+            return "redirect:/login";
+        }else{
         model.addAttribute("bnum", bnum);
         model.addAttribute("lvl", lvl);
         model.addAttribute("step", step);
 
         return "inquiryWrite";
+        }
     }
 
     @PostMapping("/writeinquiry")     // 1:1문의 쓰기
@@ -64,7 +69,8 @@ public class InquiryController {
 
     // 1대1 문의 리스트
     @GetMapping("/inquirylistForm")  // /inquirylistForm?num=1
-    public String inquirylistForm(@RequestParam(required = false, defaultValue = "1") int num, Model model) {
+    public String inquirylistForm(@RequestParam(required = false, defaultValue = "1") int num,
+                                  Model model) {
 
         page.setNum(num);
         page.setCount(inquiryService.allcount());

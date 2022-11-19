@@ -82,8 +82,8 @@
 
                             <li>
                             <li>
-                                <label for="exampleFormControlInput1" class="form-label">작성자</label>
-                                <input type="text" class="form-control" name="send" id="exampleFormControlInput1" value="${user.username}" readonly>
+                                <label for="writer" class="form-label">작성자</label>
+                                <input type="text" class="form-control" name="writer" id="writer" value="${user.usernickname}" readonly>
                             </li>
                             <li>
                                 <label for="exampleFormControlInput3" class="form-label">제목</label>

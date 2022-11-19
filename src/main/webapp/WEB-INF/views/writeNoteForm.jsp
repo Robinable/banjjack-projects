@@ -29,13 +29,18 @@
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                if( $('[name=recept]').val() == ''){
+                else if( $('[name=recept]').val() == ''){
                     alert('받는사람을 입력하세요');
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                if( $('[name=content]').val() == ''){
+                else if( $('[name=content]').val() == ''){
                     alert('쪽지 내용을 입력하세요');
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            else if  ($('[name=recept]').val() === $('[name=send]').val()){
+                    alert('본인에게 쪽지를 보낼수 없습니다. 다시 확인해주세요.')
                     e.preventDefault();
                     e.stopPropagation();
                 }
