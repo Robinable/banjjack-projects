@@ -14,4 +14,8 @@ public class LeaveUserService {
     public void insertLeaveUser(UserVo userVo) {
         leaveUserDaoImpl.insertLeaveUser(userVo);
     }
+
+    public int leaveUsernameCheck(String username) {
+        return leaveUserDaoImpl.leaveUsernameCheck(username);
+    }
 }

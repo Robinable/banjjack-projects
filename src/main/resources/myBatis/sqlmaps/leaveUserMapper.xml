@@ -12,8 +12,12 @@
 
     </insert>
 
-
-
+    <select id="leaveUsernameCheck"
+            resultType="Integer">
+        SELECT count(*)
+        FROM   leave_user_tb
+        WHERE  username = #{username}
+    </select>
 
 
 

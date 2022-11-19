@@ -4,4 +4,6 @@ import com.green.vo.UserVo;
 
 public interface LeaveUserDao {
     void insertLeaveUser(UserVo userVo);
+
+    int leaveUsernameCheck(String username);
 }

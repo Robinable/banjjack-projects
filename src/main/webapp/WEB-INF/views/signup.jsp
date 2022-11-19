@@ -86,52 +86,44 @@
                     alert('지역(시/도)를 입력해주세요.');
                     usersido.focus();
 
-
-                } else if(usergugun.value == '') {
-                    e.preventDefault();
-                    alert('지역(구/군/동/읍/면/리)를 입력해주세요.');
-                    usergugun.focus();
-
-                } else if(userpet.value == '') {
-                    e.preventDefault();
-                    alert('반려동물을 입력해주세요.');
-                    selectPet.focus();
-
-                } else if($('unameCheck').text() != '사용가능한 아이디입니다.') {
+                } else if($('#unameCheck').text() != '사용가능한 아이디입니다.') {
                     e.preventDefault();
                     alert('아이디 형식이 올바르지 않습니다.');
                     $('#username').val('');
                     username.focus();
-
-                }else if($('unicknameCheck').text() != '사용가능한 닉네임입니다.') {
+                } else if($('#unicknameCheck').text() != '사용가능한 닉네임입니다.') {
                     e.preventDefault();
                     alert('닉네임 형식 올바르지 않습니다.');
                     $('#usernickname').val('');
                     usernickname.focus();
-
-                } else if($('pwCheck').text() != '') {
+                } else if($('#pwCheck').text() != '') {
                     e.preventDefault();
                     alert('비밀번호 형식이 올바르지 않습니다.');
                     $('#userpassword').val('');
                     $('#repasswd').val('');
                     userpassword.focus();
-
-                } else if($('emailCheck').text() != '') {
+                } else if($('#emailCheck').text() != '') {
                     e.preventDefault();
                     alert('이메일 형식이 올바르지 않습니다.');
                     $('#useremail').val('');
                     useremail.focus();
 
+                }   else if($('#userpassword').val() != $('#repasswd').val()) {
+                    e.preventDefault();
+                    alert('비밀번호가 일치하지 않습니다.');
+                    $('#userpassword').val('');
+                    $('#repasswd').val('');
+                    userpassword.focus();
+
                 } else {
+
                     alert($('#usernickname').val() + '님 환영합니다!');
                 }
-
-
 
             });
 
 
-            $('#username').on('change keydown', function() {
+            $('#username').on('change keyup', function() {
                 const username = document.getElementById('username').value.length;
                 if(username >= 2) {
                     idCheck(document.getElementById('username').value)
@@ -142,7 +134,7 @@
                 }
             });
 
-            $('#usernickname').on('change keydown', function() {
+            $('#usernickname').on('change keyup', function() {
                 const usernickname = document.getElementById('usernickname').value.length;
                 if(usernickname >= 2) {
                     nicknameCheck(document.getElementById('usernickname').value)
@@ -153,7 +145,7 @@
                 }
             });
 
-            $('#userpassword').on('change keydown', function() {
+            $('#userpassword').on('change keyup', function() {
                 const userpassword = document.getElementById('userpassword').value.length;
                 if(userpassword >= 2) {
                     passwordCheck(document.getElementById('userpassword').value)
@@ -172,12 +164,11 @@
                     $('#re_pwCheck').text('비밀번호가 일치합니다.').css('color', 'blue').css('font-size', '14px');
                 } else {
                     $('#re_pwCheck').text('비밀번호가 일치하지 않습니다.').css('color', 'red').css('font-size', '14px');
-                    $('#repasswd').val('');
                     $('#repasswd').focus();
                 }
             });
 
-            $('#useremail').on('change keydown', function() {
+            $('#useremail').on('change keyup', function() {
                 const useremail = document.getElementById('useremail').value.length;
                 if(useremail >= 2) {
                     emailCK(document.getElementById('useremail').value)
@@ -188,7 +179,6 @@
                 }
             });
 
-            $('#userpet').attr('disabled', 'disabled');
             $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
 
             // 콤보박스 > input text박스
@@ -196,19 +186,16 @@
 
                 if($('#selectPet').val() == '기타') {
                     $('#userpet').attr('value', '');
-                    $('#userpet').removeAttr('disabled');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
 
                 if($('#selectPet').val() == '반려동물') {
                     $('#userpet').attr('value', '');
-                    $('#userpet').attr('disabled', 'disabled');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }
 
                 if($('#selectPet').val() == '개' || $('#selectPet').val() == '고양이') {
                     $('#userpet').attr('placeholder', '');
-                    $('#userpet').removeAttr('disabled');
                     $('#userpet').attr('value', $('#selectPet').val());
 
                 }

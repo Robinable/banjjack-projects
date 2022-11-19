@@ -21,9 +21,12 @@
       -o-object-fit: cover;
       object-fit: cover;
   }
-  .dropdown-item:active{
-    color: indigo;
-  }
+
+    .dropdown-li > .dropdown-item:hover { background-color: #add8e6; }
+
+    .nav > .header-li:hover { background-color: #add8e6; }
+
+
   </style>
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -46,7 +49,28 @@ function onMessage(evt){
     var data = evt.data;
     console.log(data);
     pop_up('알림', data, '1분전');
-};	
+};
+
+
+  $.ajax({
+      method: "get",
+      url:  "/userprofileImg?username=${user.username}"
+    })
+      .done(function(data) {
+          result = data;
+          console.log('결과 = ' + result);
+        if(result == ''){
+          $('.avatar-img').attr("src", '/img/icon_unknownUser.png');
+        }else{
+            console.log($('.avatar-img'));
+            $('.avatar-img').attr("src", 'http://donipop.com:8000/img/'+result);
+        }
+    })
+      // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+      .fail(function() {
+          $('.avatar-img rounded-circle shadow').attr("src", '/img/icon_unknownUser.png');
+  });
+
 </script>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -99,15 +123,15 @@ function onMessage(evt){
           <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#banjjak"></use></svg>
           </a>
-    
+
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/noticeList" class="nav-link px-2 link-secondary">새소식</a></li>
-            <li><a href="/list?category=&num=1&menu_id=0" class="nav-link px-2 link-dark">반짝찾기</a></li>
-            <li><a href="/communityList" class="nav-link px-2 link-dark">커뮤니티</a></li>
-            <li><a href="/information" class="nav-link px-2 link-dark">정보</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">고객센터</a></li>
+            <li class="header-li"><a href="/noticeList" class="nav-link px-2 link-secondary">새소식</a></li>
+            <li class="header-li"><a href="/list?category=&num=1&menu_id=0" class="nav-link px-2 link-dark">반짝찾기</a></li>
+            <li class="header-li"><a href="/communityList" class="nav-link px-2 link-dark">커뮤니티</a></li>
+            <li class="header-li"><a href="/information" class="nav-link px-2 link-dark">정보</a></li>
+            <li class="header-li"><a href="#" class="nav-link px-2 link-dark">고객센터</a></li>
           </ul>
-    
+
           <div class="col-md-3 text-end">
             <div id="g-bell" class="btn d-inline-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="border: none;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -115,13 +139,14 @@ function onMessage(evt){
                 </svg>
                 <span class="top-0 badge rounded-pill bg-danger">
                     99+
-                <span class="visually-hidden">unread messages</span>
+                </span>
             </div>
 
             <!-- 로그인 사용자한테 보이는 알람,아바타 -->
+            <c:if test="${user != null}">
             <div class="d-inline-flex dropdown">
               <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="true">
-                <img class="avatar-img rounded-2" src="/img/dog.jpeg" alt="avatar">
+                <img class="avatar-img rounded-2" src="" alt="avatar">
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li class="px-3 mb-3">
@@ -131,20 +156,23 @@ function onMessage(evt){
                     </div>
 
                     <div>
-                      <a class="h6 mt-2 mt-sm-0 nav-link" href="#">도니팝</a>
-                      <p class="small m-0">minjaebae@gmail.com</p>
+                      <a class="h6 mt-2 mt-sm-0 nav-link" href="#" style="">${user.usernickname}</a>
+                      <p class="small m-0">${user.useremail}</p>
                     </div>
                   </div>
                 </li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/myPageForm" style="background-color: #fff;"><i class="me-2"></i>내정보</a></li>
-                <li><div type="button" class="dropdown-item" style="background-color: #fff;" onclick="window.open('/receptNote?recept=', 'a', 'width=800, height=600, left=100, top=50');"><i class="me-2"></i>쪽지함</div></li>
-                <li><a class="dropdown-item" href="/logout" style="background-color: #fff;"><i class="me-2"></i>로그아웃</a></li>
+                <li class="dropdown-li"><a class="dropdown-item" href="/myPageForm"><i class="me-2"></i>내정보</a></li>
+                <li class="dropdown-li"><div type="button" class="dropdown-item" onclick="window.open('/receptNote?recept=', 'a', 'width=800, height=600, left=100, top=50');"><i class="me-2"></i>쪽지함</div></li>
+                <li class="dropdown-li"><a class="dropdown-item" href="/logout"><i class="me-2"></i>로그아웃</a></li>
               </ul>
             </div>
+            </c:if>
             <!-- 비로그인 사용자한테 보이는 로그인,회원가입 버튼 -->
-            <!-- <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/login'">로그인</button>
-            <button type="button" class="btn btn-primary" onclick="location.href='/signup'">회원가입</button> -->
+            <c:if test="${user == null}">
+            <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/login'">로그인</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/signup'">회원가입</button>
+            </c:if>
           </div>
         </header>
         <!-- 오른쪽 사이드 알림창 -->
@@ -182,7 +210,7 @@ function onMessage(evt){
 
         </div>
 
-        
+
       </div>
 </div>
 <script>

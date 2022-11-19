@@ -6,13 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
+    <%@ include file="/WEB-INF/views/header.jsp"%>
 
     <style>
         *     { box-sizing:border-box;  }
 
         body  { text-align: center;
             align-items: center;
-            padding-top: 40px;
             padding-bottom: 40px;
             background-color: #f5f5f5;}
 
@@ -65,12 +65,13 @@
 
         #form1 { width:100%; }
         input { width: 50%; }
+
         #btnUpdate { border: 1px solid; margin-top: 20px; margin-bottom: 30px; width: 20%; }
 
-        hr  {  margin-bottom:70px; }
+        hr  { margin-bottom:70px;  }
 
 
-        .mypagelabel { margin-top: 50px; }
+        .mypagelabel { margin-top: 20px; }
 
 
         #preview { width: 150px; height: 150px; border-radius: 40px;}
@@ -173,7 +174,7 @@
                 }
 
                 if($('#selectPet').val() == '반려동물') {
-                    $('#userpet').attr('value', '');
+                    $('#userpet').attr('value', '${user.userpet}');
                     $('#userpet').attr('readonly', 'readonly');
                     $('#userpet').attr('placeholder', 'ex) 사랑앵무(x), 앵무새(o)');
                 }

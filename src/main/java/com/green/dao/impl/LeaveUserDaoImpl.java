@@ -17,4 +17,9 @@ public class LeaveUserDaoImpl implements LeaveUserDao {
     public void insertLeaveUser(UserVo userVo) {
         sqlSession.insert("LeaveUser.insertLeaveUser", userVo);
     }
+
+    @Override
+    public int leaveUsernameCheck(String username) {
+        return sqlSession.selectOne("LeaveUser.leaveUsernameCheck", username);
+    }
 }

@@ -45,7 +45,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("login");
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 
@@ -79,8 +79,16 @@ public class LoginController {
     @GetMapping("/getUser")
     @ResponseBody
     public int getuser(@RequestParam("username") String username) {
+
+        int leaveUsername = leaveUserService.leaveUsernameCheck(username);
+        System.out.println("탈퇴: " + leaveUsername);
         int count = userService.usernameCheck(username);
-        return count;
+
+        if(count != leaveUsername) {
+            return leaveUsername;
+        } else {
+            return count;
+        }
     }
 
     // 닉네임 중복확인 (ajax)
