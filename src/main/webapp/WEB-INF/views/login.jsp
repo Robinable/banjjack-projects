@@ -104,7 +104,7 @@
 
                 <div>
                     <c:if test="${message == 'error'}">
-                        <div class="error" style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다.</div>
+                        <div class="error" style="color:red;"> 아이디 또는 비밀번호가 일치하지 않습니다..</div>
                     </c:if>
                 </div>
 
