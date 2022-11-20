@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>이벤트 작성</title>
     <%@ include file="/WEB-INF/views/header.jsp" %>
+    <%@ include file="side.jsp"%>
 
 
     <style>

@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="header.jsp"%>
+    <%@ include file="side.jsp"%>
     <title>공지사항 작성</title>
     <style>
         h3{margin-top: 10px; padding: 5px; border-bottom: solid 2px #516e7f;font-size: 20px;}

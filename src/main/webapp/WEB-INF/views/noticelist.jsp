@@ -6,11 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <%@ include file="header.jsp"%>
+    <%@ include file="side.jsp"%>
     <title>공지사항</title>
     <style>
 
         h3{margin-top: 10px; padding: 5px; border-bottom: solid 2px #516e7f;font-size: 20px;}
-        #main_content{width: 90%; height: 80%; margin: 0 auto;}
+        #main_content{width: 90%; height: 80%; margin-top: 0 auto;}
         li{list-style: none; margin-top: 10px; }
         #message_box {width: 800px; margin: 30px 150px; }
         a { text-decoration-line: none; color: black; }
@@ -29,6 +30,8 @@
 
         .layer            { text-align: center; }
         .layer .content   { display: inline-block; }
+
+
     </style>
 
     <script>

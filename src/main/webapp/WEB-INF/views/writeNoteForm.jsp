@@ -47,14 +47,7 @@
             });
 
 
-            $('#form').on('submit', function(e){
-                cnt ++;
-                alert("쪽지 보냄")
-                if(cnt>1){
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            })
+
         });
 
 
@@ -130,6 +123,15 @@
     let cc = document.getElementById("test");
     cc.value = "${content_value}";
     console.log("${content_value}");
+
+    $('#form').on('submit', function(e){
+        cnt ++;
+        alert("쪽지 보냄")
+        if(cnt>1){
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    })
 </script>
 
 <!-- <a href="/writeNoteForm" onClick="window.open(this.href, '', 'width=830, height=550'); return false;">쪽지쓰기</a> -->

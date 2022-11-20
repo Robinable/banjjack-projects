@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>진행중인 이벤트 게시판</title>
     <%@ include file="/WEB-INF/views/header.jsp"%>
+    <%@ include file="side.jsp"%>
 
     <style>
         table             {margin:100px auto;}

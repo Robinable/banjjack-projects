@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <%@ include file="header.jsp"%>
+    <%@ include file="side.jsp"%>
     <title>공지사항 내용보기</title>
 
     <style>

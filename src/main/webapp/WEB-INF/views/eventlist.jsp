@@ -7,11 +7,12 @@
     <meta charset="UTF-8">
     <title>이벤트 게시판</title>
     <%@ include file="/WEB-INF/views/header.jsp"%>
-
+    <%@ include file="side.jsp"%>
     <style>
         table             {margin:50px auto;}
         tr:nth-of-type(1) {width:100%; text-align:center;}
         td                {padding:3px}
+        li{list-style: none; margin-top: 10px; }
         a                 { text-decoration-line: none; color: black; }
         .left             { text-align:left !important;}
         .center           { text-align:center !important;}

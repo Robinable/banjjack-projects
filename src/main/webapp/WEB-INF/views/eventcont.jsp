@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>이벤트 내용보기</title>
     <%@ include file="/WEB-INF/views/header.jsp" %>
+    <%@ include file="side.jsp"%>
     <style>
 
         a                 { text-decoration-line: none; color: black; }
