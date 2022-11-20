@@ -138,7 +138,6 @@
             <tr>
                 <td colspan="6" class="right">
                     <span id="UDButton"></span>
-                    <button class="btn btn-primary btn-sm" id="goList" onClick="location.href='/communityList'"  >목록</button>
                 </td>
             </tr>
         </table>

@@ -113,7 +113,6 @@
     <tr>
       <td colspan="3">
         <button id="writebutton" class="btn btn-primary" onClick="fnWriteClick()">작성</button>
-        <a href="/communityList" class="btn btn-primary">게시판</a>
       </td>
     </tr>
   </table>
