@@ -87,7 +87,7 @@
                 },
                 success: function (data) {
 
-                    location.href = "/communityList"
+                    location.href = "/communityList?tag=0"
                 }
 
 
