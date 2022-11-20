@@ -56,7 +56,6 @@
                         }
                         
                         $('#_id').text(element._id);
-                        $('#tag').text(element.tag);
                         $('#usernickname').text(element.usernickname);
                         $('#title').text(element.title);
                         $('#time').text(element.time);
@@ -109,7 +108,7 @@
 <div class="container">
     <div class="layer">
         <div class="btn-group layer" role="group" aria-label="Basic outlined example">
-            <a  href="#" class="btn btn-outline-primary"> 인기글 </a>
+            <a  href="/communityList?tag=100" class="btn btn-outline-primary"> 인기글 </a>
             <a  href="/communityList?tag=0" class="btn btn-outline-primary"> 전체 </a>
             <a  href="/communityList?tag=1" class="btn btn-outline-primary"> 자유게시판 </a>
             <a  href="/communityList?tag=2" class="btn btn-outline-primary">반려자랑 </a>
@@ -120,7 +119,7 @@
     <div id="view" class="layer">
         <table class="content">
             <tr>
-                <td id="tag" class="rounded-pill center">tag:</td>
+                <td id="tag" class="rounded-pill center"></td>
             </tr>
             <tr>
                 <td colspan="6" class="left border-bottom"> <h2> <span id="title" >title:</span> </h2> </td>

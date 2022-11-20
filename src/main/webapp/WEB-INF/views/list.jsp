@@ -22,6 +22,8 @@
         .right            { text-align:right !important;}
         .layer            { text-align: center; }
         .layer .content   { display: inline-block; }
+
+
     </style>
     <script>
 
