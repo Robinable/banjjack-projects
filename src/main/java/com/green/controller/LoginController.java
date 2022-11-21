@@ -221,10 +221,17 @@ public class LoginController {
 
     // 마이페이지창
     @GetMapping("/myPageForm")
-    public String myPageForm(HttpSession session) {
+    public String myPageForm(HttpSession session,
+                             Model model) {
         if(session.getAttribute("login") == null) {
             return "redirect:/login";
         }
+
+        UserVo user = (UserVo) session.getAttribute("login");
+        String newusername = user.getUsername();
+        UserVo userVo = userService.selectUserPetInfo(newusername);
+        String userpetinfo = userVo.getUserpetinfo();
+        model.addAttribute("userpetinfo", userpetinfo);
 
         return "/mypage";
     }

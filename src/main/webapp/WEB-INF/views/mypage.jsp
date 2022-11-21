@@ -358,7 +358,7 @@
                 <div><h5 class="label1">< 반려동물 정보 ></h5></div>
                 <div class="userpetdiv">
                     <textarea id="userpetinfo" name="userpetinfo" placeholder="소중한 우리아이의 정보를 입력해주세요!&#13;&#10;이름/나이/성별/특기/좋아하는것/싫어하는것 등등&#13;&#10;다양하게 적어주세요!
-                                                                                &#13;&#10;소개를 통해 반짝이는 짝을 찾아보세요!" style="resize:none;">${user.userpetinfo}</textarea>
+                                                                                &#13;&#10;소개를 통해 반짝이는 짝을 찾아보세요!" style="resize:none;">${userpetinfo}</textarea>
                 </div>
                 <div id="test_cnt">(0 / 300)</div><br>
 

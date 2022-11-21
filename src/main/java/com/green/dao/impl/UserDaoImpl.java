@@ -135,5 +135,10 @@ public class UserDaoImpl implements UserDao {
         return sqlSession.selectList("Banjjak.selectUserBanjjak");
     }
 
+    @Override
+    public UserVo selectUserPetInfo(String newusername) {
+        return sqlSession.selectOne("User.selectUserPetInfo", newusername);
+    }
+
 }
 

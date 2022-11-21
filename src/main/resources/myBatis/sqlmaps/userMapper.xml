@@ -184,4 +184,11 @@
         WHERE  username = #{username}
     </update>
 
+    <select id="selectUserPetInfo"
+            resultType="com.green.vo.UserVo">
+        SELECT *
+        FROM   user_tb
+        WHERE  username = #{newusername}
+    </select>
+
 </mapper>

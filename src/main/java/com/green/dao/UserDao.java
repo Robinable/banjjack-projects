@@ -53,4 +53,6 @@ public interface UserDao {
     void mypageUserpetinfoUpdate(HashMap<String, Object> map);
 
     List<BanjjakVo> selectBanjjak();
+
+    UserVo selectUserPetInfo(String newusername);
 }

@@ -97,7 +97,7 @@
         FROM community_tb as c
                  JOIN user_tb as u
                       ON c.username = u.username
-        WHERE time >= now()-86400
+        WHERE  time >= date_add(now(), INTERVAL -24 hour)
         ORDER BY readcount DESC
         LIMIT 10;
     </select>

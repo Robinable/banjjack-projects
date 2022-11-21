@@ -111,4 +111,8 @@ public class UserService {
     public List<BanjjakVo> selectBanjjak() {
         return userDaoImpl.selectBanjjak();
     }
+
+    public UserVo selectUserPetInfo(String newusername) {
+        return userDaoImpl.selectUserPetInfo(newusername);
+    }
 }
