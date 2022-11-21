@@ -54,7 +54,7 @@
         WHERE _id=#{_id}
     </delete>
 
-    <!--    읽기-->
+    <!--    읽기1-->
     <select id="communityRead"
             parameterType="Integer"
             resultType="com.green.vo.CommunityVo">
